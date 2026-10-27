@@ -25,7 +25,7 @@ One live, rehearsed path that a judge can click:
 
 ## Day 0 checks (today, before S1)
 
-- Confirm the model ID strings for Muse Spark and Muse Wonder in the Meta docs. **[unknown]**
+- Confirm the model ID strings for Muse Spark and Muse Wonder in the Meta docs. Done 2026-10-27: `muse-spark-1.3` **[verified]** by the S1 live call, `muse-wonder-1.0` **[vendor claim]** from Meta's pricing page.
 - Check DeepSeek's current OpenRouter price before topping up. **[unknown]**
 - Confirm Muse Wonder's Responses API exposes memory across sessions to API callers. **[vendor claim]**
 - Check whether the AgenticPay harness is public. If not, port its setup (private reservation prices, finite rounds). **[unknown]**

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbfaf7;
+  --foreground: #1c1b19;
+  --muted: #6b6760;
+  --border: #e4e0d8;
+  --accent: #1f6f4a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #141412;
+    --foreground: #ece9e2;
+    --muted: #9b968c;
+    --border: #2e2c28;
+    --accent: #5cc493;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}

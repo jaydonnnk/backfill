@@ -31,7 +31,10 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 - Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so is OpenRouter.
 - No non-Meta model runs in the live product; DeepSeek appears only in the S9 eval.
 - One `LLMProvider` interface in `src/integrations`, JSON-schema structured output, Zod validation, retry on invalid output.
-- Model IDs are **[unknown]** until checked in the Meta docs.
+- Model IDs come from Meta's pricing page (https://dev.meta.ai/docs/pricing-rate-limits, read 2026-10-27): `muse-spark-1.3` and `muse-wonder-1.0`.
+`muse-spark-1.3` is **[verified]** by the S1 live call on 2026-10-27; `muse-wonder-1.0` stays **[vendor claim]** until S6 calls it.
+- Never a `-contributor` model: Meta trains on those prompts. `src/env.ts` refuses one at boot.
+- Cost per call comes from the per-model price table in `src/integrations/meta/pricing.ts`, copied from that pricing page (**[vendor claim]**, not yet reconciled against a Meta invoice).
 
 ## Evals, sim, tests
 
@@ -48,7 +51,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Piece | Choice |
 |---|---|
 | App | Render web service, free plan, created and configured by hand in the dashboard (sleeps when idle; warm it before judging) |
-| DB | Neon, region next to the Render service |
+| DB | Neon, region next to the Render service; migrations run by hand with `npm run db:migrate`, never in the Render build |
 | Config | Env vars entered by hand in the Render dashboard; no `render.yaml` |
 
 ## Out of scope
