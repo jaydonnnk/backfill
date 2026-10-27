@@ -1,0 +1,20 @@
+.env
+.env.*
+.neon
+node_modules/
+.next/
+dist/
+.maintenance-build/
+coverage/
+playwright-report/
+test-results/
+.vitest/
+*.tsbuildinfo
+!.env.example
+next-env.d.ts
+# Archived order receipts exported by the operator (S18); never committed.
+/archive/
+
+# Python evals
+.venv/
+__pycache__/
