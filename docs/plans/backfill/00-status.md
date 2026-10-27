@@ -37,7 +37,7 @@ Evidence:
 - **[verified]** Every added guard was mutated: 23 mutations, each failed its test on an AssertionError, was restored byte-identical and passed on rerun.
 - **[verified]** Migration applied to Neon by `npm run db:migrate`.
 - **[verified]** One live call to `muse-spark-1.3` through the local production server: 1 attempt, 116 tokens in, 451 out, 2591 ms, $0.002062 (116 x 1250 + 451 x 4250 = 2,061,750 nano-USD), shown on `/` and logged in `llm_calls`.
-- **[unknown]** CI run on the pushed commit.
+- **[verified]** CI run 40522973714 on `3a81747` passed: typecheck, lint, 30 unit tests, 4 integration tests on postgres:18, build.
 - **[unknown]** Render redeploy and the exit check (the Render URL shows one reply and its cost).
 - **[vendor claim]** Prices in `src/integrations/meta/pricing.ts`, from Meta's pricing page, not reconciled against an invoice.
 - **[hypothesis]** Reasoning tokens are inside `completion_tokens` and billed as output.
