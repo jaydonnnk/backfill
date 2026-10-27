@@ -35,7 +35,7 @@ One live, rehearsed path that a judge can click:
 
 Each slice ends with its tests green and its exit check done.
 
-### S1 - Tracer bullet (Oct 26)
+### S1 - Tracer bullet (Oct 26) - done 2026-10-27
 
 - Next.js 16 app, Tailwind, ESLint, Vitest, GitHub Actions CI (lint, typecheck, test).
 - Neon database, Drizzle, first migration.

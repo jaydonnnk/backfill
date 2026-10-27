@@ -5,7 +5,7 @@ Updated: 2026-10-27.
 - Tech stack: approved by the user on 2026-10-26; see [../../tech-stack.md](../../tech-stack.md).
 - Build plan: drafted 2026-10-26 in [build-plan.md](build-plan.md), awaiting the user's approval.
 - Day 0 checks: model IDs done in S1 (below); the others not started.
-- Slices: S1 built on `backfill/slice-1-tracer`, awaiting push, CI and the Render exit check.
+- Slices: S1 done 2026-10-27 (below).
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -38,7 +38,8 @@ Evidence:
 - **[verified]** Migration applied to Neon by `npm run db:migrate`.
 - **[verified]** One live call to `muse-spark-1.3` through the local production server: 1 attempt, 116 tokens in, 451 out, 2591 ms, $0.002062 (116 x 1250 + 451 x 4250 = 2,061,750 nano-USD), shown on `/` and logged in `llm_calls`.
 - **[verified]** CI run 40522973714 on `3a81747` passed: typecheck, lint, 30 unit tests, 4 integration tests on postgres:18, build.
-- **[unknown]** Render redeploy and the exit check (the Render URL shows one reply and its cost).
+- **[verified]** Exit check on https://backfill-9d0x.onrender.com after the user's deploy of `aac0d3e`, by read-only requests: `/api/health` returned 200 `{"ok":true,"db":"up"}`; `/` showed the `muse-spark-1.3` reply with 116 tokens in, 451 out and cost $0.002062.
+- **[verified]** CI run 40523255876 on `main` at `aac0d3e` passed.
 - **[vendor claim]** Prices in `src/integrations/meta/pricing.ts`, from Meta's pricing page, not reconciled against an invoice.
 - **[hypothesis]** Reasoning tokens are inside `completion_tokens` and billed as output.
 - Known limit: the cooldown check and the call are not locked together, so two presses in the same instant can both pass.
