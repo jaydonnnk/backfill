@@ -25,21 +25,20 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API, Responses format |
 | Vision onboarding (menu photo to offer schema) | Muse Spark | Meta Model API |
 | Live negotiation | Muse Spark | Meta Model API |
-| Simulated buyer agents (40) | Muse Glimmer (30B, Apache 2.0) | Local on the dev Mac (Ollama, OpenAI-compatible) |
+| Simulated buyer agents (40) | Muse Spark | Meta Model API |
 | Eval baseline only | DeepSeek | OpenRouter, paid by the user |
 
-- Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so are Ollama and OpenRouter.
+- Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so is OpenRouter.
 - No non-Meta model runs in the live product; DeepSeek appears only in the S9 eval.
 - One `LLMProvider` interface in `src/integrations`, JSON-schema structured output, Zod validation, retry on invalid output.
 - Model IDs are **[unknown]** until checked in the Meta docs.
-- Glimmer 30B locally needs about 32 GB unified memory at 4-bit **[hypothesis]**; below that, buyers run on Muse Spark.
 
 ## Evals, sim, tests
 
 | Area | Choice |
 |---|---|
-| Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Glimmer (local) vs Muse Spark vs DeepSeek on deal rate, savings, cost per deal |
-| Buyer sim (`sim/`) | Script driving 40 Glimmer agents with varied intents, concurrency-limited |
+| Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Muse Spark vs DeepSeek on deal rate, savings, cost per deal |
+| Buyer sim (`sim/`) | Script driving 40 Muse Spark agents with varied intents, concurrency-limited |
 | Tests | Vitest (unit, integration), Playwright E2E: onboard, commit, clear, ledger |
 | CI | GitHub Actions: lint, typecheck, test |
 | Dev | Muse Code, ESLint |
