@@ -25,7 +25,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API, Responses format |
 | Vision onboarding (menu photo to offer schema) | Muse Spark | Meta Model API |
 | Live negotiation | Muse Spark | Meta Model API |
-| Simulated buyer agents (40) | Muse Spark | Meta Model API |
+| Simulated buyer agents (20) | Muse Spark | Meta Model API |
 | Eval baseline only | DeepSeek | OpenRouter, paid by the user |
 
 - Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so is OpenRouter.
@@ -38,7 +38,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Area | Choice |
 |---|---|
 | Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Muse Spark vs DeepSeek on deal rate, savings, cost per deal |
-| Buyer sim (`sim/`) | Script driving 40 Muse Spark agents with varied intents, concurrency-limited |
+| Buyer sim (`sim/`) | Script driving 20 Muse Spark agents with varied intents, concurrency-limited; records each live run and replays it with no model calls |
 | Tests | Vitest (unit, integration), Playwright E2E: onboard, commit, clear, ledger |
 | CI | GitHub Actions: lint, typecheck, test |
 | Dev | Muse Code, ESLint |

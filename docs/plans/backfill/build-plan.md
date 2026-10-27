@@ -9,7 +9,7 @@ Labels follow envoi: **[verified]**, **[vendor claim]**, **[hypothesis]**, **[un
 One live, rehearsed path that a judge can click:
 
 1. A real merchant uploads a menu photo and sets a rule: "25% off Tue 2-5pm if 8 covers commit by noon, hidden floor X".
-2. 40 buyer agents submit commitments through the MCP server.
+2. 20 buyer agents submit commitments through the MCP server.
 3. Solo, no agent unlocks the rule; pooled, the rule clears.
 4. The ledger shows each savings split, and the demo screen shows solo vs pooled side by side.
 5. The eval chart shows deal rate, savings and cost per deal for Muse Spark vs DeepSeek.
@@ -77,7 +77,8 @@ Each slice ends with its tests green and its exit check done.
 
 ### S7 - Buyer sim and live demo screen (Oct 31-Nov 1)
 
-- `sim/buyers`: 40 Muse Spark agents with varied intents, concurrency-limited, through the MCP server.
+- `sim/buyers`: 20 Muse Spark agents with varied intents, concurrency-limited, through the MCP server.
+- Record mode saves every buyer request and model reply from a live run; replay mode re-sends them through the same MCP and clearing path with no model calls.
 - `src/app/demo`: solo vs pooled side by side, live over SSE, plus one sellout case where the merchant agent re-plans.
 - Exit: one command runs the full scene end to end on Render.
 
@@ -96,7 +97,8 @@ Each slice ends with its tests green and its exit check done.
 ### S10 - Harden, record, submit (Nov 3-4)
 
 - Playwright E2E: onboard, commit, clear, ledger, on the Render URL.
-- Rehearse the path 5 times; fix every visual flaw seen.
+- Rehearse the path 5 times in replay mode; fix every visual flaw seen.
+- Run live (model calls) only for the final check and the video recording.
 - Record the 3-minute video; write the submission text.
 - Submit by Nov 4, 6:00 PM ET, leaving 3 hours of buffer.
 
@@ -112,10 +114,10 @@ Runtime is what the product calls; coding is what opencode uses to build the sli
 | S4 MCP server | None | Muse Spark |
 | S5 Negotiation | Muse Spark | Muse Wonder |
 | S6 Onboarding and merchant agent | Muse Spark (vision), Muse Wonder (merchant agent) | Muse Spark |
-| S7 Buyer sim and demo screen | Muse Spark (40 buyers) | Muse Spark |
+| S7 Buyer sim and demo screen | Muse Spark (20 buyers) | Muse Spark |
 | S8 Ledger and checkout | None | Muse Spark |
 | S9 Evals | Muse Spark, DeepSeek (OpenRouter) | Muse Spark |
-| S10 Harden and submit | All of the above (rehearsal runs) | Muse Wonder (debugging) |
+| S10 Harden and submit | Replay for rehearsals; all of the above for the final live run | Muse Wonder (debugging) |
 
 ## Cut order (if behind)
 
@@ -133,7 +135,7 @@ Never cut: clearing engine, limits in code, MCP server, solo vs pooled screen, l
 | Risk | Falsifier | Fallback |
 |---|---|---|
 | Model IDs or hosting differ from the pasted research | Day 0 check fails | Swap the provider behind `LLMProvider` |
-| Buyer sim burns Meta credits | Billing page shows over $100 spent before S10 | Cut to 20 buyers and replay recorded runs for rehearsals |
+| Buyer sim burns Meta credits | Billing page shows over $100 spent before S10 | Rehearse only in replay mode; cut to 10 buyers for live runs |
 | No merchant agrees | No yes by Oct 31 | Synthetic merchants, labelled as such |
 | Wonder memory unavailable over API | Day 0 check fails | Store history in Postgres and pass it in context |
 | Render free plan cold start or SSE drop in front of judges | E2E run on Render fails | Open the URL before each judging window, SSE reconnect with replay from the DB |

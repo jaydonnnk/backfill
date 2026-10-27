@@ -24,7 +24,7 @@ Built for the Meta Global AI Developer Hackathon (Indie track, Build for Your Wo
 | `src/integrations/meta` | Muse Spark, Muse Wonder clients |
 | `src/integrations/openrouter` | DeepSeek eval baseline |
 | `src/lib/db` | Drizzle schema and client |
-| `sim/buyers` | 40 simulated buyer agents |
+| `sim/buyers` | 20 simulated buyer agents, record and replay |
 | `evals/` | AgenticPay negotiation evals (Python) |
 | `tests/` | unit, integration, e2e, support |
 | `config/` | Vitest, Drizzle, tsconfig variants |
