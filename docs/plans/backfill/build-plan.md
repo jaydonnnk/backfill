@@ -12,21 +12,22 @@ One live, rehearsed path that a judge can click:
 2. 40 buyer agents submit commitments through the MCP server.
 3. Solo, no agent unlocks the rule; pooled, the rule clears.
 4. The ledger shows each savings split, and the demo screen shows solo vs pooled side by side.
-5. The eval chart shows deal rate, savings and cost per deal for Muse Spark Open vs Glimmer vs a frontier model.
+5. The eval chart shows deal rate, savings and cost per deal for Glimmer (local) vs Muse Spark vs DeepSeek.
 
 ## Judging map
 
 | Criterion | Weight | What proves it |
 |---|---|---|
 | Impact | 30% | Real merchant, off-peak fill rate before vs after |
-| Use of Meta AI tooling | 25% | Wonder merchant agent, Spark vision onboarding, Spark Open negotiation, Glimmer buyers, eval chart |
+| Use of Meta AI tooling | 25% | Wonder merchant agent, Spark vision onboarding, Spark negotiation, local Glimmer buyers, eval chart |
 | Technical depth | 20% | Pure clearing engine, limits in code, signed counter-offers, append-only ledger, tests |
 | Demo | 25% | Live Render URL plus a 3-minute video |
 
 ## Day 0 checks (today, before S1)
 
-- Confirm the model ID strings for Muse Spark, Muse Wonder, Muse Spark Open and Muse Glimmer in the Meta docs. **[unknown]**
-- Confirm Baseten or Modal hosts Muse Spark Open and Glimmer, and their rate limits. **[unknown]**
+- Confirm the model ID strings for Muse Spark, Muse Wonder and Muse Glimmer in the Meta docs. **[unknown]**
+- Pull Glimmer 30B in Ollama and check it runs on the dev Mac. **[unknown]**
+- Check DeepSeek's current OpenRouter price before topping up. **[unknown]**
 - Confirm Muse Wonder's Responses API exposes memory across sessions to API callers. **[vendor claim]**
 - Check whether the AgenticPay harness is public. If not, port its setup (private reservation prices, finite rounds). **[unknown]**
 - Start asking 2-3 local merchants for permission to use their menu and a real off-peak rule.
@@ -40,7 +41,7 @@ Each slice ends with its tests green and its exit check done.
 - Next.js 16 app, Tailwind, ESLint, Vitest, GitHub Actions CI (lint, typecheck, test).
 - Neon database, Drizzle, first migration.
 - One `LLMProvider` call to Muse Spark through `https://api.meta.ai/v1`, logged to `llm_calls`.
-- Deployed to Render Starter.
+- Deployed to a Render free web service, created by hand with env vars set in the dashboard.
 - Exit: the Render URL shows one model reply and its logged cost.
 
 ### S2 - Schema and offers (Oct 27)
@@ -65,7 +66,7 @@ Each slice ends with its tests green and its exit check done.
 ### S5 - Negotiation (Oct 29-30)
 
 - `src/domain/negotiation`: max 3 rounds, signed counter-offers (HMAC), refusal at round limit.
-- Muse Spark Open proposes; the domain validates every proposal against both limits before it counts.
+- Muse Spark proposes; the domain validates every proposal against both limits before it counts.
 - Exit: tests show a model proposal outside the limits is rejected and never reaches the ledger.
 
 ### S6 - Merchant onboarding and Wonder agent (Oct 30-31)
@@ -77,7 +78,7 @@ Each slice ends with its tests green and its exit check done.
 
 ### S7 - Buyer sim and live demo screen (Oct 31-Nov 1)
 
-- `sim/buyers`: 40 Glimmer agents with varied intents, concurrency-limited, through the MCP server.
+- `sim/buyers`: 40 local Glimmer agents with varied intents, concurrency-limited, through the MCP server.
 - `src/app/demo`: solo vs pooled side by side, live over SSE, plus one sellout case where the merchant agent re-plans.
 - Exit: one command runs the full scene end to end on Render.
 
@@ -89,7 +90,7 @@ Each slice ends with its tests green and its exit check done.
 
 ### S9 - Evals (Nov 2)
 
-- `evals/agenticpay`: Muse Spark Open vs Glimmer vs one frontier model on deal rate, savings and cost per deal.
+- `evals/agenticpay`: Glimmer (local) vs Muse Spark vs DeepSeek (OpenRouter) on deal rate, savings and cost per deal.
 - Cost comes from `llm_calls`, not estimates.
 - Exit: one chart in `evals/results`, also shown on the demo screen.
 
@@ -106,15 +107,15 @@ Runtime is what the product calls; coding is what opencode uses to build the sli
 
 | Slice | Runtime model | Coding model (opencode) |
 |---|---|---|
-| S1 Tracer bullet | Muse Spark (one test call) | Muse Spark Open |
-| S2 Schema and offers | None | Muse Spark Open |
+| S1 Tracer bullet | Muse Spark (one test call) | Muse Spark |
+| S2 Schema and offers | None | Muse Spark |
 | S3 Clearing engine | None (pure code) | Muse Wonder |
-| S4 MCP server | None | Muse Spark Open |
-| S5 Negotiation | Muse Spark Open | Muse Wonder |
-| S6 Onboarding and merchant agent | Muse Spark (vision), Muse Wonder (merchant agent) | Muse Spark Open |
-| S7 Buyer sim and demo screen | Muse Glimmer (40 buyers) | Muse Spark Open |
-| S8 Ledger and checkout | None | Muse Spark Open |
-| S9 Evals | Muse Spark Open, Muse Glimmer, one frontier model | Muse Spark Open |
+| S4 MCP server | None | Muse Spark |
+| S5 Negotiation | Muse Spark | Muse Wonder |
+| S6 Onboarding and merchant agent | Muse Spark (vision), Muse Wonder (merchant agent) | Muse Spark |
+| S7 Buyer sim and demo screen | Muse Glimmer, local (40 buyers) | Muse Spark |
+| S8 Ledger and checkout | None | Muse Spark |
+| S9 Evals | Glimmer (local), Muse Spark, DeepSeek (OpenRouter) | Muse Spark |
 | S10 Harden and submit | All of the above (rehearsal runs) | Muse Wonder (debugging) |
 
 ## Cut order (if behind)
@@ -123,7 +124,7 @@ Cut from the top first:
 
 1. Wonder memory across sessions (keep the re-plan on sellout).
 2. ACP-shaped checkout (keep the ledger).
-3. Frontier model column in the eval (keep Spark Open vs Glimmer).
+3. DeepSeek column in the eval (keep Glimmer vs Spark).
 4. Real merchant (fall back to clearly labelled synthetic merchants).
 
 Never cut: clearing engine, limits in code, MCP server, solo vs pooled screen, live Render URL.
@@ -133,7 +134,7 @@ Never cut: clearing engine, limits in code, MCP server, solo vs pooled screen, l
 | Risk | Falsifier | Fallback |
 |---|---|---|
 | Model IDs or hosting differ from the pasted research | Day 0 check fails | Swap the provider behind `LLMProvider` |
-| Glimmer too weak for buyer intents | Under 90% valid structured output in S7 | Run buyers on Muse Spark Open |
+| Glimmer too weak for buyer intents | Under 90% valid structured output in S7 | Run buyers on Muse Spark |
 | No merchant agrees | No yes by Oct 31 | Synthetic merchants, labelled as such |
 | Wonder memory unavailable over API | Day 0 check fails | Store history in Postgres and pass it in context |
-| Render cold start or SSE drop in front of judges | E2E run on Render fails | Starter plan, SSE reconnect with replay from the DB |
+| Render free plan cold start or SSE drop in front of judges | E2E run on Render fails | Open the URL before each judging window, SSE reconnect with replay from the DB |

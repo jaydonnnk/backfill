@@ -24,18 +24,21 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 |---|---|---|
 | Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API, Responses format |
 | Vision onboarding (menu photo to offer schema) | Muse Spark | Meta Model API |
-| Bulk negotiation | Muse Spark Open | Baseten (primary), Modal (fallback) |
-| Simulated buyer agents (40) | Muse Glimmer (30B, Apache 2.0) | Baseten or Modal |
+| Live negotiation | Muse Spark | Meta Model API |
+| Simulated buyer agents (40) | Muse Glimmer (30B, Apache 2.0) | Local on the dev Mac (Ollama, OpenAI-compatible) |
+| Eval baseline only | DeepSeek | OpenRouter, paid by the user |
 
-- Base URL `https://api.meta.ai/v1` is OpenAI-compatible; Baseten is too.
+- Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so are Ollama and OpenRouter.
+- No non-Meta model runs in the live product; DeepSeek appears only in the S9 eval.
 - One `LLMProvider` interface in `src/integrations`, JSON-schema structured output, Zod validation, retry on invalid output.
-- Model IDs and Baseten support for Muse Spark Open are **[unknown]** until checked in the Meta docs.
+- Model IDs are **[unknown]** until checked in the Meta docs.
+- Glimmer 30B locally needs about 32 GB unified memory at 4-bit **[hypothesis]**; below that, buyers run on Muse Spark.
 
 ## Evals, sim, tests
 
 | Area | Choice |
 |---|---|
-| Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Muse Spark Open vs Glimmer vs a frontier model on deal rate, savings, cost per deal |
+| Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Glimmer (local) vs Muse Spark vs DeepSeek on deal rate, savings, cost per deal |
 | Buyer sim (`sim/`) | Script driving 40 Glimmer agents with varied intents, concurrency-limited |
 | Tests | Vitest (unit, integration), Playwright E2E: onboard, commit, clear, ledger |
 | CI | GitHub Actions: lint, typecheck, test |
@@ -45,9 +48,9 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 
 | Piece | Choice |
 |---|---|
-| App | Render web service, paid Starter plan (free plan sleeps; cold start on a judge's first click) |
+| App | Render web service, free plan, created and configured by hand in the dashboard (sleeps when idle; warm it before judging) |
 | DB | Neon, region next to the Render service |
-| Config | `render.yaml` as the record of dashboard settings; secrets entered by hand |
+| Config | Env vars entered by hand in the Render dashboard; no `render.yaml` |
 
 ## Out of scope
 

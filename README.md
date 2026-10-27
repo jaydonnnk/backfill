@@ -22,7 +22,8 @@ Built for the Meta Global AI Developer Hackathon (Indie track, Build for Your Wo
 | `src/domain/ledger` | Append-only savings split |
 | `src/domain/onboarding` | Menu photo to offer schema |
 | `src/integrations/meta` | Muse Spark, Muse Wonder clients |
-| `src/integrations/baseten`, `modal` | Open-weights hosting |
+| `src/integrations/ollama` | Local Glimmer for the buyer sim and evals |
+| `src/integrations/openrouter` | DeepSeek eval baseline |
 | `src/lib/db` | Drizzle schema and client |
 | `sim/buyers` | 40 simulated buyer agents |
 | `evals/` | AgenticPay negotiation evals (Python) |
