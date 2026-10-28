@@ -91,6 +91,7 @@ Branch: `backfill/slice-2-schema-offers`, cut from `main` at `65d0de2` (main alr
 
 Authorizations, in the user's words:
 - 2026-10-28: "Fix 1-4(and 5 if its quick), then give the continuation copy paste prompt for the next agent to go and start s2".
+- 2026-10-28, after being told the Neon migration and the merge to main were waiting on them: "yea do all and delete the handoff file".
 
 Decisions, taken before coding; the user picked the recommended option for each on 2026-10-28:
 - **Window edges:** start inclusive, end exclusive, in `Asia/Singapore` local time.
@@ -126,6 +127,8 @@ A commitment against stale terms is refused on insert and on update, and a commi
 - **[verified]** Migrations applied to a local scratch database with `npm run db:migrate` (inline local `DATABASE_URL`); a second run was a no-op; the scratch database was dropped.
 - **[verified]** Secret scan by shape (Postgres URLs with a password, bearer values, Neon `npg_` passwords, 64-hex secrets, `sk-` keys) on the working tree and all Git history: the planted needle was found, and otherwise only S1's placeholder test fixtures.
 - **[verified]** CI run 40640545545 on `5ce2020` passed: typecheck, lint, 66 unit tests, 19 integration tests on postgres:18, build.
-- **[unknown]** The `hermetic-env` mutation is killed only in a shell that exports the app's configuration, as this one does; in CI it would survive.
-- **[unknown]** S2's migration on Neon: not applied; it needs the user's named go-ahead.
+- CI's unit and integration steps now set a fake, unreachable app configuration (`DATABASE_URL` at `db.invalid`, a dummy Meta key), so the `hermetic-env` guard is proven there too, not only in a shell like this one.
+**[verified]** Locally under that configuration, with the guard removed, the health unit test failed on an AssertionError (`db: 'down'` instead of `config: 'invalid'`); restored, it passed.
+- **[verified]** S2's migration applied to Neon on 2026-10-28 by `npm run db:migrate`, with the URL from `.env.local` (the shell's `DATABASE_URL` unset for the run).
+Read-only check afterwards: tables `merchants`, `rules`, `commitments`, `ledger` present and empty, the four triggers enabled `ALWAYS`, 3 migrations recorded.
 - Known limit: a table owner can still `ALTER TABLE ledger DISABLE TRIGGER`; no app code does, and the app should not connect as the owner once S4 adds a runtime role.

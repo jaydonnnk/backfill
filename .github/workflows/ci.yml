@@ -44,6 +44,15 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
+      # A plausible app configuration, as a developer's shell may export, so the suite proves that
+      # tests/support/hermetic-env.ts keeps it away from every test. Nothing here is reachable or real.
       - run: npm run test:unit
+        env: &app-config
+          DATABASE_URL: postgres://ci@db.invalid:5432/backfill
+          META_API_KEY: ci-not-a-key
+          META_BASE_URL: https://api.meta.ai/v1
+          META_MODEL_SPARK: muse-spark-1.3
+          META_MODEL_WONDER: muse-wonder-1.0
       - run: npm run test:integration
+        env: *app-config
       - run: npm run build

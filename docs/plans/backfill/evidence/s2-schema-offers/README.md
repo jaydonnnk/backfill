@@ -11,8 +11,8 @@ The runner then restores the file, checks it is byte-identical, and reruns the s
 
 Migration mutations edit the SQL files in `drizzle/`, which every integration test file applies to its own fresh database, so a mutated check or trigger is what the tests run against.
 
-`hermetic-env` is killed only in a shell that exports the app's configuration (as this machine's does): there, without the guard, the health unit test reaches the real `DATABASE_URL`.
-In CI, which sets no app configuration, that mutation would survive.
+`hermetic-env` is killed only where the app's configuration is exported: this machine's shell, and CI, which since 2026-10-28 sets a fake, unreachable configuration on the test steps.
+Without the guard, the health unit test reaches that `DATABASE_URL` and reports `db: down` instead of `config: invalid`.
 
 Bounds that other guards already imply have no guard of their own, so there is nothing to mutate:
 - `Window.startMinute >= 0` follows from `0 <= commitByMinute <= startMinute`; the SQL check is written the same way.
