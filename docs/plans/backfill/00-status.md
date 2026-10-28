@@ -8,7 +8,7 @@ Updated: 2026-10-28.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 in progress (below).
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28 (below).
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -147,3 +147,25 @@ Decisions, taken before coding; the user picked the recommended option for each 
 A commitment that no longer fits the remaining capacity is skipped whole, and later, smaller ones may still fill.
 - **Re-check after trimming:** if capacity or a buyer's max price drops the filled covers below `minPoolCovers`, the rule stays locked and nothing fills.
 - **Storage:** S3 stays pure, with no clearing table; S4 or S8 decides persistence.
+
+Authorizations, in the user's words:
+- 2026-10-28, the handoff prompt: "Build slice S3, "Clearing engine", end to end."
+- 2026-10-28, answering the open decisions: "FCFS, engine sorts (Recommended)", "All-or-nothing (Recommended)", "Stay locked, pure (Recommended)".
+
+Built:
+- `src/domain/clearing/clear.ts`: `clear(rule, visitDate, commitments)` returns a `ClearingResult` for one occurrence.
+It sorts a copy of the commitments into arrival order, runs `evaluatePool` on them for the terms version, window, deadline, per-agent cap and hidden floor, drops commitments whose max price is below `offerPriceCents`, and fills whole commitments first come first served up to `capacityCovers`.
+If the filled covers miss `minPoolCovers`, the result is locked and fills nothing.
+It is pure: no I/O, no clock, no randomness, and the caller's array is left as it was.
+- `ClearingResult` is unchanged: no decision needed a new field.
+- `fast-check` `4.10.2` added as a devDependency, pinned exactly.
+
+Evidence:
+- **[verified]** Typecheck and lint clean; 109 tests pass (90 unit, 19 integration) on a local PostgreSQL 18 through `TEST_DATABASE_URL`; `git diff --check` clean.
+- **[verified]** Unit tests in `tests/unit/clearing.test.ts`: capacity exactly met, a commitment one cover too big skipped whole while a later one still fills, arrival order over array order, the id tie-break, the per-agent cap counted in arrival order, a buyer max at the price and one cent below, the floor at the price and one cent above, the minimum pool exactly met after trimming, locked when capacity or a buyer's max drops the pool below the minimum, refused commitments left out, an empty pool, the caller's array untouched, and the occurrence named in the result.
+- **[verified]** Property tests in `tests/unit/clearing.property.test.ts`, fast-check seed `20261028`, 2000 runs per property: a valid result at the offer price, no fill below the hidden floor, none above a buyer's max, total fills within capacity, a locked result fills nothing and an unlocked one reaches the minimum, every fill a whole commitment `evaluatePool` accepted and each at most once, fills first come first served with an eligible commitment skipped only when it does not fit, and the same result for the same input and for any shuffle of it.
+A check on the same seed shows the generator is not vacuous: 306 cases unlock, 140 unlock after trimming, 219 are unlocked by `evaluatePool` but left locked by clearing.
+- **[verified]** Mutations, with the S1 review runner on a copy of the tree, in [evidence/s3-clearing](evidence/s3-clearing/README.md): a first run of 21 had one survivor, the result's `visitDate` pinned to the only date the tests used, so a test clearing the next week's occurrence was added; the rerun killed all 21 on an AssertionError, each file restored byte-identical and each rerun green.
+- Known limit: a commitment whose max price is below the offer price still counts toward its agent's per-agent cap inside `evaluatePool`, because the cap runs before clearing drops it.
+The offer price is fixed per terms version, so S4 can refuse such a commitment at submit time.
+- Known limit: clearing is not stored; S4 or S8 decides persistence.

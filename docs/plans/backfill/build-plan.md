@@ -70,7 +70,7 @@ Each slice ends with its tests green and its exit check done.
 - DB tables for merchants, rules, commitments, ledger (append-only by constraint).
 - Exit: unit tests cover window edges in `Asia/Singapore`, the minimum-covers threshold, the per-agent cap, floor refusal, and refusal of a commitment against stale terms.
 
-### S3 - Clearing engine (Oct 27-28)
+### S3 - Clearing engine (Oct 27-28) - done 2026-10-28
 
 - `src/domain/clearing`: pool commitments per rule, match against the hidden floor, respect capacity, return partial fills.
 - Pure functions, no I/O, deterministic for the same input.
