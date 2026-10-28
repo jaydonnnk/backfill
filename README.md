@@ -1,9 +1,11 @@
 # Backfill
 
 AI agents pool committed spend; small merchants sell spoiling off-peak capacity to them at private, commitment-gated discounts.
+Market: Singapore food and drink, the kopitiams, cafés and hawkers left out of Muse's launch partners.
 
 Built for the Meta Global AI Developer Hackathon (Indie track, Build for Your World).
 
+- Pitch: [docs/pitch.md](docs/pitch.md)
 - Stack: [docs/tech-stack.md](docs/tech-stack.md)
 - Plans: [docs/plans/backfill](docs/plans/backfill)
 

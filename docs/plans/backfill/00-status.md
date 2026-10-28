@@ -1,10 +1,13 @@
 # Status: Backfill
 
-Updated: 2026-10-27.
+Updated: 2026-10-28.
 
 - Tech stack: approved by the user on 2026-10-26; see [../../tech-stack.md](../../tech-stack.md).
 - Build plan: drafted 2026-10-26 in [build-plan.md](build-plan.md), awaiting the user's approval.
-- Day 0 checks: model IDs done in S1 (below); the others not started.
+- Singapore steer: 2026-10-28, after Muse launched in Singapore.
+In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
+Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
+- Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
 - Slices: S1 done 2026-10-27 (below).
 
 ### S1 tracer bullet, 2026-10-27

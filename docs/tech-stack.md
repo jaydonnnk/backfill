@@ -1,6 +1,7 @@
 # Backfill tech stack
 
 Backfill is a clearing house where AI agents pool committed spend and small merchants sell spoiling off-peak capacity at private, commitment-gated discounts.
+Market: Singapore food and drink, from the 2026-10-28 steer (see [pitch.md](pitch.md)).
 
 Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src/domain` layer, and vendor code isolated in `src/integrations`.
 
@@ -11,9 +12,10 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Language | TypeScript (product), Python (evals only) | MCP SDK and ACP are most mature in TS |
 | Node | 24.x (`.node-version`) | Same as envoi |
 | App | Next.js 16 (App Router), React 19, Tailwind 4 | One deployable for UI, API and MCP |
-| Schema | Zod 4: merchant rule, commitment, offer, clearing result | One source of truth, also validates model output |
+| Schema | Zod 4: merchant rule, agent terms, commitment, offer, clearing result | One source of truth, also validates model output |
+| Locale | `Asia/Singapore` time zone, SGD stored as integer cents | Off-peak windows and prices match the Singapore market |
 | Domain | `src/domain/*`, pure TS, no I/O | Deterministic clearing; limits enforced in code, not prompts |
-| MCP server | `@modelcontextprotocol/sdk`, streamable HTTP at `src/app/mcp` | Any agent (Muse Spark, Claude, ChatGPT) can submit commitments |
+| MCP server | `@modelcontextprotocol/sdk`, streamable HTTP at `src/app/mcp` | Doubles as a Muse custom connector; any MCP client (Muse, Claude) can submit commitments |
 | Checkout | ACP-shaped endpoints in `src/app/api`, no real money | Protocol-compatible without a payments license |
 | Live updates | Server-Sent Events | Clearing appears live in the demo |
 | DB | Postgres on Neon, Drizzle ORM, append-only `ledger`, `llm_calls` (tokens, cost, latency) | Audit trail and cost-per-deal data |
@@ -22,6 +24,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 
 | Role | Model | Access |
 |---|---|---|
+| Real buyer agent | Muse (Meta's consumer agent) | A Muse user adds Backfill as a custom MCP connector; **[unknown]** until the Day 0 check |
 | Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API, Responses format |
 | Vision onboarding (menu photo to offer schema) | Muse Spark | Meta Model API |
 | Live negotiation | Muse Spark | Meta Model API |
@@ -54,8 +57,15 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | DB | Neon, region next to the Render service; migrations run by hand with `npm run db:migrate`, never in the Render build |
 | Config | Env vars entered by hand in the Render dashboard; no `render.yaml` |
 
+## Stretch
+
+| Piece | Choice |
+|---|---|
+| Merchant channel | WhatsApp Cloud API with Meta's test number; the owner sets or changes a rule by message and Muse Wonder updates the offer. Cut first if behind. |
+
 ## Out of scope
 
 - Real payments.
 - Auth beyond a demo merchant login.
 - More than one vertical (local food and drink).
+- More than one market (Singapore).
