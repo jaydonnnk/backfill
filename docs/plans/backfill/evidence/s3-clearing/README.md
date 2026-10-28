@@ -11,9 +11,9 @@ The runner then restores the file, checks it is byte-identical, and reruns the s
 
 The property tests in `tests/unit/clearing.property.test.ts` run 2000 cases per property with fast-check seed `20261028`.
 At least one property fails under 18 of the 21 mutations; under `sort-in-place`, `min-pool-boundary` and `visit-date` only unit tests fail.
-A failing property reports "Property failed" on its first line and the AssertionError behind it on a later "Caused by:" line.
-The runner at the time read only the first line, so each kill recorded here comes from at least one unit test in `tests/unit/clearing.test.ts`.
-The S3 review found that the properties alone also kill the floor, buyer-max and capacity mutations on an AssertionError; the runner now reads the cause, and [../s3-review-fixes](../s3-review-fixes/README.md) records the property-only run.
+A failing property reports "Property failed" on its first line, and Vitest's JSON report, which the runner reads, drops the AssertionError behind it.
+So each kill recorded here comes from at least one unit test in `tests/unit/clearing.test.ts`.
+The S3 review found that the properties alone also kill the floor, buyer-max and capacity mutations on an AssertionError; the property file now sets `includeErrorInReport`, the runner reads the error it adds, and [../s3-review-fixes](../s3-review-fixes/README.md) records the property-only run.
 A first test of the property file checks that the generator is not vacuous: with this seed, at `f1e957d`, 306 cases unlock, 140 unlock after capacity or a buyer's max dropped an accepted commitment, and 219 are unlocked by `evaluatePool` but left locked by clearing.
 
 A first run had one survivor, `visit-date`, which pinned the result's date to `2026-11-03`: every test cleared that date.

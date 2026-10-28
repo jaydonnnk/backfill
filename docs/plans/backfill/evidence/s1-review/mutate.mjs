@@ -19,9 +19,10 @@ function runSuite(project) {
     execFileSync("npx", args, { cwd: tree, stdio: "ignore", env: { ...process.env } });
   } catch {}
   const r = JSON.parse(readFileSync(out, "utf8"));
-  // A failing fast-check property reports "Property failed" first and its cause on a later
-  // "Caused by:" line, so the assertion check reads the cause too, never a stack frame.
-  const cause = (m) => (m.split("\n").find((l) => l.startsWith("Caused by: ")) ?? "").slice("Caused by: ".length);
+  // A failing fast-check property reports "Property failed" first. The JSON report drops the
+  // error's cause, so property files set includeErrorInReport, which adds the error on a later
+  // "Got " line; the assertion check reads that line too, never a stack frame.
+  const cause = (m) => (m.split("\n").find((l) => l.startsWith("Got ")) ?? "").slice("Got ".length);
   const failed = r.testResults.flatMap((f) =>
     f.assertionResults.filter((a) => a.status === "failed").map((a) => ({ test: a.fullName, msg: (a.failureMessages[0] ?? "").split("\n")[0], cause: cause(a.failureMessages[0] ?? "") })),
   );

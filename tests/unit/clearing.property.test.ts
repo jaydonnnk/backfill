@@ -6,8 +6,9 @@ import type { Commitment } from "@/domain/commitments/schema";
 import { evaluatePool, offerPriceCents } from "@/domain/offers/evaluate";
 import { MerchantRule } from "@/domain/offers/schema";
 
-// A fixed seed makes every run, and every failure, reproducible. 2000 runs per property.
-const RUN = { seed: 20261028, numRuns: 2000 };
+// A fixed seed makes every run, and every failure, reproducible. 2000 runs per property. The
+// failure message names the error behind it, so the mutation runner can see an AssertionError.
+const RUN = { seed: 20261028, numRuns: 2000, includeErrorInReport: true };
 
 const RULE_ID = "6f1c0a52-3d3e-4c1a-9a43-0d6c1f0b7e11";
 const VISIT_DATE = "2026-11-03";
@@ -108,6 +109,8 @@ describe("clearing properties", () => {
   it("returns a valid ClearingResult for the rule, at the offer price", () => {
     fc.assert(
       fc.property(caseArb, ({ rule, commitments }) => {
+        // clear() parses its result, so a result it could not describe would throw.
+        expect(() => clear(rule, VISIT_DATE, commitments)).not.toThrow();
         const result = clear(rule, VISIT_DATE, commitments);
         expect(ClearingResult.parse(result)).toEqual(result);
         expect(result).toMatchObject({ ruleId: rule.id, termsVersion: rule.termsVersion, visitDate: VISIT_DATE, pricePerCoverCents: offerPriceCents(rule) });
