@@ -47,7 +47,9 @@ export const MerchantRule = z
     capacityCovers: Covers,
     terms: AgentTerms,
   })
-  .refine((r) => r.terms.floorPriceCents <= r.listPriceCents, { message: "the floor must not be above the list price", path: ["terms", "floorPriceCents"] });
+  .refine((r) => r.terms.floorPriceCents <= r.listPriceCents, { message: "the floor must not be above the list price", path: ["terms", "floorPriceCents"] })
+  // A minimum pool above capacity could never clear, yet buyers would still see and commit to it.
+  .refine((r) => r.terms.minPoolCovers <= r.capacityCovers, { message: "the minimum pool must not be above capacity", path: ["terms", "minPoolCovers"] });
 export type MerchantRule = z.infer<typeof MerchantRule>;
 
 // The public view of a rule, the only shape a buyer or agent sees. It has no floor and no capacity,

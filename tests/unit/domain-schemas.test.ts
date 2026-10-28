@@ -74,6 +74,10 @@ describe("MerchantRule", () => {
       [{ terms: { ...terms, floorPriceCents: 1251 } }, { termsVersion: 0 }, { capacityCovers: 0 }, { listPriceCents: 12.5 }],
     );
   });
+
+  it("refuses a minimum pool above capacity", () => {
+    expectRefusals(MerchantRule, rule, [{ capacityCovers: 8 }], [{ capacityCovers: 7 }]);
+  });
 });
 
 describe("Commitment", () => {

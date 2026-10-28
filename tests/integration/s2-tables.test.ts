@@ -102,6 +102,7 @@ describe("check constraints", () => {
       ["rules", ruleRow(merchantId, { capacity_covers: 0 }), "rules_counts_positive"],
       ["rules", ruleRow(merchantId, { min_pool_covers: 0 }), "rules_counts_positive"],
       ["rules", ruleRow(merchantId, { per_agent_cap_covers: 0 }), "rules_counts_positive"],
+      ["rules", ruleRow(merchantId, { capacity_covers: 7 }), "rules_min_pool_within_capacity"],
       ["commitments", commitmentRow(ruleId, { covers: 0 }), "commitments_covers_positive"],
       ["commitments", commitmentRow(ruleId, { max_price_per_cover_cents: -1 }), "commitments_max_price_nonnegative"],
       ["commitments", commitmentRow(ruleId, { agent_id: "" }), "commitments_agent_id_present"],
@@ -129,6 +130,7 @@ describe("check constraints", () => {
     // The valid rows themselves insert.
     expect(await failure(insert("ledger", ledgerRow(ids)))).toBeNull();
     expect(await failure(insert("rules", ruleRow(merchantId, { floor_price_cents: 1250, commit_by_minute: 840, end_minute: 1440 })))).toBeNull();
+    expect(await failure(insert("rules", ruleRow(merchantId, { capacity_covers: 8, min_pool_covers: 8 })))).toBeNull();
   });
 });
 

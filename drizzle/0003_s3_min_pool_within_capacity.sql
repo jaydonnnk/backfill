@@ -1,0 +1,1 @@
+ALTER TABLE "rules" ADD CONSTRAINT "rules_min_pool_within_capacity" CHECK ("rules"."min_pool_covers" <= "rules"."capacity_covers");

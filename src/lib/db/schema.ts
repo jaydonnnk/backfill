@@ -77,6 +77,7 @@ export const rules = pgTable(
     check("rules_discount_range", sql`${t.discountBps} between 1 and 9999`),
     check("rules_floor_within_list", sql`${t.floorPriceCents} >= 0 and ${t.floorPriceCents} <= ${t.listPriceCents}`),
     check("rules_counts_positive", sql`${t.capacityCovers} >= 1 and ${t.minPoolCovers} >= 1 and ${t.perAgentCapCovers} >= 1`),
+    check("rules_min_pool_within_capacity", sql`${t.minPoolCovers} <= ${t.capacityCovers}`),
   ],
 );
 
