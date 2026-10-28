@@ -8,6 +8,20 @@
       "when": 1793110381407,
       "tag": "0000_llm_calls",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793166351465,
+      "tag": "0001_s2_merchants_rules_commitments_ledger",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793166351819,
+      "tag": "0002_s2_triggers",
+      "breakpoints": true
     }
   ]
 }
