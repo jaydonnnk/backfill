@@ -1,0 +1,58 @@
+[
+  {
+    "id": "f1-priced-out-in-pool",
+    "guard": "a priced-out commitment does not count toward its agent's cap (the engine before the fix)",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "const pool = evaluatePool(rule, visitDate, affordable);",
+    "to": "const pool = { accepted: evaluatePool(rule, visitDate, [...commitments].sort(byArrival)).accepted.filter((c) => c.maxPricePerCoverCents >= price) };"
+  },
+  {
+    "id": "f1-buyer-max-removed",
+    "guard": "a commitment priced out by the buyer's max does not fill",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "commitments.filter((c) => c.maxPricePerCoverCents >= price).sort(byArrival)",
+    "to": "[...commitments].sort(byArrival)"
+  },
+  {
+    "id": "f1-buyer-max-boundary",
+    "guard": "a buyer whose max is exactly the price fills",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "c.maxPricePerCoverCents >= price",
+    "to": "c.maxPricePerCoverCents > price"
+  },
+  {
+    "id": "f2-parse-removed",
+    "guard": "clear() parses its result",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "return ClearingResult.parse({",
+    "to": "return ({"
+  },
+  {
+    "id": "f3-domain-removed",
+    "guard": "MerchantRule refuses a minimum pool above capacity",
+    "file": "src/domain/offers/schema.ts",
+    "from": ".refine((r) => r.terms.minPoolCovers <= r.capacityCovers,",
+    "to": ".refine(() => true,"
+  },
+  {
+    "id": "f3-domain-boundary",
+    "guard": "MerchantRule accepts a minimum pool equal to capacity",
+    "file": "src/domain/offers/schema.ts",
+    "from": "r.terms.minPoolCovers <= r.capacityCovers",
+    "to": "r.terms.minPoolCovers < r.capacityCovers"
+  },
+  {
+    "id": "f3-db-removed",
+    "guard": "rules_min_pool_within_capacity refuses a minimum pool above capacity",
+    "file": "drizzle/0003_s3_min_pool_within_capacity.sql",
+    "from": "CHECK (\"rules\".\"min_pool_covers\" <= \"rules\".\"capacity_covers\")",
+    "to": "CHECK (true)"
+  },
+  {
+    "id": "f3-db-boundary",
+    "guard": "rules_min_pool_within_capacity accepts a minimum pool equal to capacity",
+    "file": "drizzle/0003_s3_min_pool_within_capacity.sql",
+    "from": "\"rules\".\"min_pool_covers\" <= \"rules\".\"capacity_covers\"",
+    "to": "\"rules\".\"min_pool_covers\" < \"rules\".\"capacity_covers\""
+  }
+]

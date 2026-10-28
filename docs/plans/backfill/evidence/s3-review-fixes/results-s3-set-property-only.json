@@ -1,0 +1,224 @@
+{
+  "baseline": 95,
+  "results": [
+    {
+      "id": "sort-canonical",
+      "error": "pattern found 0 times"
+    },
+    {
+      "id": "sort-in-place",
+      "error": "pattern found 0 times"
+    },
+    {
+      "id": "arrival-time-ignored",
+      "guard": "arrival order reads committedAt",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 107 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 5 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "arrival-time-reversed",
+      "guard": "earliest commitment first",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 14 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 5 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tie-break-removed",
+      "guard": "equal arrival times break by id",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 1098 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 394 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result for the same input, in any array order :: Error: Property failed after 383 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tie-break-reversed",
+      "guard": "lower id first on a tie",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 931 tests :: caused by AssertionError: expected 3 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 355 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "pool-bypassed",
+      "guard": "only evaluatePool's accepted commitments fill",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 44 to be greater than 100",
+        "clearing properties never clears below the hidden floor :: Error: Property failed after 4 tests :: caused by AssertionError: expected 11 to be greater than or equal to 12",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 3 tests :: caused by AssertionError: expected 0 to be greater than or equal to 1",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 3 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 3 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments priced out by the buyer's max left out :: Error: Property failed after 3 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "buyer-max-removed",
+      "error": "pattern found 0 times"
+    },
+    {
+      "id": "buyer-max-boundary",
+      "error": "pattern found 0 times"
+    },
+    {
+      "id": "capacity-removed",
+      "guard": "no fill past capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: Error: Property failed after 33 tests :: caused by AssertionError: expected 2 to be less than or equal to 1"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "capacity-boundary",
+      "guard": "capacity met exactly fills",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 84 tests :: caused by AssertionError: expected 1 to be greater than 1"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "capacity-stop",
+      "guard": "a later commitment that fits still fills",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 84 tests :: caused by AssertionError: expected 1 to be greater than 1"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "capacity-start",
+      "guard": "capacity starts at the rule's capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: Error: Property failed after 33 tests :: caused by AssertionError: expected 2 to be less than or equal to 1"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "capacity-not-used",
+      "guard": "filled covers use up capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 0 to be greater than 200"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "fill-covers",
+      "guard": "a fill is the whole commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: Error: Property failed after 111 tests :: caused by AssertionError: expected 1 to be greater than or equal to 2",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 3 tests :: caused by AssertionError: expected 1 to be 2 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "recheck-skipped",
+      "guard": "minimum pool rechecked after trimming",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: Error: Property failed after 55 tests :: caused by AssertionError: expected 0 to be greater than or equal to 1"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "min-pool-boundary",
+      "guard": "the minimum pool exactly unlocks",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "locked-fills",
+      "guard": "a locked result fills nothing",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: ZodError: [",
+        "clearing properties returns a valid ClearingResult for the rule, at the offer price :: Error: Property failed after 15 tests :: caused by AssertionError: expected [Function] to not throw an error but '[\\n  {\\n    \"code\": \"custom\",\\n    \"p…' was thrown",
+        "clearing properties never clears below the hidden floor :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties gives the same result with the commitments priced out by the buyer's max left out :: Error: Property failed after 15 tests :: caused by ZodError: [",
+        "clearing properties gives the same result for the same input, in any array order :: Error: Property failed after 15 tests :: caused by ZodError: ["
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "price",
+      "guard": "clears at the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties returns a valid ClearingResult for the rule, at the offer price :: Error: Property failed after 1 tests :: caused by AssertionError: expected { …(6) } to match object { …(4) }",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 11 tests :: caused by AssertionError: expected 828 to be greater than or equal to 829"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "terms-version",
+      "guard": "the result names the rule's terms version",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties returns a valid ClearingResult for the rule, at the offer price :: Error: Property failed after 1 tests :: caused by AssertionError: expected { …(6) } to match object { …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "visit-date",
+      "guard": "the result names the occurrence",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "baseline": 95,
+  "results": [
+    {
+      "id": "f1-priced-out-in-pool",
+      "guard": "a priced-out commitment does not count toward its agent's cap (the engine before the fix)",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 462 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 356 tests :: caused by AssertionError: expected 1 to be greater than 1",
+        "clearing properties gives the same result with the commitments priced out by the buyer's max left out :: Error: Property failed after 50 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f1-buyer-max-removed",
+      "guard": "a commitment priced out by the buyer's max does not fill",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 62 to be greater than 100",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 3 tests :: caused by AssertionError: expected 0 to be greater than or equal to 1",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 3 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 3 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments priced out by the buyer's max left out :: Error: Property failed after 3 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f1-buyer-max-boundary",
+      "guard": "a buyer whose max is exactly the price fills",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 613 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-parse-removed",
+      "guard": "clear() parses its result",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-domain-removed",
+      "guard": "MerchantRule refuses a minimum pool above capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "MerchantRule refuses a minimum pool above capacity :: AssertionError: expected { change: { capacityCovers: 7 }, …(1) } to deeply equal { change: { capacityCovers: 7 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-domain-boundary",
+      "guard": "MerchantRule accepts a minimum pool equal to capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: ZodError: [",
+        "clearing properties returns a valid ClearingResult for the rule, at the offer price :: ZodError: [",
+        "clearing properties never clears below the hidden floor :: ZodError: [",
+        "clearing properties never fills above a buyer's max price :: ZodError: [",
+        "clearing properties never fills past capacity, and an unlocked result fills at least the minimum pool :: ZodError: [",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: ZodError: [",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: ZodError: [",
+        "clearing properties gives the same result with the commitments priced out by the buyer's max left out :: ZodError: [",
+        "clearing properties gives the same result for the same input, in any array order :: ZodError: [",
+        "MerchantRule refuses a minimum pool above capacity :: AssertionError: expected { change: { capacityCovers: 8 }, …(1) } to deeply equal { change: { capacityCovers: 8 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-db-removed",
+      "guard": "rules_min_pool_within_capacity refuses a minimum pool above capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-db-boundary",
+      "guard": "rules_min_pool_within_capacity accepts a minimum pool equal to capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected PostgresError: new row for relation \"rule… { …(13) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}
