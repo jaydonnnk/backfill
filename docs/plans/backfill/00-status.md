@@ -8,7 +8,7 @@ Updated: 2026-10-28.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 (below).
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 in progress (below).
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -132,3 +132,18 @@ A commitment against stale terms is refused on insert and on update, and a commi
 - **[verified]** S2's migration applied to Neon on 2026-10-28 by `npm run db:migrate`, with the URL from `.env.local` (the shell's `DATABASE_URL` unset for the run).
 Read-only check afterwards: tables `merchants`, `rules`, `commitments`, `ledger` present and empty, the four triggers enabled `ALWAYS`, 3 migrations recorded.
 - Known limit: a table owner can still `ALTER TABLE ledger DISABLE TRIGGER`; no app code does, and the app should not connect as the owner once S4 adds a runtime role.
+- **[verified]** S2 merged to `main` at `dfd257c` and pushed; CI run 40647360101 on `dfd257c` passed.
+- **[user-reported]** Render serves `dfd257c`: asked what the Render dashboard showed for the live build, the user answered on 2026-10-28 "Live is dfd257c".
+`/api/health` had returned 200 `{"ok":true,"db":"up"}` before that answer.
+
+### S3 clearing engine, 2026-10-28
+
+Branch: `backfill/slice-3-clearing`, cut from `main` at `dfd257c`.
+
+Decisions, taken before coding; the user picked the recommended option for each on 2026-10-28:
+- **Capacity shortfall:** first come first served, in arrival order (`committedAt`, then `id` as tie-break).
+- **Order independence:** the engine sorts commitments into that canonical order itself, so the result does not depend on the caller's array order.
+- **Partial fill:** all-or-nothing per commitment.
+A commitment that no longer fits the remaining capacity is skipped whole, and later, smaller ones may still fill.
+- **Re-check after trimming:** if capacity or a buyer's max price drops the filled covers below `minPoolCovers`, the rule stays locked and nothing fills.
+- **Storage:** S3 stays pure, with no clearing table; S4 or S8 decides persistence.
