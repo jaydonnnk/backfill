@@ -263,6 +263,7 @@ The two lock mutations are killed by racing requests, so those kills are likely 
 - **[verified]** Exit, by Claude, since the Day 0 check is not done: `npm run mcp:smoke` against https://backfill-9d0x.onrender.com, a scripted MCP client run by Claude (not Claude's own connector, and not Muse).
 `POST /mcp` without a token returned 401; with the token it listed the five tools and the offer at 938 cents, read the terms, submitted commitment `687a0503-f0ae-405a-a44c-5ee4c219d9fa` (2 covers at 938 cents for 2026-11-03) and read it back pending with 2 pooled covers of 8; no reply mentioned a floor or capacity.
 A read-only read of Neon showed that one commitment row, agent `smoke-claude`, not cancelled.
+- **[verified]** CI run 40724901739 on `9aa37a1` (this status) passed.
 - **[unknown]** The Render log line for that call (not read here); whether a real Muse account can add the connector (the user's Day 0 check).
 - Known limit: the app still connects to Neon as `neondb_owner`. Using `backfill_app` needs a login role that is a member of it, created in the Neon console, and that role's URL as Render's `DATABASE_URL`; the user does both.
 - Known limit: a clearing is stored at the first status read from the deadline on, not at the deadline itself, so a floor or capacity change between the two still counts.
