@@ -1,0 +1,575 @@
+{
+  "baseline": 145,
+  "results": [
+    {
+      "id": "occ-offset",
+      "guard": "a Singapore wall-clock minute is converted with Singapore's offset",
+      "verdict": "killed",
+      "failedTests": [
+        "singaporeInstant reads a Singapore wall-clock minute as UTC+8, midnight to the next midnight :: AssertionError: expected '2026-11-03T00:00:00.000Z' to be '2026-11-02T16:00:00.000Z' // Object.is equality",
+        "singaporeInstant does not depend on the host time zone :: AssertionError: expected '2026-11-03T12:00:00.000Z' to be '2026-11-03T04:00:00.000Z' // Object.is equality",
+        "occurrenceOn gives the deadline, start and end of the window on its weekday :: AssertionError: expected { visitDate: '2026-11-03', …(3) } to deeply equal { visitDate: '2026-11-03', …(3) }",
+        "nextOccurrence is today's occurrence until its deadline, and next week's from the deadline on :: AssertionError: expected '2026-11-03' to be '2026-11-10' // Object.is equality",
+        "nextOccurrence counts days in Singapore, not on the host :: AssertionError: expected '2026-11-03' to be '2026-11-10' // Object.is equality",
+        "offers lists an offer with its public terms and next occurrence, and leaves out one whose offer price is below its floor :: AssertionError: expected { visitDate: '2026-11-03', …(3) } to deeply equal { visitDate: '2026-11-03', …(3) }",
+        "submit_commitment refuses at once every commitment that could not count, with a reason that never mentions the floor :: AssertionError: expected { staleTerms: 'stale_terms', …(8) } to deeply equal { staleTerms: 'stale_terms', …(8) }",
+        "submit_commitment counts the agent's earlier covers on the same visit toward its cap, but not cancelled ones or another visit's :: AssertionError: expected false to be true // Object.is equality",
+        "submit_commitment returns the first commitment for a retried idempotency key and refuses the key for a different commitment :: AssertionError: expected { ok: false, …(2) } to match object { ok: true, replayed: false }",
+        "submit_commitment holds the per-agent cap when one agent submits many commitments at once :: AssertionError: expected [] to have a length of 4 but got +0",
+        "submit_commitment refuses a commitment that waited on a terms change as stale :: AssertionError: expected 'not_on_offer_weekday' to be 'stale_terms' // Object.is equality",
+        "submit_commitment refuses a commitment that waited on a clearing of its visit :: AssertionError: expected 'not_on_offer_weekday' to be 'occurrence_cleared' // Object.is equality",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "status and clearing is not_filled when the pool misses its minimum :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "status and clearing answers not_found for another agent's commitment, before and after the deadline :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "failures answers an unexpected failure with a fixed reply that carries no query, parameter or error text :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "database guards keeps stored clearings append-only for every role :: AssertionError: expected 'not_on_offer_weekday' to be undefined",
+        "database guards gives the runtime role only what the app needs :: AssertionError: expected 'not_on_offer_weekday' to be undefined"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "occ-calendar",
+      "guard": "a date that is not on the calendar is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "singaporeInstant refuses a date that is not ISO or not on the calendar :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "occ-weekday",
+      "guard": "an occurrence exists only on the window's weekday",
+      "verdict": "killed",
+      "failedTests": [
+        "occurrenceOn is null on any other weekday :: AssertionError: expected { visitDate: '2026-11-04', …(3) } to be null",
+        "nextOccurrence is today's occurrence until its deadline, and next week's from the deadline on :: AssertionError: expected '2026-11-04' to be '2026-11-10' // Object.is equality",
+        "nextOccurrence counts days in Singapore, not on the host :: AssertionError: expected '2026-11-04' to be '2026-11-10' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "occ-commit-by",
+      "guard": "the deadline is the window's commit-by minute",
+      "verdict": "killed",
+      "failedTests": [
+        "occurrenceOn gives the deadline, start and end of the window on its weekday :: AssertionError: expected { visitDate: '2026-11-03', …(3) } to deeply equal { visitDate: '2026-11-03', …(3) }",
+        "nextOccurrence is today's occurrence until its deadline, and next week's from the deadline on :: AssertionError: expected '2026-11-03' to be '2026-11-10' // Object.is equality",
+        "nextOccurrence counts days in Singapore, not on the host :: AssertionError: expected '2026-11-03' to be '2026-11-10' // Object.is equality",
+        "offers lists an offer with its public terms and next occurrence, and leaves out one whose offer price is below its floor :: AssertionError: expected { visitDate: '2026-11-03', …(3) } to deeply equal { visitDate: '2026-11-03', …(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "occ-next-boundary",
+      "guard": "the next occurrence moves to next week at the deadline itself",
+      "verdict": "killed",
+      "failedTests": [
+        "nextOccurrence is today's occurrence until its deadline, and next week's from the deadline on :: AssertionError: expected '2026-11-03' to be '2026-11-10' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "auth-revoked",
+      "guard": "a revoked token is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "auth refuses a missing, malformed, unknown or revoked token with 401 and a Bearer challenge :: AssertionError: expected { missing: [ 401, …(1) ], …(4) } to deeply equal { missing: [ 401, …(1) ], …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "auth-scheme",
+      "guard": "only the Bearer scheme is accepted",
+      "verdict": "killed",
+      "failedTests": [
+        "auth refuses a missing, malformed, unknown or revoked token with 401 and a Bearer challenge :: AssertionError: expected { missing: [ 401, …(1) ], …(4) } to deeply equal { missing: [ 401, …(1) ], …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "auth-scheme-case",
+      "guard": "the Bearer scheme is case-insensitive",
+      "verdict": "killed",
+      "failedTests": [
+        "auth refuses a missing, malformed, unknown or revoked token with 401 and a Bearer challenge :: AssertionError: expected [ 200, 401 ] to deeply equal [ 200, 200 ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-401",
+      "guard": "a request without a valid token never reaches the MCP layer",
+      "verdict": "killed",
+      "failedTests": [
+        "auth refuses a missing, malformed, unknown or revoked token with 401 and a Bearer challenge :: AssertionError: expected { missing: [ 200, null ], …(4) } to deeply equal { missing: [ 401, …(1) ], …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "list-hides-unavailable",
+      "guard": "list_offers leaves out a rule whose offer price is below its floor",
+      "verdict": "killed",
+      "failedTests": [
+        "offers lists an offer with its public terms and next occurrence, and leaves out one whose offer price is below its floor :: AssertionError: expected [ …(2) ] to not include 'db081ea4-07b3-42f0-bb3e-2e2d9a4956d6'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "terms-hides-unavailable",
+      "guard": "get_agent_terms answers a rule below its floor like a missing one",
+      "verdict": "killed",
+      "failedTests": [
+        "offers answers an offer below its floor exactly like an offer that does not exist :: AssertionError: expected { ok: true, terms: { …(4) }, …(1) } to deeply equal { ok: false, …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-unavailable",
+      "guard": "submit refuses a rule below its floor as offer_unavailable",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses at once every commitment that could not count, with a reason that never mentions the floor :: AssertionError: expected { staleTerms: 'stale_terms', …(8) } to deeply equal { staleTerms: 'stale_terms', …(8) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-weekday",
+      "guard": "submit refuses a visit date off the offer's weekday",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses at once every commitment that could not count, with a reason that never mentions the floor :: AssertionError: expected { staleTerms: 'stale_terms', …(8) } to deeply equal { staleTerms: 'stale_terms', …(8) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-max-price",
+      "guard": "submit refuses a max price below the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses at once every commitment that could not count, with a reason that never mentions the floor :: AssertionError: expected { staleTerms: 'stale_terms', …(8) } to deeply equal { staleTerms: 'stale_terms', …(8) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-max-price-boundary",
+      "guard": "submit accepts a max price equal to the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses at once every commitment that could not count, with a reason that never mentions the floor :: AssertionError: expected { staleTerms: 'stale_terms', …(8) } to deeply equal { staleTerms: 'stale_terms', …(8) }",
+        "submit_commitment counts the agent's earlier covers on the same visit toward its cap, but not cancelled ones or another visit's :: AssertionError: expected false to be true // Object.is equality",
+        "submit_commitment returns the first commitment for a retried idempotency key and refuses the key for a different commitment :: AssertionError: expected { ok: false, …(2) } to match object { ok: true, replayed: false }",
+        "submit_commitment holds the per-agent cap when one agent submits many commitments at once :: AssertionError: expected [] to have a length of 4 but got +0",
+        "submit_commitment refuses a commitment that waited on a terms change as stale :: AssertionError: expected 'max_price_below_offer_price' to be 'stale_terms' // Object.is equality",
+        "submit_commitment refuses a commitment that waited on a clearing of its visit :: AssertionError: expected 'max_price_below_offer_price' to be 'occurrence_cleared' // Object.is equality",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "status and clearing is not_filled when the pool misses its minimum :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "status and clearing answers not_found for another agent's commitment, before and after the deadline :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "failures answers an unexpected failure with a fixed reply that carries no query, parameter or error text :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "database guards keeps stored clearings append-only for every role :: AssertionError: expected 'max_price_below_offer_price' to be undefined",
+        "database guards gives the runtime role only what the app needs :: AssertionError: expected 'max_price_below_offer_price' to be undefined"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-cap-own-agent",
+      "guard": "the cap counts only this agent's covers",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected 'over_agent_cap' to be undefined",
+        "status and clearing is not_filled when the pool misses its minimum :: AssertionError: expected 'over_agent_cap' to be undefined",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected 'over_agent_cap' to be undefined"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-excludes-cancelled",
+      "guard": "cancelled commitments count toward no cap, pool or clearing",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment counts the agent's earlier covers on the same visit toward its cap, but not cancelled ones or another visit's :: AssertionError: expected [ true, 'over_agent_cap', true, false ] to deeply equal [ true, 'over_agent_cap', true, true ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected 4 to be 2 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-agent-lock",
+      "guard": "one agent's simultaneous submissions cannot pass its cap together",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment holds the per-agent cap when one agent submits many commitments at once :: AssertionError: expected [ { …(3) }, { …(3) }, { …(3) }, …(5) ] to have a length of 4 but got 8"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "idempotent-replay",
+      "guard": "a retried key returns the first commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment returns the first commitment for a retried idempotency key and refuses the key for a different commitment :: AssertionError: expected { ok: false, …(2) } to match object { ok: true, replayed: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "idempotent-same-args",
+      "guard": "a key reused for different arguments is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment returns the first commitment for a retried idempotency key and refuses the key for a different commitment :: AssertionError: expected undefined to be 'idempotency_key_reused' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "stale-race",
+      "guard": "a commitment that waited on a terms change is refused stale_terms",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses a commitment that waited on a terms change as stale :: AssertionError: expected 'unavailable' to be 'stale_terms' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cleared-race",
+      "guard": "a commitment that waited on a clearing is refused occurrence_cleared",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses a commitment that waited on a clearing of its visit :: AssertionError: expected 'unavailable' to be 'occurrence_cleared' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "status-own-agent",
+      "guard": "status shows only the agent's own commitments",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing answers not_found for another agent's commitment, before and after the deadline :: AssertionError: expected [ undefined, 'not_found', undefined ] to deeply equal [ 'not_found', 'not_found', …(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "status-deadline-boundary",
+      "guard": "the outcome is settled from the deadline itself",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected { …(11) } to match object { status: 'filled', …(1) }",
+        "status and clearing is not_filled when the pool misses its minimum :: AssertionError: expected { …(11) } to match object { status: 'not_filled' }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'pending', 'pending', 'pending' ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "failures answers an unexpected failure with a fixed reply that carries no query, parameter or error text :: AssertionError: expected [ undefined, false ] to deeply equal [ 'unavailable', true ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected 'pending' to be 'filled' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-stored-once",
+      "guard": "a stored clearing is read back, never recomputed",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'filled', 'unavailable', …(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-lock",
+      "guard": "simultaneous first reads clear once",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'filled', 'unavailable', …(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cancel-own-agent",
+      "guard": "cancel touches only the agent's own commitments",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing answers not_found for another agent's commitment, before and after the deadline :: AssertionError: expected [ 'not_found', undefined, 'not_found' ] to deeply equal [ 'not_found', 'not_found', …(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cancel-deadline-boundary",
+      "guard": "a commitment is binding from the deadline itself",
+      "verdict": "killed",
+      "failedTests": [
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected [ undefined, false ] to deeply equal [ 'binding', true ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "reply-parsed",
+      "guard": "every tool reply is parsed by its strict schema",
+      "verdict": "killed",
+      "failedTests": [
+        "toolReply sends a reply the schema accepts, and answers unavailable for one it refuses or a failure :: AssertionError: expected [ false, { ok: true, …(2) } ] to deeply equal [ true, { ok: false, …(2) } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "reply-catch",
+      "guard": "a failure is answered unavailable with no error text",
+      "verdict": "killed",
+      "failedTests": [
+        "toolReply sends a reply the schema accepts, and answers unavailable for one it refuses or a failure :: ZodError: [",
+        "failures answers an unexpected failure with a fixed reply that carries no query, parameter or error text :: AssertionError: expected [ …(2) ] to deeply equal [ 'unavailable', true ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "reply-offer-view-strict",
+      "guard": "an offer view carries no extra field",
+      "verdict": "killed",
+      "failedTests": [
+        "tool reply schemas refuse a floor or capacity anywhere in an offer, its terms or a commitment :: AssertionError: expected { offer: true, terms: false, …(5) } to deeply equal { offer: true, terms: true, …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "reply-commitment-strict",
+      "guard": "a commitment view carries no extra field",
+      "verdict": "killed",
+      "failedTests": [
+        "tool reply schemas refuse a floor or capacity anywhere in an offer, its terms or a commitment :: AssertionError: expected { offer: true, terms: true, …(5) } to deeply equal { offer: true, terms: true, …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "reply-refusal-strict",
+      "guard": "a refusal carries no extra field",
+      "verdict": "killed",
+      "failedTests": [
+        "tool reply schemas refuse a refusal that names the floor or carries extra detail :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tool-binding-text",
+      "guard": "submit_commitment says plainly that a commitment is binding",
+      "verdict": "killed",
+      "failedTests": [
+        "tools lists the five tools, and the commitment tools say plainly that a commitment is binding :: AssertionError: expected 'Commits the user to buy covers at an …' to match /A commitment is binding/",
+        "offers lists an offer with its public terms and next occurrence, and leaves out one whose offer price is below its floor :: AssertionError: expected 'A commitment: if the pool reaches its…' to match /A commitment is binding/"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "summary-price",
+      "guard": "the summary shows the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "offers lists an offer with its public terms and next occurrence, and leaves out one whose offer price is below its floor :: AssertionError: expected 'Ah Seng Kopitiam 8c2e: 25% off, S$12.…' to match /25% off, S\\$12\\.50 becomes S\\$9\\.38 p…/"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-cancel-only",
+      "guard": "the database refuses any change to a commitment but a cancel",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-cancel-once",
+      "guard": "the database refuses a second cancel or a restore",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-occurrence-cleared",
+      "guard": "the database refuses a new commitment or a cancel once the visit is cleared",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses a commitment that waited on a clearing of its visit :: AssertionError: expected undefined to be 'occurrence_cleared' // Object.is equality",
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected { cancel: undefined, …(2) } to deeply equal { …(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-occurrence-date",
+      "guard": "the cleared check uses the visit's Singapore date",
+      "verdict": "killed",
+      "failedTests": [
+        "submit_commitment refuses a commitment that waited on a clearing of its visit :: AssertionError: expected undefined to be 'occurrence_cleared' // Object.is equality",
+        "database guards lets a commitment only be cancelled, once, and never once its visit is cleared :: AssertionError: expected { cancel: undefined, …(2) } to deeply equal { …(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-until-cleared-definer",
+      "guard": "the cleared check does not depend on the inserting role's rights",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check lets a role with no rights on rules submit a commitment :: AssertionError: expected PostgresError: permission denied for tabl… { …(10) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-clearings-append-only",
+      "guard": "stored clearings refuse UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps stored clearings append-only for every role :: AssertionError: expected { updateClearing: undefined, …(6) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fills-append-only",
+      "guard": "clearing fills refuse UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps stored clearings append-only for every role :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fills-no-truncate",
+      "guard": "clearing fills refuse TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps stored clearings append-only for every role :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-role-cancel-column",
+      "guard": "the runtime role may update only cancelled_at",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards gives the runtime role only what the app needs :: AssertionError: expected { deleteCommitment: true, …(7) } to deeply equal { deleteCommitment: true, …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-role-rules-read-only",
+      "guard": "the runtime role cannot change rules",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards gives the runtime role only what the app needs :: AssertionError: expected { deleteCommitment: true, …(7) } to deeply equal { deleteCommitment: true, …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-role-no-ledger",
+      "guard": "the runtime role cannot read the ledger",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards gives the runtime role only what the app needs :: AssertionError: expected { deleteCommitment: true, …(7) } to deeply equal { deleteCommitment: true, …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-lock-definer",
+      "guard": "the runtime role can take the clearing lock without UPDATE on rules",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', …(1) }",
+        "status and clearing is not_filled when the pool misses its minimum :: AssertionError: expected undefined to match object { status: 'not_filled' }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', …(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}
