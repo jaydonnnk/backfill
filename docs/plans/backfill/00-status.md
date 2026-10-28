@@ -1,14 +1,14 @@
 # Status: Backfill
 
-Updated: 2026-10-28.
+Updated: 2026-10-29.
 
 - Tech stack: approved by the user on 2026-10-26; see [../../tech-stack.md](../../tech-stack.md).
 - Build plan: drafted 2026-10-26 in [build-plan.md](build-plan.md); approved by the user on 2026-10-28, with the Singapore steer, in their words: "Yes, approved".
 - Singapore steer: 2026-10-28, after Muse launched in Singapore.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
-- Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon.
+- Day 0 checks: model IDs done in S1 (below); the Muse custom connector check is waiting on the user, against the S4 server now live on Render; the others not started.
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), on `main` at `ded7a05`, migrations `0004` and `0005` on Neon.
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -210,3 +210,62 @@ The generator check now also requires cases where a priced-out commitment would 
 - **[verified]** Merged to `main` at `97c1024` on the user's words "Merge to main"; CI run 40698887400 on `main` passed.
 - **[verified]** Migration `0003` applied on Neon on the user's words "Apply on Neon": a read-only read before showed 0 rules, none with a minimum pool above capacity, 3 migrations and no `rules_min_pool_within_capacity`; after, 4 migrations and the check present.
 - **[unknown]** Whether Render serves `97c1024` (not checked here).
+
+### S4 MCP server and commitments, 2026-10-29
+
+Branch: `backfill/slice-4-mcp`, cut from `main` at `a1c29e0`, after `main` was fast-forwarded from `97c1024` to `a1c29e0` (one status-only commit) and pushed.
+
+Decisions, taken before coding; the user picked the recommended option for each on 2026-10-28:
+- **Transport and auth:** streamable HTTP MCP at `/mcp`, stateless, with a bearer token per agent.
+The token is minted by `npm run agent:mint`, shown once or written to `.env.local`, and only its SHA-256 is stored.
+The agent id comes from the token, never from a tool argument.
+The Day 0 check runs alongside; if Muse needs OAuth or no auth, only the auth layer changes.
+- **Commitments:** submit refuses at once anything that could not count: stale terms, a date off the offer's weekday, a late commitment, an agent over its cap, and a max price below the offer price.
+Cancel is allowed only before the occurrence's deadline; from the deadline on a commitment is binding.
+A rule whose offer price is below its floor is left out of `list_offers` and answered `offer_unavailable`, exactly like a missing rule, so no reply ever says `below_floor`.
+Status is `pending` (with the pooled covers and the public minimum), `cancelled`, `filled` (with the price per cover) or `not_filled`.
+- **Storage and role:** the first status read after an occurrence's deadline runs `clear()` and stores the result once; a cancel sets `cancelled_at` instead of deleting; a least-privilege `NOLOGIN` role `backfill_app` is added for the app to connect through.
+- **Branch base:** fast-forward `main` first, then cut S4 from it.
+
+Authorizations, in the user's words:
+- 2026-10-28, the handoff prompt: "start S4".
+- 2026-10-28, answering the open decisions: "HTTP + agent token (Recommended)", "Strict, floor hidden (Recommended)", "Store at deadline + role (Recommended)", "Fast-forward main first (Recommended)".
+- 2026-10-28, for the exit: "Neon: migrations 0004+0005", "Neon: seed demo offer + agent", "Fast-forward main and push", "Claude runs the exit on Render"; for Day 0: "I'll do it after deploy".
+
+Built:
+- `@modelcontextprotocol/sdk` `1.32.1`, pinned exactly (1.32.2 was 5 days old).
+- Migration `0004_s4_agents_cancel_clearings` (generated): `agents` (hashed token, `revoked_at`), `commitments.cancelled_at` and a foreign key from each commitment to its agent, and `clearings` with `clearing_fills`.
+- Migration `0005_s4_triggers_runtime_role` (custom): `commitments_until_cleared` lets a commitment only be cancelled, once, and refuses a new commitment or a cancel once its occurrence is cleared, reading the visit's `Asia/Singapore` date.
+Row triggers keep `clearings` and `clearing_fills` append-only and a statement trigger refuses TRUNCATE on `clearing_fills`; `clearings` needs none, because the foreign key refuses a TRUNCATE without CASCADE and one with CASCADE reaches `clearing_fills`.
+`lock_rule_for_clearing` takes the rule `FOR UPDATE` as `SECURITY DEFINER`, so clearing waits for every commitment insert holding the rule `FOR SHARE`, without granting the runtime role UPDATE on rules.
+`backfill_app` holds SELECT on merchants, rules and agents; SELECT and INSERT on commitments, clearings, clearing_fills and llm_calls; UPDATE on `commitments.cancelled_at` only; nothing on the ledger.
+- `src/domain/commitments/occurrence.ts`: an occurrence's deadline, start and end as instants for a Singapore date, and the next occurrence whose deadline is ahead, through `Intl`, never the host time zone or a fixed offset.
+- `src/lib/commitments/service.ts`: list, terms, submit (per-agent advisory lock, idempotency key per agent, a retried key returns the first commitment, a key reused for different arguments is refused), status (clears and stores at the first read from the deadline on), cancel.
+A commitment's visit time is the window's start on its date.
+- `src/lib/mcp/server.ts` and `src/app/mcp/route.ts`: the five tools, each reply parsed by a strict schema before it is sent, and any failure answered `unavailable` with no query or error text.
+The submit and cancel descriptions say plainly that a commitment is binding and cannot be withdrawn from the deadline on, and tell the agent to show the user the terms and get their agreement first.
+`GET` and `DELETE` answer 405; a missing, wrong-scheme, unknown or revoked token answers 401 with a Bearer challenge.
+- `npm run agent:mint` and `npm run mcp:smoke` (a scripted MCP client that reads its token from env and never prints it).
+- The mutation runner now writes a mutation with a replacer function: with a plain string, `$$` in SQL became `$`.
+
+Evidence:
+- **[verified]** Typecheck and lint clean; 145 tests pass (106 unit, 39 integration) on a local PostgreSQL 18 through `TEST_DATABASE_URL`; `git diff --check` clean.
+- **[verified]** `tests/integration/s4-mcp.test.ts` drives the route's handler with the SDK's own MCP client over streamable HTTP, connected as a login role that is only a member of `backfill_app`.
+It covers auth, the tool list and binding wording, the floor-hidden offer answered like a missing one, every submit refusal and its boundary, the cap across visits and cancels, idempotency, eight simultaneous submits holding the cap at 4, a submit that waited on a terms change (`stale_terms`) or a clearing (`occurrence_cleared`), status before and at the deadline, a clearing stored once and unchanged by a later floor or capacity change, cancel before and at the deadline, another agent's commitment answered `not_found`, the database triggers and the runtime role's grants.
+- **[verified]** Mutations in [evidence/s4-mcp](evidence/s4-mcp/README.md), at `5b00ee6`: all 47 killed on an AssertionError, each file restored byte-identical and each rerun green.
+A first run gave 42, 1 survivor and 4 crashes, from the runner bug above, two weak mutations and tests that crashed on a refused submit; all fixed before the rerun.
+The two lock mutations are killed by racing requests, so those kills are likely rather than certain.
+- **[verified]** Local production build (`next start`) as a runtime-role login on a scratch database: `/api/health` 200, `POST /mcp` without a token 401, `GET /mcp` 405, a rule with its floor above the offer price left out, a 2-cover commitment submitted and read back pending, the server log line `mcp.tool` with the agent id and no token; the scratch database and role were dropped.
+- **[verified]** CI run 40720604862 on `ded7a05` passed: typecheck, lint, unit tests, integration tests on postgres:18, build.
+- **[verified]** Migrations `0004` and `0005` applied on Neon with `npm run db:migrate`: a read-only read before showed 4 migrations, no S4 tables, 0 rules, 0 commitments and no `backfill_app`, and `neondb_owner` with CREATEROLE; after, 6 migrations, `agents`, `clearings`, `clearing_fills` and `cancelled_at` present, `backfill_app` present, 8 triggers all `ENABLE ALWAYS`.
+- **[verified]** Seeded on Neon: one merchant named "Demo Kopitiam (synthetic)" with one rule (25% off S$12.50, Tuesday 14:00-17:00, by 12:00, minimum 8, 4 per agent, floor S$9.00, capacity 20), and the agent `smoke-claude`, whose token is in `.env.local` as `BACKFILL_SMOKE_TOKEN`.
+- **[verified]** `main` fast-forwarded to `ded7a05` and pushed; CI run 40724398296 on `main` passed; Render then answered `GET /mcp` with 405 and `/api/health` with 200.
+- **[verified]** Exit, by Claude, since the Day 0 check is not done: `npm run mcp:smoke` against https://backfill-9d0x.onrender.com, a scripted MCP client run by Claude (not Claude's own connector, and not Muse).
+`POST /mcp` without a token returned 401; with the token it listed the five tools and the offer at 938 cents, read the terms, submitted commitment `687a0503-f0ae-405a-a44c-5ee4c219d9fa` (2 covers at 938 cents for 2026-11-03) and read it back pending with 2 pooled covers of 8; no reply mentioned a floor or capacity.
+A read-only read of Neon showed that one commitment row, agent `smoke-claude`, not cancelled.
+- **[unknown]** The Render log line for that call (not read here); whether a real Muse account can add the connector (the user's Day 0 check).
+- Known limit: the app still connects to Neon as `neondb_owner`. Using `backfill_app` needs a login role that is a member of it, created in the Neon console, and that role's URL as Render's `DATABASE_URL`; the user does both.
+- Known limit: a clearing is stored at the first status read from the deadline on, not at the deadline itself, so a floor or capacity change between the two still counts.
+- Known limit: a buyer can still infer a little: pooled covers drop if the merchant later raises the floor above the offer price (the rule then stops counting), and `not_filled` with a full pool hints at capacity.
+- Known limit: `agent:mint` and `mcp:smoke` have no automated tests; both were run for real here (mint on Neon, smoke on Render).
+- Neon now holds the exit commitment; it becomes binding at 12:00 on 2026-11-03 and, alone in its pool of 2 of 8, will clear as `not_filled`.

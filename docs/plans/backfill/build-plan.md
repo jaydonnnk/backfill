@@ -76,7 +76,7 @@ Each slice ends with its tests green and its exit check done.
 - Pure functions, no I/O, deterministic for the same input.
 - Exit: property tests show the engine never clears below the floor, above a buyer's max, or past capacity.
 
-### S4 - MCP server and commitments (Oct 28-29)
+### S4 - MCP server and commitments (Oct 28-29) - done 2026-10-29
 
 - `src/app/mcp`: tools `list_offers`, `get_agent_terms`, `submit_commitment`, `get_commitment_status`, `cancel_commitment`.
 - Shaped as a Muse custom connector, using the transport and auth the Day 0 check found.
