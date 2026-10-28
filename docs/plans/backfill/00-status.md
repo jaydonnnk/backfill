@@ -8,7 +8,7 @@ Updated: 2026-10-28.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), not yet on `main`.
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon.
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -207,4 +207,6 @@ The generator check now also requires cases where a priced-out commitment would 
 - **[verified]** The S3 exit criterion on the properties alone: with `tests/unit/clearing.test.ts` removed, the properties kill the floor, buyer-max and capacity mutations on an AssertionError.
 - Known limit: a commitment for another rule or occurrence whose max price is below the offer price is now dropped before `evaluatePool` sees it, so it no longer throws as a caller error.
 - **[verified]** CI run 40698190873 on `7ffa194` passed: typecheck, lint, unit tests, integration tests on postgres:18, build.
-- **[unknown]** Migration `0003` is applied only to the disposable test and CI databases, not to Neon.
+- **[verified]** Merged to `main` at `97c1024` on the user's words "Merge to main"; CI run 40698887400 on `main` passed.
+- **[verified]** Migration `0003` applied on Neon on the user's words "Apply on Neon": a read-only read before showed 0 rules, none with a minimum pool above capacity, 3 migrations and no `rules_min_pool_within_capacity`; after, 4 migrations and the check present.
+- **[unknown]** Whether Render serves `97c1024` (not checked here).
