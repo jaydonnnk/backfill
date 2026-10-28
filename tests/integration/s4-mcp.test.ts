@@ -99,6 +99,13 @@ async function call(client: Client, name: string, args: Record<string, unknown> 
   return { reply: result.structuredContent as Reply, text, isError: result.isError === true };
 }
 
+// Submits a commitment that the test needs accepted, and fails on an assertion if it was refused.
+async function submitOk(client: Client, args: Record<string, unknown>): Promise<string> {
+  const { reply } = await call(client, "submit_commitment", args);
+  expect(reply.reason).toBeUndefined();
+  return String(reply.commitment?.commitmentId);
+}
+
 const submission = (ruleId: string, overrides: Record<string, unknown> = {}) => ({
   ruleId,
   termsVersion: 1,
@@ -240,7 +247,8 @@ describe("submit_commitment", () => {
     const first = await call(client, "submit_commitment", submission(ruleId, { covers: 3 }));
     const over = await call(client, "submit_commitment", submission(ruleId, { covers: 2 }));
     const nextWeek = await call(client, "submit_commitment", submission(ruleId, { covers: 4, visitDate: "2026-11-10" }));
-    await call(client, "cancel_commitment", { commitmentId: first.reply.commitment!.commitmentId });
+    expect(first.reply.ok).toBe(true);
+    await call(client, "cancel_commitment", { commitmentId: first.reply.commitment?.commitmentId });
     const afterCancel = await call(client, "submit_commitment", submission(ruleId, { covers: 4 }));
     expect([first.reply.ok, over.reply.reason, nextWeek.reply.ok, afterCancel.reply.ok]).toEqual([true, "over_agent_cap", true, true]);
   });
@@ -317,8 +325,7 @@ describe("status and clearing", () => {
   async function pool(ruleId: string, coversPerAgent: number[]) {
     const ids: string[] = [];
     for (const covers of coversPerAgent) {
-      const { reply } = await call(await connect((await newAgent()).token), "submit_commitment", submission(ruleId, { covers }));
-      ids.push(String(reply.commitment!.commitmentId));
+      ids.push(await submitOk(await connect((await newAgent()).token), submission(ruleId, { covers })));
     }
     return ids;
   }
@@ -327,11 +334,11 @@ describe("status and clearing", () => {
     const { ruleId } = await seedRule();
     await pool(ruleId, [3, 3]);
     const client = await connect((await newAgent()).token);
-    const mine = String((await call(client, "submit_commitment", submission(ruleId, { covers: 2 }))).reply.commitment!.commitmentId);
+    const mine = await submitOk(client, submission(ruleId, { covers: 2 }));
     const pending = await call(client, "get_commitment_status", { commitmentId: mine });
     expect(pending.reply.commitment).toMatchObject({ status: "pending", pooledCovers: 8, minPoolCovers: 8, commitBy: "2026-11-03T04:00:00.000Z" });
     now = new Date("2026-11-03T11:59:59.999+08:00");
-    expect((await call(client, "get_commitment_status", { commitmentId: mine })).reply.commitment!.status).toBe("pending");
+    expect((await call(client, "get_commitment_status", { commitmentId: mine })).reply.commitment?.status).toBe("pending");
     now = new Date("2026-11-03T12:00:00+08:00");
     const filled = await call(client, "get_commitment_status", { commitmentId: mine });
     expect(filled.reply.commitment).toMatchObject({ status: "filled", pricePerCoverCents: 938 });
@@ -343,7 +350,7 @@ describe("status and clearing", () => {
     const { ruleId } = await seedRule();
     await pool(ruleId, [3]);
     const client = await connect((await newAgent()).token);
-    const mine = String((await call(client, "submit_commitment", submission(ruleId, { covers: 4 }))).reply.commitment!.commitmentId);
+    const mine = await submitOk(client, submission(ruleId, { covers: 4 }));
     now = new Date("2026-11-03T12:00:00+08:00");
     const status = await call(client, "get_commitment_status", { commitmentId: mine });
     expect(status.reply.commitment).toMatchObject({ status: "not_filled" });
@@ -359,7 +366,7 @@ describe("status and clearing", () => {
     for (const [i, covers] of [4, 4, 2].entries()) {
       // A minute apart, so arrival order is the order here.
       now = new Date(Date.parse("2026-11-03T09:00:00+08:00") + i * 60_000);
-      ids.push(String((await call(await connect(agents[i]!.token), "submit_commitment", submission(ruleId, { covers }))).reply.commitment!.commitmentId));
+      ids.push(await submitOk(await connect(agents[i]!.token), submission(ruleId, { covers })));
     }
     now = new Date("2026-11-03T12:00:00+08:00");
     // The three first reads after the deadline race to clear; one stores the result, the others read it.
@@ -396,7 +403,7 @@ describe("failures", () => {
   it("answers an unexpected failure with a fixed reply that carries no query, parameter or error text", async () => {
     const { ruleId } = await seedRule();
     const client = await connect((await newAgent()).token);
-    const id = String((await call(client, "submit_commitment", submission(ruleId))).reply.commitment!.commitmentId);
+    const id = await submitOk(client, submission(ruleId));
     now = new Date("2026-11-03T12:00:00+08:00");
     await t.admin`revoke select on clearings from backfill_app`;
     try {
@@ -413,18 +420,18 @@ describe("cancel_commitment", () => {
   it("cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on", async () => {
     const { ruleId } = await seedRule({ min_pool_covers: 2 });
     const client = await connect((await newAgent()).token);
-    const keep = String((await call(client, "submit_commitment", submission(ruleId, { covers: 2 }))).reply.commitment!.commitmentId);
-    const drop = String((await call(client, "submit_commitment", submission(ruleId, { covers: 2 }))).reply.commitment!.commitmentId);
+    const keep = await submitOk(client, submission(ruleId, { covers: 2 }));
+    const drop = await submitOk(client, submission(ruleId, { covers: 2 }));
     now = new Date("2026-11-03T11:59:59.999+08:00");
     const cancelled = await call(client, "cancel_commitment", { commitmentId: drop });
     const again = await call(client, "cancel_commitment", { commitmentId: drop });
-    expect([cancelled.reply.commitment!.status, again.reply.commitment!.status]).toEqual(["cancelled", "cancelled"]);
-    expect((await call(client, "get_commitment_status", { commitmentId: keep })).reply.commitment!.pooledCovers).toBe(2);
+    expect([cancelled.reply.commitment?.status, again.reply.commitment?.status]).toEqual(["cancelled", "cancelled"]);
+    expect((await call(client, "get_commitment_status", { commitmentId: keep })).reply.commitment?.pooledCovers).toBe(2);
     now = new Date("2026-11-03T12:00:00+08:00");
     const late = await call(client, "cancel_commitment", { commitmentId: keep });
     expect([late.reply.reason, late.isError]).toEqual(["binding", true]);
-    expect((await call(client, "get_commitment_status", { commitmentId: keep })).reply.commitment!.status).toBe("filled");
-    expect((await call(client, "get_commitment_status", { commitmentId: drop })).reply.commitment!.status).toBe("cancelled");
+    expect((await call(client, "get_commitment_status", { commitmentId: keep })).reply.commitment?.status).toBe("filled");
+    expect((await call(client, "get_commitment_status", { commitmentId: drop })).reply.commitment?.status).toBe("cancelled");
     const fills = await t.admin`select commitment_id from clearing_fills where rule_id = ${ruleId}`;
     expect(fills.map((f) => f.commitment_id)).toEqual([keep]);
   });
@@ -433,7 +440,7 @@ describe("cancel_commitment", () => {
 describe("database guards", () => {
   async function committed(ruleId: string): Promise<string> {
     const client = await connect((await newAgent()).token);
-    return String((await call(client, "submit_commitment", submission(ruleId))).reply.commitment!.commitmentId);
+    return await submitOk(client, submission(ruleId));
   }
 
   it("lets a commitment only be cancelled, once, and never once its visit is cleared", async () => {

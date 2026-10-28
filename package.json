@@ -17,7 +17,8 @@
     "test:integration": "vitest run --config config/vitest.config.ts --project integration",
     "db:generate": "drizzle-kit generate --config config/drizzle.config.ts",
     "db:migrate": "tsx src/lib/db/migrate.ts",
-    "agent:mint": "tsx src/lib/agents/mint.ts"
+    "agent:mint": "tsx src/lib/agents/mint.ts",
+    "mcp:smoke": "tsx src/lib/mcp/smoke.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

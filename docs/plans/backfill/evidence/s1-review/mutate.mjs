@@ -42,7 +42,8 @@ for (const m of mutations) {
     results.push({ id: m.id, error: `pattern found ${hits} times` });
     continue;
   }
-  writeFileSync(path, text.replace(m.from, m.to));
+  // A replacer function, so "$$" in a mutation (SQL dollar quoting) is written as it is, not as "$".
+  writeFileSync(path, text.replace(m.from, () => m.to));
   const mutated = runSuite();
   writeFileSync(path, original);
   const restored = sha(readFileSync(path)) === sha(original);

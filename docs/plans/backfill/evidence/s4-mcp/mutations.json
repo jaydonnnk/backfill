@@ -283,22 +283,22 @@
     "id": "db-clearings-append-only",
     "guard": "stored clearings refuse UPDATE and DELETE",
     "file": "drizzle/0005_s4_triggers_runtime_role.sql",
-    "from": "CREATE TRIGGER clearings_append_only BEFORE UPDATE OR DELETE ON clearings",
-    "to": "CREATE TRIGGER clearings_append_only BEFORE INSERT ON clearings"
+    "from": "ON clearings FOR EACH ROW EXECUTE FUNCTION refuse_change();",
+    "to": "ON clearings FOR EACH ROW WHEN (false) EXECUTE FUNCTION refuse_change();"
   },
   {
     "id": "db-fills-append-only",
     "guard": "clearing fills refuse UPDATE and DELETE",
     "file": "drizzle/0005_s4_triggers_runtime_role.sql",
-    "from": "CREATE TRIGGER clearing_fills_append_only BEFORE UPDATE OR DELETE ON clearing_fills",
-    "to": "CREATE TRIGGER clearing_fills_append_only BEFORE INSERT ON clearing_fills"
+    "from": "ON clearing_fills FOR EACH ROW EXECUTE FUNCTION refuse_change();",
+    "to": "ON clearing_fills FOR EACH ROW WHEN (false) EXECUTE FUNCTION refuse_change();"
   },
   {
     "id": "db-fills-no-truncate",
     "guard": "clearing fills refuse TRUNCATE",
     "file": "drizzle/0005_s4_triggers_runtime_role.sql",
-    "from": "CREATE TRIGGER clearing_fills_no_truncate BEFORE TRUNCATE ON clearing_fills",
-    "to": "CREATE TRIGGER clearing_fills_no_truncate AFTER TRUNCATE ON clearing_fills"
+    "from": "ON clearing_fills FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();",
+    "to": "ON clearing_fills FOR EACH STATEMENT WHEN (false) EXECUTE FUNCTION refuse_change();"
   },
   {
     "id": "db-role-cancel-column",
