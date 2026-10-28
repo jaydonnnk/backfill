@@ -206,4 +206,5 @@ The generator check now also requires cases where a priced-out commitment would 
 - **[verified]** Mutations in [evidence/s3-review-fixes](evidence/s3-review-fixes/README.md), at `97c23e1`: all 8 on the fixes killed on an AssertionError, each file restored byte-identical and each rerun green; the 21 S3 mutations on the fixed tree give 17 killed and 4 that no longer apply to the replaced code.
 - **[verified]** The S3 exit criterion on the properties alone: with `tests/unit/clearing.test.ts` removed, the properties kill the floor, buyer-max and capacity mutations on an AssertionError.
 - Known limit: a commitment for another rule or occurrence whose max price is below the offer price is now dropped before `evaluatePool` sees it, so it no longer throws as a caller error.
-- **[unknown]** Migration `0003` is applied only to the disposable test databases, not to Neon; CI has not run on this branch (not pushed).
+- **[verified]** CI run 40698190873 on `7ffa194` passed: typecheck, lint, unit tests, integration tests on postgres:18, build.
+- **[unknown]** Migration `0003` is applied only to the disposable test and CI databases, not to Neon.
