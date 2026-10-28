@@ -8,7 +8,7 @@ Updated: 2026-10-28.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check and the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28 (below).
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 (below).
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -84,3 +84,47 @@ Evidence:
 - **[verified]** The same 25-POST burst against a local production build of the fixed tree: 1 model call, 1 `ok`, 24 `busy`, then `cooldown`; the new `busy` banner renders.
 - **[verified]** Secret scan by shape (Postgres URLs with a password, bearer values, Neon `npg_` passwords, 64-hex secrets, `sk-` keys) on all Git history, the working tree, 4 CI logs, the local server logs and local `llm_calls` rows: a planted needle was found on every surface, and nothing else except Docker IDs and cache hashes in CI logs.
 - **[unknown]** Whether Next.js's server-action origin check holds behind Render's proxy (needs a press on Render); Neon `llm_calls` rows and Render logs (not read); an exact-value secret scan (`.env.local` is not readable here).
+
+### S2 schema and offers, 2026-10-28
+
+Branch: `backfill/slice-2-schema-offers`, cut from `main` at `65d0de2` (main already contained the S1 review fixes).
+
+Authorizations, in the user's words:
+- 2026-10-28: "Fix 1-4(and 5 if its quick), then give the continuation copy paste prompt for the next agent to go and start s2".
+
+Decisions, taken before coding; the user picked the recommended option for each on 2026-10-28:
+- **Window edges:** start inclusive, end exclusive, in `Asia/Singapore` local time.
+A rule's window is one weekday with a start and end minute of the day (end may be 1440, midnight); overnight windows are refused.
+The commit deadline ("8 people commit by noon") is a minute of the same Singapore day, at or before the start, and is exclusive too: a commitment made at 12:00:00 for a noon deadline is late.
+- **`ClearingResult`:** a Zod schema only; S3 decides whether results are stored.
+- **Terms versioning:** an integer `terms_version` on the rule, starting at 1, carried by every commitment.
+A trigger bumps it on any change to the public terms (weekday, window, deadline, list price, discount, minimum pool, per-agent cap) and refuses a manual change.
+The hidden floor and capacity are left out of the bump, so a version bump never reveals a floor change; evaluation checks the floor against the current rule anyway.
+A second trigger refuses a commitment whose `terms_version` is not the rule's current one, reading the rule `FOR SHARE` so a concurrent terms change cannot slip past.
+- **Append-only ledger:** row triggers raise on UPDATE and DELETE and a statement trigger raises on TRUNCATE, so the table owner and the superuser are bound too, not only roles without grants.
+
+Built:
+- Zod schemas in `src/domain`: `Window`, `AgentTerms`, `MerchantRule` and `Offer` in `offers/schema.ts`, `Commitment`, `ClearingResult`, `LedgerEntry`, with shared `Cents`, `Covers` and `TermsVersion` in `money.ts`.
+Money is SGD in integer cents; discounts are basis points.
+- `src/domain/singapore-time.ts`: reads an instant's Singapore date, ISO weekday and minute through `Intl` with `Asia/Singapore`, never the host time zone.
+- `src/domain/offers/evaluate.ts`: `evaluateCommitment` refuses `stale_terms`, `outside_window`, `past_deadline`, `over_agent_cap` and `below_floor`; `evaluatePool` takes one occurrence's commitments in arrival order, counts each agent's covers toward its cap, and unlocks at the minimum pool; `toOffer` builds the public view field by field.
+The discount rounds down to a whole cent, so the fraction stays with the merchant (25% off S$12.50 is S$9.38).
+Buyer max price and capacity are carried by the schemas but left to S3's clearing.
+- Migrations `drizzle/0001_s2_merchants_rules_commitments_ledger.sql` (generated) and `drizzle/0002_s2_triggers.sql` (custom): tables `merchants`, `rules`, `commitments` (unique per agent and idempotency key, for S4) and `ledger` (one entry per commitment), with check constraints mirroring the Zod schemas.
+Triggers, all `ENABLE ALWAYS`: `rules_terms_version`, `commitments_require_current_terms` (`SECURITY DEFINER`, reads the rule `FOR SHARE`), `ledger_append_only` (UPDATE, DELETE) and `ledger_no_truncate`.
+- Found and fixed on the way: this machine's shell exports the app's configuration, so the "unit" health test was reaching the real `DATABASE_URL` (a `select 1` on Neon) and failing.
+`tests/support/hermetic-env.ts` now removes every app env name except `TEST_DATABASE_URL` before each test file.
+CI never saw it, because CI sets no app configuration.
+
+Evidence:
+- **[verified]** Typecheck and lint clean; 85 tests pass (66 unit, 19 integration) on a local PostgreSQL 18; `git diff --check` clean.
+- **[verified]** Exit tests: window edges in `Asia/Singapore` (start in, end out, midnight on both sides, instants written in UTC, and the host set to `America/New_York`), the minimum pool at, below and above, the per-agent cap at and above with covers already held, the floor at, below and above, and stale terms (older and newer) refused, all in `tests/unit/offers.test.ts`.
+- **[verified]** The public `Offer` has exactly the public fields and no floor or capacity, and the strict `Offer` schema refuses an object carrying a floor.
+- **[verified]** `tests/integration/s2-tables.test.ts`: the ledger refuses UPDATE, DELETE, TRUNCATE and a cascading TRUNCATE for a non-superuser role holding every privilege, for a non-superuser table owner, and for the superuser, also with `session_replication_role = replica`; the row is untouched afterwards and the role can still insert.
+A commitment against stale terms is refused on insert and on update, and a commitment racing a terms change waits for it and is then refused.
+- **[verified]** Mutations, with the S1 review runner on a copy of the tree, in [evidence/s2-schema-offers](evidence/s2-schema-offers/README.md): a first run of 102 had one survivor, the `rules.terms_version >= 1` check, which the trigger already implies, so it was removed; the remaining 101 were each killed on an AssertionError, each file restored byte-identical and each rerun green.
+- **[verified]** Migrations applied to a local scratch database with `npm run db:migrate` (inline local `DATABASE_URL`); a second run was a no-op; the scratch database was dropped.
+- **[verified]** Secret scan by shape (Postgres URLs with a password, bearer values, Neon `npg_` passwords, 64-hex secrets, `sk-` keys) on the working tree and all Git history: the planted needle was found, and otherwise only S1's placeholder test fixtures.
+- **[unknown]** The `hermetic-env` mutation is killed only in a shell that exports the app's configuration, as this one does; in CI it would survive.
+- **[unknown]** S2's migration on Neon: not applied; it needs the user's named go-ahead.
+- Known limit: a table owner can still `ALTER TABLE ledger DISABLE TRIGGER`; no app code does, and the app should not connect as the owner once S4 adds a runtime role.

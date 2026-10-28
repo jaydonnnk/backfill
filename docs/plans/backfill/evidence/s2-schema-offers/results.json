@@ -1,0 +1,1165 @@
+{
+  "baseline": 85,
+  "results": [
+    {
+      "id": "hermetic-env",
+      "guard": "tests never see the shell app config",
+      "verdict": "killed",
+      "failedTests": [
+        "GET /api/health reports an invalid configuration as config, not as a database outage :: AssertionError: expected 200 to be 503 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tz-zone",
+      "guard": "windows read in Asia/Singapore",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore includes the start and excludes the end :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "window edges in Asia/Singapore reads the instant in Singapore time, not UTC :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "window edges in Asia/Singapore handles windows that touch midnight :: AssertionError: expected false to be true // Object.is equality",
+        "window edges in Asia/Singapore with the host in New York gives the same answers as in Singapore :: AssertionError: expected { Object (date, weekday, ...) } to deeply equal { Object (date, weekday, ...) }",
+        "commit deadline accepts a commitment before noon on the day and refuses one at noon :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "commit deadline compares Singapore days, so the day before is in time and the day after is late :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "commit deadline treats a midnight deadline as the end of the day before :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "terms version refuses a commitment made against older or unknown terms :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "per-agent cap accepts covers up to the cap, counting what the agent already holds :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "hidden floor accepts a price at or above the floor and refuses one below it :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "minimum pool unlocks at the minimum covers and not below it :: AssertionError: expected { accepted: [], …(3) } to match object { totalCovers: 7, unlocked: false }",
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tz-hour-cycle",
+      "guard": "midnight is minute 0",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore handles windows that touch midnight :: AssertionError: expected false to be true // Object.is equality",
+        "commit deadline compares Singapore days, so the day before is in time and the day after is late :: AssertionError: expected { ok: false, reason: 'past_deadline' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "tz-invalid",
+      "guard": "invalid instant refused",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore refuses an invalid instant :: AssertionError: expected [Function] to throw error including 'invalid instant' but got 'Invalid time value'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "win-start-inclusive",
+      "guard": "window start inclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore includes the start and excludes the end :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "window edges in Asia/Singapore reads the instant in Singapore time, not UTC :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }",
+        "window edges in Asia/Singapore handles windows that touch midnight :: AssertionError: expected false to be true // Object.is equality",
+        "window edges in Asia/Singapore with the host in New York gives the same answers as in Singapore :: AssertionError: expected { ok: false, reason: 'outside_window' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "win-end-exclusive",
+      "guard": "window end exclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore includes the start and excludes the end :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'outside_window' }",
+        "window edges in Asia/Singapore reads the instant in Singapore time, not UTC :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'outside_window' }",
+        "window edges in Asia/Singapore with the host in New York gives the same answers as in Singapore :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'outside_window' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "win-weekday",
+      "guard": "window weekday checked",
+      "verdict": "killed",
+      "failedTests": [
+        "window edges in Asia/Singapore reads the instant in Singapore time, not UTC :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'outside_window' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "deadline-exclusive",
+      "guard": "commit deadline exclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "commit deadline accepts a commitment before noon on the day and refuses one at noon :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'past_deadline' }",
+        "commit deadline treats a midnight deadline as the end of the day before :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'past_deadline' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "deadline-earlier-day",
+      "guard": "commitment on an earlier Singapore day is in time",
+      "verdict": "killed",
+      "failedTests": [
+        "commit deadline compares Singapore days, so the day before is in time and the day after is late :: AssertionError: expected { ok: false, reason: 'past_deadline' } to deeply equal { ok: true }",
+        "commit deadline treats a midnight deadline as the end of the day before :: AssertionError: expected { ok: false, reason: 'past_deadline' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "deadline-same-day",
+      "guard": "deadline minute only applies on the visit day",
+      "verdict": "killed",
+      "failedTests": [
+        "commit deadline compares Singapore days, so the day before is in time and the day after is late :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'past_deadline' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "stale-terms-older",
+      "guard": "older terms refused",
+      "verdict": "killed",
+      "failedTests": [
+        "terms version refuses a commitment made against older or unknown terms :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'stale_terms' }",
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [ …(4) ] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "stale-terms-newer",
+      "guard": "unknown newer terms refused",
+      "verdict": "killed",
+      "failedTests": [
+        "terms version refuses a commitment made against older or unknown terms :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'stale_terms' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "rule-mismatch",
+      "guard": "commitment for another rule refused",
+      "verdict": "killed",
+      "failedTests": [
+        "terms version refuses to evaluate a commitment for another rule :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cap-at",
+      "guard": "per-agent cap inclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "per-agent cap accepts covers up to the cap, counting what the agent already holds :: AssertionError: expected { ok: false, reason: 'over_agent_cap' } to deeply equal { ok: true }",
+        "minimum pool unlocks at the minimum covers and not below it :: AssertionError: expected { accepted: [ { …(8) } ], …(3) } to match object { totalCovers: 7, unlocked: false }",
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [ …(2) ] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cap-held",
+      "guard": "per-agent cap counts covers already held",
+      "verdict": "killed",
+      "failedTests": [
+        "per-agent cap accepts covers up to the cap, counting what the agent already holds :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'over_agent_cap' }",
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [ …(4) ] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "floor-at",
+      "guard": "floor inclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "hidden floor accepts a price at or above the floor and refuses one below it :: AssertionError: expected { ok: false, reason: 'below_floor' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "floor-check",
+      "guard": "below-floor offer refused",
+      "verdict": "killed",
+      "failedTests": [
+        "hidden floor accepts a price at or above the floor and refuses one below it :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'below_floor' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "price-rounding",
+      "guard": "discount rounds down",
+      "verdict": "killed",
+      "failedTests": [
+        "hidden floor rounds the discount down, so the fraction stays with the merchant :: AssertionError: expected 937 to be 938 // Object.is equality",
+        "hidden floor accepts a price at or above the floor and refuses one below it :: AssertionError: expected { ok: false, reason: 'below_floor' } to deeply equal { ok: true }",
+        "public offer carries the public terms and never the floor or capacity :: AssertionError: expected { …(9) } to deeply equal { …(9) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "pool-min-at",
+      "guard": "minimum pool inclusive",
+      "verdict": "killed",
+      "failedTests": [
+        "minimum pool unlocks at the minimum covers and not below it :: AssertionError: expected { …(4) } to match object { totalCovers: 8, unlocked: true }",
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected { accepted: [ { …(8) }, …(2) ], …(3) } to match object { totalCovers: 8, unlocked: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "pool-held",
+      "guard": "pool counts an agent across commitments",
+      "verdict": "killed",
+      "failedTests": [
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [ …(4) ] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "pool-refused-out",
+      "guard": "refused commitments stay out of the pool",
+      "verdict": "killed",
+      "failedTests": [
+        "minimum pool counts an agent's covers across its commitments and leaves refused ones out of the pool :: AssertionError: expected [ …(5) ] to deeply equal [ …(3) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "pool-occurrence",
+      "guard": "pool refuses another occurrence",
+      "verdict": "killed",
+      "failedTests": [
+        "minimum pool refuses to pool commitments from another occurrence :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "offer-floor-field",
+      "guard": "offer never carries the floor",
+      "verdict": "killed",
+      "failedTests": [
+        "public offer carries the public terms and never the floor or capacity :: AssertionError: expected { …(10) } to deeply equal { …(9) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "offer-spread",
+      "guard": "offer is built field by field",
+      "verdict": "killed",
+      "failedTests": [
+        "public offer carries the public terms and never the floor or capacity :: AssertionError: expected { …(12) } to deeply equal { …(9) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "offer-strict",
+      "guard": "Offer schema refuses a floor",
+      "verdict": "killed",
+      "failedTests": [
+        "public offer refuses to parse an offer that carries a floor :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-weekday-min",
+      "guard": "weekday >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { change: { weekday: +0 }, ok: true } to deeply equal { change: { weekday: +0 }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-weekday-max",
+      "guard": "weekday <= 7",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { change: { weekday: 8 }, ok: true } to deeply equal { change: { weekday: 8 }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-end-max",
+      "guard": "window ends by midnight",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { change: { endMinute: 1441 }, …(1) } to deeply equal { change: { endMinute: 1441 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-commit-min",
+      "guard": "deadline >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { Object (change, ok) } to deeply equal { Object (change, ok) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-start-int",
+      "guard": "window minutes are integers",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { Object (change, ok) } to deeply equal { Object (change, ok) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-order",
+      "guard": "window ends after it starts",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { Object (change, ok) } to deeply equal { change: { endMinute: 840 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-deadline-order",
+      "guard": "deadline not after start",
+      "verdict": "killed",
+      "failedTests": [
+        "Window accepts the edges and refuses windows that are empty, overnight or out of range :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "discount-min",
+      "guard": "discount >= 1 bp",
+      "verdict": "killed",
+      "failedTests": [
+        "AgentTerms bounds the discount and needs a positive pool and cap :: AssertionError: expected { change: { discountBps: +0 }, …(1) } to deeply equal { change: { discountBps: +0 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "discount-max",
+      "guard": "discount <= 9999 bp",
+      "verdict": "killed",
+      "failedTests": [
+        "AgentTerms bounds the discount and needs a positive pool and cap :: AssertionError: expected { Object (change, ok) } to deeply equal { Object (change, ok) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "floor-within-list",
+      "guard": "floor not above list",
+      "verdict": "killed",
+      "failedTests": [
+        "MerchantRule refuses a floor above the list price :: AssertionError: expected { change: { terms: { …(5) } }, …(1) } to deeply equal { change: { terms: { …(5) } }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cents-nonnegative",
+      "guard": "cents >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "AgentTerms bounds the discount and needs a positive pool and cap :: AssertionError: expected { …(2) } to deeply equal { …(2) }",
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { change: { …(1) }, ok: true } to deeply equal { change: { …(1) }, ok: false }",
+        "LedgerEntry needs savings equal to covers times the discount and shares that add up :: AssertionError: expected { change: { …(5) }, ok: true } to deeply equal { change: { …(5) }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cents-int",
+      "guard": "cents are integers",
+      "verdict": "killed",
+      "failedTests": [
+        "AgentTerms bounds the discount and needs a positive pool and cap :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "covers-positive",
+      "guard": "covers >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "AgentTerms bounds the discount and needs a positive pool and cap :: AssertionError: expected { change: { minPoolCovers: +0 }, …(1) } to deeply equal { change: { minPoolCovers: +0 }, …(1) }",
+        "MerchantRule refuses a floor above the list price :: AssertionError: expected { Object (change, ok) } to deeply equal { Object (change, ok) }",
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { change: { covers: +0 }, ok: true } to deeply equal { change: { covers: +0 }, ok: false }",
+        "ClearingResult fills nothing while locked and each commitment at most once :: AssertionError: expected { …(2) } to deeply equal { …(2) }",
+        "LedgerEntry needs savings equal to covers times the discount and shares that add up :: AssertionError: expected { change: { covers: +0, …(4) }, …(1) } to deeply equal { change: { covers: +0, …(4) }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "terms-version-positive",
+      "guard": "terms version >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "MerchantRule refuses a floor above the list price :: AssertionError: expected { change: { termsVersion: +0 }, …(1) } to deeply equal { change: { termsVersion: +0 }, …(1) }",
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { change: { termsVersion: +0 }, …(1) } to deeply equal { change: { termsVersion: +0 }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "agent-id-min",
+      "guard": "agent id present",
+      "verdict": "killed",
+      "failedTests": [
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { change: { agentId: '' }, ok: true } to deeply equal { change: { agentId: '' }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "agent-id-max",
+      "guard": "agent id <= 200",
+      "verdict": "killed",
+      "failedTests": [
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "visit-at-date",
+      "guard": "visitAt is a valid date",
+      "verdict": "killed",
+      "failedTests": [
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "committed-at-date",
+      "guard": "committedAt is a valid date",
+      "verdict": "killed",
+      "failedTests": [
+        "Commitment needs positive covers, a terms version and an agent :: AssertionError: expected { change: { …(1) }, ok: true } to deeply equal { change: { …(1) }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-locked-empty",
+      "guard": "locked result fills nothing",
+      "verdict": "killed",
+      "failedTests": [
+        "ClearingResult fills nothing while locked and each commitment at most once :: AssertionError: expected { change: { unlocked: false }, …(1) } to deeply equal { change: { unlocked: false }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-fill-once",
+      "guard": "each commitment fills once",
+      "verdict": "killed",
+      "failedTests": [
+        "ClearingResult fills nothing while locked and each commitment at most once :: AssertionError: expected { change: { fills: [ …(2) ] }, …(1) } to deeply equal { change: { fills: [ …(2) ] }, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-visit-date",
+      "guard": "visitDate is a calendar date",
+      "verdict": "killed",
+      "failedTests": [
+        "ClearingResult fills nothing while locked and each commitment at most once :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "ledger-savings",
+      "guard": "savings = covers x discount",
+      "verdict": "killed",
+      "failedTests": [
+        "LedgerEntry needs savings equal to covers times the discount and shares that add up :: AssertionError: expected { change: { …(2) }, ok: true } to deeply equal { change: { …(2) }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "ledger-shares",
+      "guard": "shares add up to savings",
+      "verdict": "killed",
+      "failedTests": [
+        "LedgerEntry needs savings equal to covers times the discount and shares that add up :: AssertionError: expected { …(2) } to deeply equal { …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "ledger-list-int",
+      "guard": "list price is an integer",
+      "verdict": "killed",
+      "failedTests": [
+        "LedgerEntry needs savings equal to covers times the discount and shares that add up :: AssertionError: expected { change: { …(4) }, ok: true } to deeply equal { change: { …(4) }, ok: false }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-weekday-min",
+      "guard": "rules weekday >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-weekday-max",
+      "guard": "rules weekday <= 7",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-window-order",
+      "guard": "rules start < end",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-window-end",
+      "guard": "rules end <= 1440",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-commit-min",
+      "guard": "rules deadline >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-commit-order",
+      "guard": "rules deadline <= start",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-discount-min",
+      "guard": "rules discount >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-discount-max",
+      "guard": "rules discount <= 9999",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-floor-min",
+      "guard": "rules floor >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-floor-list",
+      "guard": "rules floor <= list",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-capacity",
+      "guard": "rules capacity >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-min-pool",
+      "guard": "rules min pool >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-agent-cap",
+      "guard": "rules per-agent cap >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'rules', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-commit-covers",
+      "guard": "commitments covers >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'commitments', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-commit-max-price",
+      "guard": "commitments max price >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'commitments', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-agent-id-min",
+      "guard": "commitments agent id present",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'commitments', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-agent-id-max",
+      "guard": "commitments agent id <= 200",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'commitments', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-idempotency",
+      "guard": "one commitment per agent and key",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-once",
+      "guard": "one ledger entry per commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-covers",
+      "guard": "ledger covers >= 1",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-price",
+      "guard": "ledger price >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-savings",
+      "guard": "ledger savings = covers x discount",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-buyer",
+      "guard": "ledger buyer share >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-agent",
+      "guard": "ledger agent share >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-network",
+      "guard": "ledger network share >= 0",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-ledger-sum",
+      "guard": "ledger shares add up",
+      "verdict": "killed",
+      "failedTests": [
+        "check constraints refuse each invalid value with the constraint that guards it :: AssertionError: expected [ { table: 'ledger', …(3) } ] to deeply equal []"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fk-commitments_rule_id_rules_id_fk",
+      "guard": "foreign key commitments_rule_id_rules_id_fk",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fk-ledger_commitment_id_commitments_id_fk",
+      "guard": "foreign key ledger_commitment_id_commitments_id_fk",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fk-ledger_merchant_id_merchants_id_fk",
+      "guard": "foreign key ledger_merchant_id_merchants_id_fk",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fk-ledger_rule_id_rules_id_fk",
+      "guard": "foreign key ledger_rule_id_rules_id_fk",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-fk-rules_merchant_id_merchants_id_fk",
+      "guard": "foreign key rules_merchant_id_merchants_id_fk",
+      "verdict": "killed",
+      "failedTests": [
+        "keys refuse unknown parents, deleting a referenced rule, and duplicates :: AssertionError: expected { ruleMerchant: undefined, …(6) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-insert-v1",
+      "guard": "new rule starts at version 1",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version starts at 1 whatever the insert says :: AssertionError: expected 7 to be 1 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-bump",
+      "guard": "public term change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]",
+        "rules terms_version stays put for the floor, capacity, a no-op update or a version set by hand :: AssertionError: expected [ 1, 1, 1, 1, 1 ] to deeply equal [ 2, 2, 2, 2, 2 ]",
+        "commitments terms check refuses a commitment against stale terms, on insert and on update :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check waits for a concurrent terms change instead of checking against the old version :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check keeps bumping and checking versions in replica mode :: AssertionError: expected { version: 1, refusedBy: undefined } to deeply equal { version: 2, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-no-manual",
+      "guard": "version never set by hand",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version stays put for the floor, capacity, a no-op update or a version set by hand :: AssertionError: expected [ 2, 2, 2, 9, 1 ] to deeply equal [ 2, 2, 2, 2, 2 ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-weekday",
+      "guard": "weekday change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-start_minute",
+      "guard": "start_minute change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-end_minute",
+      "guard": "end_minute change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-commit_by_minute",
+      "guard": "commit_by_minute change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-list_price_cents",
+      "guard": "list_price_cents change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-discount_bps",
+      "guard": "discount_bps change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]",
+        "rules terms_version stays put for the floor, capacity, a no-op update or a version set by hand :: AssertionError: expected [ 1, 1, 1, 1, 1 ] to deeply equal [ 2, 2, 2, 2, 2 ]",
+        "commitments terms check refuses a commitment against stale terms, on insert and on update :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check waits for a concurrent terms change instead of checking against the old version :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check keeps bumping and checking versions in replica mode :: AssertionError: expected { version: 1, refusedBy: undefined } to deeply equal { version: 2, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-min_pool_covers",
+      "guard": "min_pool_covers change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-col-per_agent_cap_covers",
+      "guard": "per_agent_cap_covers change bumps version",
+      "verdict": "killed",
+      "failedTests": [
+        "rules terms_version goes up by one on each change to a public term :: AssertionError: expected [ …(8) ] to deeply equal [ …(8) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-for-share",
+      "guard": "terms check waits for a concurrent change",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check waits for a concurrent terms change instead of checking against the old version :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-security-definer",
+      "guard": "terms check works without rights on rules",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check lets a role with no rights on rules submit a commitment :: AssertionError: expected PostgresError: permission denied for tabl… { …(10) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-terms-check",
+      "guard": "stale-terms commitment refused",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check refuses a commitment against stale terms, on insert and on update :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check waits for a concurrent terms change instead of checking against the old version :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality",
+        "commitments terms check keeps bumping and checking versions in replica mode :: AssertionError: expected { version: 2, refusedBy: undefined } to deeply equal { version: 2, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-terms-on-update",
+      "guard": "terms check also on update",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check refuses a commitment against stale terms, on insert and on update :: AssertionError: expected undefined to be 'commitments_terms_current' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-rules-always",
+      "guard": "rules trigger runs in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check keeps bumping and checking versions in replica mode :: AssertionError: expected { version: 1, refusedBy: undefined } to deeply equal { version: 2, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-commitments-always",
+      "guard": "commitments trigger runs in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "commitments terms check keeps bumping and checking versions in replica mode :: AssertionError: expected { version: 2, refusedBy: undefined } to deeply equal { version: 2, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-ledger-update",
+      "guard": "ledger refuses UPDATE",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege :: AssertionError: expected { update: null, …(3) } to deeply equal { …(4) }",
+        "ledger refuses them for the table owner :: AssertionError: expected { update: null, …(3) } to deeply equal { …(4) }",
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { update: null, …(3) } to deeply equal { …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-ledger-delete",
+      "guard": "ledger refuses DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege :: AssertionError: expected { …(4) } to deeply equal { …(4) }",
+        "ledger refuses them for the table owner :: AssertionError: expected { …(4) } to deeply equal { …(4) }",
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { …(4) } to deeply equal { …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-ledger-truncate",
+      "guard": "ledger refuses TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege :: AssertionError: expected { …(4) } to deeply equal { …(4) }",
+        "ledger refuses them for the table owner :: AssertionError: expected { …(4) } to deeply equal { …(4) }",
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { …(4) } to deeply equal { …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "trg-ledger-always",
+      "guard": "ledger triggers run in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { update: null, delete: null, …(2) } to deeply equal { …(4) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

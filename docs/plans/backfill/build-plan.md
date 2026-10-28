@@ -61,7 +61,7 @@ Each slice ends with its tests green and its exit check done.
 - Deployed to a Render free web service, created by hand with env vars set in the dashboard.
 - Exit: the Render URL shows one model reply and its logged cost.
 
-### S2 - Schema and offers (Oct 27)
+### S2 - Schema and offers (Oct 27) - done 2026-10-28
 
 - Zod schemas in `src/domain`: `MerchantRule`, `AgentTerms`, `Commitment`, `Offer`, `ClearingResult`, `LedgerEntry`.
 - `AgentTerms` (path B): window, discount, minimum pool, per-agent cap, hidden floor; a commitment must accept the terms version it was made against.

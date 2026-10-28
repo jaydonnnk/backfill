@@ -1,0 +1,709 @@
+[
+  {
+    "id": "hermetic-env",
+    "guard": "tests never see the shell app config",
+    "file": "tests/support/hermetic-env.ts",
+    "from": "if (name !== \"TEST_DATABASE_URL\") delete process.env[name];",
+    "to": "if (false) delete process.env[name];"
+  },
+  {
+    "id": "tz-zone",
+    "guard": "windows read in Asia/Singapore",
+    "file": "src/domain/singapore-time.ts",
+    "from": "timeZone: SINGAPORE_TZ,",
+    "to": "timeZone: \"UTC\","
+  },
+  {
+    "id": "tz-hour-cycle",
+    "guard": "midnight is minute 0",
+    "file": "src/domain/singapore-time.ts",
+    "from": "hourCycle: \"h23\"",
+    "to": "hourCycle: \"h24\""
+  },
+  {
+    "id": "tz-invalid",
+    "guard": "invalid instant refused",
+    "file": "src/domain/singapore-time.ts",
+    "from": "if (Number.isNaN(instant.getTime())) throw new Error(\"invalid instant\");",
+    "to": ""
+  },
+  {
+    "id": "win-start-inclusive",
+    "guard": "window start inclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "local.minute >= window.startMinute",
+    "to": "local.minute > window.startMinute"
+  },
+  {
+    "id": "win-end-exclusive",
+    "guard": "window end exclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "local.minute < window.endMinute",
+    "to": "local.minute <= window.endMinute"
+  },
+  {
+    "id": "win-weekday",
+    "guard": "window weekday checked",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "local.weekday === window.weekday && ",
+    "to": ""
+  },
+  {
+    "id": "deadline-exclusive",
+    "guard": "commit deadline exclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "made.minute < window.commitByMinute",
+    "to": "made.minute <= window.commitByMinute"
+  },
+  {
+    "id": "deadline-earlier-day",
+    "guard": "commitment on an earlier Singapore day is in time",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "made.date < visit.date || ",
+    "to": ""
+  },
+  {
+    "id": "deadline-same-day",
+    "guard": "deadline minute only applies on the visit day",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "(made.date === visit.date && made.minute",
+    "to": "(made.minute"
+  },
+  {
+    "id": "stale-terms-older",
+    "guard": "older terms refused",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "if (commitment.termsVersion !== rule.termsVersion) return { ok: false, reason: \"stale_terms\" };",
+    "to": ""
+  },
+  {
+    "id": "stale-terms-newer",
+    "guard": "unknown newer terms refused",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "commitment.termsVersion !== rule.termsVersion",
+    "to": "commitment.termsVersion < rule.termsVersion"
+  },
+  {
+    "id": "rule-mismatch",
+    "guard": "commitment for another rule refused",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "if (commitment.ruleId !== rule.id) throw new Error(\"commitment is for another rule\");",
+    "to": ""
+  },
+  {
+    "id": "cap-at",
+    "guard": "per-agent cap inclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "agentCoversHeld + commitment.covers > rule.terms.perAgentCapCovers",
+    "to": "agentCoversHeld + commitment.covers >= rule.terms.perAgentCapCovers"
+  },
+  {
+    "id": "cap-held",
+    "guard": "per-agent cap counts covers already held",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "agentCoversHeld + commitment.covers > rule",
+    "to": "commitment.covers > rule"
+  },
+  {
+    "id": "floor-at",
+    "guard": "floor inclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "priceCents >= terms.floorPriceCents",
+    "to": "priceCents > terms.floorPriceCents"
+  },
+  {
+    "id": "floor-check",
+    "guard": "below-floor offer refused",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "if (!meetsFloor(rule.terms, offerPriceCents(rule))) return { ok: false, reason: \"below_floor\" };",
+    "to": ""
+  },
+  {
+    "id": "price-rounding",
+    "guard": "discount rounds down",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "Math.floor((rule.listPriceCents",
+    "to": "Math.round((rule.listPriceCents"
+  },
+  {
+    "id": "pool-min-at",
+    "guard": "minimum pool inclusive",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "totalCovers >= rule.terms.minPoolCovers",
+    "to": "totalCovers > rule.terms.minPoolCovers"
+  },
+  {
+    "id": "pool-held",
+    "guard": "pool counts an agent across commitments",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "held.set(commitment.agentId, (held.get(commitment.agentId) ?? 0) + commitment.covers);",
+    "to": ""
+  },
+  {
+    "id": "pool-refused-out",
+    "guard": "refused commitments stay out of the pool",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "      continue;\n",
+    "to": ""
+  },
+  {
+    "id": "pool-occurrence",
+    "guard": "pool refuses another occurrence",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "if (singaporeLocal(commitment.visitAt).date !== visitDate) throw new Error(\"commitment is for another occurrence\");",
+    "to": ""
+  },
+  {
+    "id": "offer-floor-field",
+    "guard": "offer never carries the floor",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "perAgentCapCovers: rule.terms.perAgentCapCovers,\n  };",
+    "to": "perAgentCapCovers: rule.terms.perAgentCapCovers,\n    floorPriceCents: rule.terms.floorPriceCents,\n  };"
+  },
+  {
+    "id": "offer-spread",
+    "guard": "offer is built field by field",
+    "file": "src/domain/offers/evaluate.ts",
+    "from": "  return {\n    ruleId: rule.id,",
+    "to": "  return {\n    ...rule,\n    ruleId: rule.id,"
+  },
+  {
+    "id": "offer-strict",
+    "guard": "Offer schema refuses a floor",
+    "file": "src/domain/offers/schema.ts",
+    "from": "z.strictObject({",
+    "to": "z.object({"
+  },
+  {
+    "id": "window-weekday-min",
+    "guard": "weekday >= 1",
+    "file": "src/domain/offers/schema.ts",
+    "from": "weekday: z.int().min(1).max(7)",
+    "to": "weekday: z.int().min(0).max(7)"
+  },
+  {
+    "id": "window-weekday-max",
+    "guard": "weekday <= 7",
+    "file": "src/domain/offers/schema.ts",
+    "from": "weekday: z.int().min(1).max(7)",
+    "to": "weekday: z.int().min(1).max(8)"
+  },
+  {
+    "id": "window-end-max",
+    "guard": "window ends by midnight",
+    "file": "src/domain/offers/schema.ts",
+    "from": "endMinute: z.int().max(MINUTES_PER_DAY)",
+    "to": "endMinute: z.int().max(MINUTES_PER_DAY + 1)"
+  },
+  {
+    "id": "window-commit-min",
+    "guard": "deadline >= 0",
+    "file": "src/domain/offers/schema.ts",
+    "from": "commitByMinute: z.int().min(0)",
+    "to": "commitByMinute: z.int()"
+  },
+  {
+    "id": "window-start-int",
+    "guard": "window minutes are integers",
+    "file": "src/domain/offers/schema.ts",
+    "from": "startMinute: z.int(),",
+    "to": "startMinute: z.number(),"
+  },
+  {
+    "id": "window-order",
+    "guard": "window ends after it starts",
+    "file": "src/domain/offers/schema.ts",
+    "from": "w.startMinute < w.endMinute",
+    "to": "w.startMinute <= w.endMinute"
+  },
+  {
+    "id": "window-deadline-order",
+    "guard": "deadline not after start",
+    "file": "src/domain/offers/schema.ts",
+    "from": "(w) => w.commitByMinute <= w.startMinute",
+    "to": "(w) => true"
+  },
+  {
+    "id": "discount-min",
+    "guard": "discount >= 1 bp",
+    "file": "src/domain/offers/schema.ts",
+    "from": "z.int().min(1).max(BASIS_POINTS - 1)",
+    "to": "z.int().min(0).max(BASIS_POINTS - 1)"
+  },
+  {
+    "id": "discount-max",
+    "guard": "discount <= 9999 bp",
+    "file": "src/domain/offers/schema.ts",
+    "from": "z.int().min(1).max(BASIS_POINTS - 1)",
+    "to": "z.int().min(1).max(BASIS_POINTS)"
+  },
+  {
+    "id": "floor-within-list",
+    "guard": "floor not above list",
+    "file": "src/domain/offers/schema.ts",
+    "from": "(r) => r.terms.floorPriceCents <= r.listPriceCents",
+    "to": "(r) => true"
+  },
+  {
+    "id": "cents-nonnegative",
+    "guard": "cents >= 0",
+    "file": "src/domain/money.ts",
+    "from": "export const Cents = z.int().nonnegative();",
+    "to": "export const Cents = z.int();"
+  },
+  {
+    "id": "cents-int",
+    "guard": "cents are integers",
+    "file": "src/domain/money.ts",
+    "from": "export const Cents = z.int().nonnegative();",
+    "to": "export const Cents = z.number().nonnegative();"
+  },
+  {
+    "id": "covers-positive",
+    "guard": "covers >= 1",
+    "file": "src/domain/money.ts",
+    "from": "export const Covers = z.int().positive();",
+    "to": "export const Covers = z.int().nonnegative();"
+  },
+  {
+    "id": "terms-version-positive",
+    "guard": "terms version >= 1",
+    "file": "src/domain/money.ts",
+    "from": "export const TermsVersion = z.int().positive();",
+    "to": "export const TermsVersion = z.int().nonnegative();"
+  },
+  {
+    "id": "agent-id-min",
+    "guard": "agent id present",
+    "file": "src/domain/commitments/schema.ts",
+    "from": "z.string().min(1).max(200)",
+    "to": "z.string().min(0).max(200)"
+  },
+  {
+    "id": "agent-id-max",
+    "guard": "agent id <= 200",
+    "file": "src/domain/commitments/schema.ts",
+    "from": "z.string().min(1).max(200)",
+    "to": "z.string().min(1).max(201)"
+  },
+  {
+    "id": "visit-at-date",
+    "guard": "visitAt is a valid date",
+    "file": "src/domain/commitments/schema.ts",
+    "from": "visitAt: z.date(),",
+    "to": "visitAt: z.any(),"
+  },
+  {
+    "id": "committed-at-date",
+    "guard": "committedAt is a valid date",
+    "file": "src/domain/commitments/schema.ts",
+    "from": "committedAt: z.date(),",
+    "to": "committedAt: z.any(),"
+  },
+  {
+    "id": "clearing-locked-empty",
+    "guard": "locked result fills nothing",
+    "file": "src/domain/clearing/schema.ts",
+    "from": "(r) => r.unlocked || r.fills.length === 0",
+    "to": "(r) => true"
+  },
+  {
+    "id": "clearing-fill-once",
+    "guard": "each commitment fills once",
+    "file": "src/domain/clearing/schema.ts",
+    "from": "(r) => new Set(r.fills.map((f) => f.commitmentId)).size === r.fills.length",
+    "to": "(r) => true"
+  },
+  {
+    "id": "clearing-visit-date",
+    "guard": "visitDate is a calendar date",
+    "file": "src/domain/clearing/schema.ts",
+    "from": "visitDate: z.iso.date(),",
+    "to": "visitDate: z.string(),"
+  },
+  {
+    "id": "ledger-savings",
+    "guard": "savings = covers x discount",
+    "file": "src/domain/ledger/schema.ts",
+    "from": "(e) => e.savingsCents === e.covers * (e.listPriceCents - e.pricePerCoverCents)",
+    "to": "(e) => true"
+  },
+  {
+    "id": "ledger-shares",
+    "guard": "shares add up to savings",
+    "file": "src/domain/ledger/schema.ts",
+    "from": "(e) => e.buyerShareCents + e.agentShareCents + e.networkShareCents === e.savingsCents",
+    "to": "(e) => true"
+  },
+  {
+    "id": "ledger-list-int",
+    "guard": "list price is an integer",
+    "file": "src/domain/ledger/schema.ts",
+    "from": "listPriceCents: z.int(),",
+    "to": "listPriceCents: z.number(),"
+  },
+  {
+    "id": "db-weekday-min",
+    "guard": "rules weekday >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"weekday\" between 1 and 7",
+    "to": "\"rules\".\"weekday\" between 0 and 7"
+  },
+  {
+    "id": "db-weekday-max",
+    "guard": "rules weekday <= 7",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"weekday\" between 1 and 7",
+    "to": "\"rules\".\"weekday\" between 1 and 8"
+  },
+  {
+    "id": "db-window-order",
+    "guard": "rules start < end",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"start_minute\" < \"rules\".\"end_minute\"",
+    "to": "\"rules\".\"start_minute\" <= \"rules\".\"end_minute\""
+  },
+  {
+    "id": "db-window-end",
+    "guard": "rules end <= 1440",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"end_minute\" <= 1440",
+    "to": "\"rules\".\"end_minute\" <= 1441"
+  },
+  {
+    "id": "db-commit-min",
+    "guard": "rules deadline >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"commit_by_minute\" >= 0 and ",
+    "to": ""
+  },
+  {
+    "id": "db-commit-order",
+    "guard": "rules deadline <= start",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": " and \"rules\".\"commit_by_minute\" <= \"rules\".\"start_minute\"",
+    "to": ""
+  },
+  {
+    "id": "db-discount-min",
+    "guard": "rules discount >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"discount_bps\" between 1 and 9999",
+    "to": "\"rules\".\"discount_bps\" between 0 and 9999"
+  },
+  {
+    "id": "db-discount-max",
+    "guard": "rules discount <= 9999",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"discount_bps\" between 1 and 9999",
+    "to": "\"rules\".\"discount_bps\" between 1 and 10000"
+  },
+  {
+    "id": "db-floor-min",
+    "guard": "rules floor >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"floor_price_cents\" >= 0 and ",
+    "to": ""
+  },
+  {
+    "id": "db-floor-list",
+    "guard": "rules floor <= list",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": " and \"rules\".\"floor_price_cents\" <= \"rules\".\"list_price_cents\"",
+    "to": ""
+  },
+  {
+    "id": "db-capacity",
+    "guard": "rules capacity >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"capacity_covers\" >= 1 and ",
+    "to": ""
+  },
+  {
+    "id": "db-min-pool",
+    "guard": "rules min pool >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"rules\".\"min_pool_covers\" >= 1 and ",
+    "to": ""
+  },
+  {
+    "id": "db-agent-cap",
+    "guard": "rules per-agent cap >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": " and \"rules\".\"per_agent_cap_covers\" >= 1",
+    "to": ""
+  },
+  {
+    "id": "db-commit-covers",
+    "guard": "commitments covers >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"commitments\".\"covers\" >= 1",
+    "to": "\"commitments\".\"covers\" >= 0"
+  },
+  {
+    "id": "db-commit-max-price",
+    "guard": "commitments max price >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"commitments\".\"max_price_per_cover_cents\" >= 0",
+    "to": "\"commitments\".\"max_price_per_cover_cents\" >= -1"
+  },
+  {
+    "id": "db-agent-id-min",
+    "guard": "commitments agent id present",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "length(\"commitments\".\"agent_id\") between 1 and 200",
+    "to": "length(\"commitments\".\"agent_id\") between 0 and 200"
+  },
+  {
+    "id": "db-agent-id-max",
+    "guard": "commitments agent id <= 200",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "length(\"commitments\".\"agent_id\") between 1 and 200",
+    "to": "length(\"commitments\".\"agent_id\") between 1 and 201"
+  },
+  {
+    "id": "db-idempotency",
+    "guard": "one commitment per agent and key",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "CONSTRAINT \"commitments_agent_idempotency_key\" UNIQUE(\"agent_id\",\"idempotency_key\"),",
+    "to": ""
+  },
+  {
+    "id": "db-ledger-once",
+    "guard": "one ledger entry per commitment",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "CONSTRAINT \"ledger_commitment_once\" UNIQUE(\"commitment_id\"),",
+    "to": ""
+  },
+  {
+    "id": "db-ledger-covers",
+    "guard": "ledger covers >= 1",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"covers\" >= 1)",
+    "to": "\"ledger\".\"covers\" >= 0)"
+  },
+  {
+    "id": "db-ledger-price",
+    "guard": "ledger price >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"price_per_cover_cents\" >= 0)",
+    "to": "\"ledger\".\"price_per_cover_cents\" >= -1)"
+  },
+  {
+    "id": "db-ledger-savings",
+    "guard": "ledger savings = covers x discount",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "CHECK (\"ledger\".\"savings_cents\" = ",
+    "to": "CHECK (true or \"ledger\".\"savings_cents\" = "
+  },
+  {
+    "id": "db-ledger-buyer",
+    "guard": "ledger buyer share >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"buyer_share_cents\" >= 0 and ",
+    "to": ""
+  },
+  {
+    "id": "db-ledger-agent",
+    "guard": "ledger agent share >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"agent_share_cents\" >= 0 and ",
+    "to": ""
+  },
+  {
+    "id": "db-ledger-network",
+    "guard": "ledger network share >= 0",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"network_share_cents\" >= 0 and ",
+    "to": ""
+  },
+  {
+    "id": "db-ledger-sum",
+    "guard": "ledger shares add up",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "\"ledger\".\"network_share_cents\" = \"ledger\".\"savings_cents\")",
+    "to": "\"ledger\".\"network_share_cents\" >= 0)"
+  },
+  {
+    "id": "db-fk-commitments_rule_id_rules_id_fk",
+    "guard": "foreign key commitments_rule_id_rules_id_fk",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "ALTER TABLE \"commitments\" ADD CONSTRAINT \"commitments_rule_id_rules_id_fk\" FOREIGN KEY (\"rule_id\") REFERENCES \"public\".\"rules\"(\"id\") ON DELETE no action ON UPDATE no action;--> statement-breakpoint",
+    "to": ""
+  },
+  {
+    "id": "db-fk-ledger_commitment_id_commitments_id_fk",
+    "guard": "foreign key ledger_commitment_id_commitments_id_fk",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "ALTER TABLE \"ledger\" ADD CONSTRAINT \"ledger_commitment_id_commitments_id_fk\" FOREIGN KEY (\"commitment_id\") REFERENCES \"public\".\"commitments\"(\"id\") ON DELETE no action ON UPDATE no action;--> statement-breakpoint",
+    "to": ""
+  },
+  {
+    "id": "db-fk-ledger_merchant_id_merchants_id_fk",
+    "guard": "foreign key ledger_merchant_id_merchants_id_fk",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "ALTER TABLE \"ledger\" ADD CONSTRAINT \"ledger_merchant_id_merchants_id_fk\" FOREIGN KEY (\"merchant_id\") REFERENCES \"public\".\"merchants\"(\"id\") ON DELETE no action ON UPDATE no action;--> statement-breakpoint",
+    "to": ""
+  },
+  {
+    "id": "db-fk-ledger_rule_id_rules_id_fk",
+    "guard": "foreign key ledger_rule_id_rules_id_fk",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "ALTER TABLE \"ledger\" ADD CONSTRAINT \"ledger_rule_id_rules_id_fk\" FOREIGN KEY (\"rule_id\") REFERENCES \"public\".\"rules\"(\"id\") ON DELETE no action ON UPDATE no action;--> statement-breakpoint",
+    "to": ""
+  },
+  {
+    "id": "db-fk-rules_merchant_id_merchants_id_fk",
+    "guard": "foreign key rules_merchant_id_merchants_id_fk",
+    "file": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+    "from": "ALTER TABLE \"rules\" ADD CONSTRAINT \"rules_merchant_id_merchants_id_fk\" FOREIGN KEY (\"merchant_id\") REFERENCES \"public\".\"merchants\"(\"id\") ON DELETE no action ON UPDATE no action;--> statement-breakpoint",
+    "to": ""
+  },
+  {
+    "id": "trg-insert-v1",
+    "guard": "new rule starts at version 1",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "    NEW.terms_version := 1;",
+    "to": "    NULL;"
+  },
+  {
+    "id": "trg-bump",
+    "guard": "public term change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "NEW.terms_version := OLD.terms_version + 1;",
+    "to": "NEW.terms_version := OLD.terms_version;"
+  },
+  {
+    "id": "trg-no-manual",
+    "guard": "version never set by hand",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "  ELSE\n    NEW.terms_version := OLD.terms_version;\n",
+    "to": "  ELSE\n    NULL;\n"
+  },
+  {
+    "id": "trg-col-weekday",
+    "guard": "weekday change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-start_minute",
+    "guard": "start_minute change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-end_minute",
+    "guard": "end_minute change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-commit_by_minute",
+    "guard": "commit_by_minute change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-list_price_cents",
+    "guard": "list_price_cents change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-discount_bps",
+    "guard": "discount_bps change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.min_pool_covers, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-min_pool_covers",
+    "guard": "min_pool_covers change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.per_agent_cap_covers)"
+  },
+  {
+    "id": "trg-col-per_agent_cap_covers",
+    "guard": "per_agent_cap_covers change bumps version",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers, NEW.per_agent_cap_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers, OLD.per_agent_cap_covers)",
+    "to": "(NEW.weekday, NEW.start_minute, NEW.end_minute, NEW.commit_by_minute, NEW.list_price_cents, NEW.discount_bps, NEW.min_pool_covers)\n      IS DISTINCT FROM (OLD.weekday, OLD.start_minute, OLD.end_minute, OLD.commit_by_minute, OLD.list_price_cents, OLD.discount_bps, OLD.min_pool_covers)"
+  },
+  {
+    "id": "trg-for-share",
+    "guard": "terms check waits for a concurrent change",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": " FOR SHARE;",
+    "to": ";"
+  },
+  {
+    "id": "trg-security-definer",
+    "guard": "terms check works without rights on rules",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp AS",
+    "to": "LANGUAGE plpgsql AS"
+  },
+  {
+    "id": "trg-terms-check",
+    "guard": "stale-terms commitment refused",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "IF current_version IS DISTINCT FROM NEW.terms_version THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "trg-terms-on-update",
+    "guard": "terms check also on update",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "BEFORE INSERT OR UPDATE OF rule_id, terms_version ON commitments",
+    "to": "BEFORE INSERT ON commitments"
+  },
+  {
+    "id": "trg-rules-always",
+    "guard": "rules trigger runs in replica mode",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "ALTER TABLE rules ENABLE ALWAYS TRIGGER",
+    "to": "ALTER TABLE rules ENABLE TRIGGER"
+  },
+  {
+    "id": "trg-commitments-always",
+    "guard": "commitments trigger runs in replica mode",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "ALTER TABLE commitments ENABLE ALWAYS TRIGGER",
+    "to": "ALTER TABLE commitments ENABLE TRIGGER"
+  },
+  {
+    "id": "trg-ledger-update",
+    "guard": "ledger refuses UPDATE",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "BEFORE UPDATE OR DELETE ON ledger",
+    "to": "BEFORE DELETE ON ledger"
+  },
+  {
+    "id": "trg-ledger-delete",
+    "guard": "ledger refuses DELETE",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "BEFORE UPDATE OR DELETE ON ledger",
+    "to": "BEFORE UPDATE ON ledger"
+  },
+  {
+    "id": "trg-ledger-truncate",
+    "guard": "ledger refuses TRUNCATE",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "ALTER TABLE ledger ENABLE ALWAYS TRIGGER ledger_no_truncate;",
+    "to": "ALTER TABLE ledger DISABLE TRIGGER ledger_no_truncate;"
+  },
+  {
+    "id": "trg-ledger-always",
+    "guard": "ledger triggers run in replica mode",
+    "file": "drizzle/0002_s2_triggers.sql",
+    "from": "ALTER TABLE ledger ENABLE ALWAYS TRIGGER ledger_append_only;",
+    "to": "ALTER TABLE ledger ENABLE TRIGGER ledger_append_only;"
+  }
+]
