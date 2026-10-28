@@ -1,0 +1,149 @@
+[
+  {
+    "id": "sort-canonical",
+    "guard": "commitments sorted into arrival order",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "[...commitments].sort(byArrival)",
+    "to": "[...commitments]"
+  },
+  {
+    "id": "sort-in-place",
+    "guard": "the caller's array is not reordered",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "[...commitments].sort(byArrival)",
+    "to": "(commitments as Commitment[]).sort(byArrival)"
+  },
+  {
+    "id": "arrival-time-ignored",
+    "guard": "arrival order reads committedAt",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "const time = a.committedAt.getTime() - b.committedAt.getTime();",
+    "to": "const time = 0;"
+  },
+  {
+    "id": "arrival-time-reversed",
+    "guard": "earliest commitment first",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "if (time !== 0) return time;",
+    "to": "if (time !== 0) return -time;"
+  },
+  {
+    "id": "tie-break-removed",
+    "guard": "equal arrival times break by id",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;",
+    "to": "return 0;"
+  },
+  {
+    "id": "tie-break-reversed",
+    "guard": "lower id first on a tie",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;",
+    "to": "return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;"
+  },
+  {
+    "id": "pool-bypassed",
+    "guard": "only evaluatePool's accepted commitments fill",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "for (const commitment of pool.accepted)",
+    "to": "for (const commitment of [...commitments].sort(byArrival))"
+  },
+  {
+    "id": "buyer-max-removed",
+    "guard": "no fill above a buyer's max",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "    if (commitment.maxPricePerCoverCents < price) continue;\n",
+    "to": ""
+  },
+  {
+    "id": "buyer-max-boundary",
+    "guard": "a buyer max equal to the price fills",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "commitment.maxPricePerCoverCents < price",
+    "to": "commitment.maxPricePerCoverCents <= price"
+  },
+  {
+    "id": "capacity-removed",
+    "guard": "no fill past capacity",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "    if (commitment.covers > remaining) continue;\n",
+    "to": ""
+  },
+  {
+    "id": "capacity-boundary",
+    "guard": "capacity met exactly fills",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "commitment.covers > remaining",
+    "to": "commitment.covers >= remaining"
+  },
+  {
+    "id": "capacity-stop",
+    "guard": "a later commitment that fits still fills",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "if (commitment.covers > remaining) continue;",
+    "to": "if (commitment.covers > remaining) break;"
+  },
+  {
+    "id": "capacity-start",
+    "guard": "capacity starts at the rule's capacity",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "let remaining = rule.capacityCovers;",
+    "to": "let remaining = rule.capacityCovers + 1;"
+  },
+  {
+    "id": "capacity-not-used",
+    "guard": "filled covers use up capacity",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "    remaining -= commitment.covers;\n",
+    "to": ""
+  },
+  {
+    "id": "fill-covers",
+    "guard": "a fill is the whole commitment",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "fills.push({ commitmentId: commitment.id, covers: commitment.covers });",
+    "to": "fills.push({ commitmentId: commitment.id, covers: 1 });"
+  },
+  {
+    "id": "recheck-skipped",
+    "guard": "minimum pool rechecked after trimming",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "const unlocked = rule.capacityCovers - remaining >= rule.terms.minPoolCovers;",
+    "to": "const unlocked = pool.unlocked;"
+  },
+  {
+    "id": "min-pool-boundary",
+    "guard": "the minimum pool exactly unlocks",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "rule.capacityCovers - remaining >= rule.terms.minPoolCovers",
+    "to": "rule.capacityCovers - remaining > rule.terms.minPoolCovers"
+  },
+  {
+    "id": "locked-fills",
+    "guard": "a locked result fills nothing",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "fills: unlocked ? fills : []",
+    "to": "fills"
+  },
+  {
+    "id": "price",
+    "guard": "clears at the offer price",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "pricePerCoverCents: price,",
+    "to": "pricePerCoverCents: rule.listPriceCents,"
+  },
+  {
+    "id": "terms-version",
+    "guard": "the result names the rule's terms version",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "termsVersion: rule.termsVersion,",
+    "to": "termsVersion: 1,"
+  },
+  {
+    "id": "visit-date",
+    "guard": "the result names the occurrence",
+    "file": "src/domain/clearing/clear.ts",
+    "from": " visitDate, unlocked,",
+    "to": " visitDate: \"2026-11-03\", unlocked,"
+  }
+]
