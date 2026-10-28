@@ -125,6 +125,7 @@ A commitment against stale terms is refused on insert and on update, and a commi
 - **[verified]** Mutations, with the S1 review runner on a copy of the tree, in [evidence/s2-schema-offers](evidence/s2-schema-offers/README.md): a first run of 102 had one survivor, the `rules.terms_version >= 1` check, which the trigger already implies, so it was removed; the remaining 101 were each killed on an AssertionError, each file restored byte-identical and each rerun green.
 - **[verified]** Migrations applied to a local scratch database with `npm run db:migrate` (inline local `DATABASE_URL`); a second run was a no-op; the scratch database was dropped.
 - **[verified]** Secret scan by shape (Postgres URLs with a password, bearer values, Neon `npg_` passwords, 64-hex secrets, `sk-` keys) on the working tree and all Git history: the planted needle was found, and otherwise only S1's placeholder test fixtures.
+- **[verified]** CI run 40640545545 on `5ce2020` passed: typecheck, lint, 66 unit tests, 19 integration tests on postgres:18, build.
 - **[unknown]** The `hermetic-env` mutation is killed only in a shell that exports the app's configuration, as this one does; in CI it would survive.
 - **[unknown]** S2's migration on Neon: not applied; it needs the user's named go-ahead.
 - Known limit: a table owner can still `ALTER TABLE ledger DISABLE TRIGGER`; no app code does, and the app should not connect as the owner once S4 adds a runtime role.
