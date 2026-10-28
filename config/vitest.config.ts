@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const src = fileURLToPath(new URL("../src", import.meta.url));
+const setupFiles = ["tests/support/hermetic-env.ts"];
 
 export default defineConfig({
   // This file lives in config/, so the project root is set explicitly to the repository root.
@@ -12,7 +13,7 @@ export default defineConfig({
     projects: [
       {
         resolve: { alias: { "@": src } },
-        test: { name: "unit", include: ["tests/unit/**/*.test.ts"], environment: "node" },
+        test: { name: "unit", include: ["tests/unit/**/*.test.ts"], environment: "node", setupFiles },
       },
       {
         resolve: { alias: { "@": src } },
@@ -20,6 +21,7 @@ export default defineConfig({
           name: "integration",
           include: ["tests/integration/**/*.test.ts"],
           environment: "node",
+          setupFiles,
           // Each file creates its own disposable database, so files may run in parallel.
           testTimeout: 30_000,
           hookTimeout: 60_000,
