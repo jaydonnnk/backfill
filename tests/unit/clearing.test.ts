@@ -123,6 +123,14 @@ describe("buyer max price", () => {
     const result = clear(rule({ capacityCovers: 8 }), VISIT_DATE, [pricedOut, ...cs]);
     expect(filled(result)).toEqual(ids(cs));
   });
+
+  it("does not count a priced-out commitment toward its agent's cap", () => {
+    // Alone, the priced-out 4 covers would use up the agent's cap of 4 and refuse its later 4.
+    const pricedOut = commitment({ agentId: "agent-x", covers: 4, maxPricePerCoverCents: PRICE - 1 });
+    const later = commitment({ agentId: "agent-x", covers: 4 });
+    const result = clear(rule({ minPoolCovers: 4 }), VISIT_DATE, [pricedOut, later]);
+    expect(result).toMatchObject({ unlocked: true, fills: [{ commitmentId: later.id, covers: 4 }] });
+  });
 });
 
 describe("hidden floor", () => {
@@ -141,8 +149,8 @@ describe("minimum pool after trimming", () => {
   });
 
   it("stays locked when capacity leaves fewer covers than the minimum", () => {
-    // The pool reaches 8, but only 7 fit.
-    const result = clear(rule({ capacityCovers: 7, minPoolCovers: 8 }), VISIT_DATE, commitments([4, 4]));
+    // The pool reaches 11, but after 4 and 3 only 1 cover is left, and the last 4 do not fit.
+    const result = clear(rule({ capacityCovers: 8, minPoolCovers: 8 }), VISIT_DATE, commitments([4, 3, 4]));
     expect(result).toMatchObject({ unlocked: false, fills: [], pricePerCoverCents: PRICE });
   });
 
@@ -179,6 +187,16 @@ describe("caller input", () => {
   it("names the occurrence it cleared", () => {
     const nextWeek = [4, 4].map((covers) => commitment({ covers, visitAt: new Date("2026-11-10T15:00:00+08:00"), committedAt: new Date("2026-11-10T09:00:00+08:00") }));
     expect(clear(rule(), "2026-11-10", nextWeek)).toMatchObject({ visitDate: "2026-11-10", unlocked: true, fills: [{ covers: 4 }, { covers: 4 }] });
+  });
+
+  it("refuses two commitments with one id rather than filling the id twice", () => {
+    const first = commitment({ covers: 4 });
+    const twin = commitment({ id: first.id, covers: 4 });
+    expect(() => clear(rule(), VISIT_DATE, [first, twin])).toThrow("each commitment fills at most once");
+  });
+
+  it("refuses a visit date that is not an ISO date", () => {
+    expect(() => clear(rule(), "2026-11-3", [])).toThrow("Invalid ISO date");
   });
 
   it("refuses commitments from another occurrence", () => {

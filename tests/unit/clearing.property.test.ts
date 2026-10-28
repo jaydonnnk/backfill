@@ -24,7 +24,8 @@ const ruleArb = fc
     // Squared, so the floor sits at or below the offer price in about two cases out of three.
     floorShare: fc.double({ min: 0, max: 1, noNaN: true }).map((x) => x * x),
     capacityCovers: fc.integer({ min: 1, max: 30 }),
-    minPoolCovers: fc.integer({ min: 1, max: 20 }),
+    // A share of capacity, so the minimum pool is never above it, as MerchantRule requires.
+    minPoolShare: fc.double({ min: 0, max: 1, noNaN: true }),
     perAgentCapCovers: fc.integer({ min: 1, max: 8 }),
   })
   .map((r) =>
@@ -37,7 +38,7 @@ const ruleArb = fc
       terms: {
         window: WINDOW,
         discountBps: r.discountBps,
-        minPoolCovers: r.minPoolCovers,
+        minPoolCovers: Math.max(1, Math.ceil(r.minPoolShare * Math.min(20, r.capacityCovers))),
         perAgentCapCovers: r.perAgentCapCovers,
         floorPriceCents: Math.floor(r.floorShare * r.listPriceCents),
       },
@@ -82,17 +83,26 @@ const coversOf = (result: ClearingResult) => result.fills.reduce((sum, f) => sum
 const inArrivalOrder = (cs: readonly Commitment[]) =>
   [...cs].sort((a, b) => a.committedAt.getTime() - b.committedAt.getTime() || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
+// What evaluatePool accepts from the commitments a buyer at the offer price would take, in arrival
+// order: the only commitments clearing may fill.
+const eligible = (rule: MerchantRule, cs: readonly Commitment[]) =>
+  evaluatePool(rule, VISIT_DATE, inArrivalOrder(cs.filter((c) => c.maxPricePerCoverCents >= offerPriceCents(rule)))).accepted;
+
 describe("clearing properties", () => {
   it("generates enough of each kind of case that no property below holds vacuously", () => {
-    // With this seed: 306 unlocked, 140 unlocked after capacity or a buyer's max dropped an accepted
-    // commitment, and 219 that evaluatePool unlocked but clearing left locked.
-    const cases = fc.sample(caseArb, RUN).map(({ rule, commitments }) => ({
-      result: clear(rule, VISIT_DATE, commitments),
-      pool: evaluatePool(rule, VISIT_DATE, inArrivalOrder(commitments)),
-    }));
+    // With this seed: 1021 unlocked, 450 unlocked after capacity or a buyer's max dropped an accepted
+    // commitment, 247 that evaluatePool unlocked but clearing left locked, and 50 where a priced-out
+    // commitment, left in, would change which affordable commitments evaluatePool accepts.
+    const ids = (cs: readonly Commitment[]) => cs.map((c) => c.id).join();
+    const cases = fc.sample(caseArb, RUN).map(({ rule, commitments }) => {
+      const pool = evaluatePool(rule, VISIT_DATE, inArrivalOrder(commitments));
+      const affordableInPool = pool.accepted.filter((c) => c.maxPricePerCoverCents >= offerPriceCents(rule));
+      return { result: clear(rule, VISIT_DATE, commitments), pool, pricedOutMatters: ids(affordableInPool) !== ids(eligible(rule, commitments)) };
+    });
     expect(cases.filter((c) => c.result.unlocked).length).toBeGreaterThan(200);
     expect(cases.filter((c) => c.result.unlocked && c.result.fills.length < c.pool.accepted.length).length).toBeGreaterThan(100);
     expect(cases.filter((c) => !c.result.unlocked && c.pool.unlocked).length).toBeGreaterThan(100);
+    expect(cases.filter((c) => c.pricedOutMatters).length).toBeGreaterThan(25);
   });
 
   it("returns a valid ClearingResult for the rule, at the offer price", () => {
@@ -143,7 +153,7 @@ describe("clearing properties", () => {
     fc.assert(
       fc.property(caseArb, ({ rule, commitments }) => {
         const result = clear(rule, VISIT_DATE, commitments);
-        const accepted = new Map(evaluatePool(rule, VISIT_DATE, inArrivalOrder(commitments)).accepted.map((c) => [c.id, c]));
+        const accepted = new Map(eligible(rule, commitments).map((c) => [c.id, c]));
         for (const fill of result.fills) expect(fill.covers).toBe(accepted.get(fill.commitmentId)?.covers);
         expect(new Set(result.fills.map((f) => f.commitmentId)).size).toBe(result.fills.length);
       }),
@@ -156,16 +166,25 @@ describe("clearing properties", () => {
       fc.property(caseArb, ({ rule, commitments }) => {
         const result = clear(rule, VISIT_DATE, commitments);
         if (!result.unlocked) return;
-        const price = result.pricePerCoverCents;
-        const eligible = evaluatePool(rule, VISIT_DATE, inArrivalOrder(commitments)).accepted.filter((c) => c.maxPricePerCoverCents >= price);
+        const candidates = eligible(rule, commitments);
         const fills = new Map(result.fills.map((f) => [f.commitmentId, f.covers]));
         // Fills keep arrival order.
-        expect(result.fills.map((f) => f.commitmentId)).toEqual(eligible.filter((c) => fills.has(c.id)).map((c) => c.id));
+        expect(result.fills.map((f) => f.commitmentId)).toEqual(candidates.filter((c) => fills.has(c.id)).map((c) => c.id));
         let used = 0;
-        for (const c of eligible) {
+        for (const c of candidates) {
           if (fills.has(c.id)) used += c.covers;
           else expect(c.covers).toBeGreaterThan(rule.capacityCovers - used);
         }
+      }),
+      RUN,
+    );
+  });
+
+  it("gives the same result with the commitments priced out by the buyer's max left out", () => {
+    fc.assert(
+      fc.property(caseArb, ({ rule, commitments }) => {
+        const affordable = commitments.filter((c) => c.maxPricePerCoverCents >= offerPriceCents(rule));
+        expect(clear(rule, VISIT_DATE, commitments)).toEqual(clear(rule, VISIT_DATE, affordable));
       }),
       RUN,
     );
