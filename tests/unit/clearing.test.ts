@@ -176,6 +176,11 @@ describe("caller input", () => {
     expect(ids(cs)).toEqual(before);
   });
 
+  it("names the occurrence it cleared", () => {
+    const nextWeek = [4, 4].map((covers) => commitment({ covers, visitAt: new Date("2026-11-10T15:00:00+08:00"), committedAt: new Date("2026-11-10T09:00:00+08:00") }));
+    expect(clear(rule(), "2026-11-10", nextWeek)).toMatchObject({ visitDate: "2026-11-10", unlocked: true, fills: [{ covers: 4 }, { covers: 4 }] });
+  });
+
   it("refuses commitments from another occurrence", () => {
     const nextWeek = commitment({ visitAt: new Date("2026-11-10T15:00:00+08:00") });
     expect(() => clear(rule(), VISIT_DATE, [nextWeek])).toThrow("commitment is for another occurrence");
