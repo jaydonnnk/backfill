@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { bigint, boolean, check, index, integer, pgTable, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
+import { bigint, boolean, check, date, foreignKey, index, integer, pgTable, primaryKey, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
 
 // One row per HTTP attempt to a model, including failed and retried attempts, so cost per deal (S9)
 // comes from what was billed rather than from estimates.
@@ -81,6 +81,23 @@ export const rules = pgTable(
   ],
 );
 
+// A buyer agent allowed to call the MCP server. Its bearer token is shown once when minted and only
+// its SHA-256 is stored; the agent id comes from the token, never from a tool argument.
+export const agents = pgTable(
+  "agents",
+  {
+    id: text("id").primaryKey(),
+    label: text("label").notNull(),
+    tokenSha256: text("token_sha256").notNull().unique("agents_token_sha256_unique"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+  },
+  (t) => [
+    check("agents_id_present", sql`length(${t.id}) between 1 and 200`),
+    check("agents_token_sha256_hex", sql`${t.tokenSha256} ~ '^[0-9a-f]{64}$'`),
+  ],
+);
+
 // A binding commitment. A trigger refuses one whose terms_version is not the rule's current version.
 export const commitments = pgTable(
   "commitments",
@@ -89,7 +106,9 @@ export const commitments = pgTable(
     ruleId: uuid("rule_id")
       .notNull()
       .references(() => rules.id),
-    agentId: text("agent_id").notNull(),
+    agentId: text("agent_id")
+      .notNull()
+      .references(() => agents.id),
     // Chosen by the agent, so a retried submission (S4) does not commit twice.
     idempotencyKey: text("idempotency_key").notNull(),
     termsVersion: integer("terms_version").notNull(),
@@ -97,6 +116,8 @@ export const commitments = pgTable(
     maxPricePerCoverCents: integer("max_price_per_cover_cents").notNull(),
     visitAt: timestamp("visit_at", { withTimezone: true }).notNull(),
     committedAt: timestamp("committed_at", { withTimezone: true }).notNull().defaultNow(),
+    // Set once when the agent cancels before the deadline; a trigger refuses any other change.
+    cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
   },
   (t) => [
     unique("commitments_agent_idempotency_key").on(t.agentId, t.idempotencyKey),
@@ -104,6 +125,42 @@ export const commitments = pgTable(
     check("commitments_agent_id_present", sql`length(${t.agentId}) between 1 and 200`),
     check("commitments_covers_positive", sql`${t.covers} >= 1`),
     check("commitments_max_price_nonnegative", sql`${t.maxPricePerCoverCents} >= 0`),
+  ],
+);
+
+// The stored outcome of clearing one occurrence of a rule, written once by the first status read
+// after the occurrence's deadline, so a later change to the floor or capacity cannot change it.
+// Append-only by trigger, like the ledger.
+export const clearings = pgTable(
+  "clearings",
+  {
+    ruleId: uuid("rule_id")
+      .notNull()
+      .references(() => rules.id),
+    // The occurrence's Singapore date.
+    visitDate: date("visit_date", { mode: "string" }).notNull(),
+    termsVersion: integer("terms_version").notNull(),
+    unlocked: boolean("unlocked").notNull(),
+    pricePerCoverCents: integer("price_per_cover_cents").notNull(),
+    clearedAt: timestamp("cleared_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "clearings_pkey", columns: [t.ruleId, t.visitDate] }), check("clearings_price_nonnegative", sql`${t.pricePerCoverCents} >= 0`)],
+);
+
+// One row per commitment a stored clearing filled. A commitment fills at most once.
+export const clearingFills = pgTable(
+  "clearing_fills",
+  {
+    commitmentId: uuid("commitment_id")
+      .primaryKey()
+      .references(() => commitments.id),
+    ruleId: uuid("rule_id").notNull(),
+    visitDate: date("visit_date", { mode: "string" }).notNull(),
+    covers: integer("covers").notNull(),
+  },
+  (t) => [
+    foreignKey({ name: "clearing_fills_clearing_fk", columns: [t.ruleId, t.visitDate], foreignColumns: [clearings.ruleId, clearings.visitDate] }),
+    check("clearing_fills_covers_positive", sql`${t.covers} >= 1`),
   ],
 );
 

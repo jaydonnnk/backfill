@@ -16,9 +16,11 @@
     "test:unit": "vitest run --config config/vitest.config.ts --project unit",
     "test:integration": "vitest run --config config/vitest.config.ts --project integration",
     "db:generate": "drizzle-kit generate --config config/drizzle.config.ts",
-    "db:migrate": "tsx src/lib/db/migrate.ts"
+    "db:migrate": "tsx src/lib/db/migrate.ts",
+    "agent:mint": "tsx src/lib/agents/mint.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
     "drizzle-orm": "0.45.3",
     "next": "16.4.3",
     "postgres": "3.4.9",

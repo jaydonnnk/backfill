@@ -13,6 +13,8 @@ beforeAll(async () => {
   t = await createTestDatabase("s2_tables");
   await t.admin.unsafe(`CREATE ROLE ${APP_ROLE} NOLOGIN NOSUPERUSER`);
   await t.admin.unsafe(`CREATE ROLE ${OWNER_ROLE} NOLOGIN NOSUPERUSER`);
+  // Since S4 every commitment belongs to a minted agent.
+  for (const id of ["agent-a", "agent-b"]) await t.admin`insert into agents ${t.admin({ id, label: id, token_sha256: id === "agent-a" ? "a".repeat(64) : "b".repeat(64) })}`;
 });
 
 afterAll(async () => {
@@ -321,7 +323,7 @@ describe("ledger", () => {
   }
 
   it("refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege", async () => {
-    await t.admin.unsafe(`GRANT ALL ON ledger, merchants, rules, commitments TO ${APP_ROLE}`);
+    await t.admin.unsafe(`GRANT ALL ON ledger, merchants, rules, commitments, agents, clearings, clearing_fills TO ${APP_ROLE}`);
     const result = await attempts(APP_ROLE);
     expect(result.who).toEqual({ name: APP_ROLE, superuser: "off" });
     expect(result.messages).toEqual(refused);
@@ -330,7 +332,7 @@ describe("ledger", () => {
 
   it("refuses them for the table owner", async () => {
     await t.admin.unsafe(`ALTER TABLE ledger OWNER TO ${OWNER_ROLE}`);
-    await t.admin.unsafe(`GRANT ALL ON merchants, rules, commitments TO ${OWNER_ROLE}`);
+    await t.admin.unsafe(`GRANT ALL ON merchants, rules, commitments, agents, clearings, clearing_fills TO ${OWNER_ROLE}`);
     try {
       const result = await attempts(OWNER_ROLE);
       const [owner] = await t.admin`select tableowner from pg_tables where tablename = 'ledger'`;

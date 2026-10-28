@@ -29,6 +29,20 @@
       "when": 1793193138412,
       "tag": "0003_s3_min_pool_within_capacity",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793201681316,
+      "tag": "0004_s4_agents_cancel_clearings",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793201704942,
+      "tag": "0005_s4_triggers_runtime_role",
+      "breakpoints": true
     }
   ]
 }
