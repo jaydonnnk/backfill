@@ -1,6 +1,6 @@
 import { and, count, desc, eq, gte, max } from "drizzle-orm";
 import type { CallRecorder } from "@/integrations/meta/provider";
-import type { Db } from "@/lib/db/client";
+import type { Db, Executor } from "@/lib/db/client";
 import { llmCalls } from "@/lib/db/schema";
 
 export function llmCallRecorder(db: Db): CallRecorder {
@@ -22,7 +22,7 @@ export async function latestOkCall(db: Db, purpose: string): Promise<LlmCallRow 
 }
 
 // Attempts for a purpose since `since`, failed ones included, and when the latest one was made.
-export async function recentAttempts(db: Db, purpose: string, since: Date): Promise<{ count: number; lastAt: Date | null }> {
+export async function recentAttempts(db: Executor, purpose: string, since: Date): Promise<{ count: number; lastAt: Date | null }> {
   const [row] = await db
     .select({ count: count(), lastAt: max(llmCalls.createdAt) })
     .from(llmCalls)

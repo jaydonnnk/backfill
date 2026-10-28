@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 
 const STATUS_TEXT: Record<string, string> = {
   ok: "Muse Spark replied. The call is logged below.",
+  busy: "Another call is in progress. Try again shortly.",
   cooldown: `One call per ${TRACER_COOLDOWN_MS / 1000} seconds. Try again shortly.`,
   daily_cap: `The daily limit of ${TRACER_DAILY_CAP} calls is reached.`,
   failed: "The call failed. Each attempt is still logged with its cost.",

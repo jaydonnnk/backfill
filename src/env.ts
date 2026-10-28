@@ -70,7 +70,9 @@ export const ENV_NAMES = [
 export type EnvSource = Readonly<Record<string, string | undefined>>;
 
 function parse<T>(schema: z.ZodType<T>, source: EnvSource, scope: string): T {
-  const result = schema.safeParse(source);
+  // An empty value, such as a key copied from .env.example and left blank, counts as unset.
+  const set = Object.fromEntries(Object.entries(source).filter(([, value]) => value !== ""));
+  const result = schema.safeParse(set);
   if (!result.success) {
     // Report names and reasons only, never values.
     const problems = result.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`);

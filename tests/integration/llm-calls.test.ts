@@ -78,9 +78,15 @@ describe("llm_calls", () => {
 
   it("rejects rows the provider can never produce", async () => {
     const insert = llmCallRecorder(t.db);
-    await expect(insert(record({ purpose: "bad", tokensCachedIn: 101 }))).rejects.toMatchObject({ cause: { constraint_name: "llm_calls_tokens_nonnegative" } });
-    await expect(insert(record({ purpose: "bad", costNanoUsd: -1 }))).rejects.toMatchObject({ cause: { constraint_name: "llm_calls_cost_nonnegative" } });
-    await expect(insert(record({ purpose: "bad", attempt: 0 }))).rejects.toMatchObject({ cause: { constraint_name: "llm_calls_attempt_positive" } });
+    // Caught, so a missing constraint fails on the assertion rather than on an unrejected promise.
+    const refusedBy = async (row: LlmCallRecord) => {
+      const err = await insert(row).then(() => null, (e: unknown) => e);
+      return (err as { cause?: { constraint_name?: string } } | null)?.cause?.constraint_name ?? "accepted";
+    };
+    expect(await refusedBy(record({ purpose: "bad", tokensCachedIn: 101 }))).toBe("llm_calls_tokens_nonnegative");
+    expect(await refusedBy(record({ purpose: "bad", costNanoUsd: -1 }))).toBe("llm_calls_cost_nonnegative");
+    expect(await refusedBy(record({ purpose: "bad", attempt: 0 }))).toBe("llm_calls_attempt_positive");
+    expect(await refusedBy(record({ purpose: "bad", latencyMs: -1 }))).toBe("llm_calls_latency_nonnegative");
     const [{ n }] = (await t.admin`select count(*)::int as n from llm_calls where purpose = 'bad'`) as unknown as [{ n: number }];
     expect(n).toBe(0);
   });

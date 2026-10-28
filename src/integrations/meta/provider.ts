@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { redact } from "@/lib/log";
 import { costNanoUsd, hasPrice, type Usage } from "./pricing";
 
 // The one model interface the product calls. Every reply is constrained by a JSON schema on the
@@ -171,7 +170,9 @@ export function createMetaProvider(options: MetaProviderOptions): LLMProvider {
         latencyMs,
         ok: outcome.kind === "ok",
         httpStatus,
-        error: outcome.kind === "ok" ? null : redact(outcome.problem),
+        // Built only from constants, HTTP statuses, error names and Zod issue messages, none of
+        // which carry a request value, so there is nothing to redact.
+        error: outcome.kind === "ok" ? null : outcome.problem,
         output: content === null ? null : content.slice(0, OUTPUT_LIMIT),
       });
 

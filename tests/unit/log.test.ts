@@ -1,5 +1,16 @@
-import { describe, expect, it } from "vitest";
-import { errorFields, redact } from "@/lib/log";
+import { describe, expect, it, vi } from "vitest";
+import { errorFields, log, redact } from "@/lib/log";
+
+describe("log", () => {
+  it("redacts every string field before writing the line", () => {
+    const sink = vi.spyOn(console, "error").mockImplementation(() => {});
+    log("error", "db.failed", { detail: "connect postgres://owner:s3cret@ep-x.neon.tech/db failed", attempts: 2 });
+    const line = String(sink.mock.calls[0]?.[0]);
+    sink.mockRestore();
+    expect(JSON.parse(line)).toMatchObject({ level: "error", event: "db.failed", detail: "connect postgres://[redacted]@ep-x.neon.tech/db failed", attempts: 2 });
+    expect(line).not.toContain("s3cret");
+  });
+});
 
 describe("redact", () => {
   it("removes connection-string credentials and bearer values", () => {

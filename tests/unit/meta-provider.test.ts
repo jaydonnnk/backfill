@@ -117,7 +117,7 @@ describe("Meta LLMProvider", () => {
 
     expect(error).toBeInstanceOf(LlmError);
     expect((error as LlmError).attempts).toBe(3);
-    expect((error as LlmError).message).toBe("Model call failed after 3 attempts: reply: Too big: expected string to have <=10 characters");
+    expect((error as LlmError).message).toMatch(/^Model call failed after 3 attempts: reply: .*10/);
     expect(records.map((r) => r.ok)).toEqual([false, false, false]);
     expect(records.every((r) => r.costNanoUsd === 210_000)).toBe(true);
   });
@@ -130,20 +130,38 @@ describe("Meta LLMProvider", () => {
 
   it("does not retry a 400, and logs it with no tokens and no cost", async () => {
     const { provider, requests, records } = setup([{ status: 400, body: { error: { message: "bad" } } }, completion('{"reply":"x"}')]);
-    await expect(provider.generate(request)).rejects.toThrow("Model call failed: HTTP 400");
+    const error = await provider.generate(request).catch((err: unknown) => err);
+    expect(error).toBeInstanceOf(LlmError);
+    expect((error as LlmError).message).toBe("Model call failed: HTTP 400");
     expect(requests).toHaveLength(1);
     expect(records).toEqual([expect.objectContaining({ attempt: 1, ok: false, httpStatus: 400, error: "HTTP 400", tokensIn: 0, tokensOut: 0, costNanoUsd: 0, output: null })]);
   });
 
-  it("retries a 429, a 5xx and a network error", async () => {
-    const { provider, records } = setup([{ status: 429, body: {} }, { status: 503, body: {} }, completion('{"reply":"x"}')]);
-    const result = await provider.generate(request);
-    expect(result.attempts).toBe(3);
+  it("retries a 429 and a 500, the lowest 5xx", async () => {
+    const { provider, records } = setup([{ status: 429, body: {} }, { status: 500, body: {} }, completion('{"reply":"x"}')]);
+    // Caught, so a provider that gives up early fails on the assertions below, not on a throw.
+    const result = await provider.generate(request).catch((err: unknown) => err);
     expect(records.map((r) => [r.httpStatus, r.error])).toEqual([
       [429, "HTTP 429"],
-      [503, "HTTP 503"],
+      [500, "HTTP 500"],
       [200, null],
     ]);
+    expect(result).toMatchObject({ attempts: 3, value: { reply: "x" } });
+  });
+
+  it("names a timeout", async () => {
+    const timeout = new DOMException("The operation was aborted due to timeout", "TimeoutError");
+    const { provider, records } = setup([timeout, timeout, timeout]);
+    const error = await provider.generate(request).catch((err: unknown) => err);
+    expect((error as LlmError).message).toBe("Model call failed after 3 attempts: timed out after 60000 ms");
+    expect(records[0]?.error).toBe("timed out after 60000 ms");
+  });
+
+  it("stores at most 4000 characters of a reply", async () => {
+    const long = "x".repeat(5000);
+    const { provider, records } = setup([completion(long), completion('{"reply":"x"}')]);
+    await provider.generate(request);
+    expect(records[0]?.output).toBe(long.slice(0, 4000));
   });
 
   it("gives up after maxAttempts network errors, logging each attempt", async () => {

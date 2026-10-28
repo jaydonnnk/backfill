@@ -48,6 +48,20 @@ describe("webEnv", () => {
     expect(() => webEnv({ ...base, NEGOTIATION_SIGNING_SECRET: "short" })).toThrow(/NEGOTIATION_SIGNING_SECRET: must be at least 32 characters/);
     expect(webEnv({ ...base }).NEGOTIATION_SIGNING_SECRET).toBeUndefined();
   });
+
+  it("treats an empty value as unset", () => {
+    // Caught, so a regression fails on the assertion rather than on the thrown configuration error.
+    const env = (() => {
+      try {
+        return webEnv({ ...base, NEGOTIATION_SIGNING_SECRET: "", APP_BASE_URL: "", RENDER_EXTERNAL_URL: "https://backfill.onrender.com" });
+      } catch (err) {
+        return (err as Error).message;
+      }
+    })();
+    expect(typeof env === "string" ? env : env.APP_BASE_URL).toBe("https://backfill.onrender.com");
+    expect(typeof env === "string" ? env : env.NEGOTIATION_SIGNING_SECRET).toBeUndefined();
+    expect(() => webEnv({ ...base, META_API_KEY: "" })).toThrow(/META_API_KEY: Invalid input/);
+  });
 });
 
 describe("evalEnv", () => {

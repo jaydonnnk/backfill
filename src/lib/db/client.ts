@@ -4,6 +4,8 @@ import { webEnv } from "@/env";
 import * as schema from "./schema";
 
 export type Db = PostgresJsDatabase<typeof schema>;
+// A query runner: the pool, or one open transaction on it.
+export type Executor = Db | Parameters<Parameters<Db["transaction"]>[0]>[0];
 
 const LIBPQ_ONLY = ["sslmode", "channel_binding", "sslrootcert"];
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);

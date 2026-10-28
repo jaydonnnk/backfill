@@ -9,6 +9,8 @@ import { runMigrations } from "@/lib/db/migrate";
 
 export type TestDatabase = {
   db: Db;
+  // The disposable database's own URL, for tests that need their own pool.
+  url: string;
   admin: postgres.Sql;
   drop: () => Promise<void>;
 };
@@ -39,6 +41,7 @@ export async function createTestDatabase(label: string): Promise<TestDatabase> {
 
   return {
     db: app.db,
+    url,
     admin,
     drop: async () => {
       await app.close();
