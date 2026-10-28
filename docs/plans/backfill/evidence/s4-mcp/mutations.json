@@ -1,0 +1,331 @@
+[
+  {
+    "id": "occ-offset",
+    "guard": "a Singapore wall-clock minute is converted with Singapore's offset",
+    "file": "src/domain/commitments/occurrence.ts",
+    "from": "return new Date(wallAsUtc - offset);",
+    "to": "return new Date(wallAsUtc);"
+  },
+  {
+    "id": "occ-calendar",
+    "guard": "a date that is not on the calendar is refused",
+    "file": "src/domain/commitments/occurrence.ts",
+    "from": "if (new Date(ms).toISOString().slice(0, 10) !== date) throw new Error(\"not an ISO date\");",
+    "to": ""
+  },
+  {
+    "id": "occ-weekday",
+    "guard": "an occurrence exists only on the window's weekday",
+    "file": "src/domain/commitments/occurrence.ts",
+    "from": "if (singaporeLocal(noon).weekday !== window.weekday) return null;",
+    "to": ""
+  },
+  {
+    "id": "occ-commit-by",
+    "guard": "the deadline is the window's commit-by minute",
+    "file": "src/domain/commitments/occurrence.ts",
+    "from": "commitBy: singaporeInstant(visitDate, window.commitByMinute),",
+    "to": "commitBy: singaporeInstant(visitDate, window.startMinute),"
+  },
+  {
+    "id": "occ-next-boundary",
+    "guard": "the next occurrence moves to next week at the deadline itself",
+    "file": "src/domain/commitments/occurrence.ts",
+    "from": "if (occurrence && now < occurrence.commitBy) return occurrence;",
+    "to": "if (occurrence && now <= occurrence.commitBy) return occurrence;"
+  },
+  {
+    "id": "auth-revoked",
+    "guard": "a revoked token is refused",
+    "file": "src/lib/agents/tokens.ts",
+    "from": ".where(and(eq(agents.tokenSha256, tokenSha256(token)), isNull(agents.revokedAt)));",
+    "to": ".where(and(eq(agents.tokenSha256, tokenSha256(token))));"
+  },
+  {
+    "id": "auth-scheme",
+    "guard": "only the Bearer scheme is accepted",
+    "file": "src/lib/agents/tokens.ts",
+    "from": "/^Bearer (\\S+)$/i",
+    "to": "/^\\w+ (\\S+)$/i"
+  },
+  {
+    "id": "auth-scheme-case",
+    "guard": "the Bearer scheme is case-insensitive",
+    "file": "src/lib/agents/tokens.ts",
+    "from": "/^Bearer (\\S+)$/i",
+    "to": "/^Bearer (\\S+)$/"
+  },
+  {
+    "id": "http-401",
+    "guard": "a request without a valid token never reaches the MCP layer",
+    "file": "src/lib/mcp/http.ts",
+    "from": "if (!agentId) return Response.json({ error: \"unauthorized\" }",
+    "to": "if (false) return Response.json({ error: \"unauthorized\" }"
+  },
+  {
+    "id": "list-hides-unavailable",
+    "guard": "list_offers leaves out a rule whose offer price is below its floor",
+    "file": "src/lib/commitments/service.ts",
+    "from": ".filter((r) => available(r.rule))",
+    "to": ""
+  },
+  {
+    "id": "terms-hides-unavailable",
+    "guard": "get_agent_terms answers a rule below its floor like a missing one",
+    "file": "src/lib/commitments/service.ts",
+    "from": "return available(rule) ? offerView(row.merchantName, rule, clock()) : null;",
+    "to": "return offerView(row.merchantName, rule, clock());"
+  },
+  {
+    "id": "submit-unavailable",
+    "guard": "submit refuses a rule below its floor as offer_unavailable",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (!rule || !available(rule)) throw",
+    "to": "if (!rule) throw"
+  },
+  {
+    "id": "submit-weekday",
+    "guard": "submit refuses a visit date off the offer's weekday",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (!occurrence) throw new Refused(\"not_on_offer_weekday\");",
+    "to": ""
+  },
+  {
+    "id": "submit-max-price",
+    "guard": "submit refuses a max price below the offer price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (input.maxPricePerCoverCents < price) throw new Refused(\"max_price_below_offer_price\");",
+    "to": ""
+  },
+  {
+    "id": "submit-max-price-boundary",
+    "guard": "submit accepts a max price equal to the offer price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (input.maxPricePerCoverCents < price)",
+    "to": "if (input.maxPricePerCoverCents <= price)"
+  },
+  {
+    "id": "submit-cap-own-agent",
+    "guard": "the cap counts only this agent's covers",
+    "file": "src/lib/commitments/service.ts",
+    "from": ".filter((c) => c.agentId === agentId && c.termsVersion",
+    "to": ".filter((c) => c.termsVersion"
+  },
+  {
+    "id": "live-excludes-cancelled",
+    "guard": "cancelled commitments count toward no cap, pool or clearing",
+    "file": "src/lib/commitments/service.ts",
+    "from": "        isNull(commitments.cancelledAt),\n",
+    "to": ""
+  },
+  {
+    "id": "submit-agent-lock",
+    "guard": "one agent's simultaneous submissions cannot pass its cap together",
+    "file": "src/lib/commitments/service.ts",
+    "from": "await tx.execute(sql`select pg_advisory_xact_lock(${AGENT_LOCK_NAMESPACE}, hashtext(${agentId}))`);",
+    "to": ""
+  },
+  {
+    "id": "idempotent-replay",
+    "guard": "a retried key returns the first commitment",
+    "file": "src/lib/commitments/service.ts",
+    "from": "      if (existing) {\n",
+    "to": "      if (false) {\n"
+  },
+  {
+    "id": "idempotent-same-args",
+    "guard": "a key reused for different arguments is refused",
+    "file": "src/lib/commitments/service.ts",
+    "from": "          existing.covers === input.covers &&\n",
+    "to": ""
+  },
+  {
+    "id": "stale-race",
+    "guard": "a commitment that waited on a terms change is refused stale_terms",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (constraint === \"commitments_terms_current\") return { ok: false, reason: \"stale_terms\" };",
+    "to": ""
+  },
+  {
+    "id": "cleared-race",
+    "guard": "a commitment that waited on a clearing is refused occurrence_cleared",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (constraint === \"commitments_occurrence_cleared\") return { ok: false, reason: \"occurrence_cleared\" };",
+    "to": ""
+  },
+  {
+    "id": "status-own-agent",
+    "guard": "status shows only the agent's own commitments",
+    "file": "src/lib/commitments/service.ts",
+    "from": "const [row] = await db.select().from(commitments).where(and(eq(commitments.id, commitmentId), eq(commitments.agentId, agentId)));",
+    "to": "const [row] = await db.select().from(commitments).where(and(eq(commitments.id, commitmentId)));"
+  },
+  {
+    "id": "status-deadline-boundary",
+    "guard": "the outcome is settled from the deadline itself",
+    "file": "src/lib/commitments/service.ts",
+    "from": "clock() < new Date(view.commitBy)",
+    "to": "clock() <= new Date(view.commitBy)"
+  },
+  {
+    "id": "clearing-stored-once",
+    "guard": "a stored clearing is read back, never recomputed",
+    "file": "src/lib/commitments/service.ts",
+    "from": "    if (stored) return stored;\n",
+    "to": ""
+  },
+  {
+    "id": "clearing-lock",
+    "guard": "simultaneous first reads clear once",
+    "file": "src/lib/commitments/service.ts",
+    "from": "    await tx.execute(sql`select lock_rule_for_clearing(${ruleId})`);\n",
+    "to": ""
+  },
+  {
+    "id": "cancel-own-agent",
+    "guard": "cancel touches only the agent's own commitments",
+    "file": "src/lib/commitments/service.ts",
+    "from": ".where(and(eq(commitments.id, commitmentId), eq(commitments.agentId, agentId)))\n        .for(\"update\");",
+    "to": ".where(and(eq(commitments.id, commitmentId)))\n        .for(\"update\");"
+  },
+  {
+    "id": "cancel-deadline-boundary",
+    "guard": "a commitment is binding from the deadline itself",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (now >= deadlineOf(",
+    "to": "if (now > deadlineOf("
+  },
+  {
+    "id": "reply-parsed",
+    "guard": "every tool reply is parsed by its strict schema",
+    "file": "src/lib/mcp/server.ts",
+    "from": "const parsed = ToolReplies[tool].parse(await run()) as",
+    "to": "const parsed = (await run()) as"
+  },
+  {
+    "id": "reply-catch",
+    "guard": "a failure is answered unavailable with no error text",
+    "file": "src/lib/mcp/server.ts",
+    "from": "    return result(refusal(\"unavailable\"));\n",
+    "to": "    throw err;\n"
+  },
+  {
+    "id": "reply-offer-view-strict",
+    "guard": "an offer view carries no extra field",
+    "file": "src/lib/mcp/server.ts",
+    "from": "const OfferView = z.strictObject(",
+    "to": "const OfferView = z.object("
+  },
+  {
+    "id": "reply-commitment-strict",
+    "guard": "a commitment view carries no extra field",
+    "file": "src/lib/mcp/server.ts",
+    "from": "const CommitmentView = z.strictObject(",
+    "to": "const CommitmentView = z.object("
+  },
+  {
+    "id": "reply-refusal-strict",
+    "guard": "a refusal carries no extra field",
+    "file": "src/lib/mcp/server.ts",
+    "from": "const Refusal = z.strictObject(",
+    "to": "const Refusal = z.object("
+  },
+  {
+    "id": "tool-binding-text",
+    "guard": "submit_commitment says plainly that a commitment is binding",
+    "file": "src/lib/mcp/server.ts",
+    "from": "\"A commitment is binding: if the pool",
+    "to": "\"A commitment: if the pool"
+  },
+  {
+    "id": "summary-price",
+    "guard": "the summary shows the offer price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "becomes ${dollars(offer.offerPriceCents)} per cover",
+    "to": "becomes ${dollars(offer.listPriceCents)} per cover"
+  },
+  {
+    "id": "db-cancel-only",
+    "guard": "the database refuses any change to a commitment but a cancel",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "      RAISE EXCEPTION 'a commitment can only be cancelled, never changed'\n        USING ERRCODE = 'check_violation', CONSTRAINT = 'commitments_cancel_only';\n",
+    "to": ""
+  },
+  {
+    "id": "db-cancel-once",
+    "guard": "the database refuses a second cancel or a restore",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "    IF OLD.cancelled_at IS NOT NULL OR NEW.cancelled_at IS NULL THEN",
+    "to": "    IF false THEN"
+  },
+  {
+    "id": "db-occurrence-cleared",
+    "guard": "the database refuses a new commitment or a cancel once the visit is cleared",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "  IF EXISTS (SELECT 1 FROM clearings WHERE rule_id",
+    "to": "  IF false AND EXISTS (SELECT 1 FROM clearings WHERE rule_id"
+  },
+  {
+    "id": "db-occurrence-date",
+    "guard": "the cleared check uses the visit's Singapore date",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "(NEW.visit_at AT TIME ZONE 'Asia/Singapore')::date",
+    "to": "(NEW.visit_at AT TIME ZONE 'UTC')::date + 7"
+  },
+  {
+    "id": "db-until-cleared-definer",
+    "guard": "the cleared check does not depend on the inserting role's rights",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "CREATE FUNCTION commitments_until_cleared() RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp AS $$",
+    "to": "CREATE FUNCTION commitments_until_cleared() RETURNS trigger LANGUAGE plpgsql AS $$"
+  },
+  {
+    "id": "db-clearings-append-only",
+    "guard": "stored clearings refuse UPDATE and DELETE",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "CREATE TRIGGER clearings_append_only BEFORE UPDATE OR DELETE ON clearings",
+    "to": "CREATE TRIGGER clearings_append_only BEFORE INSERT ON clearings"
+  },
+  {
+    "id": "db-fills-append-only",
+    "guard": "clearing fills refuse UPDATE and DELETE",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "CREATE TRIGGER clearing_fills_append_only BEFORE UPDATE OR DELETE ON clearing_fills",
+    "to": "CREATE TRIGGER clearing_fills_append_only BEFORE INSERT ON clearing_fills"
+  },
+  {
+    "id": "db-fills-no-truncate",
+    "guard": "clearing fills refuse TRUNCATE",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "CREATE TRIGGER clearing_fills_no_truncate BEFORE TRUNCATE ON clearing_fills",
+    "to": "CREATE TRIGGER clearing_fills_no_truncate AFTER TRUNCATE ON clearing_fills"
+  },
+  {
+    "id": "db-role-cancel-column",
+    "guard": "the runtime role may update only cancelled_at",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "GRANT UPDATE (cancelled_at) ON commitments TO backfill_app;",
+    "to": "GRANT UPDATE ON commitments TO backfill_app;"
+  },
+  {
+    "id": "db-role-rules-read-only",
+    "guard": "the runtime role cannot change rules",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "GRANT SELECT ON merchants, rules, agents TO backfill_app;",
+    "to": "GRANT SELECT ON merchants, agents TO backfill_app;\n--> statement-breakpoint\nGRANT SELECT, UPDATE ON rules TO backfill_app;"
+  },
+  {
+    "id": "db-role-no-ledger",
+    "guard": "the runtime role cannot read the ledger",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "GRANT SELECT, INSERT ON commitments, clearings, clearing_fills, llm_calls TO backfill_app;",
+    "to": "GRANT SELECT, INSERT ON commitments, clearings, clearing_fills, llm_calls, ledger TO backfill_app;"
+  },
+  {
+    "id": "db-lock-definer",
+    "guard": "the runtime role can take the clearing lock without UPDATE on rules",
+    "file": "drizzle/0005_s4_triggers_runtime_role.sql",
+    "from": "CREATE FUNCTION lock_rule_for_clearing(rule uuid) RETURNS boolean LANGUAGE sql SECURITY DEFINER SET search_path = public, pg_temp AS $$",
+    "to": "CREATE FUNCTION lock_rule_for_clearing(rule uuid) RETURNS boolean LANGUAGE sql AS $$"
+  }
+]
