@@ -1,6 +1,7 @@
-// Mutation runner for the S1 review (docs/plans/backfill/evidence/s1-review).
-// suite, records whether a test failed on an AssertionError, restores the file byte-identical and
-// confirms the restore. Usage: node mutate.mjs <tree> <mutations.json> <results.json>
+// Mutation runner for the S1 review (docs/plans/backfill/evidence/s1-review). Applies each
+// mutation to one file of a copy of the tree, runs the full unit and integration suite, records
+// whether a test failed on an AssertionError, restores the file byte-identical and confirms the
+// restore. Usage: node mutate.mjs <tree> <mutations.json> <results.json>
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -18,7 +19,12 @@ function runSuite(project) {
     execFileSync("npx", args, { cwd: tree, stdio: "ignore", env: { ...process.env } });
   } catch {}
   const r = JSON.parse(readFileSync(out, "utf8"));
-  const failed = r.testResults.flatMap((f) => f.assertionResults.filter((a) => a.status === "failed").map((a) => ({ test: a.fullName, msg: (a.failureMessages[0] ?? "").split("\n")[0] })));
+  // A failing fast-check property reports "Property failed" first and its cause on a later
+  // "Caused by:" line, so the assertion check reads the cause too, never a stack frame.
+  const cause = (m) => (m.split("\n").find((l) => l.startsWith("Caused by: ")) ?? "").slice("Caused by: ".length);
+  const failed = r.testResults.flatMap((f) =>
+    f.assertionResults.filter((a) => a.status === "failed").map((a) => ({ test: a.fullName, msg: (a.failureMessages[0] ?? "").split("\n")[0], cause: cause(a.failureMessages[0] ?? "") })),
+  );
   const fileErrors = r.testResults.filter((f) => f.status === "failed" && f.assertionResults.every((a) => a.status !== "failed")).map((f) => f.message.split("\n")[0]);
   return { passed: r.numPassedTests, failed, fileErrors };
 }
@@ -40,12 +46,12 @@ for (const m of mutations) {
   writeFileSync(path, original);
   const restored = sha(readFileSync(path)) === sha(original);
   const rerun = runSuite();
-  const assertionKill = mutated.failed.some((f) => /AssertionError/.test(f.msg));
+  const assertionKill = mutated.failed.some((f) => /AssertionError/.test(f.msg) || (/^Error: Property failed/.test(f.msg) && /^AssertionError/.test(f.cause)));
   results.push({
     id: m.id,
     guard: m.guard,
     verdict: assertionKill ? "killed" : mutated.failed.length || mutated.fileErrors.length ? "killed-not-assertion" : "survived",
-    failedTests: mutated.failed.map((f) => `${f.test} :: ${f.msg}`),
+    failedTests: mutated.failed.map((f) => `${f.test} :: ${f.msg}${f.cause ? ` :: caused by ${f.cause}` : ""}`),
     fileErrors: mutated.fileErrors,
     restoredByteIdentical: restored,
     rerunGreen: rerun.failed.length === 0 && rerun.fileErrors.length === 0,
