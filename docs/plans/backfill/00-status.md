@@ -1,13 +1,13 @@
 # Status: Backfill
 
-Updated: 2026-10-29.
+Updated: 2026-10-30.
 
 - Tech stack: approved by the user on 2026-10-26; see [../../tech-stack.md](../../tech-stack.md).
 - Build plan: drafted 2026-10-26 in [build-plan.md](build-plan.md); approved by the user on 2026-10-28, with the Singapore steer, in their words: "Yes, approved".
 - Singapore steer: 2026-10-28, after Muse launched in Singapore.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
-- Day 0 checks: model IDs done in S1 (below); the Muse custom connector check is waiting on the user, against the S4 server now live on Render; the others not started.
+- Day 0 checks: model IDs done in S1 (below); the Muse custom connector check passed on 2026-10-29 (S4, below); the others not started.
 - Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), on `main` at `ded7a05`, migrations `0004` and `0005` on Neon.
 
 ### S1 tracer bullet, 2026-10-27
@@ -264,9 +264,16 @@ The two lock mutations are killed by racing requests, so those kills are likely 
 `POST /mcp` without a token returned 401; with the token it listed the five tools and the offer at 938 cents, read the terms, submitted commitment `687a0503-f0ae-405a-a44c-5ee4c219d9fa` (2 covers at 938 cents for 2026-11-03) and read it back pending with 2 pooled covers of 8; no reply mentioned a floor or capacity.
 A read-only read of Neon showed that one commitment row, agent `smoke-claude`, not cancelled.
 - **[verified]** CI run 40724901739 on `9aa37a1` (this status) passed.
-- **[unknown]** The Render log line for that call (not read here); whether a real Muse account can add the connector (the user's Day 0 check).
-- Known limit: the app still connects to Neon as `neondb_owner`. Using `backfill_app` needs a login role that is a member of it, created in the Neon console, and that role's URL as Render's `DATABASE_URL`; the user does both.
+- **[user-reported]** Render logs (screenshot, 2026-10-29): `mcp.tool` lines for `smoke-claude` (`list_offers`, `get_agent_terms`, `submit_commitment`, `get_commitment_status`, all ok) and for `muse-user` (`list_offers`, `get_agent_terms`).
+- **Day 0 Muse connector check, 2026-10-29.**
+The user minted the agent `muse-user` and added `https://backfill-9d0x.onrender.com/mcp` as a custom connector in their Singapore Muse account.
+**[user-reported]** It could be added without Meta's review and authenticated with the bearer token; the first check timed out while Render woke from its free-plan spin-down, the second listed the five tools.
+**[user-reported]** Muse asked before submitting, not before reads: it showed the merchant, visit, covers, total at the offer price (S$18.76), deadline, pool rules and the binding wording, with "Yes, commit 2 covers" and "No, don't commit".
+- **[verified]** Exit by a real Muse account: after the user chose "Yes, commit 2 covers", a read-only read of Neon showed commitment `34e1cb93-a6cc-41f8-8869-4e458b6f90c8`, agent `muse-user`, 2 covers at 938 cents for 2026-11-03, committed 2026-10-29T17:44:02Z, not cancelled.
+- Runtime role: `backfill_web` (LOGIN, member of `backfill_app`) created on Neon by SQL at the user's request, since the Neon console showed no Roles page; its URL is in `.env.local` as `RUNTIME_DATABASE_URL`.
+**[verified]** Connected as it through the pooled host: it reads `rules` and is refused DELETE on `commitments` and SELECT on `ledger`.
+**[unknown]** Whether Render now uses it: the user set Render's `DATABASE_URL` and `/api/health` returns 200, but while Render answered health checks, `pg_stat_activity` showed only `neondb_owner` sessions.
 - Known limit: a clearing is stored at the first status read from the deadline on, not at the deadline itself, so a floor or capacity change between the two still counts.
 - Known limit: a buyer can still infer a little: pooled covers drop if the merchant later raises the floor above the offer price (the rule then stops counting), and `not_filled` with a full pool hints at capacity.
 - Known limit: `agent:mint` and `mcp:smoke` have no automated tests; both were run for real here (mint on Neon, smoke on Render).
-- Neon now holds the exit commitment; it becomes binding at 12:00 on 2026-11-03 and, alone in its pool of 2 of 8, will clear as `not_filled`.
+- Neon now holds the two exit commitments (Claude's and Muse's); they become binding at 12:00 on 2026-11-03 and, with 4 of 8 covers pooled, will clear as `not_filled` unless more commit.
