@@ -272,7 +272,8 @@ The user minted the agent `muse-user` and added `https://backfill-9d0x.onrender.
 - **[verified]** Exit by a real Muse account: after the user chose "Yes, commit 2 covers", a read-only read of Neon showed commitment `34e1cb93-a6cc-41f8-8869-4e458b6f90c8`, agent `muse-user`, 2 covers at 938 cents for 2026-11-03, committed 2026-10-29T17:44:02Z, not cancelled.
 - Runtime role: `backfill_web` (LOGIN, member of `backfill_app`) created on Neon by SQL at the user's request, since the Neon console showed no Roles page; its URL is in `.env.local` as `RUNTIME_DATABASE_URL`.
 **[verified]** Connected as it through the pooled host: it reads `rules` and is refused DELETE on `commitments` and SELECT on `ledger`.
-**[unknown]** Whether Render now uses it: the user set Render's `DATABASE_URL` and `/api/health` returns 200, but while Render answered health checks, `pg_stat_activity` showed only `neondb_owner` sessions.
+**[verified]** Render uses it since 2026-10-30: the user replaced Render's `DATABASE_URL` (which had still been the owner URL) with the `backfill_web` URL and redeployed; while Render answered `/api/health` with 200, `pg_stat_activity` showed `backfill_web` sessions, and `POST /mcp` with an unknown token answered 401 (the agent lookup ran as `backfill_web`), not 503.
+**[unknown]** A full tool call as `backfill_web` on Render: `BACKFILL_SMOKE_TOKEN` could no longer be read from `.env.local` for `npm run mcp:smoke`.
 - Known limit: a clearing is stored at the first status read from the deadline on, not at the deadline itself, so a floor or capacity change between the two still counts.
 - Known limit: a buyer can still infer a little: pooled covers drop if the merchant later raises the floor above the offer price (the rule then stops counting), and `not_filled` with a full pool hints at capacity.
 - Known limit: `agent:mint` and `mcp:smoke` have no automated tests; both were run for real here (mint on Neon, smoke on Render).
