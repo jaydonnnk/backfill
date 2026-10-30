@@ -300,6 +300,7 @@ At most 3 rounds, then refusal; the HMAC token names its stored round, and one n
 Authorizations, in the user's words:
 - 2026-10-30, answering the open decisions: "Per-commitment price (Recommended)", "Buyer via MCP, pre-submit (Recommended)", "Table, 1 per occurrence (Recommended)", "Fake HTTP + 1 live, cap US$0.10 (Recommended)".
 - 2026-10-30, for the local work after the code: "Local work first".
+- 2026-10-30, for the live run: "Live Spark run", then, asked before the Meta call with its cost and cap: "Yes, run it (Recommended)".
 
 Built:
 - Migration `0006_s5_negotiations` (generated): `negotiations` (one per agent, rule and visit date, with fixed covers and terms version) and `negotiation_rounds` (rounds 1 to 3, the bid, the model's proposal and why it did or did not count, the status and the merchant's price after the round); `commitments.negotiation_id` (at most one commitment per negotiation) and `negotiated_price_cents`; `clearing_fills.price_per_cover_cents`, NOT NULL with no default.
@@ -313,19 +314,29 @@ The per-agent cap counts each held commitment at its own price.
 - `clear()` fills each commitment at its own price: the negotiated price, or else the offer price, and only when that is at or below its max, at or below the offer price and at or above the floor.
 The stored fill and `get_commitment_status` carry that price.
 - The mutation runner takes several edits per mutation, so an app check and the trigger behind it can be removed together.
+- `npm run negotiation:live -- <local-postgres-url>`: one negotiation against the real merchant model, on a scratch database on a local PostgreSQL (it refuses any other host) as a runtime-role login, bidding S$8.50 each round, then a commitment at the last counter-offer; no round starts once the cost recorded in `llm_calls` reaches US$0.10, and the scratch database and role are dropped after.
+It prints only whether `NEGOTIATION_SIGNING_SECRET` is set and signs with a fresh secret of its own.
+Tested end to end with the model's fetch faked.
+- `sparkMerchant` now logs the proposed price and the model's rationale with each proposal, as its comment already said; neither reaches the buyer.
 
 Evidence:
-- **[verified]** Typecheck and lint clean; 194 tests pass (130 unit, 64 integration) on a local PostgreSQL 18 through `TEST_DATABASE_URL`.
+- **[verified]** Typecheck, lint, `npm run build` and `git diff --check` clean; 198 tests pass (130 unit, 68 integration) on a local PostgreSQL 18 through `TEST_DATABASE_URL`.
 - **[verified]** `tests/integration/s5-negotiation.test.ts` drives the route's handler with the SDK's MCP client, connected as a login role that is only a member of `backfill_app`, with the real Meta provider and its fetch faked at the HTTP boundary.
 It covers the exit: a proposal below the floor (899 against a floor of 903) is recorded `below_floor`, holds with the same reply as any hold, cannot be committed with a token signed by another secret, with a token signed by the right secret, or by a direct insert as the runtime role, and never reaches a commitment or a clearing; the held counter commits and clears at 907 while unnegotiated commitments clear at 938.
 It also covers each round outcome, the round limit, model failure, every refusal, races for the first and second round, counter-offer misuse, idempotency, the cap at the negotiated price, a floor raised after a counter, and the database guards and grants.
 - **[verified]** Mutations in [evidence/s5-negotiation](evidence/s5-negotiation/README.md), at `7a5382b`: all 68 killed on an AssertionError, each file restored byte-identical and each rerun green.
 A first run, at `2b2e58c`, gave 58 killed and 10 survivors, all test gaps, closed in `7a5382b`; 2 of its reruns failed on unmutated files, most likely chance collisions of random ids with the floor's digits in two leak checks, also fixed there.
+- **[verified]** Mutations of the live script and the rationale log, in the same folder, at `31ac9fd`: all 4 killed on an AssertionError, each restored byte-identical and each rerun green, after two test fixes found by a first run.
+- **[verified]** Live negotiation, 2026-10-30T01:00Z, with `muse-spark-1.3` through the Meta API, run from the working tree committed as `9ece551` before the rationale log was added, on a scratch local database (no Neon write).
+Offer 938 cents for 2 covers on 2026-11-03, bid 850 each round.
+Spark proposed 938 (held), then 930 and 920 (countered); every proposal was judged `ok`, every price stayed between the floor of 903 and the offer, and each step was within 31 cents.
+`submit_commitment` with the round 3 counter-offer was accepted at 920 cents.
+3 calls, each on the first attempt: 275 tokens in each, 311, 326 and 701 out, 3.0, 2.5 and 4.9 seconds, US$0.006593 in all, against the US$0.10 cap.
+The scratch database and role were dropped; `NEGOTIATION_SIGNING_SECRET` is set locally.
 - Known limit: `counter_offer_invalid` for a token that was valid, and `negotiation_closed`, each tell a buyer that the floor rose past a price it already knows (or that the terms changed); neither names the floor.
 - Known limit: `sparkMerchant` turns every error into a hold, including a wrong key, an unpriced model or a code bug, so a broken model setup looks like a stubborn merchant to the buyer; each failure is logged as `negotiation.proposal_failed` and recorded in `llm_calls`.
 
 Not done:
-- **[unknown]** The live Spark negotiation (one, capped at US$0.10): no script exists yet, and whether `NEGOTIATION_SIGNING_SECRET` is set locally is unknown.
 - Neon: migrations `0006` and `0007` are not applied.
 `0006` adds a NOT NULL column to `clearing_fills` with no default, so it needs 0 fill rows on Neon; the exit occurrence of 2026-11-03 becomes binding at 12:00 SGT and clears at its first status read after that.
 - Render: whether `NEGOTIATION_SIGNING_SECRET` is set there is unknown; without it `negotiate_offer` is not offered.

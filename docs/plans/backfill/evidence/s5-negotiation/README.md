@@ -9,6 +9,8 @@ The runner then restores every file it changed, checks each is byte-identical, a
 | `mutations.json` | 68 mutations: the round limit, the concession step and its rounding, every proposal bound, the hold on a refused or missing proposal, the strict signed counter-offer and its HMAC checks, every `negotiate_offer` refusal and race, the model failure turned into a hold, the conditional tool, every counter-offer check at submit, the per-agent cap at each commitment's own price, the per-commitment clearing price as cleared, stored and reported, and the migration `0006` constraints and `0007` triggers and grants |
 | `results.json` | The run at `7a5382b`, baseline 194: all 68 killed on an AssertionError, each restored byte-identical, each rerun green |
 | `results-first-run.json` | The first run, at `2b2e58c`, baseline 190: 58 killed and 10 survived, and 2 reruns not green |
+| `mutations-live.json` | 4 mutations of the live negotiation script and the rationale log: the local-only refusal, the spend cap, dropping the scratch role, and logging the model's rationale |
+| `results-live.json` | The run at `31ac9fd`, baseline 198: all 4 killed on an AssertionError, each restored byte-identical, each rerun green |
 
 The runner now accepts a mutation as a list of `edits`, applied together.
 Four mutations use it to remove an app check together with the trigger or mapping behind it, since removing either alone changes no reply: the agent and covers checks at submit, the latest-round price check, and the `commitments_negotiated_match` mapping.
@@ -30,6 +32,13 @@ The first now strips the random values and decodes the token's price; merchant n
 The 68 reruns of the second run were all green.
 
 `neg-busy-first-round` and `neg-busy-mapping` depend on two requests racing, but the test holds both model calls at a barrier until both have read the round, so these kills are certain rather than likely.
+
+## Live script mutations
+
+A first run of `mutations-live.json`, at `9ece551`, killed all 4, but one only by a non-assertion error and two reruns were not green.
+Without the local-only check, the test failed with a DNS error rather than an assertion; it now asserts the message and uses a `.invalid` host.
+The `live-drops-role` mutant leaves its role on the server, and the cleanup check counted every `backfill_live_rt_` role, so later runs failed; it now checks only its own run's names.
+That mutant's roles were dropped by hand after each run.
 
 ## Rerun
 

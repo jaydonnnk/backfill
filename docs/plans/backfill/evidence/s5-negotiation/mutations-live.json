@@ -1,0 +1,30 @@
+[
+  {
+    "id": "live-local-only",
+    "guard": "the live script refuses a server that is not local",
+    "file": "src/lib/negotiation/live.ts",
+    "from": "if (!LOCAL_HOSTS.has(new URL(options.serverUrl).hostname)) throw new Error(\"the server URL must be a local PostgreSQL\");",
+    "to": ""
+  },
+  {
+    "id": "live-spend-cap",
+    "guard": "the live script starts no round once the recorded cost reaches the cap",
+    "file": "src/lib/negotiation/live.ts",
+    "from": "if ((await spent()) >= cap) {",
+    "to": "if ((await spent()) > cap) {"
+  },
+  {
+    "id": "live-drops-role",
+    "guard": "the live script drops its scratch role",
+    "file": "src/lib/negotiation/live.ts",
+    "from": "    await root.unsafe(`DROP ROLE IF EXISTS ${login}`);\n",
+    "to": ""
+  },
+  {
+    "id": "spark-logs-rationale",
+    "guard": "the model's rationale is logged with its proposal",
+    "file": "src/lib/negotiation/merchant-agent.ts",
+    "from": "        rationale: result.value.rationale,\n",
+    "to": ""
+  }
+]
