@@ -70,6 +70,13 @@ function withDatabase(url: string, database: string, user?: string): string {
   return parsed.toString();
 }
 
+// True when what buyers see neither names a floor nor shows its price. Ids are dropped first, since
+// their random hex digits could spell the floor's price by chance.
+export function floorHidden(buyerView: unknown, floorPriceCents: number): boolean {
+  const text = JSON.stringify(buyerView).replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, "<id>");
+  return !/floor/i.test(text) && !text.includes(String(floorPriceCents));
+}
+
 export async function liveOnboarding(options: LiveOptions): Promise<LiveSummary> {
   if (!LOCAL_HOSTS.has(new URL(options.serverUrl).hostname)) throw new Error("the server URL must be a local PostgreSQL");
   const out = options.out ?? ((line: string) => console.log(line));
@@ -116,13 +123,11 @@ export async function liveOnboarding(options: LiveOptions): Promise<LiveSummary>
       if (published.status !== "published") return;
       const offer = (await listOffers(db)).find((o) => o.offer.ruleId === published.ruleId);
       if (!offer) throw new Error("the published offer is not listed");
-      // Without its random ids, whose hex digits could spell the floor by chance.
-      const buyerView = JSON.stringify(offer).replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, "<id>");
       summary.published = {
         listPriceCents: offer.offer.listPriceCents,
         offerPriceCents: offer.offer.offerPriceCents,
         floorPriceCents,
-        floorHiddenFromBuyers: !/floor/i.test(buyerView) && !buyerView.includes(String(floorPriceCents)),
+        floorHiddenFromBuyers: floorHidden(offer, floorPriceCents),
       };
       out(`buyers see: ${offer.summary}`);
       out(`floor hidden from buyers: ${summary.published.floorHiddenFromBuyers ? "yes" : "NO"}`);

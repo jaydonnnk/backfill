@@ -52,7 +52,7 @@
     "id": "live-floor-report",
     "guard": "the live script reports whether the floor reached the buyers' view",
     "file": "src/lib/onboarding/live.ts",
-    "from": "floorHiddenFromBuyers: !/floor/i.test(buyerView) && !buyerView.includes(String(floorPriceCents)),",
-    "to": "floorHiddenFromBuyers: true,"
+    "from": "return !/floor/i.test(text) && !text.includes(String(floorPriceCents));",
+    "to": "return true;"
   }
 ]

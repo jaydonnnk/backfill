@@ -266,20 +266,27 @@ describe("confirming and publishing a draft", () => {
     const ok = await readMenu(app.db, m.id, PHOTO, read(), SPARK);
     if (!("draftId" in ok)) throw new Error("read failed");
     const holder = await t.admin.reserve();
+    let committed = false;
     try {
       // The first publication is made but not committed, so the racing request finds the draft
       // unpublished and then waits on the publication's key.
       await holder.unsafe("begin");
       await holder`select publish_offer(${m.id}::uuid, ${ok.draftId}::uuid, gen_random_uuid(), 4, 2::smallint, 840::smallint, 1020::smallint, 720::smallint, 2500, 2, 2, ${FLOOR})`;
-      const racing = settle(publishDraft(app.db, m.id, ok.draftId, TERMS));
+      let done = false;
+      const racing = settle(publishDraft(app.db, m.id, ok.draftId, TERMS)).finally(() => (done = true));
+      // Until the racing request waits on the key, or has already answered without waiting.
       await until(async () => {
+        if (done) return true;
         // Through the runtime pool: the holder has the admin pool's only connection.
         const [row] = await runtime`select count(*)::int as n from pg_stat_activity where datname = current_database() and wait_event_type = 'Lock'`;
         return (row?.n ?? 0) > 0;
       });
       await holder.unsafe("commit");
+      committed = true;
       expect(await racing).toBe("already_published");
     } finally {
+      // Never hand the admin pool's only connection back inside a transaction.
+      if (!committed) await holder.unsafe("rollback");
       holder.release();
     }
     const [{ n }] = (await t.admin`select count(*)::int as n from rules where merchant_id = ${m.id}`) as unknown as [{ n: number }];

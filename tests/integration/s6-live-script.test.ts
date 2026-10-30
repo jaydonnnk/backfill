@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { loadLocalEnvFile, testEnv } from "@/env";
 import type { MenuDraft } from "@/domain/onboarding/menu";
 import type { WonderPlan } from "@/domain/onboarding/replan";
-import { DEFAULT_PHOTO, liveOnboarding } from "@/lib/onboarding/live";
+import { DEFAULT_PHOTO, floorHidden, liveOnboarding } from "@/lib/onboarding/live";
 
 // The live onboarding script, run end to end against the local server with both models' fetch
 // faked, so the live run is the only thing left unproven: the scratch database and role are made
@@ -94,6 +94,13 @@ describe("onboarding:live", () => {
 
     const none = await liveOnboarding({ serverUrl: serverUrl(), meta, photo: PHOTO, fetch: fakeModels(sent), out: () => {}, capNanoUsd: 0 });
     expect([sent.length, none.read, none.stoppedForCap]).toEqual([1, "not run", true]);
+  });
+
+  it("reports a floor that reaches the buyers' view, by name or by price, but not one spelled by an id", () => {
+    const id = "6090a000-0000-4000-8000-000000000609";
+    expect(floorHidden({ ruleId: id, offerPriceCents: 653 }, 609)).toBe(true);
+    expect(floorHidden({ ruleId: id, offerPriceCents: 609 }, 609)).toBe(false);
+    expect(floorHidden({ ruleId: id, floorPriceCents: 1 }, 609)).toBe(false);
   });
 
   it("refuses a server that is not local before touching it", async () => {
