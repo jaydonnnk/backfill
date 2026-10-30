@@ -2,7 +2,7 @@ import { createHmac, randomBytes, randomUUID } from "node:crypto";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import postgres from "postgres";
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createMetaProvider } from "@/integrations/meta/provider";
 import { mintAgent } from "@/lib/agents/tokens";
 import { connectDb, type Db } from "@/lib/db/client";
@@ -200,6 +200,22 @@ describe("rounds", () => {
     const { reply } = await call(client, "negotiate_offer", bid(ruleId, 850));
     expect(reply).toMatchObject({ ok: false, reason: "round_limit" });
     expect(prompts).toHaveLength(3);
+  });
+
+  it("logs the model's rationale with its proposal and never sends it to the buyer", async () => {
+    const ruleId = await seedRule();
+    const { client } = await connect();
+    script = [930];
+    const lines: string[] = [];
+    const spy = vi.spyOn(console, "log").mockImplementation((line: unknown) => void lines.push(String(line)));
+    try {
+      const { text } = await call(client, "negotiate_offer", bid(ruleId, 850));
+      expect(text).not.toContain("scripted");
+    } finally {
+      spy.mockRestore();
+    }
+    const proposal = lines.map((l) => JSON.parse(l) as Record<string, unknown>).find((l) => l.event === "negotiation.proposal");
+    expect(proposal).toMatchObject({ priceCents: 930, rationale: "scripted", attempts: 1 });
   });
 
   it("holds when the model fails, and logs every failed attempt", async () => {

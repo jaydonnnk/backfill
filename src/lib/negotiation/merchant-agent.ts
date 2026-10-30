@@ -55,7 +55,13 @@ export function sparkMerchant(provider: LLMProvider, model: string): ProposeCoun
         maxCompletionTokens: 1024,
         reasoningEffort: "low",
       });
-      log("info", "negotiation.proposal", { attempts: result.attempts, costNanoUsd: result.costNanoUsd, latencyMs: result.latencyMs });
+      log("info", "negotiation.proposal", {
+        attempts: result.attempts,
+        costNanoUsd: result.costNanoUsd,
+        latencyMs: result.latencyMs,
+        priceCents: result.value.priceCents,
+        rationale: result.value.rationale,
+      });
       return result.value.priceCents;
     } catch (err) {
       log("error", "negotiation.proposal_failed", err instanceof LlmError ? { name: err.name, message: err.message, attempts: err.attempts } : errorFields(err));
