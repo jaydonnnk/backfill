@@ -429,3 +429,20 @@ Not done:
 - **[unknown]** A Wonder plan on Render: none was run there; it ran locally.
 - **[unknown]** The spinner on Render and on the real forms: it was seen only on the temporary page, and `065eaef` is not on `main` or Render.
 - Negotiation on Render, S6b to S10, the 8 old `backfill_t_*` databases on local PostgreSQL (from earlier interrupted runs, not S6).
+
+### S6b WhatsApp merchant agent, 2026-10-30
+
+Branch: `backfill/slice-6b-whatsapp`, cut from `backfill/slice-6-onboarding` at `39540fc` (S6 plus the spinner, the S6 record and the `.gitkeep` cleanup, none of which is on `main` yet).
+The user asked for it on 2026-10-30 ("Continue to s6b"); S6 finished on 2026-10-30, inside the plan's "only if S6 is done by Oct 31" condition.
+In the same message the user approved deleting the 6 stale `.gitkeep` files, done in `39540fc`.
+
+Decisions, taken before coding; the user picked the recommended option for each on 2026-10-30:
+- **Setup:** "Not set up yet (Recommended)": the webhook is built and tested with fake WhatsApp payloads first, and the user creates the Meta app, the test number and the secrets while that happens.
+The live exit (a real message from the owner's phone) waits for those; until then it is [unknown].
+- **Owner binding:** "Link code, then reply YES (Recommended)": the merchant page shows a one-time code, the owner sends `LINK <code>` from their phone, and only that number can then change that merchant's offer.
+A change proposed by Muse Wonder is shown to the owner as plain text and publishes only after a `YES` reply that the code reads, not the model.
+
+Design, mine within those two decisions:
+- The owner may change the four terms Wonder already plans (discount, capacity, minimum pool, per-agent cap), in either direction, within bounds checked in the domain and again in SQL; the window and the floor never change, and the new offer price must stay at or above the floor.
+- Only a merchant with exactly one rule can use WhatsApp for now; with two or more, the reply sends them to the merchant page.
+- "No discount this Tuesday" is not a term the schema has (a discount cannot be 0 and an occurrence cannot be paused), so Wonder says what it can change.
