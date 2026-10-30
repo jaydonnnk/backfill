@@ -49,6 +49,7 @@ function toCommitment(row: CommitmentRow): Commitment {
     maxPricePerCoverCents: row.maxPricePerCoverCents,
     visitAt: row.visitAt,
     committedAt: row.committedAt,
+    ...(row.negotiatedPriceCents === null ? {} : { negotiatedPriceCents: row.negotiatedPriceCents }),
   };
 }
 
@@ -246,7 +247,8 @@ export async function submitCommitment(db: Db, agentId: string, input: SubmitInp
   }
 }
 
-type StoredClearing = { unlocked: boolean; pricePerCoverCents: number; filled: Map<string, number> };
+// Each filled commitment's covers and its own price per cover.
+type StoredClearing = { unlocked: boolean; filled: Map<string, { covers: number; pricePerCoverCents: number }> };
 
 // The stored outcome of one occurrence, written by the first call after its deadline. The rule is
 // held FOR UPDATE, through lock_rule_for_clearing since the runtime role cannot update rules. That
@@ -260,13 +262,13 @@ async function ensureClearing(db: Db, ruleId: string, visitDate: string): Promis
       const [stored] = await tx.select().from(clearings).where(and(eq(clearings.ruleId, ruleId), eq(clearings.visitDate, visitDate)));
       if (!stored) return null;
       const fills = await tx.select().from(clearingFills).where(and(eq(clearingFills.ruleId, ruleId), eq(clearingFills.visitDate, visitDate)));
-      return { unlocked: stored.unlocked, pricePerCoverCents: stored.pricePerCoverCents, filled: new Map(fills.map((f) => [f.commitmentId, f.covers])) };
+      return { unlocked: stored.unlocked, filled: new Map(fills.map((f) => [f.commitmentId, { covers: f.covers, pricePerCoverCents: f.pricePerCoverCents }])) };
     };
     const stored = await read();
     if (stored) return stored;
     const result = clear(toRule(ruleRow), visitDate, await occurrenceCommitments(tx, ruleId, visitDate));
     await tx.insert(clearings).values({ ruleId, visitDate, termsVersion: result.termsVersion, unlocked: result.unlocked, pricePerCoverCents: result.pricePerCoverCents });
-    if (result.fills.length > 0) await tx.insert(clearingFills).values(result.fills.map((f) => ({ commitmentId: f.commitmentId, ruleId, visitDate, covers: f.covers })));
+    if (result.fills.length > 0) await tx.insert(clearingFills).values(result.fills.map((f) => ({ commitmentId: f.commitmentId, ruleId, visitDate, covers: f.covers, pricePerCoverCents: f.pricePerCoverCents })));
     return (await read())!;
   });
 }
@@ -303,12 +305,12 @@ export async function getCommitmentStatus(db: Db, agentId: string, commitmentId:
   const view = await viewOf(db, row);
   if (view.status === "cancelled" || clock() < new Date(view.commitBy)) return { ok: true, commitment: view };
   const cleared = await ensureClearing(db, row.ruleId, view.visitDate);
-  const covers = cleared.filled.get(row.id);
+  const fill = cleared.filled.get(row.id);
   const settled: CommitmentView = { ...view };
   delete settled.pooledCovers;
   delete settled.minPoolCovers;
-  if (covers === undefined) return { ok: true, commitment: { ...settled, status: "not_filled" } };
-  return { ok: true, commitment: { ...settled, status: "filled", pricePerCoverCents: cleared.pricePerCoverCents } };
+  if (fill === undefined) return { ok: true, commitment: { ...settled, status: "not_filled" } };
+  return { ok: true, commitment: { ...settled, status: "filled", pricePerCoverCents: fill.pricePerCoverCents } };
 }
 
 export type CancelResult = { ok: true; commitment: CommitmentView } | { ok: false; reason: "not_found" | "binding" };

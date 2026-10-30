@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { bigint, boolean, check, date, foreignKey, index, integer, pgTable, primaryKey, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
+import { type AnyPgColumn, bigint, boolean, check, date, foreignKey, index, integer, pgTable, primaryKey, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
 
 // One row per HTTP attempt to a model, including failed and retried attempts, so cost per deal (S9)
 // comes from what was billed rather than from estimates.
@@ -118,9 +118,16 @@ export const commitments = pgTable(
     committedAt: timestamp("committed_at", { withTimezone: true }).notNull().defaultNow(),
     // Set once when the agent cancels before the deadline; a trigger refuses any other change.
     cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
+    // Set together when the commitment takes a signed counter-offer (S5): the negotiation, at most one
+    // commitment each, and its latest round's price, which a trigger checks.
+    negotiationId: uuid("negotiation_id").references((): AnyPgColumn => negotiations.id),
+    negotiatedPriceCents: integer("negotiated_price_cents"),
   },
   (t) => [
     unique("commitments_agent_idempotency_key").on(t.agentId, t.idempotencyKey),
+    unique("commitments_negotiation_once").on(t.negotiationId),
+    check("commitments_negotiated_together", sql`(${t.negotiationId} is null) = (${t.negotiatedPriceCents} is null)`),
+    check("commitments_negotiated_price_nonnegative", sql`${t.negotiatedPriceCents} >= 0`),
     index("commitments_rule_id_visit_at_idx").on(t.ruleId, t.visitAt),
     check("commitments_agent_id_present", sql`length(${t.agentId}) between 1 and 200`),
     check("commitments_covers_positive", sql`${t.covers} >= 1`),
@@ -157,10 +164,13 @@ export const clearingFills = pgTable(
     ruleId: uuid("rule_id").notNull(),
     visitDate: date("visit_date", { mode: "string" }).notNull(),
     covers: integer("covers").notNull(),
+    // The commitment's own price: its negotiated price (S5), or else the clearing's offer price.
+    pricePerCoverCents: integer("price_per_cover_cents").notNull(),
   },
   (t) => [
     foreignKey({ name: "clearing_fills_clearing_fk", columns: [t.ruleId, t.visitDate], foreignColumns: [clearings.ruleId, clearings.visitDate] }),
     check("clearing_fills_covers_positive", sql`${t.covers} >= 1`),
+    check("clearing_fills_price_nonnegative", sql`${t.pricePerCoverCents} >= 0`),
   ],
 );
 
@@ -198,5 +208,54 @@ export const ledger = pgTable(
       "ledger_split_sums",
       sql`${t.buyerShareCents} >= 0 and ${t.agentShareCents} >= 0 and ${t.networkShareCents} >= 0 and ${t.buyerShareCents} + ${t.agentShareCents} + ${t.networkShareCents} = ${t.savingsCents}`,
     ),
+  ],
+);
+
+// A buyer agent's haggle over the price per cover of one commitment it has not yet made (S5). One
+// per agent per occurrence of a rule, so starting again adds no rounds. Append-only by trigger.
+export const negotiations = pgTable(
+  "negotiations",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    agentId: text("agent_id")
+      .notNull()
+      .references(() => agents.id),
+    ruleId: uuid("rule_id")
+      .notNull()
+      .references(() => rules.id),
+    termsVersion: integer("terms_version").notNull(),
+    // The occurrence's Singapore date.
+    visitDate: date("visit_date", { mode: "string" }).notNull(),
+    covers: integer("covers").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [unique("negotiations_once_per_occurrence").on(t.agentId, t.ruleId, t.visitDate), check("negotiations_covers_positive", sql`${t.covers} >= 1`)],
+);
+
+// One row per round: the buyer's bid, what the model proposed and whether it counted, and the
+// merchant's price after the round. Rounds run 1 to 3 in order, by trigger; append-only by trigger.
+export const negotiationRounds = pgTable(
+  "negotiation_rounds",
+  {
+    negotiationId: uuid("negotiation_id")
+      .notNull()
+      .references(() => negotiations.id),
+    round: smallint("round").notNull(),
+    bidCents: integer("bid_cents").notNull(),
+    // Null when the round needed no proposal or the model gave none.
+    proposedCents: integer("proposed_cents"),
+    // "ok" or the reason the proposal did not count; null with proposed_cents.
+    proposalVerdict: text("proposal_verdict"),
+    status: text("status").notNull(),
+    counterCents: integer("counter_cents").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    primaryKey({ name: "negotiation_rounds_pkey", columns: [t.negotiationId, t.round] }),
+    check("negotiation_rounds_round_range", sql`${t.round} between 1 and 3`),
+    check("negotiation_rounds_status", sql`${t.status} in ('accepted', 'countered', 'held')`),
+    check("negotiation_rounds_verdict", sql`${t.proposalVerdict} in ('ok', 'rises', 'concedes_too_much', 'below_bid', 'below_floor')`),
+    check("negotiation_rounds_proposal_together", sql`(${t.proposedCents} is null) = (${t.proposalVerdict} is null)`),
+    check("negotiation_rounds_cents_nonnegative", sql`${t.bidCents} >= 0 and ${t.counterCents} >= 0 and ${t.proposedCents} >= 0`),
   ],
 );

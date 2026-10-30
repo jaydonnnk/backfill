@@ -473,7 +473,7 @@ describe("database guards", () => {
     const { ruleId } = await seedRule();
     const id = await committed(ruleId);
     await t.admin`insert into clearings ${t.admin({ rule_id: ruleId, visit_date: "2026-11-03", terms_version: 1, unlocked: true, price_per_cover_cents: 938 })}`;
-    await t.admin`insert into clearing_fills ${t.admin({ commitment_id: id, rule_id: ruleId, visit_date: "2026-11-03", covers: 2 })}`;
+    await t.admin`insert into clearing_fills ${t.admin({ commitment_id: id, rule_id: ruleId, visit_date: "2026-11-03", covers: 2, price_per_cover_cents: 938 })}`;
     const messages = {
       updateClearing: (await failure(t.admin`update clearings set unlocked = false where rule_id = ${ruleId}`))?.message,
       deleteClearing: (await failure(t.admin`delete from clearings where rule_id = ${ruleId}`))?.message,
