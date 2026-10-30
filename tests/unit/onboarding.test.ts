@@ -128,7 +128,7 @@ describe("Wonder re-plan after a sellout", () => {
 
   it("gives Wonder the fill history and its past plans, and never the floor", () => {
     const memory: PlanMemory = {
-      merchantName: "Kopi Lane Cafe (synthetic)",
+      merchantName: "Singapore Test Restaurant",
       listPriceCents: 1440,
       capacityCovers: 20,
       discountBps: 2500,

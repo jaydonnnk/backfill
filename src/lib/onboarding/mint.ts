@@ -7,7 +7,6 @@ import { mintMerchant } from "./links";
 // Creates a merchant and its secret link: npm run merchant:mint -- "<merchant name>". The link is
 // printed once for the person running the command, as a path to append to the app's base URL; the
 // token is in its fragment, so opening it sends the token to no server log. Only its hash is stored.
-// A synthetic merchant's name must say "(synthetic)".
 if (isEntrypoint(import.meta.url)) {
   const [name] = process.argv.slice(2);
   if (!name || name.trim() === "" || process.argv.length > 3) {

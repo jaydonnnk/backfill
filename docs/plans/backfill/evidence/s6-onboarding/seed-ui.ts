@@ -15,7 +15,7 @@ const url = `postgres://postgres@127.0.0.1:5432/${name}`;
 await runMigrations(url);
 const { db, close } = connectDb(url, 1);
 const sql = postgres(url, { max: 1, onnotice: () => {} });
-const a = await mintMerchant(db, "Singapore Test Restaurant (synthetic)");
+const a = await mintMerchant(db, "Singapore Test Restaurant");
 const menu = { currency: "SGD", items: [
   { name: "Hainanese chicken rice", priceCents: 650 }, { name: "Laksa", priceCents: 750 }, { name: "Sambal stingray with rice and a long name to check wrapping on small phones", priceCents: 1290 },
   { name: "Iced lemon tea", priceCents: 250 }, { name: "Kopi peng", priceCents: 220 }, { name: "Chendol", priceCents: 400 } ],

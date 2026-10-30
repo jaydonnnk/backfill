@@ -157,7 +157,7 @@ Cut from the top first:
 2. Wonder memory across sessions (keep the re-plan on sellout).
 3. ACP-shaped checkout (keep the ledger).
 4. DeepSeek column in the eval (keep Spark's numbers alone).
-5. Real merchant (fall back to clearly labelled synthetic Singapore merchants).
+5. Real merchant (fall back to synthetic Singapore merchants whose names say they are tests, such as "Singapore Test Restaurant"). Taken in S6, 2026-10-30.
 
 Never cut: clearing engine, agent terms and limits in code, MCP server, solo vs pooled screen, live Render URL.
 
@@ -167,7 +167,7 @@ Never cut: clearing engine, agent terms and limits in code, MCP server, solo vs 
 |---|---|---|
 | Model IDs or hosting differ from the pasted research | Day 0 check fails | Swap the provider behind `LLMProvider` |
 | Buyer sim burns Meta credits | Billing page shows over $100 spent before S10 | Rehearse only in replay mode; cut to 10 buyers for live runs |
-| No merchant agrees | No yes by Oct 31 | Synthetic Singapore merchants, labelled as such |
+| No merchant agrees | No yes by Oct 31 | Synthetic Singapore merchants whose names say they are tests |
 | Muse custom connectors unavailable in Singapore, gated by review, or unable to reach Render | Day 0 connector check fails | Claude as the MCP client in S4, 20 Spark buyers stand in for Muse users, pitch claims only the connector shape |
 | Muse asks the user before every tool call and slows the live demo | Day 0 check, question 3 | Record the Muse commitment ahead of time and show it in the pool; keep the live part to the Spark buyers |
 | Wonder memory unavailable over API | Day 0 check fails | Store history in Postgres and pass it in context |

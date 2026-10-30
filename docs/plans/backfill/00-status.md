@@ -355,8 +355,10 @@ Not done:
 Branch: `backfill/slice-6-onboarding`, cut from `main` at `67d0cab`.
 
 Decisions, taken before coding on 2026-10-30:
-- **Merchant:** synthetic only, re-steered by the user on 2026-10-30: the exit uses "Singapore Test Restaurant (synthetic)" and a synthetic menu photo, not a real merchant.
-This takes cut-order item 5 (real merchant) and changes S6's exit from "a real Singapore merchant's menu photo" to a synthetic one; the "(synthetic)" label stays, as the hard rules require.
+- **Merchant:** synthetic only, re-steered by the user on 2026-10-30: the exit uses "Singapore Test Restaurant" and a synthetic menu photo, not a real merchant.
+This takes cut-order item 5 (real merchant) and changes S6's exit from "a real Singapore merchant's menu photo" to a synthetic one.
+The user also dropped the "(synthetic)" label for S6 merchants: a name with "Test" in it says it is not real.
+Existing rows such as "Demo Kopitiam (synthetic)" on Neon and in the S5 live script are left as they are.
 No payment method is needed from the merchant, since Backfill moves no real money.
 - **Look:** the user asked for a colour theme that fits Muse and a different font.
 The theme is a cream ground, deep ink text, electric blue for actions and a thin teal, blue and magenta bar, after Muse's iridescent identity; the font is Figtree. No Muse or Meta logo is used.
@@ -372,3 +374,4 @@ The permission is verbal, not in writing; no merchant's name or menu is publishe
 - 2026-10-30, answering the open decisions: "Our DB, passed each call (Recommended)", "No photo kept; append-only drafts (Recommended)", "Up to 3 each, US$1.00", "Per-merchant secret link (Recommended)".
 - 2026-10-30, on the synthetic merchant: "Synthetic restaurant build not kopitiam. I would think this would be more prevalent to cafes or restaurants".
 - 2026-10-30, on the look and the merchant: "Can u change the color theme to fit that of Muse?, and also change the font to something else." and "As for the real restaurant or cafe, i would want you to just make a synthetic one. So like "Singapore Test Restaurant". This is a hackathon not a product we're building for a customer."
+- 2026-10-30, on the label: "Remove (synthetic), Singapore Test Shop literally screams its alr a fake merchant dont overcomplicte".

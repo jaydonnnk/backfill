@@ -98,7 +98,7 @@ async function failure(run: () => Promise<unknown>): Promise<string | undefined>
 let merchantSeq = 0;
 async function merchant(): Promise<{ id: string; name: string; token: string }> {
   merchantSeq += 1;
-  const name = `Kopi Lane Cafe ${merchantSeq} (synthetic)`;
+  const name = `Singapore Test Restaurant ${merchantSeq}`;
   const { id, token } = await mintMerchant(t.db, name);
   return { id, name, token };
 }
