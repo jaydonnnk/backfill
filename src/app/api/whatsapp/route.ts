@@ -25,7 +25,10 @@ export async function POST(request: Request): Promise<Response> {
   const config = whatsappEnv(env);
   if (config === null) return new Response("Not found", { status: 404 });
   const raw = await request.text();
-  if (!signatureValid(raw, request.headers.get("x-hub-signature-256"), config.appSecret)) return new Response("Forbidden", { status: 403 });
+  if (!signatureValid(raw, request.headers.get("x-hub-signature-256"), config.appSecret)) {
+    log("warn", "whatsapp.rejected", { reason: request.headers.has("x-hub-signature-256") ? "bad_signature" : "no_signature", bytes: raw.length });
+    return new Response("Forbidden", { status: 403 });
+  }
   let body: unknown;
   try {
     body = JSON.parse(raw);
@@ -33,6 +36,7 @@ export async function POST(request: Request): Promise<Response> {
     return new Response("Bad request", { status: 400 });
   }
   const messages = inboundMessages(body);
+  log("info", "whatsapp.received", { messages: messages.length, bytes: raw.length });
   const db = webDb();
   const provider = createMetaProvider({ baseUrl: env.META_BASE_URL, apiKey: env.META_API_KEY, record: llmCallRecorder(db) });
   // Answer Meta at once: the model call can take several seconds, and an unanswered webhook is retried.

@@ -27,7 +27,11 @@ const sign = (body: string) => `sha256=${createHmac("sha256", SECRET).update(bod
 const payload = JSON.stringify({ entry: [{ changes: [{ value: { messages: [{ id: "wamid.A", from: "6591234567", type: "text", text: { body: "make it 20% off" } }] } }] }] });
 const post = (body: string, signature: string | null) => POST(new Request("https://backfill.test/api/whatsapp", { method: "POST", body, headers: signature ? { "x-hub-signature-256": signature } : {} }));
 
+const logged = () => [...vi.mocked(console.log).mock.calls, ...vi.mocked(console.error).mock.calls].map((c) => JSON.parse(String(c[0])) as Record<string, unknown>);
+
 beforeEach(() => {
+  vi.spyOn(console, "log").mockImplementation(() => {});
+  vi.spyOn(console, "error").mockImplementation(() => {});
   state.config = CONFIG;
   state.afters = [];
   state.processed = [];
@@ -72,6 +76,16 @@ describe("POST /api/whatsapp", () => {
     state.config = null;
     expect((await post(payload, sign(payload))).status).toBe(404);
     expect(state.afters).toHaveLength(0);
+  });
+
+  it("logs what it received and why it refused, never a body or a signature", async () => {
+    await post(payload, sign(payload));
+    await post(payload, `sha256=${"0".repeat(64)}`);
+    await post(payload, null);
+    const events = logged();
+    expect(events.find((e) => e.event === "whatsapp.received")).toMatchObject({ level: "info", messages: 1, bytes: payload.length });
+    expect(events.filter((e) => e.event === "whatsapp.rejected").map((e) => e.reason)).toEqual(["bad_signature", "no_signature"]);
+    expect(JSON.stringify(events)).not.toMatch(/make it 20% off|6591234567|0{64}/);
   });
 
   it("takes a signed delivery receipt with no messages and handles none", async () => {
