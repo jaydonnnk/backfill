@@ -1,0 +1,93 @@
+{
+  "baseline": 244,
+  "results": [
+    {
+      "id": "live-local-only",
+      "guard": "the live script refuses a server that is not local",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live refuses a server that is not local before touching it :: AssertionError: expected 'getaddrinfo ENOTFOUND ep-x.neon.inval…' to be 'the server URL must be a local Postgr…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-cap-spark",
+      "guard": "the live script starts no Spark call once the recorded cost reaches the cap",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: AssertionError: expected [ 2, 'ok', true ] to deeply equal [ 1, 'not run', true ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-cap-wonder",
+      "guard": "the live script starts no Wonder call once the recorded cost reaches the cap",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: AssertionError: expected [ 'MenuDraft', 'WonderPlan' ] to deeply equal [ 'MenuDraft' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-cap-size",
+      "guard": "the live script's default cap is US$1.00",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: AssertionError: expected 'total model cost $0.010975 (cap $2.00…' to be 'total model cost $0.010975 (cap $1.00…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-runtime-role",
+      "guard": "every merchant step runs as the scratch runtime-role login",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: AssertionError: expected 'postgres' to be 'backfill_live_rt_5acf5ad4' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-drops-db",
+      "guard": "the live script drops its scratch database",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: AssertionError: expected [ { databases: 1, roles: +0 } ] to deeply equal [ { databases: +0, roles: +0 } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-drops-role",
+      "guard": "the live script drops its scratch role",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: AssertionError: expected [ { databases: +0, roles: 1 } ] to deeply equal [ { databases: +0, roles: +0 } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "live-floor-report",
+      "guard": "the live script reports whether the floor reached the buyers' view",
+      "verdict": "killed",
+      "failedTests": [
+        "onboarding:live reports a floor that reaches the buyers' view, by name or by price, but not one spelled by an id :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

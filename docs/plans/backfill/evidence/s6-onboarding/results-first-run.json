@@ -1,0 +1,1161 @@
+{
+  "baseline": 232,
+  "results": [
+    {
+      "id": "provider-images-empty",
+      "guard": "a prompt with an empty image list goes as plain text",
+      "verdict": "killed",
+      "failedTests": [
+        "Meta LLMProvider sends a prompt with an empty image list as plain text :: AssertionError: expected { role: 'user', content: [ { …(2) } ] } to deeply equal { role: 'user', content: 'user text' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "provider-image-type",
+      "guard": "each image goes as a data URL of its own media type",
+      "verdict": "killed",
+      "failedTests": [
+        "Meta LLMProvider sends images as data-URL content parts after the prompt, keeps them on a retry, and never logs them :: AssertionError: expected { role: 'user', …(1) } to deeply equal { role: 'user', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sniff-jpeg-short",
+      "guard": "a JPEG is known by all three of its magic bytes",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sniff-png-short",
+      "guard": "a PNG is known by all eight of its signature bytes",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo knows a JPEG, PNG and WebP by their bytes, whatever the name says :: AssertionError: expected 'image/png' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sniff-webp-form",
+      "guard": "a RIFF file is WebP only with the WEBP form type",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo knows a JPEG, PNG and WebP by their bytes, whatever the name says :: AssertionError: expected 'image/webp' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "photo-empty",
+      "guard": "an empty upload is refused as empty",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo refuses an empty, oversized or non-image file and takes one at exactly the limit :: AssertionError: expected { ok: false, reason: 'not_an_image' } to deeply equal { ok: false, reason: 'empty' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "photo-limit-edge",
+      "guard": "a photo of exactly 4 MiB is taken",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo refuses an empty, oversized or non-image file and takes one at exactly the limit :: AssertionError: expected { ok: false, reason: 'too_large' } to deeply equal { ok: true, mediaType: 'image/jpeg' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "photo-limit-size",
+      "guard": "a photo is at most 4 MiB",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-photo-bytes",
+      "guard": "the database refuses a photo size over 4 MiB",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "item-max",
+      "guard": "a printed price over S$500 fails to parse",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft is strict: a model reply with a list price of its own, a float price or a price over S$500 fails to parse :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-strict",
+      "guard": "a draft with a field of its own, such as a list price, fails to parse",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft is strict: a model reply with a list price of its own, a float price or a price over S$500 fails to parse :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cover-index-min",
+      "guard": "a negative cover index fails to parse",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft is strict: a model reply with a list price of its own, a float price or a price over S$500 fails to parse :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cover-max",
+      "guard": "a cover names at most 4 items",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft is strict: a model reply with a list price of its own, a float price or a price over S$500 fails to parse :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": false
+    },
+    {
+      "id": "draft-not-sgd",
+      "guard": "a draft whose prices are not SGD does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft refuses prices that are not SGD, an empty menu, and a cover naming a missing or repeated item :: AssertionError: expected { ok: true, listPriceCents: 1440 } to deeply equal { ok: false, reason: 'not_sgd' }",
+        "menu photo to draft with Muse Spark vision stores a draft that does not count with its reason and no list price :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\""
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-no-items",
+      "guard": "a draft with no items does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft refuses prices that are not SGD, an empty menu, and a cover naming a missing or repeated item :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: false, reason: 'no_items' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-missing",
+      "guard": "a cover index past the last item does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft refuses prices that are not SGD, an empty menu, and a cover naming a missing or repeated item :: AssertionError: expected { ok: true, listPriceCents: +0 } to deeply equal { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-repeated",
+      "guard": "a cover naming an item twice does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft refuses prices that are not SGD, an empty menu, and a cover naming a missing or repeated item :: AssertionError: expected { ok: true, listPriceCents: 1300 } to deeply equal { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-sum",
+      "guard": "the list price is the sum of every cover item's printed price",
+      "verdict": "killed",
+      "failedTests": [
+        "menu draft prices a cover as the sum of its items' printed prices :: AssertionError: expected { ok: true, listPriceCents: 650 } to deeply equal { ok: true, listPriceCents: 1440 }",
+        "menu photo to draft with Muse Spark vision sends the photo as an image, stores only its hash, and prices the cover from the printed prices :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "menu photo to draft with Muse Spark vision stops at the daily cap of model attempts, counting failed ones :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "menu photo to draft with Muse Spark vision refuses a second read while one holds the lock :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft publishes the draft's list price with the merchant's terms, and buyers see it with no floor :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft publishes a draft once, and never another merchant's or one that did not count :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft refuses a floor above the offer price and invalid terms, publishing nothing :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding gives the runtime role no way to write a rule or a publication except publish_offer :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding keeps drafts and publications append-only for every role :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent does not plan an occurrence that unlocked below capacity :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\""
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "rule-floor-edge",
+      "guard": "a floor equal to the offer price is taken",
+      "verdict": "killed",
+      "failedTests": [
+        "publishing a draft refuses a floor above the offer price, and takes one equal to it :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "rule-version",
+      "guard": "a published rule starts at terms version 1",
+      "verdict": "killed",
+      "failedTests": [
+        "publishing a draft builds the rule at the draft's list price, with the merchant's terms, at terms version 1 :: AssertionError: expected { ok: true, rule: { …(6) } } to deeply equal { ok: true, rule: { …(6) } }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-strict",
+      "guard": "a plan with a field of its own fails to parse",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-unchanged",
+      "guard": "a plan that changes nothing does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout refuses a plan that changes nothing :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'unchanged' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-deepens",
+      "guard": "a plan may keep the discount",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout takes more capacity, a bigger pool and a smaller discount :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-capacity-low",
+      "guard": "a plan may keep the capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout takes more capacity, a bigger pool and a smaller discount :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-capacity-high",
+      "guard": "a plan may double the capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout refuses a bigger discount, less capacity, more than double the capacity, and a smaller pool :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-growth",
+      "guard": "a plan grows capacity to at most twice",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-min-pool",
+      "guard": "a plan may keep the minimum pool",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout takes more capacity, a bigger pool and a smaller discount :: AssertionError: expected { Object (ok, reason) } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-pool-capacity",
+      "guard": "a plan's pool may equal its capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout refuses a pool or per-agent cap above the planned capacity :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-agent-cap",
+      "guard": "a plan's per-agent cap may equal its capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout refuses a pool or per-agent cap above the planned capacity :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-floor",
+      "guard": "a plan whose offer price equals the floor counts",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout refuses a plan whose offer price is below a floor raised since publishing :: AssertionError: expected { ok: false, reason: 'below_floor' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "prompt-fills",
+      "guard": "Wonder is told which occurrences did not reach the pool",
+      "verdict": "killed",
+      "failedTests": [
+        "Wonder re-plan after a sellout gives Wonder the fill history and its past plans, and never the floor :: AssertionError: expected 'You are the merchant agent of Singapo…' to contain '2026-11-03: pool not reached'",
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected 'You are the merchant agent of Singapo…' to contain '2026-11-03: pool not reached'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "prompt-applied",
+      "guard": "Wonder is told which of its plans were applied",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected '{\"model\":\"muse-wonder-1.0\",\"messages\"…' to contain 'after 2026-11-10: proposed 20% off, c…'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "prompt-floor-leak",
+      "guard": "Wonder never sees the floor",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected 'You are the merchant agent of Singapo…' not to match /917|9\\.17|floor/i"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "menu-cap-edge",
+      "guard": "no menu read starts at 30 attempts in a day",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo to draft with Muse Spark vision stops at the daily cap of model attempts, counting failed ones :: AssertionError: expected { status: 'failed' } to deeply equal { status: 'daily_cap' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "menu-cap-size",
+      "guard": "the menu read cap is 30 attempts a day",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "menu-lock",
+      "guard": "a second menu read while one runs is refused as busy",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo to draft with Muse Spark vision refuses a second read while one holds the lock :: AssertionError: expected { status: 'failed' } to deeply equal { status: 'busy' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "cap-day",
+      "guard": "the daily caps count the last 24 hours only",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "menu-hash",
+      "guard": "a draft stores the photo's SHA-256",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "draft-uuid",
+      "guard": "a draft id that is not a UUID is not found",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "confirming and publishing a draft publishes a draft once, and never another merchant's or one that did not count :: Error: Failed query: select \"menu_drafts\".\"id\", \"menu_drafts\".\"merchant_id\", \"menu_drafts\".\"photo_sha256\", \"menu_drafts\".\"photo_bytes\", \"menu_drafts\".\"photo_type\", \"menu_drafts\".\"model\", \"menu_drafts\".\"draft\", \"menu_drafts\".\"verdict\", \"menu_drafts\".\"list_price_cents\", \"menu_drafts\".\"created_at\", \"offer_publications\".\"rule_id\" from \"menu_drafts\" left join \"offer_publications\" on \"offer_publications\".\"draft_id\" = \"menu_drafts\".\"id\" where (\"menu_drafts\".\"id\" = $1 and \"menu_drafts\".\"merchant_id\" = $2)"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": false
+    },
+    {
+      "id": "publish-race-mapping",
+      "guard": "a draft published by a racing request answers already_published",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": false
+    },
+    {
+      "id": "publish-floor-mapping",
+      "guard": "publish_offer's floor refusal answers floor_above_offer_price when the app check is bypassed",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "confirming and publishing a draft refuses a floor above the offer price and invalid terms, publishing nothing :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "publish-floor-sql",
+      "guard": "publish_offer refuses a floor above the offer price when the app check is bypassed",
+      "verdict": "killed",
+      "failedTests": [
+        "confirming and publishing a draft refuses a floor above the offer price and invalid terms, publishing nothing :: AssertionError: expected { status: 'published', …(1) } to deeply equal { status: 'floor_above_offer_price' }",
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: AssertionError: expected 'no error' to be 'publish_offer_floor' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sold-out-edge",
+      "guard": "an occurrence that filled its capacity exactly is sold out",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected { status: 'planned', planned: +0 } to deeply equal { status: 'planned', planned: 1 }",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: AssertionError: expected { status: 'planned', planned: +0 } to deeply equal { status: 'planned', planned: 2 }",
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: AssertionError: expected { status: 'planned', planned: +0 } to deeply equal { status: 'daily_cap' }",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: TypeError: Cannot read properties of undefined (reading 'id')"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sold-out-planned",
+      "guard": "a planned sellout stays sold out after its plan adds capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected [ [ '2026-11-03', +0, false ], …(1) ] to deeply equal [ [ '2026-11-03', +0, false ], …(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "replan-once",
+      "guard": "a sellout is planned once, so a reload calls no model",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected { status: 'planned', planned: 1 } to deeply equal { status: 'planned', planned: +0 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-cap-edge",
+      "guard": "no Wonder call starts at 30 attempts in a day",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: AssertionError: expected { status: 'planned', planned: 1 } to deeply equal { status: 'daily_cap' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-cap-size",
+      "guard": "the Wonder cap is 30 attempts a day",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plan-lock",
+      "guard": "a second planning pass while one runs is refused as busy",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "plans-per-pass",
+      "guard": "a planning pass plans at most 3 sellouts",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-uuid",
+      "guard": "a plan id that is not a UUID is not found",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-owner",
+      "guard": "another merchant's plan answers not_found",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'refused' } to deeply equal { status: 'not_found' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-verdict",
+      "guard": "a plan that did not count answers refused",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: AssertionError: expected { status: 'stale' } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-bounds",
+      "guard": "a plan out of bounds answers refused",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2100,\"capacity_covers\":6,\"min_pool_covers\":3,\"per_agent_cap_covers\":2}: expected { status: 'stale' } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-stale",
+      "guard": "a plan on old terms answers stale",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected { status: 'refused' } to deeply equal { status: 'stale' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-pending",
+      "guard": "a plan blocked by pending commitments answers pending",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'refused' } to deeply equal { status: 'pending' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "apply-map-applied",
+      "guard": "a plan applied twice answers already_applied",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-skip",
+      "guard": "the price check runs on every counted draft",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_matches' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-currency",
+      "guard": "a counted draft must be in SGD",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_matches' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-empty",
+      "guard": "a counted draft must name at least one cover item",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-negative",
+      "guard": "a negative cover index finds no item",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_matches' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-repeated",
+      "guard": "a counted draft's cover names each item once",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_matches' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-found",
+      "guard": "every cover index of a counted draft names an item",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-price-total",
+      "guard": "a counted draft's list price is the sum of its cover's printed prices",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_matches' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-price-with-ok",
+      "guard": "only a counted draft has a list price",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected 'no error' to be 'menu_drafts_price_with_ok' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-publish-owner",
+      "guard": "publish_offer refuses another merchant's draft",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: AssertionError: expected 'no error' to be 'publish_offer_draft' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-publish-verdict",
+      "guard": "publish_offer refuses a draft that did not count",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-publish-floor-edge",
+      "guard": "publish_offer takes a floor equal to the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: AssertionError: expected 'publish_offer_floor' to be 'no error' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-publish-revoke",
+      "guard": "PUBLIC cannot execute publish_offer",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-owner",
+      "guard": "apply_wonder_plan refuses another merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'not_found' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-verdict",
+      "guard": "apply_wonder_plan refuses a plan that did not count",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-stale",
+      "guard": "apply_wonder_plan refuses a plan on old terms",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected { status: 'already_applied' } to deeply equal { status: 'stale' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-discount",
+      "guard": "apply_wonder_plan refuses a bigger discount",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2100,\"capacity_covers\":6,\"min_pool_covers\":3,\"per_agent_cap_covers\":2}: expected { status: 'applied', termsVersion: 3 } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-capacity-low",
+      "guard": "apply_wonder_plan refuses less capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "confirming and publishing a draft publishes the draft's list price with the merchant's terms, and buyers see it with no floor :: AssertionError: expected '{\"merchantName\":\"Singapore Test Resta…' not to match /917|9\\.17|capacity/i",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2000,\"capacity_covers\":5,\"min_pool_covers\":3,\"per_agent_cap_covers\":2}: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-capacity-high",
+      "guard": "apply_wonder_plan refuses more than double the capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2000,\"capacity_covers\":13,\"min_pool_covers\":3,\"per_agent_cap_covers\":2}: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-min-pool",
+      "guard": "apply_wonder_plan refuses a smaller pool",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2000,\"capacity_covers\":6,\"min_pool_covers\":2,\"per_agent_cap_covers\":2}: expected { status: 'applied', termsVersion: 3 } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-pool-capacity",
+      "guard": "apply_wonder_plan refuses a pool above capacity",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-cap-min",
+      "guard": "apply_wonder_plan refuses a per-agent cap below 1",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-cap-capacity",
+      "guard": "apply_wonder_plan refuses a per-agent cap above capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: {\"discount_bps\":2000,\"capacity_covers\":6,\"min_pool_covers\":3,\"per_agent_cap_covers\":7}: expected { status: 'applied', termsVersion: 3 } to deeply equal { status: 'refused' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-floor",
+      "guard": "apply_wonder_plan refuses an offer price below the floor",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-pending",
+      "guard": "apply_wonder_plan refuses while a commitment is pending",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'pending' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-pending-cancelled",
+      "guard": "a cancelled commitment does not block a plan",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'pending' } to deeply equal { status: 'applied', termsVersion: 2 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-pending-cleared",
+      "guard": "a cleared commitment does not block a plan",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected { status: 'pending' } to deeply equal { status: 'applied', termsVersion: 2 }",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'pending' } to deeply equal { status: 'applied', termsVersion: 2 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-revoke",
+      "guard": "PUBLIC cannot execute apply_wonder_plan",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-menu_drafts-append-only",
+      "guard": "menu_drafts refuses UPDATE and DELETE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding keeps drafts and publications append-only for every role :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-menu_drafts-no-truncate",
+      "guard": "menu_drafts refuses TRUNCATE for every role",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-offer_publications-append-only",
+      "guard": "offer_publications refuses UPDATE and DELETE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding keeps drafts and publications append-only for every role :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-offer_publications-no-truncate",
+      "guard": "offer_publications refuses TRUNCATE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding keeps drafts and publications append-only for every role :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-wonder_plans-append-only",
+      "guard": "wonder_plans refuses UPDATE and DELETE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-wonder_plans-no-truncate",
+      "guard": "wonder_plans refuses TRUNCATE for every role",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-plan_applications-append-only",
+      "guard": "plan_applications refuses UPDATE and DELETE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-plan_applications-no-truncate",
+      "guard": "plan_applications refuses TRUNCATE for every role",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-menu_drafts_price_matches-always",
+      "guard": "menu_drafts_price_matches fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-menu_drafts_append_only-always",
+      "guard": "menu_drafts_append_only fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-menu_drafts_no_truncate-always",
+      "guard": "menu_drafts_no_truncate fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-offer_publications_append_only-always",
+      "guard": "offer_publications_append_only fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-offer_publications_no_truncate-always",
+      "guard": "offer_publications_no_truncate fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-wonder_plans_append_only-always",
+      "guard": "wonder_plans_append_only fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-wonder_plans_no_truncate-always",
+      "guard": "wonder_plans_no_truncate fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-plan_applications_append_only-always",
+      "guard": "plan_applications_append_only fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-plan_applications_no_truncate-always",
+      "guard": "plan_applications_no_truncate fires even under session_replication_role = replica",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-drafts-insert",
+      "guard": "the runtime role may insert drafts and plans",
+      "verdict": "killed",
+      "failedTests": [
+        "menu photo to draft with Muse Spark vision sends the photo as an image, stores only its hash, and prices the cover from the printed prices :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "menu photo to draft with Muse Spark vision stores a draft that does not count with its reason and no list price :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "menu photo to draft with Muse Spark vision stops at the daily cap of model attempts, counting failed ones :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "menu photo to draft with Muse Spark vision refuses a second read while one holds the lock :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft publishes the draft's list price with the merchant's terms, and buyers see it with no floor :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft publishes a draft once, and never another merchant's or one that did not count :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "confirming and publishing a draft refuses a floor above the offer price and invalid terms, publishing nothing :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding refuses a stored list price that is not the sum of the cover's printed prices :: AssertionError: expected '42501' to be 'no error' // Object.is equality",
+        "database guards for onboarding gives the runtime role no way to write a rule or a publication except publish_offer :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "database guards for onboarding keeps drafts and publications append-only for every role :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent does not plan an occurrence that unlocked below capacity :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\"",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: insert into \"menu_drafts\" (\"id\", \"merchant_id\", \"photo_sha256\", \"photo_bytes\", \"photo_type\", \"model\", \"draft\", \"verdict\", \"list_price_cents\", \"created_at\") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default) returning \"id\""
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-drafts-update",
+      "guard": "the runtime role may not update drafts or plans",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding keeps drafts and publications append-only for every role :: AssertionError: expected '23001' to be '42501' // Object.is equality",
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: AssertionError: expected '23001' to be '42501' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-publications-read",
+      "guard": "the runtime role may read publications and applications",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: Error: Failed query: select \"wonder_plans\".\"id\", \"wonder_plans\".\"rule_id\", \"wonder_plans\".\"visit_date\", \"wonder_plans\".\"terms_version\", \"wonder_plans\".\"model\", \"wonder_plans\".\"discount_bps\", \"wonder_plans\".\"capacity_covers\", \"wonder_plans\".\"min_pool_covers\", \"wonder_plans\".\"per_agent_cap_covers\", \"wonder_plans\".\"rationale\", \"wonder_plans\".\"verdict\", \"wonder_plans\".\"created_at\", \"plan_applications\".\"applied_at\" from \"wonder_plans\" left join \"plan_applications\" on \"plan_applications\".\"plan_id\" = \"wonder_plans\".\"id\" where \"wonder_plans\".\"rule_id\" in ($1) order by \"wonder_plans\".\"visit_date\" asc",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: select \"wonder_plans\".\"id\", \"wonder_plans\".\"rule_id\", \"wonder_plans\".\"visit_date\", \"wonder_plans\".\"terms_version\", \"wonder_plans\".\"model\", \"wonder_plans\".\"discount_bps\", \"wonder_plans\".\"capacity_covers\", \"wonder_plans\".\"min_pool_covers\", \"wonder_plans\".\"per_agent_cap_covers\", \"wonder_plans\".\"rationale\", \"wonder_plans\".\"verdict\", \"wonder_plans\".\"created_at\", \"plan_applications\".\"applied_at\" from \"wonder_plans\" left join \"plan_applications\" on \"plan_applications\".\"plan_id\" = \"wonder_plans\".\"id\" where \"wonder_plans\".\"rule_id\" in ($1) order by \"wonder_plans\".\"visit_date\" asc",
+        "Muse Wonder merchant agent does not plan an occurrence that unlocked below capacity :: Error: Failed query: select \"wonder_plans\".\"id\", \"wonder_plans\".\"rule_id\", \"wonder_plans\".\"visit_date\", \"wonder_plans\".\"terms_version\", \"wonder_plans\".\"model\", \"wonder_plans\".\"discount_bps\", \"wonder_plans\".\"capacity_covers\", \"wonder_plans\".\"min_pool_covers\", \"wonder_plans\".\"per_agent_cap_covers\", \"wonder_plans\".\"rationale\", \"wonder_plans\".\"verdict\", \"wonder_plans\".\"created_at\", \"plan_applications\".\"applied_at\" from \"wonder_plans\" left join \"plan_applications\" on \"plan_applications\".\"plan_id\" = \"wonder_plans\".\"id\" where \"wonder_plans\".\"rule_id\" in ($1) order by \"wonder_plans\".\"visit_date\" asc",
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: Error: Failed query: select \"wonder_plans\".\"id\", \"wonder_plans\".\"rule_id\", \"wonder_plans\".\"visit_date\", \"wonder_plans\".\"terms_version\", \"wonder_plans\".\"model\", \"wonder_plans\".\"discount_bps\", \"wonder_plans\".\"capacity_covers\", \"wonder_plans\".\"min_pool_covers\", \"wonder_plans\".\"per_agent_cap_covers\", \"wonder_plans\".\"rationale\", \"wonder_plans\".\"verdict\", \"wonder_plans\".\"created_at\", \"plan_applications\".\"applied_at\" from \"wonder_plans\" left join \"plan_applications\" on \"plan_applications\".\"plan_id\" = \"wonder_plans\".\"id\" where \"wonder_plans\".\"rule_id\" in ($1) order by \"wonder_plans\".\"visit_date\" asc",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: select \"wonder_plans\".\"id\", \"wonder_plans\".\"rule_id\", \"wonder_plans\".\"visit_date\", \"wonder_plans\".\"terms_version\", \"wonder_plans\".\"model\", \"wonder_plans\".\"discount_bps\", \"wonder_plans\".\"capacity_covers\", \"wonder_plans\".\"min_pool_covers\", \"wonder_plans\".\"per_agent_cap_covers\", \"wonder_plans\".\"rationale\", \"wonder_plans\".\"verdict\", \"wonder_plans\".\"created_at\", \"plan_applications\".\"applied_at\" from \"wonder_plans\" left join \"plan_applications\" on \"plan_applications\".\"plan_id\" = \"wonder_plans\".\"id\" where \"wonder_plans\".\"rule_id\" in ($1) order by \"wonder_plans\".\"visit_date\" asc"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-publications-insert",
+      "guard": "the runtime role may not insert publications or applications",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards for onboarding gives the runtime role no way to write a rule or a publication except publish_offer :: AssertionError: expected 'offer_publications_rule_once' to be '42501' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-publish",
+      "guard": "the runtime role may execute publish_offer",
+      "verdict": "killed",
+      "failedTests": [
+        "confirming and publishing a draft publishes the draft's list price with the merchant's terms, and buyers see it with no floor :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "confirming and publishing a draft publishes a draft once, and never another merchant's or one that did not count :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "database guards for onboarding refuses publish_offer for another merchant's draft and for a floor above the offer price :: AssertionError: expected '42501' to be 'publish_offer_draft' // Object.is equality",
+        "database guards for onboarding keeps drafts and publications append-only for every role :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "Muse Wonder merchant agent does not plan an occurrence that unlocked below capacity :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "Muse Wonder merchant agent stops at the daily cap of Wonder attempts :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: select publish_offer($1::uuid, $2::uuid, $3::uuid, $4::integer, $5::smallint, $6::smallint, $7::smallint, $8::smallint, $9::integer, $10::integer, $11::integer, $12::integer)"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "grant-apply",
+      "guard": "the runtime role may execute apply_wonder_plan",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "Muse Wonder merchant agent plans a sellout once from the fill history in Postgres, never seeing the floor, and the merchant applies it :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version",
+        "Muse Wonder merchant agent stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: Error: Failed query: select apply_wonder_plan($1::uuid, $2::uuid) as version"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

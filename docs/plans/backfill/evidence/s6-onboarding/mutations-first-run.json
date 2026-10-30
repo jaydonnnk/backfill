@@ -1,0 +1,844 @@
+[
+  {
+    "id": "provider-images-empty",
+    "guard": "a prompt with an empty image list goes as plain text",
+    "file": "src/integrations/meta/provider.ts",
+    "from": "if (!images || images.length === 0) return prompt;",
+    "to": "if (!images) return prompt;"
+  },
+  {
+    "id": "provider-image-type",
+    "guard": "each image goes as a data URL of its own media type",
+    "file": "src/integrations/meta/provider.ts",
+    "from": "url: `data:${image.mediaType};base64,${image.base64}`",
+    "to": "url: `data:image/jpeg;base64,${image.base64}`"
+  },
+  {
+    "id": "sniff-jpeg-short",
+    "guard": "a JPEG is known by all three of its magic bytes",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (at(0, 0xff, 0xd8, 0xff)) return \"image/jpeg\";",
+    "to": "if (at(0, 0xff, 0xd8)) return \"image/jpeg\";"
+  },
+  {
+    "id": "sniff-png-short",
+    "guard": "a PNG is known by all eight of its signature bytes",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (at(0, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a)) return \"image/png\";",
+    "to": "if (at(0, 0x89, 0x50, 0x4e, 0x47)) return \"image/png\";"
+  },
+  {
+    "id": "sniff-webp-form",
+    "guard": "a RIFF file is WebP only with the WEBP form type",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (at(0, 0x52, 0x49, 0x46, 0x46) && at(8, 0x57, 0x45, 0x42, 0x50)) return \"image/webp\";",
+    "to": "if (at(0, 0x52, 0x49, 0x46, 0x46)) return \"image/webp\";"
+  },
+  {
+    "id": "photo-empty",
+    "guard": "an empty upload is refused as empty",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (bytes.length === 0) return { ok: false, reason: \"empty\" };",
+    "to": ""
+  },
+  {
+    "id": "photo-limit-edge",
+    "guard": "a photo of exactly 4 MiB is taken",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (bytes.length > MAX_PHOTO_BYTES)",
+    "to": "if (bytes.length >= MAX_PHOTO_BYTES)"
+  },
+  {
+    "id": "photo-limit-size",
+    "guard": "a photo is at most 4 MiB",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "export const MAX_PHOTO_BYTES = 4 * 1024 * 1024;",
+    "to": "export const MAX_PHOTO_BYTES = 5 * 1024 * 1024;"
+  },
+  {
+    "id": "db-photo-bytes",
+    "guard": "the database refuses a photo size over 4 MiB",
+    "file": "drizzle/0008_s6_onboarding.sql",
+    "from": "between 1 and 4194304",
+    "to": "between 1 and 5242880"
+  },
+  {
+    "id": "item-max",
+    "guard": "a printed price over S$500 fails to parse",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "z.int().min(1).max(MAX_ITEM_CENTS)",
+    "to": "z.int().min(1)"
+  },
+  {
+    "id": "draft-strict",
+    "guard": "a draft with a field of its own, such as a list price, fails to parse",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "export const MenuDraft = z.strictObject({",
+    "to": "export const MenuDraft = z.object({"
+  },
+  {
+    "id": "cover-index-min",
+    "guard": "a negative cover index fails to parse",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": ".array(z.int().min(0))",
+    "to": ".array(z.int())"
+  },
+  {
+    "id": "cover-max",
+    "guard": "a cover names at most 4 items",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": ".max(MAX_COVER_ITEMS)",
+    "to": ""
+  },
+  {
+    "id": "draft-not-sgd",
+    "guard": "a draft whose prices are not SGD does not count",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (draft.currency !== \"SGD\") return { ok: false, reason: \"not_sgd\" };",
+    "to": ""
+  },
+  {
+    "id": "draft-no-items",
+    "guard": "a draft with no items does not count",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (draft.items.length === 0) return { ok: false, reason: \"no_items\" };",
+    "to": ""
+  },
+  {
+    "id": "draft-missing",
+    "guard": "a cover index past the last item does not count",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (indexes.some((i) => i >= draft.items.length)) return",
+    "to": "if (indexes.some((i) => i > draft.items.length)) return"
+  },
+  {
+    "id": "draft-repeated",
+    "guard": "a cover naming an item twice does not count",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (new Set(indexes).size !== indexes.length) return { ok: false, reason: \"cover_item_repeated\" };",
+    "to": ""
+  },
+  {
+    "id": "draft-sum",
+    "guard": "the list price is the sum of every cover item's printed price",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "indexes.reduce((sum, i) => sum + (draft.items[i]?.priceCents ?? 0), 0)",
+    "to": "(draft.items[indexes[0] ?? 0]?.priceCents ?? 0)"
+  },
+  {
+    "id": "rule-floor-edge",
+    "guard": "a floor equal to the offer price is taken",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "if (offerPriceCents(parsed.data) < parsed.data.terms.floorPriceCents)",
+    "to": "if (offerPriceCents(parsed.data) <= parsed.data.terms.floorPriceCents)"
+  },
+  {
+    "id": "rule-version",
+    "guard": "a published rule starts at terms version 1",
+    "file": "src/domain/onboarding/menu.ts",
+    "from": "termsVersion: 1, listPriceCents, ...settings",
+    "to": "termsVersion: 2, listPriceCents, ...settings"
+  },
+  {
+    "id": "plan-strict",
+    "guard": "a plan with a field of its own fails to parse",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "export const WonderPlan = z.strictObject({",
+    "to": "export const WonderPlan = z.object({"
+  },
+  {
+    "id": "plan-unchanged",
+    "guard": "a plan that changes nothing does not count",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "    return { ok: false, reason: \"unchanged\" };",
+    "to": "    return { ok: true };"
+  },
+  {
+    "id": "plan-deepens",
+    "guard": "a plan may keep the discount",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "if (plan.discountBps > terms.discountBps)",
+    "to": "if (plan.discountBps >= terms.discountBps)"
+  },
+  {
+    "id": "plan-capacity-low",
+    "guard": "a plan may keep the capacity",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "plan.capacityCovers < rule.capacityCovers ||",
+    "to": "plan.capacityCovers <= rule.capacityCovers ||"
+  },
+  {
+    "id": "plan-capacity-high",
+    "guard": "a plan may double the capacity",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "plan.capacityCovers > rule.capacityCovers * MAX_CAPACITY_GROWTH",
+    "to": "plan.capacityCovers >= rule.capacityCovers * MAX_CAPACITY_GROWTH"
+  },
+  {
+    "id": "plan-growth",
+    "guard": "a plan grows capacity to at most twice",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "export const MAX_CAPACITY_GROWTH = 2;",
+    "to": "export const MAX_CAPACITY_GROWTH = 3;"
+  },
+  {
+    "id": "plan-min-pool",
+    "guard": "a plan may keep the minimum pool",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "if (plan.minPoolCovers < terms.minPoolCovers)",
+    "to": "if (plan.minPoolCovers <= terms.minPoolCovers)"
+  },
+  {
+    "id": "plan-pool-capacity",
+    "guard": "a plan's pool may equal its capacity",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "if (plan.minPoolCovers > plan.capacityCovers)",
+    "to": "if (plan.minPoolCovers >= plan.capacityCovers)"
+  },
+  {
+    "id": "plan-agent-cap",
+    "guard": "a plan's per-agent cap may equal its capacity",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "if (plan.perAgentCapCovers > plan.capacityCovers)",
+    "to": "if (plan.perAgentCapCovers >= plan.capacityCovers)"
+  },
+  {
+    "id": "plan-floor",
+    "guard": "a plan whose offer price equals the floor counts",
+    "file": "src/domain/onboarding/replan.ts",
+    "from": "< terms.floorPriceCents) {",
+    "to": "<= terms.floorPriceCents) {"
+  },
+  {
+    "id": "prompt-fills",
+    "guard": "Wonder is told which occurrences did not reach the pool",
+    "file": "src/lib/onboarding/models.ts",
+    "from": "\"pool not reached, nothing filled\"",
+    "to": "\"nothing filled\""
+  },
+  {
+    "id": "prompt-applied",
+    "guard": "Wonder is told which of its plans were applied",
+    "file": "src/lib/onboarding/models.ts",
+    "from": "p.applied ? \"applied\" : \"not applied\"",
+    "to": "\"not applied\""
+  },
+  {
+    "id": "prompt-floor-leak",
+    "guard": "Wonder never sees the floor",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "window: windowText(rule),",
+    "to": "window: `${windowText(rule)}, hidden floor ${rule.terms.floorPriceCents} cents`,"
+  },
+  {
+    "id": "menu-cap-edge",
+    "guard": "no menu read starts at 30 attempts in a day",
+    "file": "src/lib/onboarding/service.ts",
+    "from": ".count >= MENU_DAILY_CAP) return { status: \"daily_cap\" };",
+    "to": ".count > MENU_DAILY_CAP) return { status: \"daily_cap\" };"
+  },
+  {
+    "id": "menu-cap-size",
+    "guard": "the menu read cap is 30 attempts a day",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "export const MENU_DAILY_CAP = 30;",
+    "to": "export const MENU_DAILY_CAP = 31;"
+  },
+  {
+    "id": "menu-lock",
+    "guard": "a second menu read while one runs is refused as busy",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "    if (!lock?.locked) return { status: \"busy\" };\n    const now = clock();",
+    "to": "    const now = clock();"
+  },
+  {
+    "id": "cap-day",
+    "guard": "the daily caps count the last 24 hours only",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "const DAY_MS = 24 * 60 * 60 * 1000;",
+    "to": "const DAY_MS = 2 * 24 * 60 * 60 * 1000;"
+  },
+  {
+    "id": "menu-hash",
+    "guard": "a draft stores the photo's SHA-256",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "photoSha256: createHash(\"sha256\").update(bytes).digest(\"hex\"),",
+    "to": "photoSha256: \"0\".repeat(64),"
+  },
+  {
+    "id": "draft-uuid",
+    "guard": "a draft id that is not a UUID is not found",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "if (!UUID.test(draftId)) return null;",
+    "to": ""
+  },
+  {
+    "id": "publish-race-mapping",
+    "guard": "a draft published by a racing request answers already_published",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "if (constraint === \"offer_publications_pkey\" || constraint === \"offer_publications_rule_once\") return { status: \"already_published\" };",
+    "to": "if (constraint === \"offer_publications_rule_once\") return { status: \"already_published\" };"
+  },
+  {
+    "id": "publish-floor-mapping",
+    "guard": "publish_offer's floor refusal answers floor_above_offer_price when the app check is bypassed",
+    "edits": [
+      {
+        "file": "src/lib/onboarding/service.ts",
+        "from": "const verdict = ruleFromDraft(draft.listPriceCents, settings, { ruleId: randomUUID(), merchantId });",
+        "to": "const verdict = ruleFromDraft(draft.listPriceCents, { ...settings, terms: { ...settings.terms, floorPriceCents: 0 } }, { ruleId: randomUUID(), merchantId });"
+      },
+      {
+        "file": "src/lib/onboarding/service.ts",
+        "from": "${rule.terms.floorPriceCents}::integer)",
+        "to": "${settings.terms.floorPriceCents}::integer)"
+      },
+      {
+        "file": "src/lib/onboarding/service.ts",
+        "from": "if (constraint === \"publish_offer_floor\") return { status: \"floor_above_offer_price\" };",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "publish-floor-sql",
+    "guard": "publish_offer refuses a floor above the offer price when the app check is bypassed",
+    "edits": [
+      {
+        "file": "src/lib/onboarding/service.ts",
+        "from": "const verdict = ruleFromDraft(draft.listPriceCents, settings, { ruleId: randomUUID(), merchantId });",
+        "to": "const verdict = ruleFromDraft(draft.listPriceCents, { ...settings, terms: { ...settings.terms, floorPriceCents: 0 } }, { ruleId: randomUUID(), merchantId });"
+      },
+      {
+        "file": "src/lib/onboarding/service.ts",
+        "from": "${rule.terms.floorPriceCents}::integer)",
+        "to": "${settings.terms.floorPriceCents}::integer)"
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "IF d.list_price_cents - (d.list_price_cents::bigint * p_discount_bps / 10000) < p_floor_price_cents THEN",
+        "to": "IF false THEN"
+      }
+    ]
+  },
+  {
+    "id": "sold-out-edge",
+    "guard": "an occurrence that filled its capacity exactly is sold out",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "o.covers >= rule.capacityCovers",
+    "to": "o.covers > rule.capacityCovers"
+  },
+  {
+    "id": "sold-out-planned",
+    "guard": "a planned sellout stays sold out after its plan adds capacity",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "o.unlocked && (planned || (rule",
+    "to": "o.unlocked && ((rule"
+  },
+  {
+    "id": "replan-once",
+    "guard": "a sellout is planned once, so a reload calls no model",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`)",
+    "to": "o.soldOut"
+  },
+  {
+    "id": "plan-cap-edge",
+    "guard": "no Wonder call starts at 30 attempts in a day",
+    "file": "src/lib/onboarding/service.ts",
+    "from": ".count >= PLAN_DAILY_CAP) return { status: \"daily_cap\" };",
+    "to": ".count > PLAN_DAILY_CAP) return { status: \"daily_cap\" };"
+  },
+  {
+    "id": "plan-cap-size",
+    "guard": "the Wonder cap is 30 attempts a day",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "export const PLAN_DAILY_CAP = 30;",
+    "to": "export const PLAN_DAILY_CAP = 31;"
+  },
+  {
+    "id": "plan-lock",
+    "guard": "a second planning pass while one runs is refused as busy",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "    if (!lock?.locked) return { status: \"busy\" };\n    const board",
+    "to": "    const board"
+  },
+  {
+    "id": "plans-per-pass",
+    "guard": "a planning pass plans at most 3 sellouts",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "const PLANS_PER_PASS = 3;",
+    "to": "const PLANS_PER_PASS = 4;"
+  },
+  {
+    "id": "apply-uuid",
+    "guard": "a plan id that is not a UUID is not found",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "if (!UUID.test(planId)) return { status: \"not_found\" };",
+    "to": ""
+  },
+  {
+    "id": "apply-map-owner",
+    "guard": "another merchant's plan answers not_found",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "apply_wonder_plan_owner: \"not_found\",",
+    "to": "apply_wonder_plan_owner: \"refused\","
+  },
+  {
+    "id": "apply-map-verdict",
+    "guard": "a plan that did not count answers refused",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "apply_wonder_plan_verdict: \"refused\",",
+    "to": "apply_wonder_plan_verdict: \"stale\","
+  },
+  {
+    "id": "apply-map-bounds",
+    "guard": "a plan out of bounds answers refused",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "apply_wonder_plan_bounds: \"refused\",",
+    "to": "apply_wonder_plan_bounds: \"stale\","
+  },
+  {
+    "id": "apply-map-stale",
+    "guard": "a plan on old terms answers stale",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "apply_wonder_plan_stale: \"stale\",",
+    "to": "apply_wonder_plan_stale: \"refused\","
+  },
+  {
+    "id": "apply-map-pending",
+    "guard": "a plan blocked by pending commitments answers pending",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "apply_wonder_plan_pending: \"pending\",",
+    "to": "apply_wonder_plan_pending: \"refused\","
+  },
+  {
+    "id": "apply-map-applied",
+    "guard": "a plan applied twice answers already_applied",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "plan_applications_pkey: \"already_applied\",",
+    "to": "plan_applications_pkey: \"stale\","
+  },
+  {
+    "id": "sql-price-skip",
+    "guard": "the price check runs on every counted draft",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF NEW.verdict <> 'ok' THEN\n    RETURN NEW;",
+    "to": "IF true THEN\n    RETURN NEW;"
+  },
+  {
+    "id": "sql-price-currency",
+    "guard": "a counted draft must be in SGD",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF NEW.draft ->> 'currency' IS DISTINCT FROM 'SGD' OR wanted = 0",
+    "to": "IF wanted = 0"
+  },
+  {
+    "id": "sql-price-empty",
+    "guard": "a counted draft must name at least one cover item",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR wanted = 0 OR distinct_wanted",
+    "to": "OR distinct_wanted"
+  },
+  {
+    "id": "sql-price-negative",
+    "guard": "a negative cover index finds no item",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "CASE WHEN idx.i::integer >= 0 THEN NEW.draft -> 'items' -> (idx.i::integer) END",
+    "to": "NEW.draft -> 'items' -> (idx.i::integer)"
+  },
+  {
+    "id": "sql-price-repeated",
+    "guard": "a counted draft's cover names each item once",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR distinct_wanted <> wanted OR found",
+    "to": "OR found"
+  },
+  {
+    "id": "sql-price-found",
+    "guard": "every cover index of a counted draft names an item",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": " OR found <> wanted",
+    "to": ""
+  },
+  {
+    "id": "sql-price-total",
+    "guard": "a counted draft's list price is the sum of its cover's printed prices",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR total IS DISTINCT FROM NEW.list_price_cents THEN",
+    "to": "THEN"
+  },
+  {
+    "id": "db-price-with-ok",
+    "guard": "only a counted draft has a list price",
+    "file": "drizzle/0008_s6_onboarding.sql",
+    "from": "CHECK ((\"menu_drafts\".\"verdict\" = 'ok') = (\"menu_drafts\".\"list_price_cents\" is not null) and \"menu_drafts\".\"list_price_cents\" >= 1)",
+    "to": "CHECK (\"menu_drafts\".\"list_price_cents\" >= 1)"
+  },
+  {
+    "id": "sql-publish-owner",
+    "guard": "publish_offer refuses another merchant's draft",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR d.merchant_id IS DISTINCT FROM p_merchant_id OR d.verdict",
+    "to": "OR d.verdict"
+  },
+  {
+    "id": "sql-publish-verdict",
+    "guard": "publish_offer refuses a draft that did not count",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR d.verdict <> 'ok' THEN",
+    "to": "THEN"
+  },
+  {
+    "id": "sql-publish-floor-edge",
+    "guard": "publish_offer takes a floor equal to the offer price",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "< p_floor_price_cents THEN",
+    "to": "<= p_floor_price_cents THEN"
+  },
+  {
+    "id": "sql-publish-revoke",
+    "guard": "PUBLIC cannot execute publish_offer",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "REVOKE ALL ON FUNCTION publish_offer(uuid, uuid, uuid, integer, smallint, smallint, smallint, smallint, integer, integer, integer, integer) FROM PUBLIC;",
+    "to": "SELECT 1;"
+  },
+  {
+    "id": "sql-apply-owner",
+    "guard": "apply_wonder_plan refuses another merchant",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF p.id IS NULL OR r.merchant_id IS DISTINCT FROM p_merchant_id THEN",
+    "to": "IF p.id IS NULL THEN"
+  },
+  {
+    "id": "sql-apply-verdict",
+    "guard": "apply_wonder_plan refuses a plan that did not count",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF p.verdict <> 'ok' THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "sql-apply-stale",
+    "guard": "apply_wonder_plan refuses a plan on old terms",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF r.terms_version <> p.terms_version THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "sql-apply-discount",
+    "guard": "apply_wonder_plan refuses a bigger discount",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF p.discount_bps > r.discount_bps OR",
+    "to": "IF false OR"
+  },
+  {
+    "id": "sql-apply-capacity-low",
+    "guard": "apply_wonder_plan refuses less capacity",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "p.capacity_covers < r.capacity_covers OR",
+    "to": "false OR"
+  },
+  {
+    "id": "sql-apply-capacity-high",
+    "guard": "apply_wonder_plan refuses more than double the capacity",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": " OR p.capacity_covers > 2 * r.capacity_covers",
+    "to": ""
+  },
+  {
+    "id": "sql-apply-min-pool",
+    "guard": "apply_wonder_plan refuses a smaller pool",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR p.min_pool_covers < r.min_pool_covers",
+    "to": ""
+  },
+  {
+    "id": "sql-apply-pool-capacity",
+    "guard": "apply_wonder_plan refuses a pool above capacity",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": " OR p.min_pool_covers > p.capacity_covers",
+    "to": ""
+  },
+  {
+    "id": "sql-apply-cap-min",
+    "guard": "apply_wonder_plan refuses a per-agent cap below 1",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": " OR p.per_agent_cap_covers < 1",
+    "to": ""
+  },
+  {
+    "id": "sql-apply-cap-capacity",
+    "guard": "apply_wonder_plan refuses a per-agent cap above capacity",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR p.per_agent_cap_covers > p.capacity_covers\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-apply-floor",
+    "guard": "apply_wonder_plan refuses an offer price below the floor",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "OR r.list_price_cents - (r.list_price_cents::bigint * p.discount_bps / 10000) < r.floor_price_cents THEN",
+    "to": "THEN"
+  },
+  {
+    "id": "sql-apply-pending",
+    "guard": "apply_wonder_plan refuses while a commitment is pending",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "IF EXISTS (\n    SELECT 1 FROM commitments c",
+    "to": "IF false AND EXISTS (\n    SELECT 1 FROM commitments c"
+  },
+  {
+    "id": "sql-apply-pending-cancelled",
+    "guard": "a cancelled commitment does not block a plan",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "WHERE c.rule_id = r.id AND c.cancelled_at IS NULL",
+    "to": "WHERE c.rule_id = r.id"
+  },
+  {
+    "id": "sql-apply-pending-cleared",
+    "guard": "a cleared commitment does not block a plan",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "\n      AND NOT EXISTS (SELECT 1 FROM clearings k WHERE k.rule_id = c.rule_id AND k.visit_date = (c.visit_at AT TIME ZONE 'Asia/Singapore')::date)",
+    "to": ""
+  },
+  {
+    "id": "sql-apply-revoke",
+    "guard": "PUBLIC cannot execute apply_wonder_plan",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "REVOKE ALL ON FUNCTION apply_wonder_plan(uuid, uuid) FROM PUBLIC;",
+    "to": "SELECT 1;"
+  },
+  {
+    "id": "sql-menu_drafts-append-only",
+    "guard": "menu_drafts refuses UPDATE and DELETE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER menu_drafts_append_only BEFORE UPDATE OR DELETE ON menu_drafts FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE menu_drafts ENABLE ALWAYS TRIGGER menu_drafts_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-menu_drafts-no-truncate",
+    "guard": "menu_drafts refuses TRUNCATE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER menu_drafts_no_truncate BEFORE TRUNCATE ON menu_drafts FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE menu_drafts ENABLE ALWAYS TRIGGER menu_drafts_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-offer_publications-append-only",
+    "guard": "offer_publications refuses UPDATE and DELETE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER offer_publications_append_only BEFORE UPDATE OR DELETE ON offer_publications FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE offer_publications ENABLE ALWAYS TRIGGER offer_publications_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-offer_publications-no-truncate",
+    "guard": "offer_publications refuses TRUNCATE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER offer_publications_no_truncate BEFORE TRUNCATE ON offer_publications FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE offer_publications ENABLE ALWAYS TRIGGER offer_publications_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-wonder_plans-append-only",
+    "guard": "wonder_plans refuses UPDATE and DELETE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER wonder_plans_append_only BEFORE UPDATE OR DELETE ON wonder_plans FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE wonder_plans ENABLE ALWAYS TRIGGER wonder_plans_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-wonder_plans-no-truncate",
+    "guard": "wonder_plans refuses TRUNCATE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER wonder_plans_no_truncate BEFORE TRUNCATE ON wonder_plans FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE wonder_plans ENABLE ALWAYS TRIGGER wonder_plans_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-plan_applications-append-only",
+    "guard": "plan_applications refuses UPDATE and DELETE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER plan_applications_append_only BEFORE UPDATE OR DELETE ON plan_applications FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE plan_applications ENABLE ALWAYS TRIGGER plan_applications_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-plan_applications-no-truncate",
+    "guard": "plan_applications refuses TRUNCATE for every role",
+    "edits": [
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "CREATE TRIGGER plan_applications_no_truncate BEFORE TRUNCATE ON plan_applications FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0009_s6_onboarding_triggers.sql",
+        "from": "ALTER TABLE plan_applications ENABLE ALWAYS TRIGGER plan_applications_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-menu_drafts_price_matches-always",
+    "guard": "menu_drafts_price_matches fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE menu_drafts ENABLE ALWAYS TRIGGER menu_drafts_price_matches;",
+    "to": "ALTER TABLE menu_drafts ENABLE TRIGGER menu_drafts_price_matches;"
+  },
+  {
+    "id": "sql-menu_drafts_append_only-always",
+    "guard": "menu_drafts_append_only fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE menu_drafts ENABLE ALWAYS TRIGGER menu_drafts_append_only;",
+    "to": "ALTER TABLE menu_drafts ENABLE TRIGGER menu_drafts_append_only;"
+  },
+  {
+    "id": "sql-menu_drafts_no_truncate-always",
+    "guard": "menu_drafts_no_truncate fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE menu_drafts ENABLE ALWAYS TRIGGER menu_drafts_no_truncate;",
+    "to": "ALTER TABLE menu_drafts ENABLE TRIGGER menu_drafts_no_truncate;"
+  },
+  {
+    "id": "sql-offer_publications_append_only-always",
+    "guard": "offer_publications_append_only fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE offer_publications ENABLE ALWAYS TRIGGER offer_publications_append_only;",
+    "to": "ALTER TABLE offer_publications ENABLE TRIGGER offer_publications_append_only;"
+  },
+  {
+    "id": "sql-offer_publications_no_truncate-always",
+    "guard": "offer_publications_no_truncate fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE offer_publications ENABLE ALWAYS TRIGGER offer_publications_no_truncate;",
+    "to": "ALTER TABLE offer_publications ENABLE TRIGGER offer_publications_no_truncate;"
+  },
+  {
+    "id": "sql-wonder_plans_append_only-always",
+    "guard": "wonder_plans_append_only fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE wonder_plans ENABLE ALWAYS TRIGGER wonder_plans_append_only;",
+    "to": "ALTER TABLE wonder_plans ENABLE TRIGGER wonder_plans_append_only;"
+  },
+  {
+    "id": "sql-wonder_plans_no_truncate-always",
+    "guard": "wonder_plans_no_truncate fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE wonder_plans ENABLE ALWAYS TRIGGER wonder_plans_no_truncate;",
+    "to": "ALTER TABLE wonder_plans ENABLE TRIGGER wonder_plans_no_truncate;"
+  },
+  {
+    "id": "sql-plan_applications_append_only-always",
+    "guard": "plan_applications_append_only fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE plan_applications ENABLE ALWAYS TRIGGER plan_applications_append_only;",
+    "to": "ALTER TABLE plan_applications ENABLE TRIGGER plan_applications_append_only;"
+  },
+  {
+    "id": "sql-plan_applications_no_truncate-always",
+    "guard": "plan_applications_no_truncate fires even under session_replication_role = replica",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "ALTER TABLE plan_applications ENABLE ALWAYS TRIGGER plan_applications_no_truncate;",
+    "to": "ALTER TABLE plan_applications ENABLE TRIGGER plan_applications_no_truncate;"
+  },
+  {
+    "id": "grant-drafts-insert",
+    "guard": "the runtime role may insert drafts and plans",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT SELECT, INSERT ON menu_drafts, wonder_plans TO backfill_app;",
+    "to": "GRANT SELECT ON menu_drafts, wonder_plans TO backfill_app;"
+  },
+  {
+    "id": "grant-drafts-update",
+    "guard": "the runtime role may not update drafts or plans",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT SELECT, INSERT ON menu_drafts, wonder_plans TO backfill_app;",
+    "to": "GRANT SELECT, INSERT, UPDATE, DELETE ON menu_drafts, wonder_plans TO backfill_app;"
+  },
+  {
+    "id": "grant-publications-read",
+    "guard": "the runtime role may read publications and applications",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT SELECT ON offer_publications, plan_applications TO backfill_app;",
+    "to": "GRANT SELECT ON offer_publications TO backfill_app;"
+  },
+  {
+    "id": "grant-publications-insert",
+    "guard": "the runtime role may not insert publications or applications",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT SELECT ON offer_publications, plan_applications TO backfill_app;",
+    "to": "GRANT SELECT, INSERT ON offer_publications, plan_applications TO backfill_app;"
+  },
+  {
+    "id": "grant-publish",
+    "guard": "the runtime role may execute publish_offer",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT EXECUTE ON FUNCTION publish_offer(uuid, uuid, uuid, integer, smallint, smallint, smallint, smallint, integer, integer, integer, integer) TO backfill_app;",
+    "to": "SELECT 1;"
+  },
+  {
+    "id": "grant-apply",
+    "guard": "the runtime role may execute apply_wonder_plan",
+    "file": "drizzle/0009_s6_onboarding_triggers.sql",
+    "from": "GRANT EXECUTE ON FUNCTION apply_wonder_plan(uuid, uuid) TO backfill_app;",
+    "to": "SELECT 1;"
+  }
+]
