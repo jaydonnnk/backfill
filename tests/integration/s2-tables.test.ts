@@ -323,7 +323,7 @@ describe("ledger", () => {
   }
 
   it("refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege", async () => {
-    await t.admin.unsafe(`GRANT ALL ON ledger, merchants, rules, commitments, agents, clearings, clearing_fills, negotiations, negotiation_rounds TO ${APP_ROLE}`);
+    await t.admin.unsafe(`GRANT ALL ON ledger, merchants, rules, commitments, agents, clearings, clearing_fills, negotiations, negotiation_rounds, menu_drafts, offer_publications, wonder_plans, plan_applications TO ${APP_ROLE}`);
     const result = await attempts(APP_ROLE);
     expect(result.who).toEqual({ name: APP_ROLE, superuser: "off" });
     expect(result.messages).toEqual(refused);
@@ -332,7 +332,7 @@ describe("ledger", () => {
 
   it("refuses them for the table owner", async () => {
     await t.admin.unsafe(`ALTER TABLE ledger OWNER TO ${OWNER_ROLE}`);
-    await t.admin.unsafe(`GRANT ALL ON merchants, rules, commitments, agents, clearings, clearing_fills, negotiations, negotiation_rounds TO ${OWNER_ROLE}`);
+    await t.admin.unsafe(`GRANT ALL ON merchants, rules, commitments, agents, clearings, clearing_fills, negotiations, negotiation_rounds, menu_drafts, offer_publications, wonder_plans, plan_applications TO ${OWNER_ROLE}`);
     try {
       const result = await attempts(OWNER_ROLE);
       const [owner] = await t.admin`select tableowner from pg_tables where tablename = 'ledger'`;

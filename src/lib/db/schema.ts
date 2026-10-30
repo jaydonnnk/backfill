@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { type AnyPgColumn, bigint, boolean, check, date, foreignKey, index, integer, pgTable, primaryKey, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
+import { type AnyPgColumn, bigint, boolean, check, date, foreignKey, index, integer, jsonb, pgTable, primaryKey, smallint, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
 
 // One row per HTTP attempt to a model, including failed and retried attempts, so cost per deal (S9)
 // comes from what was billed rather than from estimates.
@@ -40,11 +40,18 @@ export const llmCalls = pgTable(
 // migration drizzle/0002_s2_triggers.sql: the terms-version bump on rules, the current-terms check on
 // commitments, and the append-only ledger.
 
-export const merchants = pgTable("merchants", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: text("name").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-});
+// A merchant. Its secret link (S6) carries a token whose SHA-256 alone is stored, like an agent's;
+// null until one is minted.
+export const merchants = pgTable(
+  "merchants",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: text("name").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    linkTokenSha256: text("link_token_sha256").unique("merchants_link_token_sha256_unique"),
+  },
+  (t) => [check("merchants_link_token_sha256_hex", sql`${t.linkTokenSha256} ~ '^[0-9a-f]{64}$'`)],
+);
 
 // One row per rule, holding its current terms. A trigger sets terms_version to 1 on insert and bumps
 // it on every change to the public terms, so it needs no check of its own; the floor and capacity are
@@ -259,3 +266,92 @@ export const negotiationRounds = pgTable(
     check("negotiation_rounds_cents_nonnegative", sql`${t.bidCents} >= 0 and ${t.counterCents} >= 0 and ${t.proposedCents} >= 0`),
   ],
 );
+
+// One row per menu photo read by Muse Spark (S6). The photo itself is not kept, only its SHA-256,
+// size and type. The draft is what the model returned, the verdict whether it counted, and the list
+// price the sum of the cover's printed prices; a draft is only ever published by publish_offer.
+// Append-only by trigger.
+export const menuDrafts = pgTable(
+  "menu_drafts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    merchantId: uuid("merchant_id")
+      .notNull()
+      .references(() => merchants.id),
+    photoSha256: text("photo_sha256").notNull(),
+    photoBytes: integer("photo_bytes").notNull(),
+    photoType: text("photo_type").notNull(),
+    model: text("model").notNull(),
+    draft: jsonb("draft").notNull(),
+    // "ok" or the reason the draft does not count.
+    verdict: text("verdict").notNull(),
+    listPriceCents: integer("list_price_cents"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("menu_drafts_merchant_id_idx").on(t.merchantId),
+    check("menu_drafts_photo_sha256_hex", sql`${t.photoSha256} ~ '^[0-9a-f]{64}$'`),
+    check("menu_drafts_photo_bytes_range", sql`${t.photoBytes} between 1 and 4194304`),
+    check("menu_drafts_photo_type", sql`${t.photoType} in ('image/jpeg', 'image/png', 'image/webp')`),
+    check("menu_drafts_verdict", sql`${t.verdict} in ('ok', 'not_sgd', 'no_items', 'cover_item_missing', 'cover_item_repeated')`),
+    check("menu_drafts_price_with_ok", sql`(${t.verdict} = 'ok') = (${t.listPriceCents} is not null) and ${t.listPriceCents} >= 1`),
+  ],
+);
+
+// The merchant's confirmation of a draft: the rule it published. One per draft and per rule.
+// Written only by publish_offer; append-only by trigger.
+export const offerPublications = pgTable("offer_publications", {
+  draftId: uuid("draft_id")
+    .primaryKey()
+    .references(() => menuDrafts.id),
+  ruleId: uuid("rule_id")
+    .notNull()
+    .unique("offer_publications_rule_once")
+    .references(() => rules.id),
+  merchantId: uuid("merchant_id")
+    .notNull()
+    .references(() => merchants.id),
+  publishedAt: timestamp("published_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+// The Muse Wonder merchant agent's plan after an occurrence sold out: one per sold-out clearing, so a
+// reload never plans twice. The proposal is null when the model gave none. Append-only by trigger.
+export const wonderPlans = pgTable(
+  "wonder_plans",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    ruleId: uuid("rule_id").notNull(),
+    visitDate: date("visit_date", { mode: "string" }).notNull(),
+    // The rule's terms version when planned; a plan applies only to that version.
+    termsVersion: integer("terms_version").notNull(),
+    model: text("model").notNull(),
+    discountBps: integer("discount_bps"),
+    capacityCovers: integer("capacity_covers"),
+    minPoolCovers: integer("min_pool_covers"),
+    perAgentCapCovers: integer("per_agent_cap_covers"),
+    rationale: text("rationale"),
+    // "ok", the reason the proposal does not count, or "no_proposal".
+    verdict: text("verdict").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    unique("wonder_plans_once_per_clearing").on(t.ruleId, t.visitDate),
+    foreignKey({ name: "wonder_plans_clearing_fk", columns: [t.ruleId, t.visitDate], foreignColumns: [clearings.ruleId, clearings.visitDate] }),
+    check(
+      "wonder_plans_verdict",
+      sql`${t.verdict} in ('ok', 'no_proposal', 'unchanged', 'deepens_discount', 'capacity_out_of_range', 'lowers_min_pool', 'min_pool_above_capacity', 'cap_above_capacity', 'below_floor')`,
+    ),
+    check(
+      "wonder_plans_proposal_together",
+      sql`(${t.verdict} = 'no_proposal') = (${t.discountBps} is null) and (${t.discountBps} is null) = (${t.capacityCovers} is null) and (${t.discountBps} is null) = (${t.minPoolCovers} is null) and (${t.discountBps} is null) = (${t.perAgentCapCovers} is null) and (${t.discountBps} is null) = (${t.rationale} is null)`,
+    ),
+  ],
+);
+
+// A merchant applying a Wonder plan to its rule. Written only by apply_wonder_plan; append-only.
+export const planApplications = pgTable("plan_applications", {
+  planId: uuid("plan_id")
+    .primaryKey()
+    .references(() => wonderPlans.id),
+  appliedAt: timestamp("applied_at", { withTimezone: true }).notNull().defaultNow(),
+});

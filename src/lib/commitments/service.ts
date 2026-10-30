@@ -66,9 +66,9 @@ function occurrenceView(o: Occurrence): OccurrenceView {
   return { visitDate: o.visitDate, commitBy: o.commitBy.toISOString(), startsAt: o.startsAt.toISOString(), endsAt: o.endsAt.toISOString() };
 }
 
-const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-const clockTime = (minute: number) => `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
-const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
+export const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export const clockTime = (minute: number) => `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
+export const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
 
 // The terms in one plain sentence, built from the public Offer only.
 export function termsSummary(merchantName: string, offer: Offer): string {

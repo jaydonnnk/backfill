@@ -18,6 +18,7 @@
     "db:generate": "drizzle-kit generate --config config/drizzle.config.ts",
     "db:migrate": "tsx src/lib/db/migrate.ts",
     "agent:mint": "tsx src/lib/agents/mint.ts",
+    "merchant:mint": "tsx src/lib/onboarding/mint.ts",
     "mcp:smoke": "tsx src/lib/mcp/smoke.ts",
     "negotiation:live": "tsx src/lib/negotiation/live.ts"
   },
