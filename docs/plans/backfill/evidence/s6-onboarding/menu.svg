@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <rect width="1600" height="1600" fill="#f7f1e3"/>
+  <rect x="40" y="40" width="1520" height="1520" fill="none" stroke="#2b2118" stroke-width="6"/>
+  <rect x="58" y="58" width="1484" height="1484" fill="none" stroke="#2b2118" stroke-width="2"/>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#2b2118">
+    <text x="800" y="190" font-size="76" font-weight="bold" text-anchor="middle">Singapore Test Restaurant</text>
+    <text x="800" y="255" font-size="34" font-style="italic" text-anchor="middle">Menu - all prices in Singapore dollars (S$)</text>
+    <line x1="300" y1="300" x2="1300" y2="300" stroke="#2b2118" stroke-width="2"/>
+
+    <text x="130" y="400" font-size="48" font-weight="bold">Mains</text>
+    <g font-size="38">
+      <text x="130" y="480">Hainanese Chicken Rice</text><text x="740" y="480" text-anchor="end">S$6.50</text>
+      <text x="130" y="550">Laksa</text><text x="740" y="550" text-anchor="end">S$7.80</text>
+      <text x="130" y="620">Nasi Lemak</text><text x="740" y="620" text-anchor="end">S$6.20</text>
+      <text x="130" y="690">Char Kway Teow</text><text x="740" y="690" text-anchor="end">S$7.00</text>
+    </g>
+
+    <text x="860" y="400" font-size="48" font-weight="bold">Drinks</text>
+    <g font-size="38">
+      <text x="860" y="480">Kopi C</text><text x="1470" y="480" text-anchor="end">S$1.80</text>
+      <text x="860" y="550">Teh Tarik</text><text x="1470" y="550" text-anchor="end">S$2.20</text>
+      <text x="860" y="620">Iced Bandung</text><text x="1470" y="620" text-anchor="end">S$2.50</text>
+      <text x="860" y="690">Iced Lemon Tea</text><text x="1470" y="690" text-anchor="end">S$2.30</text>
+    </g>
+
+    <line x1="800" y1="360" x2="800" y2="1060" stroke="#2b2118" stroke-width="1.5"/>
+
+    <text x="130" y="860" font-size="48" font-weight="bold">Desserts</text>
+    <g font-size="38">
+      <text x="130" y="940">Chendol</text><text x="740" y="940" text-anchor="end">S$3.50</text>
+      <text x="130" y="1010">Kaya Toast Set</text><text x="740" y="1010" text-anchor="end">S$4.80</text>
+    </g>
+
+    <text x="860" y="860" font-size="48" font-weight="bold">Sides</text>
+    <g font-size="38">
+      <text x="860" y="940">Otah (2 pieces)</text><text x="1470" y="940" text-anchor="end">S$3.00</text>
+      <text x="860" y="1010">Fried Wantons</text><text x="1470" y="1010" text-anchor="end">S$4.20</text>
+    </g>
+
+    <line x1="300" y1="1180" x2="1300" y2="1180" stroke="#2b2118" stroke-width="2"/>
+    <text x="800" y="1260" font-size="32" text-anchor="middle">Open daily 11am - 9pm. Prices include GST.</text>
+    <text x="800" y="1320" font-size="28" font-style="italic" text-anchor="middle">Off-peak weekday afternoons: ask about our set for one.</text>
+  </g>
+</svg>

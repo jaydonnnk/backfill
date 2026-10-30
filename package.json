@@ -20,7 +20,8 @@
     "agent:mint": "tsx src/lib/agents/mint.ts",
     "merchant:mint": "tsx src/lib/onboarding/mint.ts",
     "mcp:smoke": "tsx src/lib/mcp/smoke.ts",
-    "negotiation:live": "tsx src/lib/negotiation/live.ts"
+    "negotiation:live": "tsx src/lib/negotiation/live.ts",
+    "onboarding:live": "tsx src/lib/onboarding/live.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "live-local-only",
+    "guard": "the live script refuses a server that is not local",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "if (!LOCAL_HOSTS.has(new URL(options.serverUrl).hostname)) throw new Error(\"the server URL must be a local PostgreSQL\");",
+    "to": ""
+  },
+  {
+    "id": "live-cap-spark",
+    "guard": "the live script starts no Spark call once the recorded cost reaches the cap",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "if ((await spent()) >= cap) return void (summary.stoppedForCap = true);\n      const read",
+    "to": "if ((await spent()) > cap) return void (summary.stoppedForCap = true);\n      const read"
+  },
+  {
+    "id": "live-cap-wonder",
+    "guard": "the live script starts no Wonder call once the recorded cost reaches the cap",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "if ((await spent()) >= cap) return void (summary.stoppedForCap = true);\n      const replanned",
+    "to": "if ((await spent()) > cap) return void (summary.stoppedForCap = true);\n      const replanned"
+  },
+  {
+    "id": "live-cap-size",
+    "guard": "the live script's default cap is US$1.00",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "export const SPEND_CAP_NANO_USD = 1_000_000_000; // US$1.00",
+    "to": "export const SPEND_CAP_NANO_USD = 2_000_000_000; // US$1.00"
+  },
+  {
+    "id": "live-runtime-role",
+    "guard": "every merchant step runs as the scratch runtime-role login",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "app = connectDb(withDatabase(options.serverUrl, database, login), 4);",
+    "to": "app = connectDb(url, 4);"
+  },
+  {
+    "id": "live-drops-db",
+    "guard": "the live script drops its scratch database",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "    await root.unsafe(`DROP DATABASE IF EXISTS \"${database}\" WITH (FORCE)`);\n",
+    "to": ""
+  },
+  {
+    "id": "live-drops-role",
+    "guard": "the live script drops its scratch role",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "    await root.unsafe(`DROP ROLE IF EXISTS ${login}`);\n",
+    "to": ""
+  },
+  {
+    "id": "live-floor-report",
+    "guard": "the live script reports whether the floor reached the buyers' view",
+    "file": "src/lib/onboarding/live.ts",
+    "from": "floorHiddenFromBuyers: !/floor/i.test(buyerView) && !buyerView.includes(String(floorPriceCents)),",
+    "to": "floorHiddenFromBuyers: true,"
+  }
+]
