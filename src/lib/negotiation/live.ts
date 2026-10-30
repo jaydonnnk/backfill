@@ -46,6 +46,8 @@ export type LiveSummary = {
   costNanoUsd: number;
   committed: { ok: boolean; negotiatedPriceCents?: number; reason?: string };
   stoppedForCap: boolean;
+  // The scratch database and role, both dropped before this returns.
+  scratch: { database: string; login: string };
 };
 
 function withDatabase(url: string, database: string, user?: string): string {
@@ -177,7 +179,7 @@ export async function liveNegotiation(options: LiveOptions): Promise<LiveSummary
       out(`rounds: ${JSON.stringify(rounds, null, 2)}`);
       out(`calls: ${JSON.stringify(calls, null, 2)}`);
       out(`total model cost ${formatUsd(costNanoUsd)} (cap ${formatUsd(cap)})`);
-      return { rounds, calls, costNanoUsd, committed, stoppedForCap };
+      return { rounds, calls, costNanoUsd, committed, stoppedForCap, scratch: { database, login } };
     } finally {
       await client.close();
     }

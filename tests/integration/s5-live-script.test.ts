@@ -44,9 +44,10 @@ describe("negotiation:live", () => {
 
     const root = postgres(serverUrl(), { max: 1, onnotice: () => {} });
     try {
+      const { database, login } = summary.scratch;
       const left = await root`
-        select (select count(*)::int from pg_database where datname like 'backfill_live_s5_%') as databases,
-               (select count(*)::int from pg_roles where rolname like 'backfill_live_rt_%') as roles`;
+        select (select count(*)::int from pg_database where datname = ${database}) as databases,
+               (select count(*)::int from pg_roles where rolname = ${login}) as roles`;
       expect(left).toEqual([{ databases: 0, roles: 0 }]);
     } finally {
       await root.end({ timeout: 5 });
@@ -60,6 +61,11 @@ describe("negotiation:live", () => {
   });
 
   it("refuses a server that is not local before touching it", async () => {
-    await expect(liveNegotiation({ serverUrl: "postgres://u@ep-x.neon.tech/neondb", meta, fetch: scripted([]) })).rejects.toThrow("must be a local PostgreSQL");
+    // A .invalid host never resolves, so even without the check nothing would leave this machine.
+    const refused = await liveNegotiation({ serverUrl: "postgres://u@ep-x.neon.invalid/neondb", meta, fetch: scripted([]) }).then(
+      () => null,
+      (err: Error) => err.message,
+    );
+    expect(refused).toBe("the server URL must be a local PostgreSQL");
   });
 });
