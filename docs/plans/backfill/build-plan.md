@@ -97,7 +97,7 @@ Each slice ends with its tests green and its exit check done.
 - `src/app/merchant`: upload, review, set rule.
 - Exit: a synthetic Singapore merchant's menu photo (re-steered by the user on 2026-10-30, see 00-status.md) becomes a published offer with no hand edits beyond confirmation.
 
-### S6b - Stretch: WhatsApp merchant agent (Oct 31-Nov 1, only if S6 is done by Oct 31)
+### S6b - Stretch: WhatsApp merchant agent (Oct 31-Nov 1, only if S6 is done by Oct 31) - done 2026-10-30
 
 - WhatsApp Cloud API webhook in `src/app/api/whatsapp`, Meta test number, sandbox recipients only.
 - The owner sends "no discount this Tuesday" or "make it 20% off"; Muse Wonder turns it into an `AgentTerms` change, and the owner confirms by reply before it publishes.

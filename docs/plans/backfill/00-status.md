@@ -480,7 +480,23 @@ Known limits:
 - The Graph API version in `WHATSAPP_GRAPH_BASE_URL` (`v23.0`) is a default I could not confirm against Meta's current docs ([unknown]).
 - Replies are free text, which Meta allows only within 24 hours of the owner's last message ([vendor claim]); the owner's own message always opens that window.
 
+Live check, 2026-10-30 (user-driven, with Claude reading Neon and Render read-only):
+- **[user-reported]** The user created the Meta app "Backfill Test" and claimed Meta's WhatsApp test number, added their own phone as a recipient, set the four `WHATSAPP_*` values and `WHATSAPP_GRAPH_BASE_URL=https://graph.facebook.com/v25.0` on Render (the Meta page's own curl uses v25.0), redeployed, and saved the webhook in Meta with the `messages` field.
+- **[verified]** Before the first real message, from `.env.local` against Render: a webhook signed with the app secret got 200, one signed with a wrong secret got 403, and the verify token got the challenge back, so Render's secret and token matched the local ones.
+- **[verified]** The first real texts got no reply and Neon showed no inbound row: Meta's Graph API listed the test WhatsApp account as subscribed only to Meta's own sample app ("WA DevX Webhook Events 1P App"), not to "Backfill Test". Meta's Test button still worked (the app logged `whatsapp.send_failed` status 400, since Meta's sample sender is a fake number), because that button calls the callback URL directly.
+- **[verified]** With the user's yes ("Yes, subscribe it"), Claude ran `POST /<account id>/subscribed_apps` with the user's token, which returned `{"success":true}`; a read-back listed "Backfill Test" beside Meta's sample app.
+- **[user-reported]** The user then linked their phone with a code from the merchant page, sent "make it 20% off" and `YES` from their phone, and got "Done. Singapore Test Restaurant's offer is updated and buyers see the new terms now (terms version 2)."
+- **[verified]** Neon, read-only: the rule is 20% off (2000 bps), capacity 20, minimum pool 8, 4 per agent, terms version 2; one link; one `owner_changes` row, verdict `ok`, outcome `applied` at 2026-10-30 16:43 UTC; 4 inbound ids (Meta's Test and the user's messages).
+- **[verified]** Exit, with `npm run mcp:smoke` as `smoke-s5` against https://backfill-9d0x.onrender.com, no covers: Singapore Test Restaurant is listed at S$7.00 and offered at S$5.60 (20% off), terms version 2, and the output has no "floor" or "capacity"; a run a minute earlier, before the YES, showed S$5.25 and version 1.
+So one message from the owner's phone changed a live offer on Render, and a buyer agent sees the new price and not the floor.
+- **[verified]** `main` is at `1e9b012`, which adds two log lines to the webhook (`whatsapp.received` with the message count, `whatsapp.rejected` with the reason, never a body, number or signature); CI passed on it, and the user redeployed Render.
+
+Found while doing it:
+- A new WhatsApp test account is not subscribed to your own app. The Meta UI's webhook screen alone did not do it; `POST /<account id>/subscribed_apps` did. A setup note for anyone repeating this.
+- Render shows only the app's own log lines, not HTTP requests, so before the log lines a refused or missing webhook call left no trace.
+
 Not done:
-- **[unknown]** The exit: one message from the owner's phone changing a live offer on Render. It needs the user's Meta app, test number and four secrets, the `WHATSAPP_*` values on Render, a redeploy and the webhook registered in Meta; none of that is done.
-- **[unknown]** Whether Meta's webhook, signature and reply formats match what the code reads: it was built from Meta's documented payload shape and tested only with payloads and a Graph API that Claude wrote.
-- Render is not yet running `0d75d76`.
+- **[unknown]** Whether the temporary Meta access token (24 hours) will be replaced before the demo; a replies-never-arrive symptom after a day is most likely an expired token, which shows as `whatsapp.send_failed` with status 401.
+- The Graph API version is now v25.0 on Render, matching Meta's page; the code's default is still `v23.0`.
+- A message sent by the owner while buyers hold a pending commitment on the offer is refused, as designed; not exercised live.
+- Real messages from any number but the user's one linked phone, and a second merchant, were not tried.
