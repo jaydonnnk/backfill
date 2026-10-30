@@ -12,6 +12,7 @@ Evidence for S6 on 2026-10-30: mutation runs, the live script's mutations, and t
 | `mutations-live.json` | 8 mutations of `npm run onboarding:live`: the local-only refusal, both spend-cap checks, the US$1.00 default, the runtime-role login, dropping the scratch database and role, and the floor-hidden report |
 | `results-live.json` | The final run, at `9069c3a`, baseline 244: all 8 killed on an AssertionError, each restored byte-identical, each rerun green |
 | `results-live-second-run.json` | The run at `9c3e0ac`: 7 killed, `live-floor-report` survived |
+| `live-run.txt` | The output of the live run on 2026-10-30, below |
 | `seed-ui.ts` | Seeds a throwaway local database for the browser check of the merchant pages; local only |
 
 A mutation counts as killed only if a test fails on an AssertionError.
@@ -46,6 +47,17 @@ The check is now the function `floorHidden`, tested with the floor shown by name
 ## Final run
 
 At `9069c3a`, baseline 244 (147 unit, 97 integration): all 106 mutations and all 8 live-script mutations killed on an AssertionError, every file restored byte-identical and every rerun green.
+
+## Live run
+
+`npm run onboarding:live -- postgres://postgres@127.0.0.1:5432/postgres` at `d6e46f1`, 2026-10-30T13:04Z, with `muse-spark-1.3` and `muse-wonder-1.0` through the Meta API, on a scratch local database (no Neon write); the user authorized it as "Run live calls".
+- Spark read the photo on its first attempt: all 12 items, every name and SGD price exactly as printed, and picked Hainanese Chicken Rice and Kopi C as the cover, so the list price is S$8.30.
+This settles the image format: OpenAI-style `image_url` data-URL parts are accepted by Meta's API.
+- The draft published at 25% off, S$6.23, with a hidden floor of S$5.81 (70% of S$8.30); the buyer view showed neither.
+- Two agents filled all 4 covers of 2026-11-03; Wonder planned 20% off, 6 covers, a pool of 3 and 2 per agent on its first attempt, judged `ok`, and the plan applied as terms version 2.
+- 2 calls: Spark 3,798 tokens in and 1,339 out, 7.8 s, US$0.010438; Wonder 214 in and 822 out, 8.0 s, US$0.017296; US$0.027734 in all against the US$1.00 cap.
+- The scratch database and role were dropped.
+- Wonder's rationale was only "sold out", not the two sentences citing the fill history the schema describes; the schema checks only its length.
 
 ## Rerun
 

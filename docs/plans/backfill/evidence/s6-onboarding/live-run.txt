@@ -1,0 +1,98 @@
+merchant: Singapore Test Restaurant
+{"at":"2026-10-30T13:04:26.423Z","level":"info","event":"onboarding.menu_read","attempts":1,"costNanoUsd":10438250,"latencyMs":7837,"items":12}
+menu read: ok
+draft: {
+  "items": [
+    {
+      "name": "Hainanese Chicken Rice",
+      "priceCents": 650
+    },
+    {
+      "name": "Laksa",
+      "priceCents": 780
+    },
+    {
+      "name": "Nasi Lemak",
+      "priceCents": 620
+    },
+    {
+      "name": "Char Kway Teow",
+      "priceCents": 700
+    },
+    {
+      "name": "Kopi C",
+      "priceCents": 180
+    },
+    {
+      "name": "Teh Tarik",
+      "priceCents": 220
+    },
+    {
+      "name": "Iced Bandung",
+      "priceCents": 250
+    },
+    {
+      "name": "Iced Lemon Tea",
+      "priceCents": 230
+    },
+    {
+      "name": "Chendol",
+      "priceCents": 350
+    },
+    {
+      "name": "Kaya Toast Set",
+      "priceCents": 480
+    },
+    {
+      "name": "Otah (2 pieces)",
+      "priceCents": 300
+    },
+    {
+      "name": "Fried Wantons",
+      "priceCents": 420
+    }
+  ],
+  "cover": "Hainanese Chicken Rice and Kopi C",
+  "verdict": "ok",
+  "listPriceCents": 830
+}
+publish: published
+buyers see: Singapore Test Restaurant: 25% off, S$8.30 becomes S$6.23 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 2 covers are committed before 12:00 that day; one agent may hold at most 2 covers.
+floor hidden from buyers: yes
+2026-11-03: 4 of 4 covers filled
+{"at":"2026-10-30T13:04:34.506Z","level":"info","event":"onboarding.plan","attempts":1,"costNanoUsd":17296000,"latencyMs":8030,"rationale":"sold out"}
+replan: {"status":"planned","planned":1}
+plan: {
+  "verdict": "ok",
+  "discountBps": 2000,
+  "capacityCovers": 6,
+  "minPoolCovers": 3,
+  "perAgentCapCovers": 2,
+  "rationale": "sold out"
+}
+apply: {"status":"applied","termsVersion":2}
+calls: [
+  {
+    "purpose": "menu_vision",
+    "model": "muse-spark-1.3",
+    "attempt": 1,
+    "ok": true,
+    "tokensIn": 3798,
+    "tokensOut": 1339,
+    "costNanoUsd": 10438250,
+    "latencyMs": 7837,
+    "error": null
+  },
+  {
+    "purpose": "wonder_plan",
+    "model": "muse-wonder-1.0",
+    "attempt": 1,
+    "ok": true,
+    "tokensIn": 214,
+    "tokensOut": 822,
+    "costNanoUsd": 17296000,
+    "latencyMs": 8030,
+    "error": null
+  }
+]
+total model cost $0.027734 (cap $1.000000)
