@@ -1,6 +1,6 @@
 // Mutation runner for the S1 review (docs/plans/backfill/evidence/s1-review). Applies each
-// mutation to one file of a copy of the tree, runs the full unit and integration suite, records
-// whether a test failed on an AssertionError, restores the file byte-identical and confirms the
+// mutation to a copy of the tree, runs the full unit and integration suite, records
+// whether a test failed on an AssertionError, restores each file byte-identical and confirms the
 // restore. Usage: node mutate.mjs <tree> <mutations.json> <results.json>
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -34,19 +34,29 @@ const baseline = runSuite();
 if (baseline.failed.length || baseline.fileErrors.length) throw new Error("baseline not green");
 const results = [];
 for (const m of mutations) {
-  const path = join(tree, m.file);
-  const original = readFileSync(path);
-  const text = original.toString("utf8");
-  const hits = text.split(m.from).length - 1;
-  if (hits !== 1) {
-    results.push({ id: m.id, error: `pattern found ${hits} times` });
+  // A mutation is one edit (file, from, to) or several (edits), all applied before the suite runs:
+  // several edits remove two guards that cover each other, such as an app check and its trigger.
+  const edits = m.edits ?? [{ file: m.file, from: m.from, to: m.to }];
+  const originals = new Map();
+  for (const e of edits) {
+    const path = join(tree, e.file);
+    if (!originals.has(path)) originals.set(path, readFileSync(path));
+  }
+  const texts = new Map([...originals].map(([path, b]) => [path, b.toString("utf8")]));
+  const misses = edits.map((e) => ({ e, hits: texts.get(join(tree, e.file)).split(e.from).length - 1 })).filter((x) => x.hits !== 1);
+  if (misses.length) {
+    results.push({ id: m.id, error: misses.map((x) => `${x.e.file}: pattern found ${x.hits} times`).join("; ") });
     continue;
   }
   // A replacer function, so "$$" in a mutation (SQL dollar quoting) is written as it is, not as "$".
-  writeFileSync(path, text.replace(m.from, () => m.to));
+  for (const e of edits) {
+    const path = join(tree, e.file);
+    texts.set(path, texts.get(path).replace(e.from, () => e.to));
+  }
+  for (const [path, text] of texts) writeFileSync(path, text);
   const mutated = runSuite();
-  writeFileSync(path, original);
-  const restored = sha(readFileSync(path)) === sha(original);
+  for (const [path, b] of originals) writeFileSync(path, b);
+  const restored = [...originals].every(([path, b]) => sha(readFileSync(path)) === sha(b));
   const rerun = runSuite();
   const assertionKill = mutated.failed.some((f) => /AssertionError/.test(f.msg) || (/^Error: Property failed/.test(f.msg) && /^AssertionError/.test(f.cause)));
   results.push({

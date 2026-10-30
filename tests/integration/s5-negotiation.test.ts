@@ -84,8 +84,12 @@ beforeEach(() => {
 // concession step is 31 cents.
 const FLOOR = 903;
 const OFFER = 938;
+// Merchant names are numbered, not random, since the model's prompt carries the name and a random
+// suffix could contain the floor's digits.
+let merchantSeq = 0;
 async function seedRule(overrides: Record<string, number> = {}): Promise<string> {
-  const [m] = await t.admin`insert into merchants ${t.admin({ name: `Ah Seng Kopitiam ${randomBytes(2).toString("hex")}` })} returning id`;
+  merchantSeq += 1;
+  const [m] = await t.admin`insert into merchants ${t.admin({ name: `Ah Seng Kopitiam ${merchantSeq}` })} returning id`;
   const [r] = await t.admin`insert into rules ${t.admin({
     merchant_id: m!.id,
     list_price_cents: 1250,
@@ -223,7 +227,11 @@ describe("a model proposal outside the limits", () => {
     const { reply, text } = await call(client, "negotiate_offer", bid(ruleId, 880));
     const held = reply.negotiation as Negotiation;
     expect(held).toMatchObject({ round: 2, status: "held", merchantPriceCents: 907 });
-    for (const leak of ["899", String(FLOOR), "floor"]) expect(text).not.toContain(leak);
+    // The negotiation id and the signed token are random, so they could contain the digits by chance;
+    // the token's own price is checked once decoded.
+    const shown = text.replaceAll(held.negotiationId, "").replaceAll(held.counterOffer, "");
+    for (const leak of ["899", String(FLOOR), "floor"]) expect(shown).not.toContain(leak);
+    expect(JSON.parse(Buffer.from(held.counterOffer.split(".")[0]!, "base64url").toString("utf8"))).toMatchObject({ round: 2, priceCents: 907 });
     expect(await roundsOf(first.negotiationId)).toEqual([
       { round: 1, bid_cents: 850, proposed_cents: 907, proposal_verdict: "ok", status: "countered", counter_cents: 907 },
       { round: 2, bid_cents: 880, proposed_cents: 899, proposal_verdict: "below_floor", status: "held", counter_cents: 907 },
@@ -303,11 +311,12 @@ describe("counter-offers", () => {
     const other = await connect();
     script = [930, 920];
     const first = await round(client, bid(ruleId, 850));
-    await round(client, bid(ruleId, 850));
+    const latest = await round(client, bid(ruleId, 850));
+    // Each case breaks one thing only: the other agent and the other covers use the latest token.
     const cases = [
       { client, args: submission(ruleId, { counterOffer: first.counterOffer }) },
-      { client: other.client, args: submission(ruleId, { counterOffer: first.counterOffer }) },
-      { client, args: submission(ruleId, { covers: 3, counterOffer: first.counterOffer }) },
+      { client: other.client, args: submission(ruleId, { counterOffer: latest.counterOffer }) },
+      { client, args: submission(ruleId, { covers: 3, counterOffer: latest.counterOffer }) },
     ];
     for (const c of cases) expect((await call(c.client, "submit_commitment", c.args)).reply).toMatchObject({ ok: false, reason: "counter_offer_invalid" });
   });
@@ -320,6 +329,11 @@ describe("counter-offers", () => {
     const args = submission(ruleId, { counterOffer: n.counterOffer });
     expect((await call(client, "submit_commitment", args)).reply.ok).toBe(true);
     expect((await call(client, "submit_commitment", args)).reply).toMatchObject({ ok: true, replayed: true });
+    // The same key and arguments without the counter-offer is a different commitment, not a replay.
+    expect((await call(client, "submit_commitment", submission(ruleId, { idempotencyKey: args.idempotencyKey }))).reply).toMatchObject({
+      ok: false,
+      reason: "idempotency_key_reused",
+    });
     expect((await call(client, "submit_commitment", { ...args, idempotencyKey: randomUUID() })).reply).toMatchObject({ ok: false, reason: "counter_offer_used" });
     expect((await call(client, "negotiate_offer", bid(ruleId, 850))).reply).toMatchObject({ ok: false, reason: "negotiation_used" });
   });
@@ -397,6 +411,40 @@ describe("one negotiation per visit", () => {
     expect(n?.rounds).toBe(1);
     expect(prompts).toHaveLength(2);
   });
+
+  it("answers two simultaneous second-round bids with one round and one busy", async () => {
+    const ruleId = await seedRule();
+    const { client } = await connect();
+    script = [930];
+    const first = await round(client, bid(ruleId, 850));
+    script = [925, 920];
+    let release = () => {};
+    const open = new Promise<void>((resolve) => (release = resolve));
+    barrier = { size: 2, arrived: 0, release, open };
+    const replies = await Promise.all([call(client, "negotiate_offer", bid(ruleId, 850)), call(client, "negotiate_offer", bid(ruleId, 850))]);
+    expect(replies.map((r) => r.reply.ok).sort()).toEqual([false, true]);
+    expect(replies.find((r) => !r.reply.ok)?.reply.reason).toBe("negotiation_busy");
+    expect((await roundsOf(first.negotiationId)).map((r) => r.round)).toEqual([1, 2]);
+  });
+
+  it("refuses a rule whose offer price is below its floor exactly like a missing one, without asking the model", async () => {
+    const ruleId = await seedRule({ floor_price_cents: OFFER + 1 });
+    const { client } = await connect();
+    const { reply, text } = await call(client, "negotiate_offer", bid(ruleId, 850));
+    expect(reply).toMatchObject({ ok: false, reason: "offer_unavailable" });
+    expect(text).not.toMatch(/floor/i);
+    expect(prompts).toEqual([]);
+  });
+
+  it("takes no round after the terms change, even at the new terms version", async () => {
+    const ruleId = await seedRule();
+    const { client } = await connect();
+    script = [930];
+    await round(client, bid(ruleId, 850));
+    await t.admin`update rules set min_pool_covers = 6 where id = ${ruleId}`;
+    expect((await call(client, "negotiate_offer", bid(ruleId, 850, { termsVersion: 2 }))).reply).toMatchObject({ ok: false, reason: "negotiation_closed" });
+    expect(prompts).toHaveLength(1);
+  });
 });
 
 describe("database guards", () => {
@@ -444,6 +492,51 @@ describe("database guards", () => {
       deleteRound: "negotiation_rounds is append-only: DELETE refused",
       truncateRounds: "negotiation_rounds is append-only: TRUNCATE refused",
     });
+  });
+
+  it("refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed", async () => {
+    const ruleId = await seedRule();
+    const otherRuleId = await seedRule();
+    const { agentId } = await connect();
+    const other = await connect();
+    const id = await negotiation(ruleId, agentId);
+    await t.admin`insert into negotiation_rounds ${t.admin(roundRow(id, 1, 930))}`;
+    const row = (overrides: Record<string, unknown> = {}) => ({
+      rule_id: ruleId,
+      agent_id: agentId,
+      idempotency_key: randomUUID(),
+      terms_version: 1,
+      covers: 2,
+      max_price_per_cover_cents: 930,
+      visit_at: new Date("2026-11-03T14:00:00+08:00"),
+      negotiation_id: id,
+      negotiated_price_cents: 930,
+      ...overrides,
+    });
+    const insert = (overrides: Record<string, unknown>) => constraint(runtime`insert into commitments ${runtime(row(overrides))}`);
+    expect({
+      rule: await insert({ rule_id: otherRuleId }),
+      agent: await insert({ agent_id: other.agentId }),
+      covers: await insert({ covers: 3 }),
+      visit: await insert({ visit_at: new Date("2026-11-10T14:00:00+08:00") }),
+      price: await insert({ negotiated_price_cents: 929, max_price_per_cover_cents: 929 }),
+    }).toEqual({
+      rule: "commitments_negotiated_match",
+      agent: "commitments_negotiated_match",
+      covers: "commitments_negotiated_match",
+      visit: "commitments_negotiated_match",
+      price: "commitments_negotiated_match",
+    });
+
+    // The matching commitment is taken, and its negotiation and price never change.
+    const [made] = await runtime`insert into commitments ${runtime(row())} returning id`;
+    expect(await constraint(t.admin`update commitments set negotiated_price_cents = 1 where id = ${made!.id}`)).toBe("commitments_cancel_only");
+
+    // A negotiation under older terms cannot make a commitment under the current ones.
+    const older = await negotiation(ruleId, other.agentId);
+    await t.admin`insert into negotiation_rounds ${t.admin(roundRow(older, 1, 930))}`;
+    await t.admin`update rules set min_pool_covers = 6 where id = ${ruleId}`;
+    expect(await insert({ agent_id: other.agentId, negotiation_id: older, terms_version: 2 })).toBe("commitments_negotiated_match");
   });
 
   it("refuses a second negotiation for the same visit", async () => {
