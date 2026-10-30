@@ -1,4 +1,4 @@
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import postgres from "postgres";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import type { MenuDraft } from "@/domain/onboarding/menu";
@@ -9,7 +9,7 @@ import { connectDb, type Db } from "@/lib/db/client";
 import { llmCallRecorder } from "@/lib/llm-calls";
 import { authenticateMerchant, mintMerchant } from "@/lib/onboarding/links";
 import { MENU_VISION_PURPOSE, sparkMenuReader, WONDER_PLAN_PURPOSE, wonderMerchant } from "@/lib/onboarding/models";
-import { applyPlan, dashboard, getDraft, MENU_DAILY_CAP, PLAN_DAILY_CAP, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
+import { applyPlan, dashboard, getDraft, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
 import { createTestDatabase, type TestDatabase } from "../support/db";
 
 // Onboarding and the Wonder merchant agent end to end against the real migrations, connected as a
@@ -95,6 +95,34 @@ async function failure(run: () => Promise<unknown>): Promise<string | undefined>
   return "no error";
 }
 
+// A service call's status, or "threw", so a refusal that is no longer mapped fails on an assertion.
+const settle = (call: Promise<{ status: string }>) => call.then((r) => r.status, () => "threw");
+
+// The same as failure, on a connection with session_replication_role = replica, under which only
+// ENABLE ALWAYS triggers fire.
+async function asReplica(run: (conn: postgres.ReservedSql) => Promise<unknown>): Promise<string | undefined> {
+  const conn = await t.admin.reserve();
+  try {
+    await conn.unsafe("SET session_replication_role = replica");
+    return await failure(() => run(conn));
+  } finally {
+    await conn.unsafe("RESET session_replication_role");
+    conn.release();
+  }
+}
+
+// Polls until check passes, for a statement that must be seen blocked before the test goes on.
+async function until(check: () => Promise<boolean>): Promise<void> {
+  for (let i = 0; i < 200; i++) {
+    if (await check()) return;
+    await new Promise((resolve) => setTimeout(resolve, 10));
+  }
+  throw new Error("timed out waiting");
+}
+
+const insertCall = (purpose: string, model: string, createdAt = new Date()) =>
+  t.admin`insert into llm_calls ${t.admin({ provider: "meta", model, purpose, attempt: 1, tokens_in: 0, tokens_cached_in: 0, tokens_out: 0, cost_nano_usd: 0, latency_ms: 0, ok: false, created_at: createdAt })}`;
+
 let merchantSeq = 0;
 async function merchant(): Promise<{ id: string; name: string; token: string }> {
   merchantSeq += 1;
@@ -140,7 +168,7 @@ describe("menu photo to draft with Muse Spark vision", () => {
 
     const [row] = await t.admin`select * from menu_drafts where merchant_id = ${m.id}`;
     expect(row).toMatchObject({ verdict: "ok", list_price_cents: 1440, photo_bytes: PHOTO.length, photo_type: "image/jpeg", model: SPARK });
-    expect(row?.photo_sha256).toMatch(/^[0-9a-f]{64}$/);
+    expect(row?.photo_sha256).toBe(createHash("sha256").update(PHOTO).digest("hex"));
     expect(JSON.stringify(row)).not.toContain(Buffer.from(PHOTO).toString("base64"));
     const calls = await t.admin`select purpose, model, ok, output from llm_calls`;
     expect(calls).toEqual([expect.objectContaining({ purpose: MENU_VISION_PURPOSE, model: SPARK, ok: true })]);
@@ -168,15 +196,21 @@ describe("menu photo to draft with Muse Spark vision", () => {
     expect(calls?.n).toBe(3);
   });
 
-  it("stops at the daily cap of model attempts, counting failed ones", async () => {
+  it("stops at the daily cap of 30 model attempts, counting failed ones", async () => {
     const m = await merchant();
-    for (let i = 0; i < MENU_DAILY_CAP - 1; i++) {
-      await t.admin`insert into llm_calls ${t.admin({ provider: "meta", model: SPARK, purpose: MENU_VISION_PURPOSE, attempt: 1, tokens_in: 0, tokens_cached_in: 0, tokens_out: 0, cost_nano_usd: 0, latency_ms: 0, ok: false })}`;
-    }
+    for (let i = 0; i < 29; i++) await insertCall(MENU_VISION_PURPOSE, SPARK);
     script = [MENU];
     expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toMatchObject({ status: "ok" });
     expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toEqual({ status: "daily_cap" });
     expect(bodies).toHaveLength(1);
+  });
+
+  it("counts only the last 24 hours toward the daily cap", async () => {
+    const m = await merchant();
+    const yesterday = new Date(Date.now() - 25 * 60 * 60 * 1000);
+    for (let i = 0; i < 30; i++) await insertCall(MENU_VISION_PURPOSE, SPARK, yesterday);
+    script = [MENU];
+    expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toMatchObject({ status: "ok" });
   });
 
   it("refuses a second read while one holds the lock", async () => {
@@ -206,7 +240,8 @@ describe("confirming and publishing a draft", () => {
     const offers = await listOffers(app.db, () => new Date("2026-11-03T09:00:00+08:00"));
     const mine = offers.find((o) => o.offer.ruleId === ruleId);
     expect(mine?.offer).toMatchObject({ listPriceCents: 1440, offerPriceCents: 1080 });
-    expect(JSON.stringify(mine)).not.toMatch(new RegExp(`${FLOOR}|9\\.17|capacity`, "i"));
+    // The rule and merchant ids are stripped first: their random hex digits could spell the floor by chance.
+    expect(JSON.stringify(mine).replaceAll(ruleId, "<rule>").replaceAll(m.id, "<merchant>")).not.toMatch(new RegExp(`${FLOOR}|9\\.17|capacity`, "i"));
   });
 
   it("publishes a draft once, and never another merchant's or one that did not count", async () => {
@@ -220,9 +255,35 @@ describe("confirming and publishing a draft", () => {
     expect(await publishDraft(app.db, other.id, ok.draftId, TERMS)).toEqual({ status: "not_found" });
     expect(await getDraft(app.db, other.id, ok.draftId)).toBeNull();
     expect(await publishDraft(app.db, m.id, refused.draftId, TERMS)).toEqual({ status: "not_found" });
-    expect(await publishDraft(app.db, m.id, "not-a-uuid", TERMS)).toEqual({ status: "not_found" });
+    expect(await settle(publishDraft(app.db, m.id, "not-a-uuid", TERMS))).toBe("not_found");
     expect(await publishDraft(app.db, m.id, ok.draftId, TERMS)).toMatchObject({ status: "published" });
     expect(await publishDraft(app.db, m.id, ok.draftId, TERMS)).toEqual({ status: "already_published" });
+  });
+
+  it("answers already_published to a request that loses the race to publish the same draft", async () => {
+    const m = await merchant();
+    script = [MENU];
+    const ok = await readMenu(app.db, m.id, PHOTO, read(), SPARK);
+    if (!("draftId" in ok)) throw new Error("read failed");
+    const holder = await t.admin.reserve();
+    try {
+      // The first publication is made but not committed, so the racing request finds the draft
+      // unpublished and then waits on the publication's key.
+      await holder.unsafe("begin");
+      await holder`select publish_offer(${m.id}::uuid, ${ok.draftId}::uuid, gen_random_uuid(), 4, 2::smallint, 840::smallint, 1020::smallint, 720::smallint, 2500, 2, 2, ${FLOOR})`;
+      const racing = settle(publishDraft(app.db, m.id, ok.draftId, TERMS));
+      await until(async () => {
+        // Through the runtime pool: the holder has the admin pool's only connection.
+        const [row] = await runtime`select count(*)::int as n from pg_stat_activity where datname = current_database() and wait_event_type = 'Lock'`;
+        return (row?.n ?? 0) > 0;
+      });
+      await holder.unsafe("commit");
+      expect(await racing).toBe("already_published");
+    } finally {
+      holder.release();
+    }
+    const [{ n }] = (await t.admin`select count(*)::int as n from rules where merchant_id = ${m.id}`) as unknown as [{ n: number }];
+    expect(n).toBe(1);
   });
 
   it("refuses a floor above the offer price and invalid terms, publishing nothing", async () => {
@@ -230,7 +291,7 @@ describe("confirming and publishing a draft", () => {
     script = [MENU];
     const ok = await readMenu(app.db, m.id, PHOTO, read(), SPARK);
     if (!("draftId" in ok)) throw new Error("read failed");
-    expect(await publishDraft(app.db, m.id, ok.draftId, { ...TERMS, terms: { ...TERMS.terms, floorPriceCents: 1081 } })).toEqual({ status: "floor_above_offer_price" });
+    expect(await settle(publishDraft(app.db, m.id, ok.draftId, { ...TERMS, terms: { ...TERMS.terms, floorPriceCents: 1081 } }))).toBe("floor_above_offer_price");
     expect(await publishDraft(app.db, m.id, ok.draftId, { ...TERMS, capacityCovers: 1 })).toMatchObject({ status: "invalid_terms" });
     const [{ n }] = (await t.admin`select count(*)::int as n from rules where merchant_id = ${m.id}`) as unknown as [{ n: number }];
     expect(n).toBe(0);
@@ -269,6 +330,43 @@ describe("database guards for onboarding", () => {
     expect(await failure(() => runtime`insert into menu_drafts ${runtime(draftRow(m.id, { ...MENU, currency: "other" }, 1440))}`)).toBe("menu_drafts_price_matches");
     expect(await failure(() => runtime`insert into menu_drafts ${runtime(draftRow(m.id, MENU, 1440, "not_sgd"))}`)).toBe("menu_drafts_price_with_ok");
     expect(await failure(() => runtime`insert into menu_drafts ${runtime(draftRow(m.id, MENU, null, "not_sgd"))}`)).toBe("no error");
+    // Index 3 finds no item, so S$6.50 for items 0 and 3 is refused, as is a cover with no items.
+    const partlyMissing = { ...MENU, cover: { itemIndexes: [0, 3], description: "x" } };
+    expect(await failure(() => runtime`insert into menu_drafts ${runtime(draftRow(m.id, partlyMissing, 650))}`)).toBe("menu_drafts_price_matches");
+    const empty = { ...MENU, cover: { itemIndexes: [], description: "x" } };
+    expect(await failure(() => runtime`insert into menu_drafts ${runtime(draftRow(m.id, empty, null))}`)).toBe("menu_drafts_price_matches");
+    // The trigger fires even under replication.
+    expect(await asReplica((c) => c`insert into menu_drafts ${c(draftRow(m.id, MENU, 1441))}`)).toBe("menu_drafts_price_matches");
+  });
+
+  it("stores a photo of at most 4 MiB, the same limit as the upload", async () => {
+    const m = await merchant();
+    expect(await failure(() => runtime`insert into menu_drafts ${runtime({ ...draftRow(m.id, MENU, 1440), photo_bytes: 4 * 1024 * 1024 })}`)).toBe("no error");
+    expect(await failure(() => runtime`insert into menu_drafts ${runtime({ ...draftRow(m.id, MENU, 1440), photo_bytes: 4 * 1024 * 1024 + 1 })}`)).toBe("menu_drafts_photo_bytes_range");
+  });
+
+  it("grants the runtime role exactly what onboarding needs, and PUBLIC nothing on the two functions", async () => {
+    const privileges = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE"];
+    const held: Record<string, string[]> = {};
+    for (const table of ["menu_drafts", "offer_publications", "wonder_plans", "plan_applications", "rules"]) {
+      held[table] = [];
+      for (const privilege of privileges) {
+        const [row] = await t.admin`select has_table_privilege('backfill_app', ${table}, ${privilege}) as ok`;
+        if (row?.ok) held[table].push(privilege);
+      }
+    }
+    expect(held).toEqual({
+      menu_drafts: ["SELECT", "INSERT"],
+      offer_publications: ["SELECT"],
+      wonder_plans: ["SELECT", "INSERT"],
+      plan_applications: ["SELECT"],
+      rules: ["SELECT"],
+    });
+    const functions = ["publish_offer(uuid, uuid, uuid, integer, smallint, smallint, smallint, smallint, integer, integer, integer, integer)", "apply_wonder_plan(uuid, uuid)"];
+    for (const fn of functions) {
+      const [row] = await t.admin`select has_function_privilege('backfill_app', ${fn}, 'EXECUTE') as app, has_function_privilege('public', ${fn}, 'EXECUTE') as public`;
+      expect({ fn, ...row }).toEqual({ fn, app: true, public: false });
+    }
   });
 
   it("gives the runtime role no way to write a rule or a publication except publish_offer", async () => {
@@ -295,6 +393,8 @@ describe("database guards for onboarding", () => {
       runtime`select publish_offer(${merchantId}::uuid, ${draftId}::uuid, gen_random_uuid(), 4, 2::smallint, 840::smallint, 1020::smallint, 720::smallint, 2500, 2, 2, ${floor})`;
     expect(await failure(() => call(other.id, FLOOR))).toBe("publish_offer_draft");
     expect(await failure(() => call(m.id, 1081))).toBe("publish_offer_floor");
+    const [refused] = await runtime`insert into menu_drafts ${runtime(draftRow(m.id, MENU, null, "not_sgd"))} returning id`;
+    expect(await failure(() => runtime`select publish_offer(${m.id}::uuid, ${refused!.id}::uuid, gen_random_uuid(), 4, 2::smallint, 840::smallint, 1020::smallint, 720::smallint, 2500, 2, 2, ${FLOOR})`)).toBe("publish_offer_draft");
     expect(await failure(() => call(m.id, 1080))).toBe("no error");
     const [rule] = await t.admin`select list_price_cents from rules where merchant_id = ${m.id}`;
     expect(rule?.list_price_cents).toBe(1440);
@@ -309,6 +409,9 @@ describe("database guards for onboarding", () => {
       expect(await failure(() => t.admin.unsafe(`update ${table} set merchant_id = merchant_id`))).toBe("23001");
       expect(await failure(() => t.admin.unsafe(`delete from ${table}`))).toBe("23001");
       expect(await failure(() => t.admin.unsafe(`truncate ${table} cascade`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`update ${table} set merchant_id = merchant_id`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`delete from ${table}`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`truncate ${table} cascade`))).toBe("23001");
     }
   });
 });
@@ -372,7 +475,54 @@ describe("Muse Wonder merchant agent", () => {
       expect(await failure(() => t.admin.unsafe(`update ${table} set ${column} = ${column}`))).toBe("23001");
       expect(await failure(() => t.admin.unsafe(`delete from ${table}`))).toBe("23001");
       expect(await failure(() => t.admin.unsafe(`truncate ${table} cascade`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`update ${table} set ${column} = ${column}`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`delete from ${table}`))).toBe("23001");
+      expect(await asReplica((c) => c.unsafe(`truncate ${table} cascade`))).toBe("23001");
     }
+  });
+
+  it("applies a capacity-only plan once, then answers already_applied", async () => {
+    const m = await merchant();
+    const ruleId = await publishedRule(m);
+    await sellOut(ruleId, "2026-11-10");
+    // Capacity is not part of the terms, so the terms version stays 1 and only the application's key stops a second apply.
+    script = [{ ...PLAN, discountBps: 2500, capacityCovers: 6, minPoolCovers: 2 }];
+    await replanSoldOut(app.db, m, wonder(), WONDER);
+    const [plan] = await t.admin`select id, verdict from wonder_plans where rule_id = ${ruleId}`;
+    expect(plan?.verdict).toBe("ok");
+    expect(await applyPlan(app.db, m.id, String(plan!.id))).toEqual({ status: "applied", termsVersion: 1 });
+    expect(await settle(applyPlan(app.db, m.id, String(plan!.id)))).toBe("already_applied");
+  });
+
+  it("refuses a second planning pass while one holds the lock", async () => {
+    const m = await merchant();
+    const ruleId = await publishedRule(m);
+    await sellOut(ruleId, "2026-11-10");
+    let release!: () => void;
+    const held = new Promise<void>((resolve) => (release = resolve));
+    let entered!: () => void;
+    const inside = new Promise<void>((resolve) => (entered = resolve));
+    const slow = replanSoldOut(app.db, m, async () => {
+      entered();
+      await held;
+      return PLAN;
+    }, WONDER);
+    await inside;
+    expect(await replanSoldOut(app.db, m, wonder(), WONDER)).toEqual({ status: "busy" });
+    release();
+    expect(await slow).toEqual({ status: "planned", planned: 1 });
+  });
+
+  it("plans at most 3 sellouts in one pass, oldest first", async () => {
+    const m = await merchant();
+    const ruleId = await publishedRule(m);
+    for (const date of ["2026-11-03", "2026-11-10", "2026-11-17", "2026-11-24"]) await sellOut(ruleId, date);
+    bodies = [];
+    script = [PLAN, PLAN, PLAN];
+    expect(await replanSoldOut(app.db, m, wonder(), WONDER)).toEqual({ status: "planned", planned: 3 });
+    expect(bodies).toHaveLength(3);
+    const plans = await t.admin`select visit_date::text as visit_date from wonder_plans where rule_id = ${ruleId} order by visit_date`;
+    expect(plans.map((p) => p.visit_date)).toEqual(["2026-11-03", "2026-11-10", "2026-11-17"]);
   });
 
   it("stores a refused plan with its reason and a failed call as no_proposal, and neither can be applied", async () => {
@@ -400,13 +550,11 @@ describe("Muse Wonder merchant agent", () => {
     expect(bodies.filter((b) => b.includes("WonderPlan"))).toHaveLength(0);
   });
 
-  it("stops at the daily cap of Wonder attempts", async () => {
+  it("stops at the daily cap of 30 Wonder attempts", async () => {
     const m = await merchant();
     const ruleId = await publishedRule(m);
     await sellOut(ruleId, "2026-11-10");
-    for (let i = 0; i < PLAN_DAILY_CAP; i++) {
-      await t.admin`insert into llm_calls ${t.admin({ provider: "meta", model: WONDER, purpose: WONDER_PLAN_PURPOSE, attempt: 1, tokens_in: 0, tokens_cached_in: 0, tokens_out: 0, cost_nano_usd: 0, latency_ms: 0, ok: false })}`;
-    }
+    for (let i = 0; i < 30; i++) await insertCall(WONDER_PLAN_PURPOSE, WONDER);
     bodies = [];
     expect(await replanSoldOut(app.db, m, wonder(), WONDER)).toEqual({ status: "daily_cap" });
     expect(bodies).toHaveLength(0);
@@ -421,7 +569,7 @@ describe("Muse Wonder merchant agent", () => {
     await replanSoldOut(app.db, m, wonder(), WONDER);
     const [plan] = await t.admin`select id from wonder_plans where rule_id = ${ruleId}`;
     expect(await applyPlan(app.db, other.id, String(plan!.id))).toEqual({ status: "not_found" });
-    expect(await applyPlan(app.db, m.id, "not-a-uuid")).toEqual({ status: "not_found" });
+    expect(await settle(applyPlan(app.db, m.id, "not-a-uuid"))).toBe("not_found");
 
     // A live commitment on an uncleared occurrence blocks the change; cancelling it unblocks.
     const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
@@ -440,12 +588,24 @@ describe("Muse Wonder merchant agent", () => {
       { discount_bps: 2000, capacity_covers: 6, min_pool_covers: 2, per_agent_cap_covers: 2 },
       { discount_bps: 2000, capacity_covers: 6, min_pool_covers: 7, per_agent_cap_covers: 2 },
       { discount_bps: 2000, capacity_covers: 6, min_pool_covers: 3, per_agent_cap_covers: 7 },
+      { discount_bps: 2000, capacity_covers: 6, min_pool_covers: 3, per_agent_cap_covers: 0 },
     ]) {
       const visitDate = `2026-11-${day++}`;
       await sellOut(ruleId, visitDate, 6);
       const [row] = await runtime`insert into wonder_plans ${runtime({ rule_id: ruleId, visit_date: visitDate, terms_version: 2, model: WONDER, rationale: "x", verdict: "ok", ...bad })} returning id`;
-      expect(await applyPlan(app.db, m.id, String(row!.id)), JSON.stringify(bad)).toEqual({ status: "refused" });
+      expect(await settle(applyPlan(app.db, m.id, String(row!.id))), JSON.stringify(bad)).toBe("refused");
     }
+
+    // In bounds, but stored with a verdict that did not count.
+    await sellOut(ruleId, `2026-11-${day}`, 6);
+    const [unchanged] = await runtime`insert into wonder_plans ${runtime({ rule_id: ruleId, visit_date: `2026-11-${day++}`, terms_version: 2, model: WONDER, rationale: "x", verdict: "unchanged", discount_bps: 2000, capacity_covers: 7, min_pool_covers: 3, per_agent_cap_covers: 2 })} returning id`;
+    expect(await settle(applyPlan(app.db, m.id, String(unchanged!.id)))).toBe("refused");
+
+    // In bounds, but the floor was raised (floor changes keep the terms version) above 20% off S$14.40, S$11.52.
+    await t.admin`update rules set floor_price_cents = 1153 where id = ${ruleId}`;
+    await sellOut(ruleId, `2026-11-${day}`, 6);
+    const [belowFloor] = await runtime`insert into wonder_plans ${runtime({ rule_id: ruleId, visit_date: `2026-11-${day}`, terms_version: 2, model: WONDER, rationale: "x", verdict: "ok", discount_bps: 2000, capacity_covers: 7, min_pool_covers: 3, per_agent_cap_covers: 2 })} returning id`;
+    expect(await settle(applyPlan(app.db, m.id, String(belowFloor!.id)))).toBe("refused");
     const [rule] = await t.admin`select discount_bps, capacity_covers, terms_version from rules where id = ${ruleId}`;
     expect(rule).toEqual({ discount_bps: 2000, capacity_covers: 6, terms_version: 2 });
   });

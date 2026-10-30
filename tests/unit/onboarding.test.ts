@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { judgeDraft, judgePhoto, MAX_PHOTO_BYTES, MenuDraft, ruleFromDraft, type RuleSettings, sniffPhoto } from "@/domain/onboarding/menu";
-import { judgePlan, MAX_CAPACITY_GROWTH, planned, WonderPlan } from "@/domain/onboarding/replan";
+import { judgeDraft, judgePhoto, MenuDraft, ruleFromDraft, type RuleSettings, sniffPhoto } from "@/domain/onboarding/menu";
+import { judgePlan, planned, WonderPlan } from "@/domain/onboarding/replan";
 import type { MerchantRule } from "@/domain/offers/schema";
 import { planPrompt, type PlanMemory } from "@/lib/onboarding/models";
 
@@ -17,15 +17,18 @@ describe("menu photo", () => {
     // RIFF with another form type is not WebP.
     expect(sniffPhoto(Uint8Array.from([0x52, 0x49, 0x46, 0x46, 1, 2, 3, 4, 0x57, 0x41, 0x56, 0x45]))).toBeNull();
     expect(sniffPhoto(PNG.slice(0, 7))).toBeNull();
+    // A JPEG needs all three marker bytes.
+    expect(sniffPhoto(Uint8Array.from([0xff, 0xd8, 0x00, 0xe0]))).toBeNull();
   });
 
-  it("refuses an empty, oversized or non-image file and takes one at exactly the limit", () => {
+  it("refuses an empty, oversized or non-image file and takes one at exactly the 4 MiB limit", () => {
     expect(judgePhoto(new Uint8Array())).toEqual({ ok: false, reason: "empty" });
     expect(judgePhoto(Uint8Array.from([1, 2, 3]))).toEqual({ ok: false, reason: "not_an_image" });
-    const atLimit = new Uint8Array(MAX_PHOTO_BYTES);
+    // Literal sizes, so the limit cannot move without this test, the database check and the upload text moving too.
+    const atLimit = new Uint8Array(4 * 1024 * 1024);
     atLimit.set(JPEG);
     expect(judgePhoto(atLimit)).toEqual({ ok: true, mediaType: "image/jpeg" });
-    const over = new Uint8Array(MAX_PHOTO_BYTES + 1);
+    const over = new Uint8Array(4 * 1024 * 1024 + 1);
     over.set(JPEG);
     expect(judgePhoto(over)).toEqual({ ok: false, reason: "too_large" });
   });
@@ -101,6 +104,11 @@ describe("Wonder re-plan after a sellout", () => {
     expect(planned(rule, plan())).toEqual({ ...rule, capacityCovers: 30, terms: { ...rule.terms, discountBps: 2000, minPoolCovers: 10, perAgentCapCovers: 4 } });
   });
 
+  it("is strict: a plan with a field of its own fails to parse", () => {
+    expect(WonderPlan.safeParse(plan()).success).toBe(true);
+    expect(WonderPlan.safeParse({ ...plan(), floorPriceCents: 900 }).success).toBe(false);
+  });
+
   it("refuses a plan that changes nothing", () => {
     expect(judgePlan(rule, plan({ discountBps: 2500, capacityCovers: 20, minPoolCovers: 8, perAgentCapCovers: 4 }))).toEqual({ ok: false, reason: "unchanged" });
   });
@@ -108,8 +116,8 @@ describe("Wonder re-plan after a sellout", () => {
   it("refuses a bigger discount, less capacity, more than double the capacity, and a smaller pool", () => {
     expect(judgePlan(rule, plan({ discountBps: 2501 }))).toEqual({ ok: false, reason: "deepens_discount" });
     expect(judgePlan(rule, plan({ capacityCovers: 19 }))).toEqual({ ok: false, reason: "capacity_out_of_range" });
-    expect(judgePlan(rule, plan({ capacityCovers: 20 * MAX_CAPACITY_GROWTH }))).toEqual({ ok: true });
-    expect(judgePlan(rule, plan({ capacityCovers: 20 * MAX_CAPACITY_GROWTH + 1 }))).toEqual({ ok: false, reason: "capacity_out_of_range" });
+    expect(judgePlan(rule, plan({ capacityCovers: 40 }))).toEqual({ ok: true });
+    expect(judgePlan(rule, plan({ capacityCovers: 41 }))).toEqual({ ok: false, reason: "capacity_out_of_range" });
     expect(judgePlan(rule, plan({ minPoolCovers: 7 }))).toEqual({ ok: false, reason: "lowers_min_pool" });
   });
 

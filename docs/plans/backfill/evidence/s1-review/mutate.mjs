@@ -67,6 +67,8 @@ for (const m of mutations) {
     fileErrors: mutated.fileErrors,
     restoredByteIdentical: restored,
     rerunGreen: rerun.failed.length === 0 && rerun.fileErrors.length === 0,
+    // Named only when the rerun of the restored files was not green, so a flaky test can be found.
+    ...(rerun.failed.length || rerun.fileErrors.length ? { rerunFailures: [...rerun.failed.map((f) => `${f.test} :: ${f.msg}`), ...rerun.fileErrors] } : {}),
   });
   console.log(m.id, results.at(-1).verdict);
 }
