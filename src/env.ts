@@ -29,7 +29,7 @@ const webSchema = z
     META_BASE_URL: httpsUrl,
     META_MODEL_SPARK: metaModelId,
     META_MODEL_WONDER: metaModelId,
-    // Signs negotiation counter-offers from S5 on; nothing reads it yet, but a short one refuses to boot.
+    // Signs negotiation counter-offers (S5); unset leaves negotiate_offer out, and a short one refuses to boot.
     NEGOTIATION_SIGNING_SECRET: z.string().min(32, "must be at least 32 characters").optional(),
   })
   .transform(({ APP_BASE_URL, RENDER_EXTERNAL_URL, ...rest }) => ({

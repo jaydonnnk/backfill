@@ -2,13 +2,15 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { authenticateAgent } from "@/lib/agents/tokens";
 import type { Clock } from "@/lib/commitments/service";
 import type { Db } from "@/lib/db/client";
+import type { NegotiationDeps } from "@/lib/negotiation/service";
 import { errorFields, log } from "@/lib/log";
 import { buildMcpServer } from "./server";
 
 // Streamable HTTP MCP, stateless: each POST carries one JSON-RPC message or batch and gets a JSON
 // reply, so the server keeps nothing in memory between requests and any instance can answer. The
 // bearer token is checked before the MCP layer sees the request.
-export function mcpPostHandler(db: () => Db, clock: Clock = () => new Date()): (req: Request) => Promise<Response> {
+// negotiation is read per request and may be null, which leaves negotiate_offer out.
+export function mcpPostHandler(db: () => Db, clock: Clock = () => new Date(), negotiation: () => NegotiationDeps | null = () => null): (req: Request) => Promise<Response> {
   return async (req) => {
     let agentId: string | null;
     try {
@@ -19,7 +21,7 @@ export function mcpPostHandler(db: () => Db, clock: Clock = () => new Date()): (
     }
     if (!agentId) return Response.json({ error: "unauthorized" }, { status: 401, headers: { "WWW-Authenticate": 'Bearer realm="backfill"' } });
 
-    const server = buildMcpServer(db(), agentId, clock);
+    const server = buildMcpServer(db(), agentId, clock, negotiation());
     const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
     await server.connect(transport);
     try {

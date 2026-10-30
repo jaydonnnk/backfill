@@ -1,13 +1,14 @@
 import { randomUUID } from "node:crypto";
-import { and, asc, eq, gte, isNull, lt, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, isNull, lt, sql } from "drizzle-orm";
 import { clear } from "@/domain/clearing/clear";
 import { nextOccurrence, type Occurrence, occurrenceOn, singaporeInstant } from "@/domain/commitments/occurrence";
 import type { Commitment } from "@/domain/commitments/schema";
+import { verifyCounterOffer } from "@/domain/negotiation/counter-offer";
 import { evaluateCommitment, evaluatePool, meetsFloor, offerPriceCents, toOffer } from "@/domain/offers/evaluate";
 import { MerchantRule, type Offer } from "@/domain/offers/schema";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
 import type { Db, Executor } from "@/lib/db/client";
-import { clearingFills, clearings, commitments, merchants, rules } from "@/lib/db/schema";
+import { clearingFills, clearings, commitments, merchants, negotiationRounds, rules } from "@/lib/db/schema";
 
 // Everything a buyer agent can do through the MCP server, against the database. Nothing returned
 // here carries the hidden floor, the capacity or a reason that compares the floor with the price:
@@ -22,7 +23,7 @@ const AGENT_LOCK_NAMESPACE = 4_151_004;
 type RuleRow = typeof rules.$inferSelect;
 type CommitmentRow = typeof commitments.$inferSelect;
 
-function toRule(row: RuleRow): MerchantRule {
+export function toRule(row: RuleRow): MerchantRule {
   return MerchantRule.parse({
     id: row.id,
     merchantId: row.merchantId,
@@ -55,7 +56,7 @@ function toCommitment(row: CommitmentRow): Commitment {
 
 // A rule a buyer may see and commit to: its offer price meets its floor. Any other rule could never
 // clear, and saying why would reveal that the floor is above the price.
-function available(rule: MerchantRule): boolean {
+export function available(rule: MerchantRule): boolean {
   return meetsFloor(rule.terms, offerPriceCents(rule));
 }
 
@@ -107,6 +108,8 @@ export type SubmitInput = {
   covers: number;
   maxPricePerCoverCents: number;
   idempotencyKey: string;
+  // A signed counter-offer from negotiate_offer (S5); the commitment then takes its price per cover.
+  counterOffer?: string;
 };
 
 export type SubmitRefusal =
@@ -117,7 +120,10 @@ export type SubmitRefusal =
   | "over_agent_cap"
   | "max_price_below_offer_price"
   | "idempotency_key_reused"
-  | "occurrence_cleared";
+  | "occurrence_cleared"
+  | "counter_offer_invalid"
+  | "counter_offer_used"
+  | "max_price_below_counter_price";
 
 export type CommitmentStatus = "pending" | "cancelled" | "filled" | "not_filled";
 
@@ -128,6 +134,8 @@ export type CommitmentView = {
   visitDate: string;
   covers: number;
   maxPricePerCoverCents: number;
+  // The price per cover a counter-offer agreed, when the commitment took one.
+  negotiatedPriceCents?: number;
   committedAt: string;
   commitBy: string;
   status: CommitmentStatus;
@@ -148,7 +156,7 @@ function one<T>(rows: T[]): T {
 }
 
 // The constraint a Postgres error names, whether drizzle wrapped it or not.
-function constraintOf(err: unknown): string | undefined {
+export function constraintOf(err: unknown): string | undefined {
   for (const candidate of [err, (err as { cause?: unknown } | undefined)?.cause]) {
     const name = (candidate as { constraint_name?: unknown } | undefined)?.constraint_name;
     if (typeof name === "string") return name;
@@ -162,7 +170,7 @@ class Refused extends Error {
   }
 }
 
-function deadlineOf(rule: MerchantRule, visitDate: string): Date {
+export function deadlineOf(rule: MerchantRule, visitDate: string): Date {
   return singaporeInstant(visitDate, rule.terms.window.commitByMinute);
 }
 
@@ -186,7 +194,30 @@ async function occurrenceCommitments(db: Executor, ruleId: string, visitDate: st
 // once, so the buyer learns at submit time rather than at clearing: a max price below the offer
 // price is refused even though clearing would only drop it. The same idempotency key from the same
 // agent returns the commitment it made the first time, or is refused if the arguments differ.
-export async function submitCommitment(db: Db, agentId: string, input: SubmitInput, clock: Clock = () => new Date()): Promise<SubmitResult> {
+// With a counter-offer, the commitment takes its price instead of the offer price. The token must be
+// signed with the negotiation secret, name this agent and these arguments, and be its negotiation's
+// latest round, at or above the current floor; every other token is counter_offer_invalid, so the
+// reply never says whether the floor moved.
+export async function submitCommitment(
+  db: Db,
+  agentId: string,
+  input: SubmitInput,
+  clock: Clock = () => new Date(),
+  negotiationSecret?: string,
+): Promise<SubmitResult> {
+  let counter = null;
+  if (input.counterOffer !== undefined) {
+    if (!negotiationSecret) throw new Error("no negotiation signing secret");
+    counter = verifyCounterOffer(negotiationSecret, input.counterOffer);
+    const matches =
+      counter !== null &&
+      counter.agentId === agentId &&
+      counter.ruleId === input.ruleId &&
+      counter.termsVersion === input.termsVersion &&
+      counter.visitDate === input.visitDate &&
+      counter.covers === input.covers;
+    if (!matches) return { ok: false, reason: "counter_offer_invalid" };
+  }
   try {
     return await db.transaction(async (tx) => {
       await tx.execute(sql`select pg_advisory_xact_lock(${AGENT_LOCK_NAMESPACE}, hashtext(${agentId}))`);
@@ -200,7 +231,8 @@ export async function submitCommitment(db: Db, agentId: string, input: SubmitInp
           existing.termsVersion === input.termsVersion &&
           singaporeLocal(existing.visitAt).date === input.visitDate &&
           existing.covers === input.covers &&
-          existing.maxPricePerCoverCents === input.maxPricePerCoverCents;
+          existing.maxPricePerCoverCents === input.maxPricePerCoverCents &&
+          existing.negotiationId === (counter?.negotiationId ?? null);
         if (!same) throw new Refused("idempotency_key_reused");
         return { ok: true as const, replayed: true, commitment: await viewOf(tx, existing) };
       }
@@ -213,8 +245,9 @@ export async function submitCommitment(db: Db, agentId: string, input: SubmitInp
 
       const now = clock();
       const price = offerPriceCents(rule);
+      // What the agent already holds that could clear, each commitment at its own price.
       const held = (await occurrenceCommitments(tx, rule.id, input.visitDate))
-        .filter((c) => c.agentId === agentId && c.termsVersion === rule.termsVersion && c.maxPricePerCoverCents >= price)
+        .filter((c) => c.agentId === agentId && c.termsVersion === rule.termsVersion && c.maxPricePerCoverCents >= (c.negotiatedPriceCents ?? price))
         .reduce((sum, c) => sum + c.covers, 0);
       const candidate: Commitment = {
         id: randomUUID(),
@@ -233,9 +266,21 @@ export async function submitCommitment(db: Db, agentId: string, input: SubmitInp
         if (verdict.reason === "below_floor") throw new Error("available rule refused below its floor");
         throw new Refused(verdict.reason === "outside_window" ? "not_on_offer_weekday" : verdict.reason);
       }
-      if (input.maxPricePerCoverCents < price) throw new Refused("max_price_below_offer_price");
+      if (counter) {
+        const [latest] = await tx
+          .select()
+          .from(negotiationRounds)
+          .where(eq(negotiationRounds.negotiationId, counter.negotiationId))
+          .orderBy(desc(negotiationRounds.round))
+          .limit(1);
+        if (!latest || latest.round !== counter.round || latest.counterCents !== counter.priceCents || !meetsFloor(rule.terms, counter.priceCents)) {
+          throw new Refused("counter_offer_invalid");
+        }
+        if (input.maxPricePerCoverCents < counter.priceCents) throw new Refused("max_price_below_counter_price");
+      } else if (input.maxPricePerCoverCents < price) throw new Refused("max_price_below_offer_price");
 
-      const row = one(await tx.insert(commitments).values({ ...candidate, idempotencyKey: input.idempotencyKey }).returning());
+      const negotiated = counter ? { negotiationId: counter.negotiationId, negotiatedPriceCents: counter.priceCents } : {};
+      const row = one(await tx.insert(commitments).values({ ...candidate, ...negotiated, idempotencyKey: input.idempotencyKey }).returning());
       return { ok: true as const, replayed: false, commitment: await viewOf(tx, row) };
     });
   } catch (err) {
@@ -243,6 +288,8 @@ export async function submitCommitment(db: Db, agentId: string, input: SubmitInp
     const constraint = constraintOf(err);
     if (constraint === "commitments_terms_current") return { ok: false, reason: "stale_terms" };
     if (constraint === "commitments_occurrence_cleared") return { ok: false, reason: "occurrence_cleared" };
+    if (constraint === "commitments_negotiation_once") return { ok: false, reason: "counter_offer_used" };
+    if (constraint === "commitments_negotiated_match") return { ok: false, reason: "counter_offer_invalid" };
     throw err;
   }
 }
@@ -284,6 +331,7 @@ async function viewOf(db: Executor, row: CommitmentRow): Promise<CommitmentView>
     visitDate,
     covers: row.covers,
     maxPricePerCoverCents: row.maxPricePerCoverCents,
+    ...(row.negotiatedPriceCents === null ? {} : { negotiatedPriceCents: row.negotiatedPriceCents }),
     committedAt: row.committedAt.toISOString(),
     commitBy: commitBy.toISOString(),
   };
