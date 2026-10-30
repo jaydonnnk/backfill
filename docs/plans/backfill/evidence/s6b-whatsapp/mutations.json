@@ -206,7 +206,7 @@
     "id": "env-group",
     "guard": "the WhatsApp settings are set together",
     "file": "src/env.ts",
-    "from": ".every((v) => v === undefined) ||",
+    "from": "[env.WHATSAPP_APP_SECRET, env.WHATSAPP_VERIFY_TOKEN, env.WHATSAPP_ACCESS_TOKEN, env.WHATSAPP_PHONE_NUMBER_ID].every((v) => v === undefined) ||",
     "to": "true ||"
   },
   {
@@ -336,13 +336,6 @@
     "to": "message.text"
   },
   {
-    "id": "svc-link-unlinked",
-    "guard": "an unlinked number is told so",
-    "file": "src/lib/whatsapp/service.ts",
-    "from": "if (merchantId === null) return NOT_LINKED;",
-    "to": ""
-  },
-  {
     "id": "svc-numbers-null",
     "guard": "a message not understood stores no numbers",
     "file": "src/lib/whatsapp/service.ts",
@@ -434,18 +427,11 @@
     "to": "o.discount_bps NOT BETWEEN 1 AND 10000"
   },
   {
-    "id": "sql-bound-capacity-low",
-    "guard": "SQL refuses a capacity of 0",
-    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-    "from": "o.capacity_covers NOT BETWEEN 1 AND 10000",
-    "to": "o.capacity_covers NOT BETWEEN 0 AND 10000"
-  },
-  {
     "id": "sql-bound-capacity-high",
     "guard": "SQL refuses a capacity over 10,000",
     "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-    "from": "o.capacity_covers NOT BETWEEN 1 AND 10000",
-    "to": "o.capacity_covers NOT BETWEEN 1 AND 10001"
+    "from": "o.capacity_covers > 10000",
+    "to": "o.capacity_covers > 10001"
   },
   {
     "id": "sql-bound-minpool-low",
@@ -597,29 +583,6 @@
     "to": "\n"
   },
   {
-    "id": "sql-whatsapp_link_codes_no_truncate",
-    "guard": "whatsapp_link_codes refuses TRUNCATE",
-    "edits": [
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "CREATE TRIGGER whatsapp_link_codes_no_truncate BEFORE TRUNCATE ON whatsapp_link_codes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
-        "to": ""
-      },
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n--> statement-breakpoint\n",
-        "to": ""
-      }
-    ]
-  },
-  {
-    "id": "sql-whatsapp_link_codes_no_truncate-always",
-    "guard": "whatsapp_link_codes refuses TRUNCATE even under session_replication_role = replica",
-    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-    "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n",
-    "to": "\n"
-  },
-  {
     "id": "sql-whatsapp_links_append_only",
     "guard": "whatsapp_links refuses UPDATE and DELETE",
     "edits": [
@@ -689,29 +652,6 @@
     "to": "\n"
   },
   {
-    "id": "sql-whatsapp_inbound_no_truncate",
-    "guard": "whatsapp_inbound refuses TRUNCATE",
-    "edits": [
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "CREATE TRIGGER whatsapp_inbound_no_truncate BEFORE TRUNCATE ON whatsapp_inbound FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
-        "to": ""
-      },
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n--> statement-breakpoint\n",
-        "to": ""
-      }
-    ]
-  },
-  {
-    "id": "sql-whatsapp_inbound_no_truncate-always",
-    "guard": "whatsapp_inbound refuses TRUNCATE even under session_replication_role = replica",
-    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-    "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n",
-    "to": "\n"
-  },
-  {
     "id": "sql-owner_changes_append_only",
     "guard": "owner_changes refuses UPDATE and DELETE",
     "edits": [
@@ -732,29 +672,6 @@
     "guard": "owner_changes refuses UPDATE and DELETE even under session_replication_role = replica",
     "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
     "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_append_only;\n",
-    "to": "\n"
-  },
-  {
-    "id": "sql-owner_changes_no_truncate",
-    "guard": "owner_changes refuses TRUNCATE",
-    "edits": [
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "CREATE TRIGGER owner_changes_no_truncate BEFORE TRUNCATE ON owner_changes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
-        "to": ""
-      },
-      {
-        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n--> statement-breakpoint\n",
-        "to": ""
-      }
-    ]
-  },
-  {
-    "id": "sql-owner_changes_no_truncate-always",
-    "guard": "owner_changes refuses TRUNCATE even under session_replication_role = replica",
-    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
-    "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n",
     "to": "\n"
   },
   {
@@ -879,5 +796,160 @@
     "file": "drizzle/0010_s6b_whatsapp.sql",
     "from": "CONSTRAINT \"whatsapp_links_code_once\" UNIQUE(\"code_sha256\"),\n",
     "to": ""
+  },
+  {
+    "id": "sql-bound-capacity-zero",
+    "guard": "SQL refuses a capacity of 0 through the minimum pool bound",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.min_pool_covers NOT BETWEEN 1 AND o.capacity_covers",
+    "to": "o.min_pool_covers NOT BETWEEN 0 AND o.capacity_covers"
+  },
+  {
+    "id": "svc-unlinked-null",
+    "guard": "a number with no link is told so",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "merchantId === null ? [] :",
+    "to": "merchantId === null ? [{ id: \"x\", name: \"x\" }] :"
+  },
+  {
+    "id": "sql-whatsapp_link_codes_no_truncate",
+    "guard": "TRUNCATE of whatsapp_link_codes CASCADE is refused (with its dependents' triggers removed too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_link_codes_no_truncate BEFORE TRUNCATE ON whatsapp_link_codes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_links_no_truncate BEFORE TRUNCATE ON whatsapp_links FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_link_codes_no_truncate-always",
+    "guard": "TRUNCATE of whatsapp_link_codes CASCADE is refused under session_replication_role = replica (dependents too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n",
+        "to": "\n"
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_no_truncate;\n",
+        "to": "\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_inbound_no_truncate",
+    "guard": "TRUNCATE of whatsapp_inbound CASCADE is refused (with its dependents' triggers removed too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_inbound_no_truncate BEFORE TRUNCATE ON whatsapp_inbound FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_changes_no_truncate BEFORE TRUNCATE ON owner_changes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_change_outcomes_no_truncate BEFORE TRUNCATE ON owner_change_outcomes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_inbound_no_truncate-always",
+    "guard": "TRUNCATE of whatsapp_inbound CASCADE is refused under session_replication_role = replica (dependents too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n",
+        "to": "\n"
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n",
+        "to": "\n"
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n",
+        "to": "\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_changes_no_truncate",
+    "guard": "TRUNCATE of owner_changes CASCADE is refused (with its dependents' triggers removed too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_changes_no_truncate BEFORE TRUNCATE ON owner_changes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_change_outcomes_no_truncate BEFORE TRUNCATE ON owner_change_outcomes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_changes_no_truncate-always",
+    "guard": "TRUNCATE of owner_changes CASCADE is refused under session_replication_role = replica (dependents too)",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n",
+        "to": "\n"
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n",
+        "to": "\n"
+      }
+    ]
   }
 ]

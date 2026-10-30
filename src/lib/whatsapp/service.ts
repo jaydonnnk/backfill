@@ -194,8 +194,7 @@ export async function handleMessage(db: Db, message: InboundMessage, deps: Owner
   const intent = readIntent(message.text);
   if (intent.kind === "link") return linkNumber(db, intent.code, message.from);
   const merchantId = await merchantForPhone(db, message.from);
-  if (merchantId === null) return NOT_LINKED;
-  const [merchant] = await db.select({ id: merchants.id, name: merchants.name }).from(merchants).where(eq(merchants.id, merchantId));
+  const [merchant] = merchantId === null ? [] : await db.select({ id: merchants.id, name: merchants.name }).from(merchants).where(eq(merchants.id, merchantId));
   if (!merchant) return NOT_LINKED;
   if (intent.kind === "confirm") return confirm(db, merchant.id, merchant.name, now);
   if (intent.kind === "cancel") return cancel(db, merchant.id, now);

@@ -50,7 +50,7 @@ BEGIN
     RAISE EXCEPTION 'the rule changed since the change was proposed'
       USING ERRCODE = 'check_violation', CONSTRAINT = 'apply_owner_change_stale';
   END IF;
-  IF o.discount_bps NOT BETWEEN 1 AND 9999 OR o.capacity_covers NOT BETWEEN 1 AND 10000
+  IF o.discount_bps NOT BETWEEN 1 AND 9999 OR o.capacity_covers > 10000
       OR o.min_pool_covers NOT BETWEEN 1 AND o.capacity_covers OR o.per_agent_cap_covers NOT BETWEEN 1 AND o.capacity_covers
       OR r.list_price_cents - (r.list_price_cents::bigint * o.discount_bps / 10000) < r.floor_price_cents THEN
     RAISE EXCEPTION 'the change is outside the owner bounds'

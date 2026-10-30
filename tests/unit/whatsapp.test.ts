@@ -26,6 +26,7 @@ describe("readIntent", () => {
     ["  Yes!  ", "confirm"],
     ["y", "confirm"],
     ["Okay.", "confirm"],
+    ["ok", "confirm"],
     ["confirm", "confirm"],
     ["NO", "cancel"],
     ["no.", "cancel"],
@@ -197,6 +198,9 @@ describe("WhatsApp settings", () => {
       delete partial[name];
       expect(() => webEnv({ ...base, ...partial })).toThrow(/must be set together/);
     }
+    // Whatever the schema lets through, a missing setting turns WhatsApp off rather than half on.
+    const full = webEnv({ ...base, ...all });
+    for (const name of Object.keys(all) as (keyof typeof all)[]) expect(whatsappEnv({ ...full, [name]: undefined })).toBeNull();
     expect(() => webEnv({ ...base, ...all, WHATSAPP_PHONE_NUMBER_ID: "not-a-number" })).toThrow(/WHATSAPP_PHONE_NUMBER_ID/);
     expect(() => webEnv({ ...base, ...all, WHATSAPP_GRAPH_BASE_URL: "http://graph.test" })).toThrow(/https/);
   });
