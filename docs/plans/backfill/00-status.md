@@ -375,3 +375,57 @@ The permission is verbal, not in writing; no merchant's name or menu is publishe
 - 2026-10-30, on the synthetic merchant: "Synthetic restaurant build not kopitiam. I would think this would be more prevalent to cafes or restaurants".
 - 2026-10-30, on the look and the merchant: "Can u change the color theme to fit that of Muse?, and also change the font to something else." and "As for the real restaurant or cafe, i would want you to just make a synthetic one. So like "Singapore Test Restaurant". This is a hackathon not a product we're building for a customer."
 - 2026-10-30, on the label: "Remove (synthetic), Singapore Test Shop literally screams its alr a fake merchant dont overcomplicte".
+- 2026-10-30, for the live run: "Run live calls".
+- 2026-10-30, to push the branch: "Push branch".
+- 2026-10-30, for Neon, asked before each step: "Yes, read-only check", then "Yes, apply 0008 and 0009".
+- 2026-10-30, for the merchant on Neon: "Yes, in my terminal tab", so the secret link was printed in the user's own terminal tab and never read by Claude.
+- 2026-10-30, for main: "Yes, ff and push main"; then "Redeployed".
+- 2026-10-30, unprompted: "can u add a loading icon i cant tell if its loading or not".
+
+Built:
+- Migration `0008_s6_onboarding` (generated): `menu_drafts` (Spark's draft, the photo's SHA-256 and size, never the photo), `offer_publications`, `wonder_plans` and `plan_applications`.
+- Migration `0009_s6_onboarding_triggers` (custom): `menu_drafts_price_matches` checks the cover's price against the draft's items; all four tables are append-only and refuse TRUNCATE; the functions `publish_offer` and `apply_wonder_plan` are the only way the runtime role creates or changes a merchant's rule.
+- `src/domain/onboarding/menu.ts`: the photo sniff and 4 MiB limit, the strict `MenuDraft`, `judgeDraft` (SGD only, at least one item, a cover of 1 to 4 distinct menu items) and `ruleFromDraft` (the hidden floor must not exceed the offer price).
+- `src/domain/onboarding/replan.ts`: the strict `WonderPlan` and `judgePlan`, which bounds a plan's terms and lets capacity grow at most 2 times.
+- `src/lib/onboarding`: `readMenu` (Spark vision, one read at a time per merchant, 30 a day), `publishDraft`, `dashboard`, `replanSoldOut` (Wonder, once per sold-out occurrence, 30 a day) and `applyPlan`; `mintMerchant` and `authenticateMerchant` for the secret link; `models.ts` holds the Spark and Wonder prompts, and Wonder gets the rules, fill history and past plans from our Postgres on every call and never the floor.
+- `src/integrations/meta/provider.ts` sends images as data-URL `image_url` parts.
+- `src/app/merchant`: the secret-link entry (the token is in the URL fragment, only its hash is stored), the upload page, the draft review and publish form, and the dashboard with each occurrence and Wonder's plans; the pages use a cream, ink and blue theme and Figtree.
+- `npm run merchant:mint -- "<name>"` and `npm run onboarding:live -- <local-postgres-url>`.
+- `SubmitButton` (`src/app/merchant/submit-button.tsx`): on Read menu, Confirm and publish, and Apply plan, the button disables itself, shows a spinner and changes its label while the action runs; added on 2026-10-30 after the user could not tell whether Read menu was working.
+
+Evidence:
+- **[verified]** At `065eaef`: typecheck and lint clean, `npm run build` completes, and 244 tests pass (147 unit, 97 integration) with `TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres`.
+- **[verified]** Mutations in [evidence/s6-onboarding](evidence/s6-onboarding/README.md), at `9069c3a`: all 106 killed on an AssertionError, and all 8 of the live script's, each file restored byte-identical and each rerun green.
+A first run, at `0022e07`, gave 68 killed, 31 survivors and 7 killed only by an error; the survivors were test gaps, and 3 reruns on unmutated files failed on a leak check that grepped random UUIDs for the floor's digits; all fixed in `1c56e60`.
+- **[verified]** Live run, 2026-10-30T13:04Z, at `d6e46f1`, on a scratch local database (no Neon write): Spark read all 12 prices of the synthetic menu exactly and chose Hainanese Chicken Rice and Kopi C, so the cover is S$8.30; the draft published at 25% off, S$6.23, with a hidden floor of S$5.81; 2 agents filled all 4 covers of 2026-11-03; Wonder planned 20% off, 6 covers, a pool of 3 and 2 per agent, judged `ok`, applied as terms version 2.
+Spark cost US$0.010438 and Wonder US$0.017296, US$0.027734 in all against the US$1.00 cap.
+This settles that Meta accepts `image_url` data-URL parts.
+- **[verified]** CI run 41062170795 on `02fa613` (the branch) and run 41067301697 on `main` at the same commit passed.
+- **[verified]** Migrations `0008` and `0009` applied on Neon with `npm run db:migrate`: a read-only read before showed 8 migrations and no S6 tables; after, 10 migrations and `menu_drafts`, `offer_publications`, `plan_applications` and `wonder_plans` present.
+Rows in `0000` to `0007` tables were not touched.
+- **[verified]** "Singapore Test Restaurant" minted on Neon with `npm run merchant:mint`; a read-only read shows one merchant of that name.
+The secret link is only in the user's terminal tab.
+- **[verified]** `main` fast-forwarded from `67d0cab` to `02fa613` and pushed, with `git fetch . backfill/slice-6-onboarding:main`.
+- **[user-reported]** Render redeployed at `02fa613`.
+- **[verified]** Render after the redeploy: `/api/health` 200 with the database up, `/merchant` and `/merchant/enter` 200.
+- **[user-reported]** The user opened the secret link on Render, uploaded a menu photo of their own and published an offer; the Render merchant page showed "Singapore Test Restaurant" with a file chosen and "No offers yet" before it.
+- **[verified]** Exit on Render, with `npm run mcp:smoke` as `smoke-s5`, no covers (no commitment): the offers now include "Singapore Test Restaurant" at S$7.00 listed and S$5.25 offered (25% off), Tuesday 14:00-17:00, pool 8, 4 per agent, next visit 2026-11-03; the output has no "floor" or "capacity".
+A read-only read of Neon shows that rule with a hidden floor of 490 cents (70%), capacity 20, terms version 1, 1 `offer_publications` row, 2 `menu_drafts` rows and 0 `wonder_plans`; the 2 commitments from S4 are unchanged.
+So the photo became a published offer, with the floor kept from buyers.
+- **[verified]** The spinner, in the browser, on a temporary page with a 6 second server action and the real `SubmitButton`: while pending, the button was dimmed with a spinner and the label "Reading menu…"; the temporary page was deleted.
+
+Known limits:
+- The Spark and Wonder daily caps of 30 are global, not per merchant.
+- The merchant cookie is `Secure` only in production.
+- A Wonder plan cannot be applied while any commitment is pending.
+- An occurrence with no plan is judged sold out against the current capacity.
+- Two offers of one merchant with the same window are not told apart on the dashboard.
+- Wonder's memory is our Postgres, not Meta's Responses API memory ([vendor claim], unused).
+- Wonder's rationale can be a bare phrase: in the live run it was only "sold out", and the schema checks only its length.
+- A bare `npm test` failed in 8 integration files with `TEST_DATABASE_URL` undefined; CI and the commands above set it.
+
+Not done:
+- **[unknown]** Whether Spark read the user's own photo correctly on Render: Claude never saw that photo, and only the published S$7.00 price and the 2 stored drafts are known.
+- **[unknown]** A Wonder plan on Render: none was run there; it ran locally.
+- **[unknown]** The spinner on Render and on the real forms: it was seen only on the temporary page, and `065eaef` is not on `main` or Render.
+- Negotiation on Render, S6b to S10, the 8 old `backfill_t_*` databases on local PostgreSQL (from earlier interrupted runs, not S6).

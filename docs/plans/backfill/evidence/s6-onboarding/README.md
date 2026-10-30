@@ -4,7 +4,7 @@ Evidence for S6 on 2026-10-30: mutation runs, the live script's mutations, and t
 
 | File | Holds |
 |---|---|
-| `menu.svg`, `menu.png` | The synthetic menu of "Singapore Test Restaurant", 13 items in SGD; the PNG is the SVG rendered by `qlmanage -t -s 1600` |
+| `menu.svg`, `menu.png` | The synthetic menu of "Singapore Test Restaurant", 12 items in SGD; the PNG is the SVG rendered by `qlmanage -t -s 1600` |
 | `mutations.json` | 106 mutations: image parts in the provider, the photo sniff and limit, the strict `MenuDraft`, each `judgeDraft` refusal and the price sum, the publish floor, the strict `WonderPlan` and each `judgePlan` bound, Wonder's prompt (history, plans, no floor), the read and plan caps, locks and 24-hour window, the stored photo hash, the publish race, once-per-sellout planning, the sold-out rule, every `APPLY_REFUSALS` entry, every clause of `menu_drafts_price_matches`, `publish_offer` and `apply_wonder_plan`, the photo size check, the append-only triggers and their `ENABLE ALWAYS`, and the grants |
 | `results.json` | The final run, at `9069c3a`, baseline 244: all 106 killed on an AssertionError, each restored byte-identical, each rerun green |
 | `results-second-run.json` | The second run, at `9c3e0ac`, baseline 243: 105 killed on an AssertionError and 1 by a non-assertion error, every rerun green |

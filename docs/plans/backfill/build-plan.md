@@ -90,12 +90,12 @@ Each slice ends with its tests green and its exit check done.
 - Muse Spark proposes; the domain validates every proposal against both limits before it counts.
 - Exit: tests show a model proposal outside the limits is rejected and never reaches the ledger.
 
-### S6 - Merchant onboarding and Wonder agent (Oct 30-31)
+### S6 - Merchant onboarding and Wonder agent (Oct 30-31) - done 2026-10-30
 
 - `src/domain/onboarding`: menu photo to `Offer` schema with Muse Spark vision, merchant confirms before publish.
 - Muse Wonder merchant agent: remembers rules and fill history, re-plans when capacity sells out.
 - `src/app/merchant`: upload, review, set rule.
-- Exit: a real Singapore merchant's menu photo becomes a published offer with no hand edits beyond confirmation.
+- Exit: a synthetic Singapore merchant's menu photo (re-steered by the user on 2026-10-30, see 00-status.md) becomes a published offer with no hand edits beyond confirmation.
 
 ### S6b - Stretch: WhatsApp merchant agent (Oct 31-Nov 1, only if S6 is done by Oct 31)
 
