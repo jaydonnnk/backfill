@@ -81,6 +81,26 @@ describe("Meta LLMProvider", () => {
     ]);
   });
 
+  it("sends images as data-URL content parts after the prompt, keeps them on a retry, and never logs them", async () => {
+    const { provider, requests, records } = setup([completion("not json"), completion('{"reply":"menu"}')]);
+    const images = [{ mediaType: "image/png" as const, base64: "iVBORw0KGgo=" }];
+    await provider.generate({ ...request, images });
+
+    const parts = [
+      { type: "text", text: "user text" },
+      { type: "image_url", image_url: { url: "data:image/png;base64,iVBORw0KGgo=" } },
+    ];
+    expect(requests).toHaveLength(2);
+    for (const sent of requests) expect((sent.body.messages as unknown[])[1]).toEqual({ role: "user", content: parts });
+    expect(JSON.stringify(records)).not.toContain("iVBORw0KGgo");
+  });
+
+  it("sends a prompt with an empty image list as plain text", async () => {
+    const { provider, requests } = setup([completion('{"reply":"hi"}')]);
+    await provider.generate({ ...request, images: [] });
+    expect((requests[0]?.body.messages as unknown[])[1]).toEqual({ role: "user", content: "user text" });
+  });
+
   it("bills cached prompt tokens at the cached rate", async () => {
     const { provider, records } = setup([
       { status: 200, body: { choices: [{ message: { content: '{"reply":"hi"}' } }], usage: { prompt_tokens: 100, completion_tokens: 0, prompt_tokens_details: { cached_tokens: 60 } } } },

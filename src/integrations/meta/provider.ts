@@ -14,7 +14,11 @@ export type StructuredRequest<T> = {
   schema: z.ZodType<T>;
   maxCompletionTokens: number;
   reasoningEffort?: "minimal" | "low" | "medium" | "high" | "xhigh";
+  // Images sent with the prompt, such as a menu photo for Muse Spark vision. Never logged.
+  images?: readonly ImageInput[];
 };
+
+export type ImageInput = { mediaType: "image/jpeg" | "image/png" | "image/webp"; base64: string };
 
 export type StructuredResult<T> = {
   value: T;
@@ -80,7 +84,14 @@ const completionSchema = z.object({
   }),
 });
 
-type Message = { role: "system" | "user" | "assistant"; content: string };
+type ContentPart = { type: "text"; text: string } | { type: "image_url"; image_url: { url: string } };
+type Message = { role: "system" | "user" | "assistant"; content: string | ContentPart[] };
+
+// A prompt with images goes as content parts, the images as data URLs; a text-only prompt stays a string.
+function userContent(prompt: string, images: readonly ImageInput[] | undefined): Message["content"] {
+  if (!images || images.length === 0) return prompt;
+  return [{ type: "text", text: prompt }, ...images.map((image) => ({ type: "image_url" as const, image_url: { url: `data:${image.mediaType};base64,${image.base64}` } }))];
+}
 
 type AttemptOutcome<T> =
   | { kind: "ok"; value: T }
@@ -103,7 +114,7 @@ export function createMetaProvider(options: MetaProviderOptions): LLMProvider {
 
     const messages: Message[] = [
       { role: "system", content: request.system },
-      { role: "user", content: request.prompt },
+      { role: "user", content: userContent(request.prompt, request.images) },
     ];
     const total: Usage = { tokensIn: 0, tokensCachedIn: 0, tokensOut: 0 };
     let totalCost = 0;
