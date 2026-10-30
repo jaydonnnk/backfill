@@ -1,24 +1,39 @@
 @import "tailwindcss";
 
+/* Colours follow Muse's identity: a cream ground like its Jolly mascot, deep ink text, electric blue
+   for actions, and the iridescent teal, blue and magenta wash as one thin bar at the top. */
 :root {
-  --background: #fbfaf7;
-  --foreground: #1c1b19;
-  --muted: #6b6760;
-  --border: #e4e0d8;
-  --accent: #1f6f4a;
+  --background: #fbf7ee;
+  --foreground: #15142b;
+  --muted: #5f5d72;
+  --border: #e6e0d2;
+  --accent: #2f55f4;
+  --accent-ink: #ffffff;
+  --highlight: #e9eeff;
+  --wash: linear-gradient(90deg, #13b5b1, #2f55f4 50%, #d23bb0);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #141412;
-    --foreground: #ece9e2;
-    --muted: #9b968c;
-    --border: #2e2c28;
-    --accent: #5cc493;
+    --background: #0f0f1c;
+    --foreground: #f1ede4;
+    --muted: #a4a1b8;
+    --border: #2a2940;
+    --accent: #7d97ff;
+    --accent-ink: #0f0f1c;
+    --highlight: #1f2547;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: var(--wash);
 }

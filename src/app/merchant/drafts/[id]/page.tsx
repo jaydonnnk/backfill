@@ -56,7 +56,7 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
         ) : (
           <ul className="flex flex-col gap-1 text-sm">
             {view.draft.items.map((item, i) => (
-              <li key={i} className={`flex justify-between gap-3 rounded px-2 py-1 ${cover.has(i) ? "bg-[var(--border)] font-medium" : ""}`}>
+              <li key={i} className={`flex justify-between gap-3 rounded px-2 py-1 ${cover.has(i) ? "bg-[var(--highlight)] font-medium" : ""}`}>
                 <span className="min-w-0 break-words">{item.name}</span>
                 <span className="shrink-0 tabular-nums">{dollars(item.priceCents)}</span>
               </li>
@@ -130,7 +130,7 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
                 <input name="floorDollars" inputMode="decimal" pattern="\d{1,4}(\.\d{1,2})?" defaultValue={((listPrice * 0.7) / 100).toFixed(2)} required className={input} />
               </label>
             </div>
-            <button type="submit" className="self-start rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--background)] hover:opacity-90">
+            <button type="submit" className="self-start rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90">
               Confirm and publish
             </button>
           </form>

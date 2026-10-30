@@ -48,7 +48,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg font-medium">Latest Muse Spark reply</h2>
           <form action={askSpark}>
-            <button type="submit" className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--background)] hover:opacity-90">
+            <button type="submit" className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90">
               Ask Muse Spark
             </button>
           </form>

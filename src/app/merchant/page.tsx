@@ -40,7 +40,7 @@ const VERDICT_TEXT: Record<string, string> = {
 const readAt = new Intl.DateTimeFormat("en-SG", { timeZone: "Asia/Singapore", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false });
 
 const card = "flex flex-col gap-4 rounded-lg border border-[var(--border)] p-5";
-const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--background)] hover:opacity-90";
+const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90";
 
 function SignedOut() {
   return (
@@ -62,12 +62,12 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
-      <header className="flex flex-wrap items-start justify-between gap-3">
+      <header className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-sm text-[var(--muted)]">Backfill for merchants</p>
           <h1 className="text-2xl font-semibold tracking-tight break-words">{merchant.name}</h1>
         </div>
-        <form action={leave}>
+        <form action={leave} className="shrink-0 pt-1">
           <button type="submit" className="text-sm text-[var(--muted)] underline underline-offset-4">
             Sign out
           </button>
