@@ -143,8 +143,10 @@ async function plansOf(db: Db, ruleIds: string[]): Promise<PlanRow[]> {
   return rows.map((r) => ({ ...r.p, applied: r.appliedAt !== null }));
 }
 
-// A sold-out occurrence filled every cover of the rule's current capacity.
-const soldOut = (o: OccurrenceRow, rule: MerchantRule | undefined) => o.unlocked && rule !== undefined && o.covers >= rule.capacityCovers;
+// A sold-out occurrence filled every cover of the rule's capacity. Capacity only grows through a
+// plan, and only a sellout is planned, so an occurrence with a plan sold out at its own capacity;
+// one without a plan is judged against the current capacity.
+const soldOut = (o: OccurrenceRow, rule: MerchantRule | undefined, planned: boolean) => o.unlocked && (planned || (rule !== undefined && o.covers >= rule.capacityCovers));
 
 export async function dashboard(db: Db, merchantId: string): Promise<Dashboard> {
   const ruleRows = await db.select().from(rules).where(eq(rules.merchantId, merchantId)).orderBy(asc(rules.weekday), asc(rules.startMinute));
@@ -159,11 +161,13 @@ export async function dashboard(db: Db, merchantId: string): Promise<Dashboard> 
     .where(eq(menuDrafts.merchantId, merchantId))
     .orderBy(desc(menuDrafts.createdAt))
     .limit(5);
+  const plans = await plansOf(db, ids);
+  const planned = new Set(plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   return {
     rules: ruleList.map((rule) => ({ rule, offerPriceCents: offerPriceCents(rule), published: published.has(rule.id) })),
     drafts,
-    occurrences: (await occurrencesOf(db, ids)).map((o) => ({ ...o, soldOut: soldOut(o, byId.get(o.ruleId)) })),
-    plans: await plansOf(db, ids),
+    occurrences: (await occurrencesOf(db, ids)).map((o) => ({ ...o, soldOut: soldOut(o, byId.get(o.ruleId), planned.has(`${o.ruleId}/${o.visitDate}`)) })),
+    plans,
   };
 }
 

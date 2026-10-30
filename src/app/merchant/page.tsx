@@ -37,6 +37,8 @@ const VERDICT_TEXT: Record<string, string> = {
   below_floor: "Refused: below your floor",
 };
 
+const readAt = new Intl.DateTimeFormat("en-SG", { timeZone: "Asia/Singapore", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false });
+
 const card = "flex flex-col gap-4 rounded-lg border border-[var(--border)] p-5";
 const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--background)] hover:opacity-90";
 
@@ -57,7 +59,6 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const board = await dashboard(webDb(), merchant.id);
   const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   const needsPlan = board.occurrences.some((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`));
-  const ruleById = new Map(board.rules.map((r) => [r.rule.id, r.rule]));
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
@@ -129,7 +130,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
               <li key={`${o.ruleId}/${o.visitDate}`} className="flex flex-wrap justify-between gap-2">
                 <span>{o.visitDate}</span>
                 <span className="text-[var(--muted)]">
-                  {o.unlocked ? `${o.covers} of ${ruleById.get(o.ruleId)?.capacityCovers ?? "?"} covers filled` : "Pool not reached"}
+                  {o.unlocked ? `${o.covers} ${o.covers === 1 ? "cover" : "covers"} filled` : "Pool not reached"}
                   {o.soldOut && <span className="ml-2 font-medium text-[var(--accent)]">Sold out</span>}
                 </span>
               </li>
@@ -172,11 +173,11 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           <h2 className="text-lg font-medium">Recent menu reads</h2>
           <ul className="flex flex-col gap-2 text-sm">
             {board.drafts.map((d) => (
-              <li key={d.id} className="flex flex-wrap justify-between gap-2">
-                <a href={`/merchant/drafts/${d.id}`} className="underline underline-offset-4">
-                  {d.createdAt.toISOString().slice(0, 16).replace("T", " ")} UTC
+              <li key={d.id} className="flex justify-between gap-3">
+                <a href={`/merchant/drafts/${d.id}`} className="shrink-0 underline underline-offset-4">
+                  {readAt.format(d.createdAt)}
                 </a>
-                <span className="text-[var(--muted)]">{d.ruleId ? "Published" : d.verdict === "ok" ? `Cover ${dollars(d.listPriceCents ?? 0)}, not published` : "Could not use"}</span>
+                <span className="text-right text-[var(--muted)]">{d.ruleId ? "Published" : d.verdict === "ok" ? `${dollars(d.listPriceCents ?? 0)} cover, not published` : "Could not use"}</span>
               </li>
             ))}
           </ul>

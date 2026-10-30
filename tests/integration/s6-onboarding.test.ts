@@ -9,7 +9,7 @@ import { connectDb, type Db } from "@/lib/db/client";
 import { llmCallRecorder } from "@/lib/llm-calls";
 import { authenticateMerchant, mintMerchant } from "@/lib/onboarding/links";
 import { MENU_VISION_PURPOSE, sparkMenuReader, WONDER_PLAN_PURPOSE, wonderMerchant } from "@/lib/onboarding/models";
-import { applyPlan, getDraft, MENU_DAILY_CAP, PLAN_DAILY_CAP, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
+import { applyPlan, dashboard, getDraft, MENU_DAILY_CAP, PLAN_DAILY_CAP, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
 import { createTestDatabase, type TestDatabase } from "../support/db";
 
 // Onboarding and the Wonder merchant agent end to end against the real migrations, connected as a
@@ -348,6 +348,11 @@ describe("Muse Wonder merchant agent", () => {
     expect(bodies).toHaveLength(1);
 
     expect(await applyPlan(app.db, m.id, String(plan!.id))).toEqual({ status: "applied", termsVersion: 2 });
+    // The sold-out week stays sold out after its plan adds capacity.
+    expect((await dashboard(app.db, m.id)).occurrences.map((o) => [o.visitDate, o.covers, o.soldOut])).toEqual([
+      ["2026-11-03", 0, false],
+      ["2026-11-10", 4, true],
+    ]);
     const [rule] = await t.admin`select discount_bps, capacity_covers, min_pool_covers, per_agent_cap_covers, floor_price_cents from rules where id = ${ruleId}`;
     expect(rule).toEqual({ discount_bps: 2000, capacity_covers: 6, min_pool_covers: 3, per_agent_cap_covers: 2, floor_price_cents: FLOOR });
     expect(await applyPlan(app.db, m.id, String(plan!.id))).toEqual({ status: "stale" });
