@@ -8,7 +8,7 @@ Updated: 2026-10-30.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check passed on 2026-10-29 (S4, below); the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), merged to `main` at `ded7a05`, migrations `0004` and `0005` on Neon; S5 done 2026-10-30 (below) on its branch only, migrations `0006` and `0007` not on Neon.
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), merged to `main` at `ded7a05`, migrations `0004` and `0005` on Neon; S5 done 2026-10-30 (below), pushed on its branch only, migrations `0006` and `0007` on Neon; `main` must reach S5 before 2026-11-03 12:00 SGT.
 - `main` is at `96900fb`: S4's code at `ded7a05` plus four status-only commits.
 
 ### S1 tracer bullet, 2026-10-27
@@ -283,7 +283,7 @@ The user minted the agent `muse-user` and added `https://backfill-9d0x.onrender.
 ### S5 negotiation, 2026-10-30
 
 Branch: `backfill/slice-5-negotiation`, cut from `main` at `96900fb`.
-Code done and tested locally; not pushed, not on Neon, not on Render.
+Code done, pushed and green in CI; migrations on Neon; not on `main` or Render.
 
 Decisions, taken before coding; the user picked the recommended option for each on 2026-10-30:
 - **Price model:** a counter-offer sets the price per cover of one buyer's commitment only.
@@ -301,6 +301,8 @@ Authorizations, in the user's words:
 - 2026-10-30, answering the open decisions: "Per-commitment price (Recommended)", "Buyer via MCP, pre-submit (Recommended)", "Table, 1 per occurrence (Recommended)", "Fake HTTP + 1 live, cap US$0.10 (Recommended)".
 - 2026-10-30, for the local work after the code: "Local work first".
 - 2026-10-30, for the live run: "Live Spark run", then, asked before the Meta call with its cost and cap: "Yes, run it (Recommended)".
+- 2026-10-30, to push: "Push branch for CI".
+- 2026-10-30, for Neon: "Neon migrations", then, asked before the write with the warning that S4's clearing insert fails once `0006` is applied: "Yes, apply both (Recommended)".
 
 Built:
 - Migration `0006_s5_negotiations` (generated): `negotiations` (one per agent, rule and visit date, with fixed covers and terms version) and `negotiation_rounds` (rounds 1 to 3, the bid, the model's proposal and why it did or did not count, the status and the merchant's price after the round); `commitments.negotiation_id` (at most one commitment per negotiation) and `negotiated_price_cents`; `clearing_fills.price_per_cover_cents`, NOT NULL with no default.
@@ -333,11 +335,13 @@ Spark proposed 938 (held), then 930 and 920 (countered); every proposal was judg
 `submit_commitment` with the round 3 counter-offer was accepted at 920 cents.
 3 calls, each on the first attempt: 275 tokens in each, 311, 326 and 701 out, 3.0, 2.5 and 4.9 seconds, US$0.006593 in all, against the US$0.10 cap.
 The scratch database and role were dropped; `NEGOTIATION_SIGNING_SECRET` is set locally.
+- **[verified]** CI run 40987205858 on `79036e6`, the pushed branch, passed: typecheck, lint, unit tests, integration tests on postgres:18, build.
+- **[verified]** Migrations `0006` and `0007` applied on Neon with `npm run db:migrate`, as `neondb_owner`: a read-only read before showed 6 migrations, no S5 tables, 0 clearings, 0 clearing fills and the 2 pending exit commitments for 2026-11-03; after, 8 migrations, `negotiations` and `negotiation_rounds` present, `clearing_fills.price_per_cover_cents` NOT NULL, the 8 triggers on `commitments`, `negotiations` and `negotiation_rounds` all `ENABLE ALWAYS`, `backfill_app` with INSERT and SELECT only on both new tables, the 2 commitments unchanged and 0 fills.
+- **Deadline:** Render still runs `main`'s S4 code, whose clearing insert names no `price_per_cover_cents` and now fails.
+The first status read of the 2 exit commitments from 2026-11-03 12:00 SGT on would fail with `unavailable`, so `main` must be fast-forwarded to S5 and deployed on Render before then.
 - Known limit: `counter_offer_invalid` for a token that was valid, and `negotiation_closed`, each tell a buyer that the floor rose past a price it already knows (or that the terms changed); neither names the floor.
 - Known limit: `sparkMerchant` turns every error into a hold, including a wrong key, an unpriced model or a code bug, so a broken model setup looks like a stubborn merchant to the buyer; each failure is logged as `negotiation.proposal_failed` and recorded in `llm_calls`.
 
 Not done:
-- Neon: migrations `0006` and `0007` are not applied.
-`0006` adds a NOT NULL column to `clearing_fills` with no default, so it needs 0 fill rows on Neon; the exit occurrence of 2026-11-03 becomes binding at 12:00 SGT and clears at its first status read after that.
 - Render: whether `NEGOTIATION_SIGNING_SECRET` is set there is unknown; without it `negotiate_offer` is not offered.
-- The branch is not pushed and has no CI run; `main` is not fast-forwarded.
+- `main` is not fast-forwarded and Render does not run S5 (see the deadline above).
