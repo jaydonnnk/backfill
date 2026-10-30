@@ -333,6 +333,7 @@ describe("changing the offer by message", () => {
   });
 
   it("stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page", async () => {
+    expect(OWNER_CHANGE_DAILY_CAP).toBe(30);
     const o = await owner();
     for (let i = 0; i < OWNER_CHANGE_DAILY_CAP; i++) await t.admin`insert into llm_calls ${t.admin({ provider: "meta", model: WONDER, purpose: OWNER_CHANGE_PURPOSE, attempt: 1, tokens_in: 0, tokens_cached_in: 0, tokens_out: 0, cost_nano_usd: 0, latency_ms: 0, ok: false })}`;
     expect(await ask(o, "make it 20% off")).toContain("Today's limit");
@@ -348,6 +349,24 @@ describe("changing the offer by message", () => {
     await rule(two.id, { weekday: 3 });
     expect(await ask(two, "make it 20% off")).toContain("more than one offer");
     expect(bodies).toHaveLength(0);
+  });
+
+  it("keeps the first 500 characters of a long instruction and still answers it", async () => {
+    const o = await owner();
+    script = [change({ discountBps: 2000 })];
+    expect(await ask(o, `make it 20% off ${"please ".repeat(100)}`)).toContain("Change for");
+    const [row] = await t.admin`select length(message_text) as n from owner_changes where merchant_id = ${o.id}`;
+    expect(row?.n).toBe(500);
+  });
+
+  it("is not held up by a commitment that has already cleared", async () => {
+    const o = await owner();
+    const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
+    await t.admin`insert into commitments ${t.admin({ rule_id: o.ruleId, agent_id: agent!.id, idempotency_key: "c", terms_version: 1, covers: 1, max_price_per_cover_cents: LIST, visit_at: new Date("2026-11-24T14:00:00+08:00"), committed_at: new Date("2026-11-24T09:00:00+08:00") })}`;
+    await t.admin`insert into clearings ${t.admin({ rule_id: o.ruleId, visit_date: "2026-11-24", terms_version: 1, unlocked: false, price_per_cover_cents: 1080 })}`;
+    script = [change({ discountBps: 2000 })];
+    await ask(o, "make it 20% off");
+    expect(await ask(o, "YES")).toContain("Done.");
   });
 
   it("replies to a message that is not text, and never reads it as a confirmation", async () => {
@@ -480,6 +499,45 @@ describe("the database guards", () => {
     expect(await apply(cancelled)).toBe("owner_change_outcomes_pkey");
     expect(await failure(() => runtime`select cancel_owner_change(${o.id}::uuid, ${cancelled}::uuid)`)).toBe("owner_change_outcomes_pkey");
     expect(await ruleNow(o.ruleId)).toMatchObject({ discount_bps: 2000 });
+  });
+
+  it("takes a price exactly at the floor in SQL and refuses one cent under", async () => {
+    const insert = async (o: { id: string; phone: string; ruleId: string }, discount: number) => {
+      const wamid = `wamid.${randomBytes(6).toString("hex")}`;
+      await t.admin`insert into whatsapp_inbound ${t.admin({ wamid, phone: o.phone })}`;
+      const [row] = await t.admin`insert into owner_changes ${t.admin({ merchant_id: o.id, rule_id: o.ruleId, terms_version: 1, wamid, message_text: "x", model: WONDER, verdict: "ok", discount_bps: discount, capacity_covers: 4, min_pool_covers: 2, per_agent_cap_covers: 2, expires_at: new Date(Date.now() + 600_000) })} returning id`;
+      return String(row?.id);
+    };
+    // 1440 at 66.24% off leaves 487, the floor; at 66.25% off it leaves 486.
+    const atFloor = await owner();
+    const atFloorChange = await insert(atFloor, 6624);
+    expect(await failure(() => runtime`select apply_owner_change(${atFloor.id}::uuid, ${atFloorChange}::uuid)`)).toBe("no error");
+    const under = await owner();
+    const underChange = await insert(under, 6625);
+    expect(await failure(() => runtime`select apply_owner_change(${under.id}::uuid, ${underChange}::uuid)`)).toBe("apply_owner_change_bounds");
+  });
+
+  it("checks the shape of what the tables hold", async () => {
+    const o = await owner();
+    const wamid = `wamid.${randomBytes(6).toString("hex")}`;
+    await t.admin`insert into whatsapp_inbound ${t.admin({ wamid, phone: o.phone })}`;
+    const base = { merchant_id: o.id, rule_id: o.ruleId, terms_version: 1, wamid, model: WONDER, verdict: "no_proposal", message_text: "x" };
+    const now = Date.now();
+    expect(await failure(() => t.admin`insert into owner_changes ${t.admin({ ...base, created_at: new Date(now), expires_at: new Date(now) })}`)).toBe("owner_changes_expiry");
+    expect(await failure(() => t.admin`insert into owner_changes ${t.admin({ ...base, message_text: "x".repeat(501), expires_at: new Date(now + 1000) })}`)).toBe("owner_changes_message_length");
+    expect(await failure(() => t.admin`insert into owner_changes ${t.admin({ ...base, message_text: "x".repeat(500), expires_at: new Date(now + 1000) })}`)).toBe("no error");
+    const [made] = await t.admin`select id from owner_changes where merchant_id = ${o.id}`;
+    expect(await failure(() => t.admin`insert into owner_change_outcomes ${t.admin({ change_id: made!.id, outcome: "maybe" })}`)).toBe("owner_change_outcomes_outcome");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "", phone: o.phone })}`)).toBe("whatsapp_inbound_wamid_length");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "w".repeat(201), phone: o.phone })}`)).toBe("whatsapp_inbound_wamid_length");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "w1", phone: "0591234567" })}`)).toBe("whatsapp_inbound_phone_shape");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "w2", phone: "+6591234567" })}`)).toBe("whatsapp_inbound_phone_shape");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "w3", phone: "123456" })}`)).toBe("whatsapp_inbound_phone_shape");
+    expect(await failure(() => t.admin`insert into whatsapp_inbound ${t.admin({ wamid: "w4", phone: "1234567890123456" })}`)).toBe("whatsapp_inbound_phone_shape");
+    expect(await failure(() => t.admin`insert into whatsapp_link_codes ${t.admin({ code_sha256: "ABC", merchant_id: o.id, expires_at: new Date(now + 1000) })}`)).toBe("whatsapp_link_codes_sha256_hex");
+    expect(await failure(() => t.admin`insert into whatsapp_link_codes ${t.admin({ code_sha256: randomBytes(32).toString("hex"), merchant_id: o.id, created_at: new Date(now), expires_at: new Date(now) })}`)).toBe("whatsapp_link_codes_expiry");
+    // A wamid names one change.
+    expect(await failure(() => t.admin`insert into owner_changes ${t.admin({ ...base, expires_at: new Date(now + 1000) })}`)).toBe("owner_changes_wamid_once");
   });
 
   it("refuses an owner change that names a proposal without numbers or numbers without a proposal", async () => {

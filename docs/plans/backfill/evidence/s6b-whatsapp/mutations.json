@@ -1,0 +1,883 @@
+[
+  {
+    "id": "judge-not-understood",
+    "guard": "a message the model did not understand never counts",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "if (!change.understood) return { ok: false, reason: \"not_understood\" };",
+    "to": ""
+  },
+  {
+    "id": "judge-unchanged",
+    "guard": "a proposal equal to the current terms is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.discountBps === terms.discountBps &&",
+    "to": "false &&"
+  },
+  {
+    "id": "judge-discount-low",
+    "guard": "a discount of 0 is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.discountBps < 1 ||",
+    "to": "change.discountBps < 0 ||"
+  },
+  {
+    "id": "judge-discount-high",
+    "guard": "a discount of 100% is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.discountBps > BASIS_POINTS - 1)",
+    "to": "change.discountBps > BASIS_POINTS)"
+  },
+  {
+    "id": "judge-capacity-low",
+    "guard": "a capacity of 0 is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.capacityCovers < 1 ||",
+    "to": "change.capacityCovers < 0 ||"
+  },
+  {
+    "id": "judge-capacity-high",
+    "guard": "a capacity over the maximum is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.capacityCovers > MAX_COVERS)",
+    "to": "change.capacityCovers > MAX_COVERS + 1)"
+  },
+  {
+    "id": "judge-max-covers",
+    "guard": "the maximum capacity is 10,000",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "export const MAX_COVERS = 10_000;",
+    "to": "export const MAX_COVERS = 10_001;"
+  },
+  {
+    "id": "judge-minpool-low",
+    "guard": "a minimum pool of 0 is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.minPoolCovers < 1 ||",
+    "to": "change.minPoolCovers < 0 ||"
+  },
+  {
+    "id": "judge-minpool-high",
+    "guard": "a minimum pool above capacity is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.minPoolCovers > change.capacityCovers)",
+    "to": "change.minPoolCovers > change.capacityCovers + 1)"
+  },
+  {
+    "id": "judge-cap-low",
+    "guard": "a per-agent cap of 0 is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.perAgentCapCovers < 1 ||",
+    "to": "change.perAgentCapCovers < 0 ||"
+  },
+  {
+    "id": "judge-cap-high",
+    "guard": "a per-agent cap above capacity is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "change.perAgentCapCovers > change.capacityCovers)",
+    "to": "change.perAgentCapCovers > change.capacityCovers + 1)"
+  },
+  {
+    "id": "judge-floor",
+    "guard": "a price below the floor is refused",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "< terms.floorPriceCents) return { ok: false, reason: \"below_floor\" }",
+    "to": "< 0) return { ok: false, reason: \"below_floor\" }"
+  },
+  {
+    "id": "judge-floor-edge",
+    "guard": "a price exactly at the floor is allowed",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "< terms.floorPriceCents) return { ok: false, reason: \"below_floor\" }",
+    "to": "<= terms.floorPriceCents) return { ok: false, reason: \"below_floor\" }"
+  },
+  {
+    "id": "intent-cancel-stop",
+    "guard": "STOP cancels",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "new Set([\"no\", \"n\", \"cancel\", \"stop\"])",
+    "to": "new Set([\"no\", \"n\", \"cancel\"])"
+  },
+  {
+    "id": "intent-confirm-ok",
+    "guard": "OK confirms",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "new Set([\"yes\", \"y\", \"yep\", \"confirm\", \"ok\", \"okay\"])",
+    "to": "new Set([\"yes\", \"y\", \"yep\", \"confirm\", \"okay\"])"
+  },
+  {
+    "id": "intent-link-end",
+    "guard": "a link code is exactly eight characters",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "/^link\\s+([A-Za-z0-9]{8})$/i",
+    "to": "/^link\\s+([A-Za-z0-9]{8})/i"
+  },
+  {
+    "id": "intent-link-start",
+    "guard": "a link message starts with LINK",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "/^link\\s+([A-Za-z0-9]{8})$/i",
+    "to": "/link\\s+([A-Za-z0-9]{8})$/i"
+  },
+  {
+    "id": "intent-trailing",
+    "guard": "trailing punctuation does not stop a YES",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": ".replace(/[.!\\s]+$/u, \"\")",
+    "to": ".replace(/\\s+$/u, \"\")"
+  },
+  {
+    "id": "intent-whole",
+    "guard": "a confirmation is the whole message",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "if (CONFIRM.has(word)) return { kind: \"confirm\" };",
+    "to": "if (CONFIRM.has(word.split(\" \")[0] ?? \"\")) return { kind: \"confirm\" };"
+  },
+  {
+    "id": "code-length",
+    "guard": "a link code is 8 characters",
+    "file": "src/domain/whatsapp/owner-change.ts",
+    "from": "export const LINK_CODE_LENGTH = 8;",
+    "to": "export const LINK_CODE_LENGTH = 6;"
+  },
+  {
+    "id": "sig-compare",
+    "guard": "a signature must equal the HMAC",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "return left.length === right.length && timingSafeEqual(left, right);",
+    "to": "return left.length === right.length;"
+  },
+  {
+    "id": "sig-format",
+    "guard": "the signature header is exactly sha256=<64 hex>",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "/^sha256=([0-9a-f]{64})$/",
+    "to": "/sha256=([0-9a-f]{64})/"
+  },
+  {
+    "id": "sig-body",
+    "guard": "the signature covers the raw body",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "createHmac(\"sha256\", appSecret).update(rawBody, \"utf8\")",
+    "to": "createHmac(\"sha256\", appSecret).update(\"\", \"utf8\")"
+  },
+  {
+    "id": "challenge-mode",
+    "guard": "the challenge needs the subscribe mode",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "params.get(\"hub.mode\") !== \"subscribe\" ||",
+    "to": "false ||"
+  },
+  {
+    "id": "challenge-token",
+    "guard": "the challenge needs the verify token",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "return sameSecret(params.get(\"hub.verify_token\") ?? \"\", verifyToken) ? challenge : null;",
+    "to": "return challenge;"
+  },
+  {
+    "id": "send-auth",
+    "guard": "a reply carries the access token",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "Authorization: `Bearer ${config.accessToken}`",
+    "to": "Authorization: \"Bearer\""
+  },
+  {
+    "id": "send-ok",
+    "guard": "a refused send is reported as failed",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "return res.ok;",
+    "to": "return true;"
+  },
+  {
+    "id": "send-to",
+    "guard": "a reply goes to the sender",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "to, type: \"text\", text: { body }",
+    "to": "to: config.phoneNumberId, type: \"text\", text: { body }"
+  },
+  {
+    "id": "inbound-text",
+    "guard": "a message that is not text has no text",
+    "file": "src/lib/whatsapp/cloud.ts",
+    "from": "m.type === \"text\" && m.text ? m.text.body : null",
+    "to": "m.text ? m.text.body : \"x\""
+  },
+  {
+    "id": "env-group",
+    "guard": "the WhatsApp settings are set together",
+    "file": "src/env.ts",
+    "from": ".every((v) => v === undefined) ||",
+    "to": "true ||"
+  },
+  {
+    "id": "env-null",
+    "guard": "missing settings turn WhatsApp off",
+    "file": "src/env.ts",
+    "from": "if (appSecret === undefined || verifyToken === undefined || accessToken === undefined || phoneNumberId === undefined) return null;",
+    "to": "if (appSecret === undefined) return null;"
+  },
+  {
+    "id": "route-signature",
+    "guard": "a webhook call must be signed",
+    "file": "src/app/api/whatsapp/route.ts",
+    "from": "if (!signatureValid(raw, request.headers.get(\"x-hub-signature-256\"), config.appSecret)) return new Response(\"Forbidden\", { status: 403 });",
+    "to": ""
+  },
+  {
+    "id": "route-json",
+    "guard": "a signed body that is not JSON is a 400",
+    "file": "src/app/api/whatsapp/route.ts",
+    "from": "return new Response(\"Bad request\", { status: 400 });",
+    "to": "return new Response(\"Bad request\", { status: 200 });"
+  },
+  {
+    "id": "route-challenge",
+    "guard": "a wrong verify token is a 403",
+    "file": "src/app/api/whatsapp/route.ts",
+    "from": "return challenge === null ? new Response(\"Forbidden\", { status: 403 }) : new Response(challenge, { status: 200 });",
+    "to": "return new Response(challenge ?? \"\", { status: 200 });"
+  },
+  {
+    "id": "svc-link-ttl",
+    "guard": "a link code lives 10 minutes",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "export const LINK_CODE_TTL_MS = 10 * MINUTE_MS;",
+    "to": "export const LINK_CODE_TTL_MS = 10 * MINUTE_MS * 1000;"
+  },
+  {
+    "id": "svc-confirm-window",
+    "guard": "a change can be confirmed for 15 minutes",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "export const CONFIRM_WINDOW_MS = 15 * MINUTE_MS;",
+    "to": "export const CONFIRM_WINDOW_MS = 15 * MINUTE_MS * 1000;"
+  },
+  {
+    "id": "svc-cap-size",
+    "guard": "the daily cap is 30",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "export const OWNER_CHANGE_DAILY_CAP = 30;",
+    "to": "export const OWNER_CHANGE_DAILY_CAP = 31;"
+  },
+  {
+    "id": "svc-cap-check",
+    "guard": "the daily cap stops the model call",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": ".count >= OWNER_CHANGE_DAILY_CAP",
+    "to": ".count > OWNER_CHANGE_DAILY_CAP"
+  },
+  {
+    "id": "svc-pending-verdict",
+    "guard": "only a counted change is pending",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "row && row.verdict === \"ok\" && row.outcome === null && row.expiresAt > now",
+    "to": "row && row.outcome === null && row.expiresAt > now"
+  },
+  {
+    "id": "svc-pending-outcome",
+    "guard": "a decided change is not pending",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "row.verdict === \"ok\" && row.outcome === null && row.expiresAt > now",
+    "to": "row.verdict === \"ok\" && row.expiresAt > now"
+  },
+  {
+    "id": "svc-pending-expiry",
+    "guard": "an expired change is not pending",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "row.outcome === null && row.expiresAt > now ?",
+    "to": "row.outcome === null ?"
+  },
+  {
+    "id": "svc-pending-latest",
+    "guard": "the latest proposal is the pending one",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": ".orderBy(desc(ownerChanges.createdAt))",
+    "to": ".orderBy(ownerChanges.createdAt)"
+  },
+  {
+    "id": "svc-phone-newest",
+    "guard": "the newest link of a number wins",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "order by linked_at desc limit 1",
+    "to": "order by linked_at asc limit 1"
+  },
+  {
+    "id": "svc-phone-moved",
+    "guard": "a merchant that moved to a new number loses the old one",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "x.linked_at > latest.linked_at",
+    "to": "x.linked_at < latest.linked_at"
+  },
+  {
+    "id": "svc-ending-newest",
+    "guard": "the page shows the merchant's newest number",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": ".orderBy(desc(whatsappLinks.linkedAt)).limit(1);\n  if (!row) return null;",
+    "to": ".orderBy(whatsappLinks.linkedAt).limit(1);\n  if (!row) return null;"
+  },
+  {
+    "id": "svc-multi-rule",
+    "guard": "more than one offer goes to the page",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "if (!only || rest.length > 0)",
+    "to": "if (!only)"
+  },
+  {
+    "id": "svc-duplicate",
+    "guard": "a delivery already handled is skipped",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "if (claimed.length === 0) return null;",
+    "to": ""
+  },
+  {
+    "id": "svc-truncate",
+    "guard": "a long message is cut to 500 characters",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "message.text.slice(0, MESSAGE_TEXT_LIMIT)",
+    "to": "message.text"
+  },
+  {
+    "id": "svc-link-unlinked",
+    "guard": "an unlinked number is told so",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "if (merchantId === null) return NOT_LINKED;",
+    "to": ""
+  },
+  {
+    "id": "svc-numbers-null",
+    "guard": "a message not understood stores no numbers",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "proposal === null || (!verdict.ok && verdict.reason === \"not_understood\")",
+    "to": "proposal === null"
+  },
+  {
+    "id": "svc-model-reply",
+    "guard": "a message not understood gets the model's reply",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "if (proposal !== null && !verdict.ok && verdict.reason === \"not_understood\") return proposal.reply;",
+    "to": ""
+  },
+  {
+    "id": "svc-race-reply",
+    "guard": "the loser of a confirmation race is told it is live",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "(await outcomeOf(db, pending.id)) === \"applied\"",
+    "to": "false"
+  },
+  {
+    "id": "svc-apology",
+    "guard": "a failed message gets an apology",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "reply = \"Something went wrong on my side, so nothing was changed. Try again in a moment.\";",
+    "to": "reply = null;"
+  },
+  {
+    "id": "svc-apply-stale-text",
+    "guard": "a stale confirmation is explained",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "apply_owner_change_stale: \"Your offer changed since that was proposed, so I did not publish it. Send it again.\",",
+    "to": "apply_owner_change_stale: \"x\","
+  },
+  {
+    "id": "sql-apply-owner",
+    "guard": "another merchant cannot apply a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF o.id IS NULL OR o.merchant_id IS DISTINCT FROM p_merchant_id THEN\n    RAISE EXCEPTION 'no such change for this merchant'\n      USING ERRCODE = 'check_violation', CONSTRAINT = 'apply_owner_change_owner';",
+    "to": "IF o.id IS NULL THEN\n    RAISE EXCEPTION 'no such change for this merchant'\n      USING ERRCODE = 'check_violation', CONSTRAINT = 'apply_owner_change_owner';"
+  },
+  {
+    "id": "sql-cancel-owner",
+    "guard": "another merchant cannot cancel a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF o.id IS NULL OR o.merchant_id IS DISTINCT FROM p_merchant_id THEN\n    RAISE EXCEPTION 'no such change for this merchant'\n      USING ERRCODE = 'check_violation', CONSTRAINT = 'cancel_owner_change_owner';",
+    "to": "IF o.id IS NULL THEN\n    RAISE EXCEPTION 'no such change for this merchant'\n      USING ERRCODE = 'check_violation', CONSTRAINT = 'cancel_owner_change_owner';"
+  },
+  {
+    "id": "sql-verdict",
+    "guard": "only a counted change applies",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF o.verdict <> 'ok' THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "sql-expired",
+    "guard": "an expired change does not apply",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF o.expires_at <= now() THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "sql-superseded",
+    "guard": "a replaced change does not apply",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "AND n.created_at > o.created_at)",
+    "to": "AND false)"
+  },
+  {
+    "id": "sql-stale",
+    "guard": "a change made for old terms does not apply",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF r.terms_version <> o.terms_version THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "sql-bound-discount-low",
+    "guard": "SQL refuses a discount of 0",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.discount_bps NOT BETWEEN 1 AND 9999",
+    "to": "o.discount_bps NOT BETWEEN 0 AND 9999"
+  },
+  {
+    "id": "sql-bound-discount-high",
+    "guard": "SQL refuses a discount of 100%",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.discount_bps NOT BETWEEN 1 AND 9999",
+    "to": "o.discount_bps NOT BETWEEN 1 AND 10000"
+  },
+  {
+    "id": "sql-bound-capacity-low",
+    "guard": "SQL refuses a capacity of 0",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.capacity_covers NOT BETWEEN 1 AND 10000",
+    "to": "o.capacity_covers NOT BETWEEN 0 AND 10000"
+  },
+  {
+    "id": "sql-bound-capacity-high",
+    "guard": "SQL refuses a capacity over 10,000",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.capacity_covers NOT BETWEEN 1 AND 10000",
+    "to": "o.capacity_covers NOT BETWEEN 1 AND 10001"
+  },
+  {
+    "id": "sql-bound-minpool-low",
+    "guard": "SQL refuses a minimum pool of 0",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.min_pool_covers NOT BETWEEN 1 AND o.capacity_covers",
+    "to": "o.min_pool_covers NOT BETWEEN 0 AND o.capacity_covers"
+  },
+  {
+    "id": "sql-bound-minpool-high",
+    "guard": "SQL refuses a minimum pool over capacity",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.min_pool_covers NOT BETWEEN 1 AND o.capacity_covers",
+    "to": "o.min_pool_covers NOT BETWEEN 1 AND o.capacity_covers + 1"
+  },
+  {
+    "id": "sql-bound-cap-low",
+    "guard": "SQL refuses a per-agent cap of 0",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.per_agent_cap_covers NOT BETWEEN 1 AND o.capacity_covers",
+    "to": "o.per_agent_cap_covers NOT BETWEEN 0 AND o.capacity_covers"
+  },
+  {
+    "id": "sql-bound-cap-high",
+    "guard": "SQL refuses a per-agent cap over capacity",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "o.per_agent_cap_covers NOT BETWEEN 1 AND o.capacity_covers",
+    "to": "o.per_agent_cap_covers NOT BETWEEN 1 AND o.capacity_covers + 1"
+  },
+  {
+    "id": "sql-bound-floor",
+    "guard": "SQL refuses a price under the floor",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "r.list_price_cents - (r.list_price_cents::bigint * o.discount_bps / 10000) < r.floor_price_cents",
+    "to": "false"
+  },
+  {
+    "id": "sql-bound-floor-edge",
+    "guard": "SQL takes a price exactly at the floor",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "r.list_price_cents - (r.list_price_cents::bigint * o.discount_bps / 10000) < r.floor_price_cents",
+    "to": "r.list_price_cents - (r.list_price_cents::bigint * o.discount_bps / 10000) <= r.floor_price_cents"
+  },
+  {
+    "id": "sql-pending-cancelled",
+    "guard": "a cancelled commitment does not hold a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "WHERE c.rule_id = r.id AND c.cancelled_at IS NULL",
+    "to": "WHERE c.rule_id = r.id"
+  },
+  {
+    "id": "sql-pending-cleared",
+    "guard": "a cleared commitment does not hold a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "AND NOT EXISTS (SELECT 1 FROM clearings k",
+    "to": "AND EXISTS (SELECT 1 FROM clearings k"
+  },
+  {
+    "id": "sql-pending",
+    "guard": "a pending commitment holds a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "RAISE EXCEPTION 'commitments are pending on the rule'\n      USING ERRCODE = 'check_violation', CONSTRAINT = 'apply_owner_change_pending';",
+    "to": "NULL;"
+  },
+  {
+    "id": "sql-apply-update",
+    "guard": "applying changes the four terms",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "UPDATE rules SET discount_bps = o.discount_bps, capacity_covers = o.capacity_covers, min_pool_covers = o.min_pool_covers, per_agent_cap_covers = o.per_agent_cap_covers",
+    "to": "UPDATE rules SET discount_bps = o.discount_bps, capacity_covers = o.capacity_covers, min_pool_covers = o.min_pool_covers, per_agent_cap_covers = r.per_agent_cap_covers"
+  },
+  {
+    "id": "sql-claim-expiry",
+    "guard": "an expired link code does not link",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "IF c.code_sha256 IS NULL OR c.expires_at <= now() THEN",
+    "to": "IF c.code_sha256 IS NULL THEN"
+  },
+  {
+    "id": "sql-claim-insert",
+    "guard": "a link names the code's merchant",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "INSERT INTO whatsapp_links (phone, merchant_id, code_sha256) VALUES (p_phone, c.merchant_id, c.code_sha256);",
+    "to": "INSERT INTO whatsapp_links (phone, merchant_id, code_sha256) VALUES (p_phone, c.merchant_id, c.code_sha256) ON CONFLICT DO NOTHING;"
+  },
+  {
+    "id": "sql-revoke-apply",
+    "guard": "PUBLIC cannot apply a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "REVOKE ALL ON FUNCTION apply_owner_change(uuid, uuid) FROM PUBLIC;",
+    "to": ""
+  },
+  {
+    "id": "sql-revoke-cancel",
+    "guard": "PUBLIC cannot cancel a change",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "REVOKE ALL ON FUNCTION cancel_owner_change(uuid, uuid) FROM PUBLIC;",
+    "to": ""
+  },
+  {
+    "id": "sql-revoke-claim",
+    "guard": "PUBLIC cannot link a number",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "REVOKE ALL ON FUNCTION claim_whatsapp_link(text, text) FROM PUBLIC;",
+    "to": ""
+  },
+  {
+    "id": "sql-grant-insert",
+    "guard": "the runtime role records codes, inbound ids and proposals",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "GRANT SELECT, INSERT ON whatsapp_link_codes, whatsapp_inbound, owner_changes TO backfill_app;",
+    "to": "GRANT SELECT ON whatsapp_link_codes, whatsapp_inbound, owner_changes TO backfill_app;"
+  },
+  {
+    "id": "sql-grant-links",
+    "guard": "the runtime role reads links and outcomes",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "GRANT SELECT ON whatsapp_links, owner_change_outcomes TO backfill_app;",
+    "to": "GRANT SELECT ON owner_change_outcomes TO backfill_app;"
+  },
+  {
+    "id": "sql-grant-links-write",
+    "guard": "the runtime role cannot write links directly",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "GRANT SELECT ON whatsapp_links, owner_change_outcomes TO backfill_app;",
+    "to": "GRANT SELECT, INSERT ON whatsapp_links, owner_change_outcomes TO backfill_app;"
+  },
+  {
+    "id": "sql-whatsapp_link_codes_append_only",
+    "guard": "whatsapp_link_codes refuses UPDATE and DELETE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_link_codes_append_only BEFORE UPDATE OR DELETE ON whatsapp_link_codes FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_link_codes_append_only-always",
+    "guard": "whatsapp_link_codes refuses UPDATE and DELETE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_append_only;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-whatsapp_link_codes_no_truncate",
+    "guard": "whatsapp_link_codes refuses TRUNCATE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_link_codes_no_truncate BEFORE TRUNCATE ON whatsapp_link_codes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_link_codes_no_truncate-always",
+    "guard": "whatsapp_link_codes refuses TRUNCATE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_link_codes ENABLE ALWAYS TRIGGER whatsapp_link_codes_no_truncate;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-whatsapp_links_append_only",
+    "guard": "whatsapp_links refuses UPDATE and DELETE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_links_append_only BEFORE UPDATE OR DELETE ON whatsapp_links FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_links_append_only-always",
+    "guard": "whatsapp_links refuses UPDATE and DELETE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_append_only;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-whatsapp_links_no_truncate",
+    "guard": "whatsapp_links refuses TRUNCATE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_links_no_truncate BEFORE TRUNCATE ON whatsapp_links FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_links_no_truncate-always",
+    "guard": "whatsapp_links refuses TRUNCATE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_links ENABLE ALWAYS TRIGGER whatsapp_links_no_truncate;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-whatsapp_inbound_append_only",
+    "guard": "whatsapp_inbound refuses UPDATE and DELETE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_inbound_append_only BEFORE UPDATE OR DELETE ON whatsapp_inbound FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_inbound_append_only-always",
+    "guard": "whatsapp_inbound refuses UPDATE and DELETE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_append_only;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-whatsapp_inbound_no_truncate",
+    "guard": "whatsapp_inbound refuses TRUNCATE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER whatsapp_inbound_no_truncate BEFORE TRUNCATE ON whatsapp_inbound FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-whatsapp_inbound_no_truncate-always",
+    "guard": "whatsapp_inbound refuses TRUNCATE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE whatsapp_inbound ENABLE ALWAYS TRIGGER whatsapp_inbound_no_truncate;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-owner_changes_append_only",
+    "guard": "owner_changes refuses UPDATE and DELETE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_changes_append_only BEFORE UPDATE OR DELETE ON owner_changes FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_changes_append_only-always",
+    "guard": "owner_changes refuses UPDATE and DELETE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_append_only;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-owner_changes_no_truncate",
+    "guard": "owner_changes refuses TRUNCATE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_changes_no_truncate BEFORE TRUNCATE ON owner_changes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_changes_no_truncate-always",
+    "guard": "owner_changes refuses TRUNCATE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE owner_changes ENABLE ALWAYS TRIGGER owner_changes_no_truncate;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-owner_change_outcomes_append_only",
+    "guard": "owner_change_outcomes refuses UPDATE and DELETE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_change_outcomes_append_only BEFORE UPDATE OR DELETE ON owner_change_outcomes FOR EACH ROW EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_append_only;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_change_outcomes_append_only-always",
+    "guard": "owner_change_outcomes refuses UPDATE and DELETE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_append_only;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-owner_change_outcomes_no_truncate",
+    "guard": "owner_change_outcomes refuses TRUNCATE",
+    "edits": [
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "CREATE TRIGGER owner_change_outcomes_no_truncate BEFORE TRUNCATE ON owner_change_outcomes FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();\n--> statement-breakpoint\n",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+        "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n--> statement-breakpoint\n",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "sql-owner_change_outcomes_no_truncate-always",
+    "guard": "owner_change_outcomes refuses TRUNCATE even under session_replication_role = replica",
+    "file": "drizzle/0011_s6b_whatsapp_triggers.sql",
+    "from": "ALTER TABLE owner_change_outcomes ENABLE ALWAYS TRIGGER owner_change_outcomes_no_truncate;\n",
+    "to": "\n"
+  },
+  {
+    "id": "sql-check-expiry",
+    "guard": "a change expires after it is made",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CHECK (\"owner_changes\".\"expires_at\" > \"owner_changes\".\"created_at\")",
+    "to": "CHECK (true)"
+  },
+  {
+    "id": "sql-check-message",
+    "guard": "an owner message is 1 to 500 characters",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "between 1 and 500",
+    "to": "between 1 and 501"
+  },
+  {
+    "id": "sql-check-verdict",
+    "guard": "a verdict is one of the known ones",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CHECK (\"owner_changes\".\"verdict\" in ('ok', 'no_proposal', 'not_understood', 'unchanged',",
+    "to": "CHECK (\"owner_changes\".\"verdict\" in ('maybe', 'ok', 'no_proposal', 'not_understood', 'unchanged',"
+  },
+  {
+    "id": "sql-check-outcome",
+    "guard": "an outcome is applied or cancelled",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "in ('applied', 'cancelled')",
+    "to": "in ('applied', 'cancelled', 'maybe')"
+  },
+  {
+    "id": "sql-check-wamid",
+    "guard": "a message id is 1 to 200 characters",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "between 1 and 200",
+    "to": "between 1 and 201"
+  },
+  {
+    "id": "sql-check-hex",
+    "guard": "a link code hash is 64 hex characters",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "'^[0-9a-f]{64}$'",
+    "to": "'^[0-9a-f]+$'"
+  },
+  {
+    "id": "sql-check-code-expiry",
+    "guard": "a link code expires after it is made",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CHECK (\"whatsapp_link_codes\".\"expires_at\" > \"whatsapp_link_codes\".\"created_at\")",
+    "to": "CHECK (true)"
+  },
+  {
+    "id": "sql-links-phone",
+    "guard": "a linked phone has the WhatsApp shape",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CONSTRAINT \"whatsapp_links_phone_shape\" CHECK (\"whatsapp_links\".\"phone\" ~ '^[1-9][0-9]{6,14}$')",
+    "to": "CONSTRAINT \"whatsapp_links_phone_shape\" CHECK (true)"
+  },
+  {
+    "id": "sql-inbound-phone",
+    "guard": "an inbound phone has the WhatsApp shape",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CONSTRAINT \"whatsapp_inbound_phone_shape\" CHECK (\"whatsapp_inbound\".\"phone\" ~ '^[1-9][0-9]{6,14}$')",
+    "to": "CONSTRAINT \"whatsapp_inbound_phone_shape\" CHECK (true)"
+  },
+  {
+    "id": "sql-wamid-once",
+    "guard": "a message id makes one change",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CONSTRAINT \"owner_changes_wamid_once\" UNIQUE(\"wamid\"),\n",
+    "to": ""
+  },
+  {
+    "id": "sql-code-once",
+    "guard": "a link code links once",
+    "file": "drizzle/0010_s6b_whatsapp.sql",
+    "from": "CONSTRAINT \"whatsapp_links_code_once\" UNIQUE(\"code_sha256\"),\n",
+    "to": ""
+  }
+]
