@@ -6,6 +6,7 @@ import { dashboard, windowText } from "@/lib/onboarding/service";
 import { apply, leave, uploadMenu } from "./actions";
 import { ReplanTrigger } from "./replan-trigger";
 import { currentMerchant } from "./session";
+import { SubmitButton } from "./submit-button";
 
 export const dynamic = "force-dynamic";
 
@@ -94,9 +95,9 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
             required
             className="min-w-0 flex-1 text-sm file:mr-3 file:rounded-md file:border file:border-[var(--border)] file:bg-transparent file:px-3 file:py-2 file:text-sm file:text-[var(--foreground)]"
           />
-          <button type="submit" className={button}>
+          <SubmitButton className={button} pendingLabel="Reading menu…">
             Read menu
-          </button>
+          </SubmitButton>
         </form>
       </section>
 
@@ -157,9 +158,9 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
                 {p.verdict === "ok" && !p.applied && (
                   <form action={apply}>
                     <input type="hidden" name="planId" value={p.id} />
-                    <button type="submit" className={button}>
+                    <SubmitButton className={button} pendingLabel="Applying…">
                       Apply plan
-                    </button>
+                    </SubmitButton>
                   </form>
                 )}
               </li>

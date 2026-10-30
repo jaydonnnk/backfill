@@ -4,6 +4,7 @@ import { webDb } from "@/lib/db/client";
 import { getDraft } from "@/lib/onboarding/service";
 import { publish } from "../../actions";
 import { currentMerchant } from "../../session";
+import { SubmitButton } from "../../submit-button";
 
 export const dynamic = "force-dynamic";
 
@@ -130,9 +131,9 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
                 <input name="floorDollars" inputMode="decimal" pattern="\d{1,4}(\.\d{1,2})?" defaultValue={((listPrice * 0.7) / 100).toFixed(2)} required className={input} />
               </label>
             </div>
-            <button type="submit" className="self-start rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90">
+            <SubmitButton className="self-start rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90" pendingLabel="Publishing…">
               Confirm and publish
-            </button>
+            </SubmitButton>
           </form>
         )
       )}
