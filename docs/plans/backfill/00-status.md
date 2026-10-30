@@ -278,3 +278,23 @@ The user minted the agent `muse-user` and added `https://backfill-9d0x.onrender.
 - Known limit: a buyer can still infer a little: pooled covers drop if the merchant later raises the floor above the offer price (the rule then stops counting), and `not_filled` with a full pool hints at capacity.
 - Known limit: `agent:mint` and `mcp:smoke` have no automated tests; both were run for real here (mint on Neon, smoke on Render).
 - Neon now holds the two exit commitments (Claude's and Muse's); they become binding at 12:00 on 2026-11-03 and, with 4 of 8 covers pooled, will clear as `not_filled` unless more commit.
+
+### S5 negotiation, 2026-10-30
+
+Branch: `backfill/slice-5-negotiation`, cut from `main` at `96900fb`.
+In progress.
+
+Decisions, taken before coding; the user picked the recommended option for each on 2026-10-30:
+- **Price model:** a counter-offer sets the price per cover of one buyer's commitment only.
+"Both limits" are the merchant's hidden floor and the buyer's max price per cover.
+Clearing fills each commitment at its own agreed price, and an unnegotiated one at the offer price; `clearing_fills` gets a price column.
+- **Who and when:** a buyer agent negotiates through a new MCP tool before it submits, and Muse Spark speaks for the merchant and proposes each counter.
+The signed counter is passed to `submit_commitment` as a new optional field; pending commitments are never re-priced.
+- **Storage and floor leakage:** `negotiations` and `negotiation_rounds` tables, append-only by trigger and granted to `backfill_app`.
+One negotiation per agent per rule occurrence, so a restart adds no probes.
+Merchant counters never rise, concede at most a fixed step per round and never go below the floor; when a proposal would cross the floor, the merchant holds with the same reply as the model's own hold.
+At most 3 rounds, then refusal; the HMAC token names its stored round, and one negotiation makes at most one commitment.
+- **Spark spend:** tests fake the model at the fetch boundary; one authorized live negotiation for evidence, stopped if spend passes US$0.10.
+
+Authorizations, in the user's words:
+- 2026-10-30, answering the open decisions: "Per-commitment price (Recommended)", "Buyer via MCP, pre-submit (Recommended)", "Table, 1 per occurrence (Recommended)", "Fake HTTP + 1 live, cap US$0.10 (Recommended)".

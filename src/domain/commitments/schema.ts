@@ -10,6 +10,8 @@ export const Commitment = z.object({
   termsVersion: TermsVersion,
   covers: Covers,
   maxPricePerCoverCents: Cents,
+  // The price per cover a signed counter-offer agreed (S5); absent means the offer price.
+  negotiatedPriceCents: Cents.optional(),
   // When the buyer means to come; it picks the occurrence of the weekly window.
   visitAt: z.date(),
   // When the commitment was made, stamped by the server.

@@ -1,5 +1,5 @@
 import type { Commitment } from "@/domain/commitments/schema";
-import { evaluatePool, offerPriceCents } from "@/domain/offers/evaluate";
+import { evaluatePool, meetsFloor, offerPriceCents } from "@/domain/offers/evaluate";
 import type { MerchantRule } from "@/domain/offers/schema";
 import { ClearingResult } from "./schema";
 
@@ -11,8 +11,18 @@ function byArrival(a: Commitment, b: Commitment): number {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
 
-// Clears one occurrence of a rule. Clearing first drops commitments whose max price is below the
-// offer price, so one can never fill and never counts toward its agent's per-agent cap. The rule's
+// The price per cover a commitment would clear at, or null if it cannot clear: its negotiated price
+// (S5) or else the offer price, and only when that is at or below its max, at or below the offer
+// price, and at or above the hidden floor. A floor raised after a counter-offer was signed drops the
+// commitment rather than filling it below the floor.
+function clearsAt(rule: MerchantRule, offerPrice: number, c: Commitment): number | null {
+  const price = c.negotiatedPriceCents ?? offerPrice;
+  if (price > c.maxPricePerCoverCents || price > offerPrice || !meetsFloor(rule.terms, price)) return null;
+  return price;
+}
+
+// Clears one occurrence of a rule. Clearing first drops commitments that cannot clear at their own
+// price (see clearsAt), so one can never fill and never counts toward its agent's per-agent cap. The rule's
 // terms, the per-agent cap and the hidden floor are then evaluatePool's, and clearing fills what it
 // accepts first come first served up to capacity. A commitment that does not fit what is left is
 // skipped whole, and later, smaller ones may still fill. If the filled covers fall short of the
@@ -21,13 +31,13 @@ function byArrival(a: Commitment, b: Commitment): number {
 // commitments with one id or a visit date that is not an ISO date, throws instead.
 export function clear(rule: MerchantRule, visitDate: string, commitments: readonly Commitment[]): ClearingResult {
   const price = offerPriceCents(rule);
-  const affordable = commitments.filter((c) => c.maxPricePerCoverCents >= price).sort(byArrival);
+  const affordable = commitments.filter((c) => clearsAt(rule, price, c) !== null).sort(byArrival);
   const pool = evaluatePool(rule, visitDate, affordable);
   const fills: ClearingResult["fills"] = [];
   let remaining = rule.capacityCovers;
   for (const commitment of pool.accepted) {
     if (commitment.covers > remaining) continue;
-    fills.push({ commitmentId: commitment.id, covers: commitment.covers });
+    fills.push({ commitmentId: commitment.id, covers: commitment.covers, pricePerCoverCents: clearsAt(rule, price, commitment)! });
     remaining -= commitment.covers;
   }
   const unlocked = rule.capacityCovers - remaining >= rule.terms.minPoolCovers;

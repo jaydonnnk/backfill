@@ -61,9 +61,9 @@ describe("capacity", () => {
       unlocked: true,
       pricePerCoverCents: PRICE,
       fills: [
-        { commitmentId: cs[0]?.id, covers: 4 },
-        { commitmentId: cs[1]?.id, covers: 4 },
-        { commitmentId: cs[2]?.id, covers: 2 },
+        { commitmentId: cs[0]?.id, covers: 4, pricePerCoverCents: PRICE },
+        { commitmentId: cs[1]?.id, covers: 4, pricePerCoverCents: PRICE },
+        { commitmentId: cs[2]?.id, covers: 2, pricePerCoverCents: PRICE },
       ],
     });
     expect(ClearingResult.parse(result)).toEqual(result);
@@ -74,9 +74,9 @@ describe("capacity", () => {
     const result = clear(rule({ capacityCovers: 9 }), VISIT_DATE, cs);
     expect(result.unlocked).toBe(true);
     expect(result.fills).toEqual([
-      { commitmentId: cs[0]?.id, covers: 4 },
-      { commitmentId: cs[1]?.id, covers: 4 },
-      { commitmentId: cs[3]?.id, covers: 1 },
+      { commitmentId: cs[0]?.id, covers: 4, pricePerCoverCents: PRICE },
+      { commitmentId: cs[1]?.id, covers: 4, pricePerCoverCents: PRICE },
+      { commitmentId: cs[3]?.id, covers: 1, pricePerCoverCents: PRICE },
     ]);
   });
 
@@ -202,5 +202,39 @@ describe("caller input", () => {
   it("refuses commitments from another occurrence", () => {
     const nextWeek = commitment({ visitAt: new Date("2026-11-10T15:00:00+08:00") });
     expect(() => clear(rule(), VISIT_DATE, [nextWeek])).toThrow("commitment is for another occurrence");
+  });
+});
+
+describe("negotiated price (S5)", () => {
+  it("fills a negotiated commitment at its own price and the rest at the offer price", () => {
+    const negotiated = commitment({ covers: 4, negotiatedPriceCents: 907 });
+    const rest = commitments([4]);
+    const result = clear(rule(), VISIT_DATE, [negotiated, ...rest]);
+    expect(result).toMatchObject({ unlocked: true, pricePerCoverCents: PRICE });
+    expect(result.fills).toEqual([
+      { commitmentId: negotiated.id, covers: 4, pricePerCoverCents: 907 },
+      { commitmentId: rest[0]?.id, covers: 4, pricePerCoverCents: PRICE },
+    ]);
+  });
+
+  it("fills a buyer whose max is below the offer price but at its negotiated price, and skips one a cent below", () => {
+    const atOwn = commitment({ covers: 4, maxPricePerCoverCents: 907, negotiatedPriceCents: 907 });
+    const centBelow = commitment({ covers: 4, maxPricePerCoverCents: 906, negotiatedPriceCents: 907 });
+    const rest = commitments([4]);
+    expect(filled(clear(rule(), VISIT_DATE, [atOwn, centBelow, ...rest]))).toEqual(ids([atOwn, ...rest]));
+  });
+
+  it("skips a negotiated price below a floor raised after it was agreed, and fills one at the floor", () => {
+    const atFloor = commitment({ covers: 4, negotiatedPriceCents: 910 });
+    const centBelow = commitment({ covers: 4, negotiatedPriceCents: 909 });
+    const rest = commitments([4]);
+    expect(filled(clear(rule({ floorPriceCents: 910 }), VISIT_DATE, [atFloor, centBelow, ...rest]))).toEqual(ids([atFloor, ...rest]));
+  });
+
+  it("skips a negotiated price above the offer price", () => {
+    const above = commitment({ covers: 4, negotiatedPriceCents: PRICE + 1 });
+    const atOffer = commitment({ covers: 4, negotiatedPriceCents: PRICE });
+    const rest = commitments([4]);
+    expect(filled(clear(rule(), VISIT_DATE, [above, atOffer, ...rest]))).toEqual(ids([atOffer, ...rest]));
   });
 });

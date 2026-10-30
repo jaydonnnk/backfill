@@ -10,8 +10,9 @@ export const ClearingResult = z
     // The occurrence's Singapore date.
     visitDate: z.iso.date(),
     unlocked: z.boolean(),
+    // The offer price; a fill's own price is lower when a counter-offer agreed one (S5).
     pricePerCoverCents: Cents,
-    fills: z.array(z.object({ commitmentId: z.uuid(), covers: Covers })),
+    fills: z.array(z.object({ commitmentId: z.uuid(), covers: Covers, pricePerCoverCents: Cents })),
   })
   .refine((r) => r.unlocked || r.fills.length === 0, { message: "a locked result must fill nothing", path: ["fills"] })
   .refine((r) => new Set(r.fills.map((f) => f.commitmentId)).size === r.fills.length, { message: "each commitment fills at most once", path: ["fills"] });

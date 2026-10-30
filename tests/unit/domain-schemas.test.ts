@@ -34,7 +34,7 @@ const entry = {
   agentShareCents: 136,
   networkShareCents: 100,
 };
-const result = { ruleId: ID_A, termsVersion: 1, visitDate: "2026-11-03", unlocked: true, pricePerCoverCents: 938, fills: [{ commitmentId: ID_C, covers: 2 }] };
+const result = { ruleId: ID_A, termsVersion: 1, visitDate: "2026-11-03", unlocked: true, pricePerCoverCents: 938, fills: [{ commitmentId: ID_C, covers: 2, pricePerCoverCents: 900 }] };
 
 // Each row changes one field of a valid value; the base value itself must parse.
 function expectRefusals<T extends object>(schema: { safeParse: (v: unknown) => { success: boolean } }, base: T, accepted: Partial<T>[], refused: Partial<T>[]) {
@@ -108,11 +108,14 @@ describe("ClearingResult", () => {
         { unlocked: false },
         {
           fills: [
-            { commitmentId: ID_C, covers: 1 },
-            { commitmentId: ID_C, covers: 1 },
+            { commitmentId: ID_C, covers: 1, pricePerCoverCents: 938 },
+            { commitmentId: ID_C, covers: 1, pricePerCoverCents: 938 },
           ],
         },
-        { fills: [{ commitmentId: ID_C, covers: 0 }] },
+        { fills: [{ commitmentId: ID_C, covers: 0, pricePerCoverCents: 938 }] },
+        // A fill with no price of its own.
+        { fills: [{ commitmentId: ID_C, covers: 1 } as { commitmentId: string; covers: number; pricePerCoverCents: number }] },
+        { fills: [{ commitmentId: ID_C, covers: 1, pricePerCoverCents: -1 }] },
         { visitDate: "2026-11-31" },
       ],
     );
