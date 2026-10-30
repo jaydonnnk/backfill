@@ -6,7 +6,7 @@ Evidence for S6b on 2026-10-30: the mutation runs.
 |---|---|
 | `mutations.json` | 113 mutations of the final list: the owner-change bounds, reading YES, NO and LINK, the webhook signature and subscription check, the settings, the service's windows, caps and lookups, every guard in `apply_owner_change`, `cancel_owner_change` and `claim_whatsapp_link`, their grants and revokes, the append-only and no-truncate triggers of all five tables, and their CHECK and UNIQUE constraints |
 | `results.json` | The final run, at `0d75d76`, baseline 319 (all pass): all 113 killed on an AssertionError, each file restored byte-identical, each rerun green |
-| `results-first-run.json` | The first run, at `d8a6c81`, baseline 317, against the first list: 97 killed on an AssertionError, 12 survived, 4 killed only by an error, 4 reruns not green |
+| `results-first-run.json` | The first run, at `6fb4365`, baseline 317, against the first list: 97 killed on an AssertionError, 12 survived, 4 killed only by an error, 7 reruns not green |
 | `results-second-run.json` | The second run, at `1681501`, baseline 319, against the revised list: 111 killed, 2 killed only by an error, every rerun green |
 
 A mutation counts as killed only if a test fails on an AssertionError.
@@ -19,7 +19,7 @@ The 12 survivors and 4 errors were closed in `1681501` and `0d75d76`:
 - Two guards were redundant and were simplified, not tested: the SQL lower bound on capacity (the minimum pool bound already needs capacity of at least 1) and a second "not linked" check in the service.
 - Three truncate mutations survived because `TRUNCATE ... CASCADE` reaches a dependent table whose own trigger refuses it; they now remove the dependents' triggers too, as in S6.
 - One mutation was invalid (it left a dangling array in `src/env.ts`) and was rewritten.
-- 4 reruns were not green on unmutated files: the floor-leak check searched JSON holding random UUIDs for the floor's digits `487`, which two random UUIDs contain by chance; the ids are now stripped first.
+- 7 reruns were not green on unmutated files: the floor-leak check searched JSON holding random UUIDs for the floor's digits `487`, which two random UUIDs contain by chance; the ids are now stripped first.
 This is also the likely cause of the one baseline failure the runner showed at the start; it did not repeat in 3 plain full runs and in the runs afterwards.
 
 ## Second run

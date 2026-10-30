@@ -457,3 +457,29 @@ Built:
 - The merchant page has a "Change your offer by WhatsApp" card, shown only when WhatsApp is set up: it shows a link code in place (never in a URL) and the last four digits of the linked number.
 - Two bugs found by the tests and fixed before the commit: the phone lookup compared a timestamp it had read back at millisecond precision with Postgres's microsecond one, so a freshly linked number never resolved; and a second `YES` racing the first was told its offer had changed instead of that it was already live.
 - `tests/integration/s2-tables.test.ts` granted privileges on a hard-coded table list, so every new table broke it; it now grants on all tables in the schema.
+
+Evidence:
+- **[verified]** At `0d75d76`: typecheck and lint clean, `npm run build` completes with `/api/whatsapp` listed, and 319 tests pass (28 files) with `TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres`, three plain runs in a row after the last test change.
+- **[verified]** Mutations in [evidence/s6b-whatsapp](evidence/s6b-whatsapp/README.md), at `0d75d76`: all 113 killed on an AssertionError, each file restored byte-identical and each rerun green.
+Earlier runs gave 97 killed with 12 survivors and 4 killed only by an error, then 111 with 2 killed only by an error; the survivors were test gaps, redundant guards or invalid mutants, all closed.
+The same leak check that failed 7 reruns in the first run (a floor's digits found in random UUIDs) is the likely cause of one baseline failure at the start of the second attempt; it was fixed in `1681501`.
+- **[verified]** End to end on the real route, on a throwaway local database, with a fake Meta model and a fake Graph API over HTTPS and `next dev`: `GET /api/whatsapp` echoed the challenge for the right token and refused a wrong one; an unsigned `POST` was 403; a signed `LINK <code>` bound the number; a signed "make it 20% off" answered 200 in 36 ms and the reply listing the change reached the fake Graph API after the 1.5 second fake model call; `YES` changed the rule from 25% to 20% and the terms version from 1 to 2; "no discount this Tuesday" got the guidance reply and a later `YES` got "Nothing is waiting"; the merchant page showed the code in place and then "linked to the number ending 4567".
+Nothing there touched Neon or Meta.
+- **[verified]** Migrations `0010` and `0011` applied on Neon with `npm run db:migrate`: a read-only read before showed 10 migrations and no S6b tables; after, 12 migrations, the five tables, the three functions, 10 triggers all `ENABLE ALWAYS`, and `backfill_app` with INSERT and SELECT on `owner_changes`, `whatsapp_inbound` and `whatsapp_link_codes` and SELECT only on `whatsapp_links` and `owner_change_outcomes`; rules and commitments unchanged at 2 and 2.
+- **[verified]** `main` fast-forwarded from `02fa613` to `0d75d76` and pushed; CI run 41080257101 on `main` passed.
+That puts on `main` the spinner (`065eaef`), the S6 record, the `.gitkeep` cleanup and all of S6b's code.
+
+Known limits:
+- A link code has 8 characters from a 30-letter alphabet and lives 10 minutes; nothing limits wrong guesses, so the only protection is that Meta's sandbox lets only the recipients you add message the test number.
+- A phone number is linked to one merchant and a merchant to one number; the newest link wins, and nothing unlinks without a new code.
+- Only a merchant with exactly one offer can use WhatsApp; the model is called once per instruction, at most 30 a day across all merchants.
+- A message id is claimed before it is handled, so a crash between the claim and the reply drops that message; the owner sends it again.
+- The owner's message text is stored in `owner_changes`, cut to 500 characters.
+- An owner change cannot be applied while any commitment on the offer is pending, as with a Wonder plan.
+- The Graph API version in `WHATSAPP_GRAPH_BASE_URL` (`v23.0`) is a default I could not confirm against Meta's current docs ([unknown]).
+- Replies are free text, which Meta allows only within 24 hours of the owner's last message ([vendor claim]); the owner's own message always opens that window.
+
+Not done:
+- **[unknown]** The exit: one message from the owner's phone changing a live offer on Render. It needs the user's Meta app, test number and four secrets, the `WHATSAPP_*` values on Render, a redeploy and the webhook registered in Meta; none of that is done.
+- **[unknown]** Whether Meta's webhook, signature and reply formats match what the code reads: it was built from Meta's documented payload shape and tested only with payloads and a Graph API that Claude wrote.
+- Render is not yet running `0d75d76`.
