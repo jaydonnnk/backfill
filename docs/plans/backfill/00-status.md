@@ -346,5 +346,26 @@ So Render runs S5 and will clear the 2 exit commitments with S5's clearing.
 - Known limit: `sparkMerchant` turns every error into a hold, including a wrong key, an unpriced model or a code bug, so a broken model setup looks like a stubborn merchant to the buyer; each failure is logged as `negotiation.proposal_failed` and recorded in `llm_calls`.
 
 Not done:
-- Render: whether `NEGOTIATION_SIGNING_SECRET` is set there is unknown; without it `negotiate_offer` is not offered.
+- **[user-reported]** Render: `NEGOTIATION_SIGNING_SECRET` is set there; the user set it and redeployed on 2026-10-30.
+**[verified]** `negotiate_offer` is listed to `smoke-s5` on Render (above).
 - **[unknown]** A negotiation on Render: none was run there; the live negotiation ran locally.
+
+### S6 onboarding and Wonder merchant agent, 2026-10-30
+
+Branch: `backfill/slice-6-onboarding`, cut from `main` at `67d0cab`.
+
+Decisions, taken before coding on 2026-10-30:
+- **Merchant:** the build and its tests use a clearly labelled synthetic Singapore restaurant or café, not a kopitiam; the real merchant's menu photo and rule go in for the live Spark vision call and the exit.
+The real merchant is not chosen yet.
+No payment method is needed from the merchant, since Backfill moves no real money.
+- **Wonder memory:** rules, fill history and past plans live in our own Postgres and are passed to Muse Wonder in every call; Meta's Responses API memory is not relied on.
+- **Storage:** the menu photo is sent to Muse Spark and not kept; only its SHA-256 and size are stored.
+Spark's draft and the merchant's confirmation go in new append-only tables, guarded by triggers like `negotiations`.
+- **Spend:** tests fake the model at the fetch boundary; live evidence is up to 3 Spark vision calls and up to 3 Wonder calls, stopped once the cost recorded in `llm_calls` reaches US$1.00, each asked for by name before it runs.
+- **Merchant auth:** a per-merchant secret link; only the token's SHA-256 is stored, like agent tokens.
+
+Authorizations and permissions, in the user's words:
+- 2026-10-30, on the real merchant: "Merchants have given me verbal persmission already to use their menu".
+The permission is verbal, not in writing; no merchant's name or menu is published beyond the demo without asking.
+- 2026-10-30, answering the open decisions: "Our DB, passed each call (Recommended)", "No photo kept; append-only drafts (Recommended)", "Up to 3 each, US$1.00", "Per-merchant secret link (Recommended)".
+- 2026-10-30, on the synthetic merchant: "Synthetic restaurant build not kopitiam. I would think this would be more prevalent to cafes or restaurants".
