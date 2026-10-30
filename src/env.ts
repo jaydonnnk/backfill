@@ -31,7 +31,17 @@ const webSchema = z
     META_MODEL_WONDER: metaModelId,
     // Signs negotiation counter-offers (S5); unset leaves negotiate_offer out, and a short one refuses to boot.
     NEGOTIATION_SIGNING_SECRET: z.string().min(32, "must be at least 32 characters").optional(),
+    // The WhatsApp Cloud API (S6b): all four are set together or none is, and unset leaves /api/whatsapp off.
+    WHATSAPP_APP_SECRET: z.string().min(1).optional(),
+    WHATSAPP_VERIFY_TOKEN: z.string().min(1).optional(),
+    WHATSAPP_ACCESS_TOKEN: z.string().min(1).optional(),
+    WHATSAPP_PHONE_NUMBER_ID: z.string().regex(/^\d{5,20}$/, "must be the numeric phone number ID").optional(),
+    WHATSAPP_GRAPH_BASE_URL: httpsUrl.default("https://graph.facebook.com/v23.0"),
   })
+  .refine(
+    (env) => [env.WHATSAPP_APP_SECRET, env.WHATSAPP_VERIFY_TOKEN, env.WHATSAPP_ACCESS_TOKEN, env.WHATSAPP_PHONE_NUMBER_ID].every((v) => v === undefined) || [env.WHATSAPP_APP_SECRET, env.WHATSAPP_VERIFY_TOKEN, env.WHATSAPP_ACCESS_TOKEN, env.WHATSAPP_PHONE_NUMBER_ID].every((v) => v !== undefined),
+    { message: "WHATSAPP_APP_SECRET, WHATSAPP_VERIFY_TOKEN, WHATSAPP_ACCESS_TOKEN and WHATSAPP_PHONE_NUMBER_ID must be set together", path: ["WHATSAPP_APP_SECRET"] },
+  )
   .transform(({ APP_BASE_URL, RENDER_EXTERNAL_URL, ...rest }) => ({
     ...rest,
     APP_BASE_URL: APP_BASE_URL ?? RENDER_EXTERNAL_URL ?? LOCAL_BASE_URL,
@@ -48,6 +58,15 @@ const migrationSchema = z.object({ DATABASE_URL: postgresUrl });
 const testSchema = z.object({ TEST_DATABASE_URL: postgresUrl });
 
 export type WebEnv = z.output<typeof webSchema>;
+
+export type WhatsappEnv = { appSecret: string; verifyToken: string; accessToken: string; phoneNumberId: string; baseUrl: string };
+
+// The WhatsApp settings, or null when they are not set; the schema already refuses a partial set.
+export function whatsappEnv(env: WebEnv): WhatsappEnv | null {
+  const { WHATSAPP_APP_SECRET: appSecret, WHATSAPP_VERIFY_TOKEN: verifyToken, WHATSAPP_ACCESS_TOKEN: accessToken, WHATSAPP_PHONE_NUMBER_ID: phoneNumberId } = env;
+  if (appSecret === undefined || verifyToken === undefined || accessToken === undefined || phoneNumberId === undefined) return null;
+  return { appSecret, verifyToken, accessToken, phoneNumberId, baseUrl: env.WHATSAPP_GRAPH_BASE_URL };
+}
 export type EvalEnv = z.infer<typeof evalSchema>;
 export type MigrationEnv = z.infer<typeof migrationSchema>;
 export type TestEnv = z.infer<typeof testSchema>;

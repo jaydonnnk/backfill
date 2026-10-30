@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { webEnv } from "@/env";
+import { webEnv, whatsappEnv } from "@/env";
 import { createMetaProvider } from "@/integrations/meta/provider";
 import type { RuleSettings } from "@/domain/onboarding/menu";
 import { webDb } from "@/lib/db/client";
@@ -11,6 +11,7 @@ import { llmCallRecorder } from "@/lib/llm-calls";
 import { authenticateMerchant, MERCHANT_COOKIE } from "@/lib/onboarding/links";
 import { sparkMenuReader, wonderMerchant } from "@/lib/onboarding/models";
 import { applyPlan, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
+import { newLinkCode } from "@/lib/whatsapp/service";
 import { currentMerchant } from "./session";
 
 // The merchant's actions. Each one authenticates the cookie again; none trusts a merchant id from the form.
@@ -106,4 +107,11 @@ export async function apply(form: FormData): Promise<never> {
   const merchant = await merchantOrLeave();
   const result = await applyPlan(webDb(), merchant.id, String(form.get("planId") ?? ""));
   redirect(`/merchant?status=plan_${result.status}`);
+}
+
+// Gives the signed-in merchant a one-time WhatsApp link code, returned to the page, never put in a URL.
+export async function startWhatsappLink(): Promise<{ code: string } | null> {
+  const merchant = await currentMerchant();
+  if (!merchant || whatsappEnv(webEnv()) === null) return null;
+  return { code: (await newLinkCode(webDb(), merchant.id)).code };
 }

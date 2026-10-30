@@ -355,3 +355,109 @@ export const planApplications = pgTable("plan_applications", {
     .references(() => wonderPlans.id),
   appliedAt: timestamp("applied_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+// S6b: the owner's WhatsApp number as a second way to change a live offer. A link code binds one
+// phone number to a merchant; each inbound message is claimed once; a proposed change is stored
+// with its verdict and applies only after the owner confirms. All of these are records the runtime
+// role adds to; the number is linked and a change is applied or cancelled only through functions.
+export const whatsappLinkCodes = pgTable(
+  "whatsapp_link_codes",
+  {
+    // SHA-256 of the code; the code itself is shown once and never stored.
+    codeSha256: text("code_sha256").primaryKey(),
+    merchantId: uuid("merchant_id")
+      .notNull()
+      .references(() => merchants.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  },
+  (t) => [index("whatsapp_link_codes_merchant_id_idx").on(t.merchantId), check("whatsapp_link_codes_sha256_hex", sql`${t.codeSha256} ~ '^[0-9a-f]{64}$'`), check("whatsapp_link_codes_expiry", sql`${t.expiresAt} > ${t.createdAt}`)],
+);
+
+export const whatsappLinks = pgTable(
+  "whatsapp_links",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    // WhatsApp's own form: the number in international format with no plus sign.
+    phone: text("phone").notNull(),
+    merchantId: uuid("merchant_id")
+      .notNull()
+      .references(() => merchants.id),
+    codeSha256: text("code_sha256")
+      .notNull()
+      .references(() => whatsappLinkCodes.codeSha256),
+    linkedAt: timestamp("linked_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    unique("whatsapp_links_code_once").on(t.codeSha256),
+    index("whatsapp_links_phone_idx").on(t.phone, t.linkedAt),
+    index("whatsapp_links_merchant_id_idx").on(t.merchantId, t.linkedAt),
+    check("whatsapp_links_phone_shape", sql`${t.phone} ~ '^[1-9][0-9]{6,14}$'`),
+  ],
+);
+
+// One row per inbound message id, so a retried delivery is handled once.
+export const whatsappInbound = pgTable(
+  "whatsapp_inbound",
+  {
+    wamid: text("wamid").primaryKey(),
+    phone: text("phone").notNull(),
+    receivedAt: timestamp("received_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [check("whatsapp_inbound_wamid_length", sql`length(${t.wamid}) between 1 and 200`), check("whatsapp_inbound_phone_shape", sql`${t.phone} ~ '^[1-9][0-9]{6,14}$'`)],
+);
+
+export const ownerChanges = pgTable(
+  "owner_changes",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    merchantId: uuid("merchant_id")
+      .notNull()
+      .references(() => merchants.id),
+    ruleId: uuid("rule_id")
+      .notNull()
+      .references(() => rules.id),
+    // The rule's terms version when proposed; a change applies only to that version.
+    termsVersion: integer("terms_version").notNull(),
+    wamid: text("wamid")
+      .notNull()
+      .references(() => whatsappInbound.wamid),
+    messageText: text("message_text").notNull(),
+    model: text("model").notNull(),
+    discountBps: integer("discount_bps"),
+    capacityCovers: integer("capacity_covers"),
+    minPoolCovers: integer("min_pool_covers"),
+    perAgentCapCovers: integer("per_agent_cap_covers"),
+    // "ok", the reason the proposal does not count, "not_understood" or "no_proposal".
+    verdict: text("verdict").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    // The owner may confirm only until then.
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  },
+  (t) => [
+    unique("owner_changes_wamid_once").on(t.wamid),
+    index("owner_changes_merchant_id_idx").on(t.merchantId, t.createdAt),
+    check("owner_changes_message_length", sql`length(${t.messageText}) between 1 and 500`),
+    check(
+      "owner_changes_verdict",
+      sql`${t.verdict} in ('ok', 'no_proposal', 'not_understood', 'unchanged', 'discount_out_of_range', 'capacity_out_of_range', 'min_pool_out_of_range', 'cap_out_of_range', 'below_floor')`,
+    ),
+    check(
+      "owner_changes_proposal_together",
+      sql`(${t.verdict} in ('no_proposal', 'not_understood')) = (${t.discountBps} is null) and (${t.discountBps} is null) = (${t.capacityCovers} is null) and (${t.discountBps} is null) = (${t.minPoolCovers} is null) and (${t.discountBps} is null) = (${t.perAgentCapCovers} is null)`,
+    ),
+    check("owner_changes_expiry", sql`${t.expiresAt} > ${t.createdAt}`),
+  ],
+);
+
+export const ownerChangeOutcomes = pgTable(
+  "owner_change_outcomes",
+  {
+    changeId: uuid("change_id")
+      .primaryKey()
+      .references(() => ownerChanges.id),
+    outcome: text("outcome").notNull(),
+    decidedAt: timestamp("decided_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [check("owner_change_outcomes_outcome", sql`${t.outcome} in ('applied', 'cancelled')`)],
+);

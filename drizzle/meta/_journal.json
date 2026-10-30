@@ -71,6 +71,20 @@
       "when": 1793346088073,
       "tag": "0009_s6_onboarding_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793370741927,
+      "tag": "0010_s6b_whatsapp",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1793370742285,
+      "tag": "0011_s6b_whatsapp_triggers",
+      "breakpoints": true
     }
   ]
 }

@@ -3,7 +3,10 @@ import { dollars } from "@/lib/commitments/service";
 import { webDb } from "@/lib/db/client";
 import { MAX_PHOTO_BYTES } from "@/domain/onboarding/menu";
 import { dashboard, windowText } from "@/lib/onboarding/service";
+import { webEnv, whatsappEnv } from "@/env";
+import { linkedPhoneEnding } from "@/lib/whatsapp/service";
 import { apply, leave, uploadMenu } from "./actions";
+import { LinkWhatsapp } from "./link-whatsapp";
 import { ReplanTrigger } from "./replan-trigger";
 import { currentMerchant } from "./session";
 import { SubmitButton } from "./submit-button";
@@ -60,6 +63,8 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const board = await dashboard(webDb(), merchant.id);
   const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   const needsPlan = board.occurrences.some((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`));
+  const whatsapp = whatsappEnv(webEnv()) !== null;
+  const linkedEnding = whatsapp ? await linkedPhoneEnding(webDb(), merchant.id) : null;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
@@ -100,6 +105,16 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           </SubmitButton>
         </form>
       </section>
+
+      {whatsapp && (
+        <section className={card}>
+          <h2 className="text-lg font-medium">Change your offer by WhatsApp</h2>
+          <p className="text-sm text-[var(--muted)]">
+            Link your phone, then message the Backfill WhatsApp number, for example &ldquo;make it 20% off&rdquo;. Your Muse Wonder agent shows the change and it goes live only after you reply YES.
+          </p>
+          <LinkWhatsapp linkedEnding={linkedEnding} button={button} />
+        </section>
+      )}
 
       <section className={card}>
         <h2 className="text-lg font-medium">Your offers</h2>
