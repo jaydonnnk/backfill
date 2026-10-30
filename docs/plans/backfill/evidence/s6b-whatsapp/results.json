@@ -1,0 +1,1399 @@
+{
+  "baseline": 319,
+  "results": [
+    {
+      "id": "judge-not-understood",
+      "guard": "a message the model did not understand never counts",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: false, reason: 'unchanged' } to deeply equal { ok: false, reason: 'not_understood' }",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'A discount must be between 1% and 99%.' to be 'I can change the discount, capacity, …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-unchanged",
+      "guard": "a proposal equal to the current terms is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'unchanged' }",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'Those are already your terms, so noth…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-discount-low",
+      "guard": "a discount of 0 is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'A discount must be between 1% and 99%.' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-discount-high",
+      "guard": "a discount of 100% is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: false, reason: 'below_floor' } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'That would price a cover below your f…' to be 'A discount must be between 1% and 99%.' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-capacity-low",
+      "guard": "a capacity of 0 is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: false, …(1) } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'The minimum pool must be at least 1 a…' to be 'Capacity must be between 1 and 10,000…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-capacity-high",
+      "guard": "a capacity over the maximum is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'Capacity must be between 1 and 10,000…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-max-covers",
+      "guard": "the maximum capacity is 10,000",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'Capacity must be between 1 and 10,000…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-minpool-low",
+      "guard": "a minimum pool of 0 is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'The minimum pool must be at least 1 a…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-minpool-high",
+      "guard": "a minimum pool above capacity is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'The minimum pool must be at least 1 a…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-cap-low",
+      "guard": "a per-agent cap of 0 is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'The per-agent cap must be at least 1 …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-cap-high",
+      "guard": "a per-agent cap above capacity is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses each way a proposal falls outside the bounds, at the edges :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'The per-agent cap must be at least 1 …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-floor",
+      "guard": "a price below the floor is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses a price below the floor and takes one exactly at it :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'below_floor' }",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'Change for Singapore Test Restaurant …' to be 'That would price a cover below your f…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-floor-edge",
+      "guard": "a price exactly at the floor is allowed",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeOwnerChange refuses a price below the floor and takes one exactly at it :: AssertionError: expected { ok: false, reason: 'below_floor' } to deeply equal { ok: true }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-cancel-stop",
+      "guard": "STOP cancels",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads \"Stop\" as cancel :: AssertionError: expected 'instruction' to be 'cancel' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-confirm-ok",
+      "guard": "OK confirms",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads \"ok\" as confirm :: AssertionError: expected 'instruction' to be 'confirm' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-link-end",
+      "guard": "a link code is exactly eight characters",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads LINK and its code in any case, and nothing else as a link :: AssertionError: expected 'link' to be 'instruction' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-link-start",
+      "guard": "a link message starts with LINK",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads LINK and its code in any case, and nothing else as a link :: AssertionError: expected 'link' to be 'instruction' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-trailing",
+      "guard": "trailing punctuation does not stop a YES",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads \"  Yes!  \" as confirm :: AssertionError: expected 'instruction' to be 'confirm' // Object.is equality",
+        "readIntent reads \"Okay.\" as confirm :: AssertionError: expected 'instruction' to be 'confirm' // Object.is equality",
+        "readIntent reads \"no.\" as cancel :: AssertionError: expected 'instruction' to be 'cancel' // Object.is equality",
+        "readIntent reads LINK and its code in any case, and nothing else as a link :: AssertionError: expected { kind: 'instruction' } to deeply equal { kind: 'link', code: 'AB23CD45' }",
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: AssertionError: expected 'This number is not linked to a mercha…' to be 'Linked to Singapore Test Restaurant 1…' // Object.is equality",
+        "changing the offer by message proposes the change, publishes it only after YES, and shows buyers the new price without ever exposing the floor :: AssertionError: expected 'I could not work out that change just…' to be 'Done. Singapore Test Restaurant 5\\'s …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "intent-whole",
+      "guard": "a confirmation is the whole message",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent reads \"yes please\" as instruction :: AssertionError: expected 'confirm' to be 'instruction' // Object.is equality",
+        "readIntent reads \"yes but make it 30% off\" as instruction :: AssertionError: expected 'confirm' to be 'instruction' // Object.is equality",
+        "changing the offer by message does not let the model confirm: only the words YES and NO move a change, whatever the model says :: AssertionError: expected 'Nothing is waiting for your confirmat…' to contain 'Reply YES within 15 minutes'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "code-length",
+      "guard": "a link code is 8 characters",
+      "verdict": "killed",
+      "failedTests": [
+        "readIntent keeps the code alphabet free of look-alike characters :: AssertionError: expected 6 to be 8 // Object.is equality",
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: AssertionError: expected 'H39J75' to match /^[2-9A-HJKMNP-TV-Z]{8}$/",
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'not valid or has expired'",
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 3'",
+        "changing the offer by message proposes the change, publishes it only after YES, and shows buyers the new price without ever exposing the floor :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 4'",
+        "changing the offer by message changes capacity, minimum pool and per-agent cap together, and lists only what changed :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 5'",
+        "changing the offer by message cancels on NO, and a cancelled change cannot be confirmed later :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 6'",
+        "changing the offer by message lets a newer message replace an unconfirmed change, so YES publishes only the newest :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 7'",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 8'",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 9'",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 10'",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 11'",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 12'",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 13'",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 14'",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 15'",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 16'",
+        "changing the offer by message answers a failed model call with a retry message and stores no_proposal :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 17'",
+        "changing the offer by message handles each message once even if Meta delivers it twice :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 18'",
+        "changing the offer by message applies a confirmation that two deliveries race for exactly once :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 19'",
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 20'",
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 21'",
+        "changing the offer by message keeps the first 500 characters of a long instruction and still answers it :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 22'",
+        "changing the offer by message is not held up by a commitment that has already cleared :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 23'",
+        "changing the offer by message replies to a message that is not text, and never reads it as a confirmation :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 24'",
+        "changing the offer by message does not let the model confirm: only the words YES and NO move a change, whatever the model says :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 25'",
+        "changing the offer by message sends every reply through processInbound, apologises for a message that fails, and goes on to the next :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 26'",
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 27'",
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 28'",
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 29'",
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 30'",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 31'",
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 33'",
+        "the database guards takes a price exactly at the floor in SQL and refuses one cent under :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 34'",
+        "the database guards refuses a discount of 100% in SQL even when the floor is 0, so the price check is not the only guard :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 35'",
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 36'",
+        "the database guards refuses an owner change that names a proposal without numbers or numbers without a proposal :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Linked to Singapore Test Restaurant 37'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sig-compare",
+      "guard": "a signature must equal the HMAC",
+      "verdict": "killed",
+      "failedTests": [
+        "POST /api/whatsapp refuses a missing, wrong or tampered signature before reading anything :: AssertionError: expected 200 to be 403 // Object.is equality",
+        "webhook signature and subscription accepts only the HMAC of the exact body under the app secret :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sig-format",
+      "guard": "the signature header is exactly sha256=<64 hex>",
+      "verdict": "killed",
+      "failedTests": [
+        "webhook signature and subscription accepts only the HMAC of the exact body under the app secret :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sig-body",
+      "guard": "the signature covers the raw body",
+      "verdict": "killed",
+      "failedTests": [
+        "POST /api/whatsapp answers 200 at once and handles the messages after the response :: AssertionError: expected 403 to be 200 // Object.is equality",
+        "POST /api/whatsapp refuses a signed body that is not JSON, and does not exist without the settings :: AssertionError: expected 403 to be 400 // Object.is equality",
+        "POST /api/whatsapp takes a signed delivery receipt with no messages and handles none :: AssertionError: expected 403 to be 200 // Object.is equality",
+        "webhook signature and subscription accepts only the HMAC of the exact body under the app secret :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "challenge-mode",
+      "guard": "the challenge needs the subscribe mode",
+      "verdict": "killed",
+      "failedTests": [
+        "webhook signature and subscription answers Meta's subscription check with the challenge only for the right mode and token :: AssertionError: expected '1' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "challenge-token",
+      "guard": "the challenge needs the verify token",
+      "verdict": "killed",
+      "failedTests": [
+        "GET /api/whatsapp echoes the challenge for the right verify token, and refuses any other :: AssertionError: expected 200 to be 403 // Object.is equality",
+        "webhook signature and subscription answers Meta's subscription check with the challenge only for the right mode and token :: AssertionError: expected '12345' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "send-auth",
+      "guard": "a reply carries the access token",
+      "verdict": "killed",
+      "failedTests": [
+        "sendText posts a text message from the business number with the bearer token :: AssertionError: expected 'Bearer' to be 'Bearer token-abc' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "send-ok",
+      "guard": "a refused send is reported as failed",
+      "verdict": "killed",
+      "failedTests": [
+        "sendText reports a refused or failed send as false and never throws :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "send-to",
+      "guard": "a reply goes to the sender",
+      "verdict": "killed",
+      "failedTests": [
+        "sendText posts a text message from the business number with the bearer token :: AssertionError: expected { messaging_product: 'whatsapp', …(3) } to deeply equal { messaging_product: 'whatsapp', …(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "inbound-text",
+      "guard": "a message that is not text has no text",
+      "verdict": "killed",
+      "failedTests": [
+        "inboundMessages reads text messages and marks other kinds as having no text :: AssertionError: expected [ { wamid: 'wamid.A', …(2) }, …(1) ] to deeply equal [ { wamid: 'wamid.A', …(2) }, …(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "env-group",
+      "guard": "the WhatsApp settings are set together",
+      "verdict": "killed",
+      "failedTests": [
+        "WhatsApp settings is off when none is set, on with all four, and refuses to boot with only some :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "env-null",
+      "guard": "missing settings turn WhatsApp off",
+      "verdict": "killed",
+      "failedTests": [
+        "WhatsApp settings is off when none is set, on with all four, and refuses to boot with only some :: AssertionError: expected { appSecret: 's', …(4) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "route-signature",
+      "guard": "a webhook call must be signed",
+      "verdict": "killed",
+      "failedTests": [
+        "POST /api/whatsapp refuses a missing, wrong or tampered signature before reading anything :: AssertionError: expected 200 to be 403 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "route-json",
+      "guard": "a signed body that is not JSON is a 400",
+      "verdict": "killed",
+      "failedTests": [
+        "POST /api/whatsapp refuses a signed body that is not JSON, and does not exist without the settings :: AssertionError: expected 200 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "route-challenge",
+      "guard": "a wrong verify token is a 403",
+      "verdict": "killed",
+      "failedTests": [
+        "GET /api/whatsapp echoes the challenge for the right verify token, and refuses any other :: AssertionError: expected 200 to be 403 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-link-ttl",
+      "guard": "a link code lives 10 minutes",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: AssertionError: expected 'Linked to Singapore Test Restaurant 2…' to contain 'not valid or has expired'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-confirm-window",
+      "guard": "a change can be confirmed for 15 minutes",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 896399993 to be less than 0",
+        "changing the offer by message keeps the confirmation window at 15 minutes :: AssertionError: expected 900000000 to be 900000 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-cap-size",
+      "guard": "the daily cap is 30",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: AssertionError: expected 31 to be 30 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-cap-check",
+      "guard": "the daily cap stops the model call",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: AssertionError: expected 'I could not work out that change just…' to contain 'Today\\'s limit'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-pending-verdict",
+      "guard": "only a counted change is pending",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses discount_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message refuses cap_out_of_range and stores why :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'",
+        "changing the offer by message answers a failed model call with a retry message and stores no_proposal :: AssertionError: expected 'That change cannot be published.' to contain 'Nothing is waiting'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-pending-outcome",
+      "guard": "a decided change is not pending",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message proposes the change, publishes it only after YES, and shows buyers the new price without ever exposing the floor :: AssertionError: expected 'That change is already live.' to contain 'Nothing is waiting'",
+        "changing the offer by message cancels on NO, and a cancelled change cannot be confirmed later :: AssertionError: expected 'That change was already decided.' to contain 'Nothing is waiting'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-pending-expiry",
+      "guard": "an expired change is not pending",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'That change expired. Send it again if…' to contain 'Nothing is waiting'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-pending-latest",
+      "guard": "the latest proposal is the pending one",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message lets a newer message replace an unconfirmed change, so YES publishes only the newest :: AssertionError: expected { discount_bps: 2500, …(4) } to match object { Object (discount_bps, terms_version) }",
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Nothing is waiting for your confirmat…' to be 'Your offer changed since that was pro…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-phone-newest",
+      "guard": "the newest link of a number wins",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: AssertionError: expected 'This number is not linked to a mercha…' to contain 'Nothing is waiting'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-phone-moved",
+      "guard": "a merchant that moved to a new number loses the old one",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: AssertionError: expected null to be '0005' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-ending-newest",
+      "guard": "the page shows the merchant's newest number",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: AssertionError: expected null to be '0005' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-multi-rule",
+      "guard": "more than one offer goes to the page",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: AssertionError: expected 'I could not work out that change just…' to contain 'more than one offer'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-duplicate",
+      "guard": "a delivery already handled is skipped",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message handles each message once even if Meta delivers it twice :: Error: Failed query: insert into \"owner_changes\" (\"id\", \"merchant_id\", \"rule_id\", \"terms_version\", \"wamid\", \"message_text\", \"model\", \"discount_bps\", \"capacity_covers\", \"min_pool_covers\", \"per_agent_cap_covers\", \"verdict\", \"created_at\", \"expires_at\") values (default, $1, $2, $3, $4, $5, $6, default, default, default, default, $7, $8, $9)",
+        "changing the offer by message sends every reply through processInbound, apologises for a message that fails, and goes on to the next :: AssertionError: expected [ [ '659110030', …(1) ], …(3) ] to have a length of 3 but got 4"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-truncate",
+      "guard": "a long message is cut to 500 characters",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message keeps the first 500 characters of a long instruction and still answers it :: AssertionError: expected 'threw' to contain 'Change for'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-numbers-null",
+      "guard": "a message not understood stores no numbers",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected 'threw' to be 'I can change the discount, capacity, …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-model-reply",
+      "guard": "a message not understood gets the model's reply",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: AssertionError: expected '' to be 'I can change the discount, capacity, …' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-race-reply",
+      "guard": "the loser of a confirmation race is told it is live",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message applies a confirmation that two deliveries race for exactly once :: AssertionError: expected 'Your offer changed since that was pro…' to match /^(That change is already live\\.|Nothi…/"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-apology",
+      "guard": "a failed message gets an apology",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message sends every reply through processInbound, apologises for a message that fails, and goes on to the next :: AssertionError: expected [ [ '659110030', …(1) ] ] to deeply equal [ [ '659110030', …(1) ], …(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-apply-stale-text",
+      "guard": "a stale confirmation is explained",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'x' to be 'Your offer changed since that was pro…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-owner",
+      "guard": "another merchant cannot apply a change",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'apply_owner_change_owner' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-cancel-owner",
+      "guard": "another merchant cannot cancel a change",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'cancel_owner_change_owner' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-verdict",
+      "guard": "only a counted change applies",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'apply_owner_change_verdict' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-expired",
+      "guard": "an expired change does not apply",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'no error' to be 'apply_owner_change_expired' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-superseded",
+      "guard": "a replaced change does not apply",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message lets a newer message replace an unconfirmed change, so YES publishes only the newest :: AssertionError: expected 'no error' to be 'apply_owner_change_superseded' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-stale",
+      "guard": "a change made for old terms does not apply",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Done. Singapore Test Restaurant 21\\'s…' to be 'Your offer changed since that was pro…' // Object.is equality",
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'owner_change_outcomes_pkey' to be 'apply_owner_change_stale' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-discount-low",
+      "guard": "SQL refuses a discount of 0",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'rules_discount_range' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-discount-high",
+      "guard": "SQL refuses a discount of 100%",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards refuses a discount of 100% in SQL even when the floor is 0, so the price check is not the only guard :: AssertionError: expected 'rules_discount_range' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-capacity-high",
+      "guard": "SQL refuses a capacity over 10,000",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-minpool-low",
+      "guard": "SQL refuses a minimum pool of 0",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'rules_counts_positive' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-minpool-high",
+      "guard": "SQL refuses a minimum pool over capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'rules_min_pool_within_capacity' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-cap-low",
+      "guard": "SQL refuses a per-agent cap of 0",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'rules_counts_positive' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-cap-high",
+      "guard": "SQL refuses a per-agent cap over capacity",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-floor",
+      "guard": "SQL refuses a price under the floor",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'no error' to be 'apply_owner_change_bounds' // Object.is equality",
+        "the database guards takes a price exactly at the floor in SQL and refuses one cent under :: AssertionError: expected 'no error' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-floor-edge",
+      "guard": "SQL takes a price exactly at the floor",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards takes a price exactly at the floor in SQL and refuses one cent under :: AssertionError: expected 'apply_owner_change_bounds' to be 'no error' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-pending-cancelled",
+      "guard": "a cancelled commitment does not hold a change",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Buyers have commitments waiting on th…' to contain 'Done.'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-pending-cleared",
+      "guard": "a cleared commitment does not hold a change",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Done. Singapore Test Restaurant 21\\'s…' to be 'Buyers have commitments waiting on th…' // Object.is equality",
+        "changing the offer by message is not held up by a commitment that has already cleared :: AssertionError: expected 'Buyers have commitments waiting on th…' to contain 'Done.'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-pending",
+      "guard": "a pending commitment holds a change",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Done. Singapore Test Restaurant 21\\'s…' to be 'Buyers have commitments waiting on th…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-apply-update",
+      "guard": "applying changes the four terms",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message changes capacity, minimum pool and per-agent cap together, and lists only what changed :: AssertionError: expected { discount_bps: 2500, …(4) } to match object { discount_bps: 2500, …(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-claim-expiry",
+      "guard": "an expired link code does not link",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: AssertionError: expected 'Linked to Singapore Test Restaurant 2…' to contain 'not valid or has expired'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-claim-insert",
+      "guard": "a link names the code's merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: AssertionError: expected 'Linked to Singapore Test Restaurant 1…' to contain 'not valid or has expired'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-revoke-apply",
+      "guard": "PUBLIC cannot apply a change",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-revoke-cancel",
+      "guard": "PUBLIC cannot cancel a change",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-revoke-claim",
+      "guard": "PUBLIC cannot link a number",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-grant-insert",
+      "guard": "the runtime role records codes, inbound ids and proposals",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: Error: Failed query: insert into \"whatsapp_inbound\" (\"wamid\", \"phone\", \"received_at\") values ($1, $2, default) on conflict do nothing returning \"wamid\"",
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message proposes the change, publishes it only after YES, and shows buyers the new price without ever exposing the floor :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message changes capacity, minimum pool and per-agent cap together, and lists only what changed :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message cancels on NO, and a cancelled change cannot be confirmed later :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message lets a newer message replace an unconfirmed change, so YES publishes only the newest :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses discount_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses discount_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses cap_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message refuses cap_out_of_range and stores why :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message answers a failed model call with a retry message and stores no_proposal :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message handles each message once even if Meta delivers it twice :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message applies a confirmation that two deliveries race for exactly once :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message keeps the first 500 characters of a long instruction and still answers it :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message is not held up by a commitment that has already cleared :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message replies to a message that is not text, and never reads it as a confirmation :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message does not let the model confirm: only the words YES and NO move a change, whatever the model says :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "changing the offer by message sends every reply through processInbound, apologises for a message that fails, and goes on to the next :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: AssertionError: expected '42501' to be 'no error' // Object.is equality",
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards takes a price exactly at the floor in SQL and refuses one cent under :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards refuses a discount of 100% in SQL even when the floor is 0, so the price check is not the only guard :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards checks the shape of what the tables hold :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)",
+        "the database guards refuses an owner change that names a proposal without numbers or numbers without a proposal :: Error: Failed query: insert into \"whatsapp_link_codes\" (\"code_sha256\", \"merchant_id\", \"created_at\", \"expires_at\") values ($1, $2, $3, $4)"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-grant-links",
+      "guard": "the runtime role reads links and outcomes",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: Error: Failed query: select \"phone\" from \"whatsapp_links\" where \"whatsapp_links\".\"merchant_id\" = $1 order by \"whatsapp_links\".\"linked_at\" desc limit $2",
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: AssertionError: expected 'threw' to contain 'not linked to a merchant'",
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: Error: Failed query: select \"phone\" from \"whatsapp_links\" where \"whatsapp_links\".\"merchant_id\" = $1 order by \"whatsapp_links\".\"linked_at\" desc limit $2",
+        "changing the offer by message proposes the change, publishes it only after YES, and shows buyers the new price without ever exposing the floor :: Error: Failed query: ",
+        "changing the offer by message changes capacity, minimum pool and per-agent cap together, and lists only what changed :: Error: Failed query: ",
+        "changing the offer by message cancels on NO, and a cancelled change cannot be confirmed later :: Error: Failed query: ",
+        "changing the offer by message lets a newer message replace an unconfirmed change, so YES publishes only the newest :: Error: Failed query: ",
+        "changing the offer by message refuses a change below the floor, an unchanged one and a model that did not understand, and none can be confirmed :: Error: Failed query: ",
+        "changing the offer by message refuses discount_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses discount_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses capacity_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses min_pool_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses cap_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message refuses cap_out_of_range and stores why :: Error: Failed query: ",
+        "changing the offer by message answers a failed model call with a retry message and stores no_proposal :: Error: Failed query: ",
+        "changing the offer by message handles each message once even if Meta delivers it twice :: Error: Failed query: ",
+        "changing the offer by message applies a confirmation that two deliveries race for exactly once :: Error: Failed query: ",
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: Error: Failed query: ",
+        "changing the offer by message stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page :: Error: Failed query: ",
+        "changing the offer by message keeps the first 500 characters of a long instruction and still answers it :: AssertionError: expected 'threw' to contain 'Change for'",
+        "changing the offer by message is not held up by a commitment that has already cleared :: Error: Failed query: ",
+        "changing the offer by message replies to a message that is not text, and never reads it as a confirmation :: Error: Failed query: ",
+        "changing the offer by message does not let the model confirm: only the words YES and NO move a change, whatever the model says :: Error: Failed query: ",
+        "changing the offer by message sends every reply through processInbound, apologises for a message that fails, and goes on to the next :: AssertionError: expected [ [ '659110027', …(1) ], …(1) ] to deeply equal [ [ '659110027', …(1) ], …(1) ]",
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: ",
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: ",
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: ",
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: ",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: Error: Failed query: ",
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: PostgresError: permission denied for table whatsapp_links"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-grant-links-write",
+      "guard": "the runtime role cannot write links directly",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards lets the runtime role record and read, but link, apply and cancel only through the functions, and never touch rules :: AssertionError: expected 'whatsapp_links_code_sha256_whatsapp_l…' to be '42501' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_link_codes_append_only",
+      "guard": "whatsapp_link_codes refuses UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_link_codes_append_only-always",
+      "guard": "whatsapp_link_codes refuses UPDATE and DELETE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_links_append_only",
+      "guard": "whatsapp_links refuses UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_links_append_only-always",
+      "guard": "whatsapp_links refuses UPDATE and DELETE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_links_no_truncate",
+      "guard": "whatsapp_links refuses TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_links_no_truncate-always",
+      "guard": "whatsapp_links refuses TRUNCATE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_inbound_append_only",
+      "guard": "whatsapp_inbound refuses UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_inbound_append_only-always",
+      "guard": "whatsapp_inbound refuses UPDATE and DELETE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_changes_append_only",
+      "guard": "owner_changes refuses UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_changes_append_only-always",
+      "guard": "owner_changes refuses UPDATE and DELETE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_change_outcomes_append_only",
+      "guard": "owner_change_outcomes refuses UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_change_outcomes_append_only-always",
+      "guard": "owner_change_outcomes refuses UPDATE and DELETE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_change_outcomes_no_truncate",
+      "guard": "owner_change_outcomes refuses TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_change_outcomes_no_truncate-always",
+      "guard": "owner_change_outcomes refuses TRUNCATE even under session_replication_role = replica",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-expiry",
+      "guard": "a change expires after it is made",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'owner_changes_expiry' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-message",
+      "guard": "an owner message is 1 to 500 characters",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'owner_changes_message_length' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-verdict",
+      "guard": "a verdict is one of the known ones",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards refuses an owner change that names a proposal without numbers or numbers without a proposal :: AssertionError: expected 'no error' to be 'owner_changes_verdict' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-outcome",
+      "guard": "an outcome is applied or cancelled",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'owner_change_outcomes_outcome' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-wamid",
+      "guard": "a message id is 1 to 200 characters",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'whatsapp_inbound_wamid_length' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-hex",
+      "guard": "a link code hash is 64 hex characters",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'whatsapp_link_codes_sha256_hex' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-check-code-expiry",
+      "guard": "a link code expires after it is made",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'whatsapp_link_codes_expiry' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-links-phone",
+      "guard": "a linked phone has the WhatsApp shape",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards refuses an owner change that names a proposal without numbers or numbers without a proposal :: AssertionError: expected 'whatsapp_links_code_sha256_whatsapp_l…' to be 'whatsapp_links_phone_shape' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-inbound-phone",
+      "guard": "an inbound phone has the WhatsApp shape",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'whatsapp_inbound_phone_shape' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-wamid-once",
+      "guard": "a message id makes one change",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards checks the shape of what the tables hold :: AssertionError: expected 'no error' to be 'owner_changes_wamid_once' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-code-once",
+      "guard": "a link code links once",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone binds the phone that sends a valid code to that merchant, once, and says so on the merchant page :: AssertionError: expected 'Linked to Singapore Test Restaurant 1…' to contain 'not valid or has expired'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-bound-capacity-zero",
+      "guard": "SQL refuses a capacity of 0 through the minimum pool bound",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards re-checks the owner bounds inside apply_owner_change, whatever a stored row says :: AssertionError: expected 'rules_counts_positive' to be 'apply_owner_change_bounds' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "svc-unlinked-null",
+      "guard": "a number with no link is told so",
+      "verdict": "killed",
+      "failedTests": [
+        "linking an owner's phone refuses an unknown code and an expired one, and answers an unlinked phone without calling the model :: AssertionError: expected 'threw' to contain 'not linked to a merchant'",
+        "linking an owner's phone moves a merchant to a new number, and a number to a new merchant, with the newest link winning :: Error: Failed query: select \"owner_changes\".\"id\", \"owner_changes\".\"verdict\", \"owner_changes\".\"expires_at\", \"owner_change_outcomes\".\"outcome\" from \"owner_changes\" left join \"owner_change_outcomes\" on \"owner_change_outcomes\".\"change_id\" = \"owner_changes\".\"id\" where \"owner_changes\".\"merchant_id\" = $1 order by \"owner_changes\".\"created_at\" desc limit $2"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_link_codes_no_truncate",
+      "guard": "TRUNCATE of whatsapp_link_codes CASCADE is refused (with its dependents' triggers removed too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_link_codes_no_truncate-always",
+      "guard": "TRUNCATE of whatsapp_link_codes CASCADE is refused under session_replication_role = replica (dependents too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_link_codes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps whatsapp_links append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_inbound_no_truncate",
+      "guard": "TRUNCATE of whatsapp_inbound CASCADE is refused (with its dependents' triggers removed too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-whatsapp_inbound_no_truncate-always",
+      "guard": "TRUNCATE of whatsapp_inbound CASCADE is refused under session_replication_role = replica (dependents too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps whatsapp_inbound append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_changes_no_truncate",
+      "guard": "TRUNCATE of owner_changes CASCADE is refused (with its dependents' triggers removed too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sql-owner_changes_no_truncate-always",
+      "guard": "TRUNCATE of owner_changes CASCADE is refused under session_replication_role = replica (dependents too)",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards keeps owner_changes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality",
+        "the database guards keeps owner_change_outcomes append-only, for the owner role and under session_replication_role = replica :: AssertionError: expected 'no error' to be '23001' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}
