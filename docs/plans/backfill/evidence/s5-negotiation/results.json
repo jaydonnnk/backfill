@@ -1,0 +1,831 @@
+{
+  "baseline": 194,
+  "results": [
+    {
+      "id": "rules-max-rounds",
+      "guard": "a negotiation has at most 3 rounds",
+      "verdict": "killed",
+      "failedTests": [
+        "startRound allows the last round and refuses the one after it :: AssertionError: expected 4 to be 3 // Object.is equality",
+        "settleRound throws past the round limit rather than settling :: AssertionError: expected [Function] to throw an error",
+        "rounds counters, then commits at the agreed price through the signed counter-offer :: AssertionError: expected { …(10) } to match object { round: 1, roundsLeft: 2, …(2) }",
+        "rounds refuses a fourth round, after three rounds that each asked the model once :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, reason: 'round_limit' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "rules-concession-bps",
+      "guard": "one round concedes at most 250 bps of the list price",
+      "verdict": "killed",
+      "failedTests": [
+        "the fixture has the offer price and the concession step the tests assume :: AssertionError: expected 62 to be 31 // Object.is equality",
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "rules-concession-rounding",
+      "guard": "the concession step rounds down, so it never exceeds the published basis points",
+      "verdict": "killed",
+      "failedTests": [
+        "the fixture has the offer price and the concession step the tests assume :: AssertionError: expected 32 to be 31 // Object.is equality",
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-rises",
+      "guard": "a proposal above the merchant's previous price does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'rises' }",
+        "settleRound holds at the previous price when the model proposes it, gives nothing, or proposes outside the limits :: AssertionError: expected { status: 'held', …(2) } to deeply equal { status: 'held', …(2) }",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-concedes-too-much",
+      "guard": "a proposal more than one concession step down does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, …(1) }",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-below-bid",
+      "guard": "a proposal below the buyer's bid does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'below_bid' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "judge-below-floor",
+      "guard": "a proposal below the hidden floor does not count",
+      "verdict": "killed",
+      "failedTests": [
+        "judgeProposal rejects a proposal a cent past each bound :: AssertionError: expected { ok: true } to deeply equal { ok: false, reason: 'below_floor' }",
+        "settleRound holds below-floor proposals exactly like any other hold, so the outcome names no floor :: AssertionError: expected { status: 'countered', …(2) } to deeply equal { status: 'held', …(2) }",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(10) } to match object { round: 2, status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "start-round-limit",
+      "guard": "a round after the last is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "startRound allows the last round and refuses the one after it :: AssertionError: expected { ok: true, needsProposal: true } to deeply equal { ok: false, reason: 'round_limit' }",
+        "settleRound throws past the round limit rather than settling :: AssertionError: expected [Function] to throw an error",
+        "rounds refuses a fourth round, after three rounds that each asked the model once :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, reason: 'round_limit' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "start-needs-proposal",
+      "guard": "a bid at the merchant's price is accepted without asking the model",
+      "verdict": "killed",
+      "failedTests": [
+        "startRound needs no proposal for a bid at the merchant's price, and needs one a cent below :: AssertionError: expected { ok: true, needsProposal: true } to deeply equal { ok: true, needsProposal: false }",
+        "rounds accepts a bid at the merchant's price without asking the model :: AssertionError: expected { …(10) } to match object { status: 'accepted', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "settle-closed-floor",
+      "guard": "a negotiation whose previous price is below a raised floor closes",
+      "verdict": "killed",
+      "failedTests": [
+        "settleRound closes when the previous price is below a floor raised mid-negotiation, and holds at the floor itself :: AssertionError: expected { status: 'held', …(2) } to deeply equal { status: 'closed' }",
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "settle-closed-offer",
+      "guard": "a negotiation whose previous price is above the offer price closes",
+      "verdict": "killed",
+      "failedTests": [
+        "settleRound closes when the previous price is above the offer price :: AssertionError: expected { status: 'countered', …(2) } to deeply equal { status: 'closed' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "settle-no-proposal-holds",
+      "guard": "a round the model gave no proposal for holds",
+      "verdict": "killed",
+      "failedTests": [
+        "settleRound holds at the previous price when the model proposes it, gives nothing, or proposes outside the limits :: AssertionError: expected { status: 'countered', …(1) } to deeply equal { status: 'held', counterCents: 938 }",
+        "rounds holds when the model fails, and logs every failed attempt :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "settle-rejected-holds",
+      "guard": "a proposal outside the limits holds at the previous price, never at the proposal",
+      "verdict": "killed",
+      "failedTests": [
+        "settleRound holds at the previous price when the model proposes it, gives nothing, or proposes outside the limits :: AssertionError: expected { status: 'held', …(2) } to deeply equal { status: 'held', …(2) }",
+        "settleRound holds below-floor proposals exactly like any other hold, so the outcome names no floor :: AssertionError: expected { status: 'held', …(2) } to deeply equal { status: 'held', …(2) }",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(10) } to match object { round: 2, status: 'held', …(1) }",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected { …(10) } to match object { status: 'held', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "settle-accepted-at-bid",
+      "guard": "a proposal equal to the bid is an acceptance",
+      "verdict": "killed",
+      "failedTests": [
+        "settleRound counters at a valid proposal and accepts one equal to the bid :: AssertionError: expected { status: 'countered', …(2) } to deeply equal { status: 'accepted', …(2) }",
+        "rounds accepts when the model meets the bid :: AssertionError: expected { …(10) } to match object { status: 'accepted', …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-strict",
+      "guard": "a counter-offer names no field beyond its own",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses a well-signed payload that is not a valid offer :: AssertionError: expected { v: 1, …(8) } to be null",
+        "signed counter-offers never signs a field the offer does not name :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-secret-length",
+      "guard": "a signing secret shorter than 32 characters is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses to sign or verify with a secret shorter than 32 characters :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-parts",
+      "guard": "a token with more than two parts is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses a signature with a character Buffer would skip, and a token with extra parts :: AssertionError: expected { v: 1, …(8) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-reencode",
+      "guard": "a signature with characters base64url skips is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses a signature with a character Buffer would skip, and a token with extra parts :: AssertionError: expected { v: 1, …(8) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-mac",
+      "guard": "a token not signed with the secret is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses a token signed with another secret :: AssertionError: expected { v: 1, …(8) } to be null",
+        "signed counter-offers refuses a token whose payload was changed, even to a valid offer :: AssertionError: expected { v: 1, …(8) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "co-verify-parse",
+      "guard": "a well-signed payload that is not a valid offer is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "signed counter-offers refuses a well-signed payload that is not a valid offer :: AssertionError: expected { v: 1, …(8) } to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-unavailable",
+      "guard": "negotiate_offer refuses a rule whose offer price is below its floor",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses a rule whose offer price is below its floor exactly like a missing one, without asking the model :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-stale-terms",
+      "guard": "negotiate_offer refuses stale terms",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses at and after the deadline, and a date off the weekday or stale terms :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, reason: 'stale_terms' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-weekday",
+      "guard": "negotiate_offer refuses a date off the offer's weekday",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses at and after the deadline, and a date off the weekday or stale terms :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-deadline",
+      "guard": "negotiate_offer refuses at the deadline itself",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses at and after the deadline, and a date off the weekday or stale terms :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, reason: 'past_deadline' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-agent-cap",
+      "guard": "negotiate_offer refuses covers over the per-agent cap",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses other covers in the same negotiation and covers over the cap :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, reason: 'over_agent_cap' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-mismatch",
+      "guard": "one negotiation per visit, with fixed covers",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit refuses other covers in the same negotiation and covers over the cap :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-closed-terms",
+      "guard": "a negotiation started under older terms takes no more rounds",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit takes no round after the terms change, even at the new terms version :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-used",
+      "guard": "a negotiation that made a commitment takes no more rounds",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected { ok: true, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-previous-price",
+      "guard": "each round starts from the merchant's last counter",
+      "verdict": "killed",
+      "failedTests": [
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { round: 2, status: 'held', …(1) }",
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-busy-first-round",
+      "guard": "of two simultaneous first bids, the second is answered negotiation_busy",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit answers two simultaneous first bids with one round and one busy :: AssertionError: expected 'unavailable' to be 'negotiation_busy' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-busy-mapping",
+      "guard": "a round lost to a simultaneous bid is answered negotiation_busy",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit answers two simultaneous second-round bids with one round and one busy :: AssertionError: expected 'unavailable' to be 'negotiation_busy' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-sign-counter",
+      "guard": "the signed counter-offer carries the merchant's price after the round",
+      "verdict": "killed",
+      "failedTests": [
+        "rounds counters, then commits at the agreed price through the signed counter-offer :: AssertionError: expected false to be true // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { v: 1, …(8) } to match object { round: 2, priceCents: 907 }",
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers refuses a max price a cent below the counter-offer's price and takes one at it :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }",
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers counts a negotiated commitment priced below the offer toward the per-agent cap :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "neg-store-verdict",
+      "guard": "a round records why a proposal did not count",
+      "verdict": "killed",
+      "failedTests": [
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected [ …(2) ] to deeply equal [ …(2) ]",
+        "a model proposal outside the limits holds on a proposal that rises or concedes more than one step :: AssertionError: expected [ 'ok', 'ok' ] to deeply equal [ 'rises', 'concedes_too_much' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "spark-error-holds",
+      "guard": "a model failure becomes a hold, not an error to the buyer",
+      "verdict": "killed",
+      "failedTests": [
+        "rounds holds when the model fails, and logs every failed attempt :: AssertionError: expected 'unavailable' to be undefined",
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "mcp-tool-conditional",
+      "guard": "negotiate_offer is offered only with a signing secret",
+      "verdict": "killed",
+      "failedTests": [
+        "tools lists the five tools, and the commitment tools say plainly that a commitment is binding :: AssertionError: expected [ 'cancel_commitment', …(5) ] to deeply equal [ 'cancel_commitment', …(4) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "mcp-submit-secret",
+      "guard": "submit_commitment verifies counter-offers with the server's secret",
+      "verdict": "killed",
+      "failedTests": [
+        "rounds counters, then commits at the agreed price through the signed counter-offer :: AssertionError: expected false to be true // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers refuses a max price a cent below the counter-offer's price and takes one at it :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }",
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers counts a negotiated commitment priced below the offer toward the per-agent cap :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-agent",
+      "guard": "a counter-offer is refused for another agent, by the app check and by the trigger",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers refuses an earlier round's counter-offer, another agent's, and one for other covers :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }",
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-covers",
+      "guard": "a counter-offer is refused for other covers, by the app check and by the trigger",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers refuses an earlier round's counter-offer, another agent's, and one for other covers :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }",
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-latest-price",
+      "guard": "an earlier round's counter-offer is refused, by the app check and by the trigger",
+      "verdict": "killed",
+      "failedTests": [
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected null to be 'commitments_negotiated_match' // Object.is equality",
+        "counter-offers refuses an earlier round's counter-offer, another agent's, and one for other covers :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }",
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-trigger-mapping",
+      "guard": "a commitment the trigger refuses is answered counter_offer_invalid",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers refuses an earlier round's counter-offer, another agent's, and one for other covers :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-floor",
+      "guard": "a counter-offer below a floor raised after it is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers refuses a counter-offer below a floor raised after it, and closes the negotiation, with no reply naming the floor :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-max-below-counter",
+      "guard": "a max price below the counter-offer's price is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers refuses a max price a cent below the counter-offer's price and takes one at it :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-counter-replaces-offer-check",
+      "guard": "a counter-offer lets the max price sit below the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "rounds counters, then commits at the agreed price through the signed counter-offer :: AssertionError: expected false to be true // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers refuses a max price a cent below the counter-offer's price and takes one at it :: AssertionError: expected false to be true // Object.is equality",
+        "counter-offers counts a negotiated commitment priced below the offer toward the per-agent cap :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-stores-negotiation",
+      "guard": "a commitment made with a counter-offer stores its negotiation and price",
+      "verdict": "killed",
+      "failedTests": [
+        "rounds counters, then commits at the agreed price through the signed counter-offer :: AssertionError: expected { …(11) } to match object { negotiatedPriceCents: 907, …(2) }",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(9) } to match object { status: 'filled', …(2) }",
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected { ok: false, …(2) } to match object { ok: true, replayed: true }",
+        "counter-offers counts a negotiated commitment priced below the offer toward the per-agent cap :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, reason: 'over_agent_cap' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-once-mapping",
+      "guard": "a second commitment from one negotiation is answered counter_offer_used",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected { ok: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-idempotency-negotiation",
+      "guard": "a replay must name the same negotiation",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected { ok: true, replayed: true, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "submit-cap-own-price",
+      "guard": "the per-agent cap counts each commitment at its own price",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers counts a negotiated commitment priced below the offer toward the per-agent cap :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, reason: 'over_agent_cap' }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "store-fill-price",
+      "guard": "a stored fill keeps the commitment's own price",
+      "verdict": "killed",
+      "failedTests": [
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(11) } to match object { status: 'filled', …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "status-fill-price",
+      "guard": "a filled commitment reports its own price",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected { …(10) } to match object { status: 'filled', …(1) }",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(11) } to match object { status: 'filled', …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clear-negotiated-price",
+      "guard": "clearing fills a negotiated commitment at its negotiated price",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 0 to be greater than 100",
+        "clearing properties fills each commitment at its negotiated price, or else the offer price, never above the offer price :: Error: Property failed after 3 tests :: caused by AssertionError: expected 1 to be +0 // Object.is equality",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 40 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 16 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments that cannot clear at their own price left out :: Error: Property failed after 40 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }",
+        "negotiated price (S5) fills a negotiated commitment at its own price and the rest at the offer price :: AssertionError: expected [ { …(3) }, { …(3) } ] to deeply equal [ { …(3) }, { …(3) } ]",
+        "negotiated price (S5) fills a buyer whose max is below the offer price but at its negotiated price, and skips one a cent below :: AssertionError: expected [] to deeply equal [ …(2) ]",
+        "negotiated price (S5) skips a negotiated price below a floor raised after it was agreed, and fills one at the floor :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]",
+        "negotiated price (S5) skips a negotiated price above the offer price :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(10) } to match object { status: 'filled', …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clear-max-price",
+      "guard": "clearing skips a commitment whose max is below its own price",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 89 to be greater than 100",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 2 tests :: caused by AssertionError: expected 0 to be greater than or equal to 1",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 2 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 2 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments that cannot clear at their own price left out :: Error: Property failed after 2 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }",
+        "buyer max price fills a buyer whose max is the price and skips one whose max is a cent below :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]",
+        "buyer max price frees the capacity a priced-out buyer would have taken for a later one :: AssertionError: expected [ …(2) ] to deeply equal [ …(2) ]",
+        "buyer max price does not count a priced-out commitment toward its agent's cap :: AssertionError: expected { …(6) } to match object { unlocked: true, fills: [ { …(2) } ] }",
+        "minimum pool after trimming stays locked when a buyer's max price drops the pool below the minimum :: AssertionError: expected { …(6) } to match object { unlocked: false, fills: [] }",
+        "negotiated price (S5) fills a buyer whose max is below the offer price but at its negotiated price, and skips one a cent below :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clear-above-offer",
+      "guard": "clearing skips a negotiated price above the offer price",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties fills each commitment at its negotiated price, or else the offer price, never above the offer price :: Error: Property failed after 40 tests :: caused by AssertionError: expected 22 to be less than or equal to 21",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 40 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 40 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments that cannot clear at their own price left out :: Error: Property failed after 40 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }",
+        "negotiated price (S5) skips a negotiated price above the offer price :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clear-floor",
+      "guard": "clearing skips a negotiated price below a raised floor",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties never clears below the hidden floor :: Error: Property failed after 369 tests :: caused by AssertionError: expected 0 to be greater than or equal to 1",
+        "clearing properties fills only commitments evaluatePool accepted, each once and whole :: Error: Property failed after 369 tests :: caused by AssertionError: expected 1 to be undefined // Object.is equality",
+        "clearing properties fills first come first served and skips an eligible commitment only when it does not fit :: Error: Property failed after 369 tests :: caused by AssertionError: expected [ Array(1) ] to deeply equal []",
+        "clearing properties gives the same result with the commitments that cannot clear at their own price left out :: Error: Property failed after 369 tests :: caused by AssertionError: expected { …(6) } to deeply equal { …(6) }",
+        "negotiated price (S5) skips a negotiated price below a floor raised after it was agreed, and fills one at the floor :: AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clear-fill-price",
+      "guard": "each fill carries its commitment's own price",
+      "verdict": "killed",
+      "failedTests": [
+        "clearing properties generates enough of each kind of case that no property below holds vacuously :: AssertionError: expected 0 to be greater than 100",
+        "clearing properties never fills above a buyer's max price :: Error: Property failed after 16 tests :: caused by AssertionError: expected 4 to be greater than or equal to 5",
+        "clearing properties fills each commitment at its negotiated price, or else the offer price, never above the offer price :: Error: Property failed after 3 tests :: caused by AssertionError: expected 1 to be +0 // Object.is equality",
+        "negotiated price (S5) fills a negotiated commitment at its own price and the rest at the offer price :: AssertionError: expected [ { …(3) }, { …(3) } ] to deeply equal [ { …(3) }, { …(3) } ]",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected { …(11) } to match object { status: 'filled', …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-match-rule",
+      "guard": "the trigger refuses a commitment for another rule than its negotiation's",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected { rule: null, …(4) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-match-terms",
+      "guard": "the trigger refuses a commitment under other terms than its negotiation's",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected null to be 'commitments_negotiated_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-match-visit",
+      "guard": "the trigger refuses a commitment for another visit than its negotiation's",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected { …(5) } to deeply equal { …(5) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-commitment-fixed-negotiation",
+      "guard": "a commitment's negotiation and negotiated price never change",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards refuses, as the runtime role, a commitment that differs from its negotiation in any field, and keeps a matching one fixed :: AssertionError: expected 'commitments_cancel_once' to be 'commitments_cancel_only' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-rounds-in-order",
+      "guard": "rounds run 1, 2, 3 with no gap",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps rounds in order, at most three, never rising :: AssertionError: expected null to be 'negotiation_rounds_in_order' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-rounds-never-rise",
+      "guard": "the merchant's price never rises from one round to the next",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps rounds in order, at most three, never rising :: AssertionError: expected null to be 'negotiation_rounds_never_rise' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-negotiations-append-only",
+      "guard": "negotiations refuse UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps negotiations and rounds append-only for every role :: AssertionError: expected { updateNegotiation: null, …(5) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-negotiations-no-truncate",
+      "guard": "negotiations refuse TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps negotiations and rounds append-only for every role :: AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-rounds-append-only",
+      "guard": "rounds refuse UPDATE and DELETE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps negotiations and rounds append-only for every role :: AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-rounds-no-truncate",
+      "guard": "rounds refuse TRUNCATE",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps negotiations and rounds append-only for every role :: AssertionError: expected { …(6) } to deeply equal { …(6) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-grants",
+      "guard": "the runtime role may only select and insert negotiations and rounds",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards grants the runtime role select and insert on negotiations and rounds, and nothing more :: AssertionError: expected [ …(2) ] to deeply equal [ …(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-round-range",
+      "guard": "a round is between 1 and 3",
+      "verdict": "killed",
+      "failedTests": [
+        "database guards keeps rounds in order, at most three, never rising :: AssertionError: expected null to be 'negotiation_rounds_round_range' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-once-per-occurrence",
+      "guard": "one negotiation per agent per rule occurrence",
+      "verdict": "killed",
+      "failedTests": [
+        "one negotiation per visit answers two simultaneous first bids with one round and one busy :: AssertionError: expected [ true, true ] to deeply equal [ false, true ]",
+        "database guards refuses a second negotiation for the same visit :: AssertionError: expected null to be 'negotiations_once_per_occurrence' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "db-negotiation-once",
+      "guard": "a negotiation makes at most one commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "counter-offers commits once per negotiation, takes no round after, and replays the same submission :: AssertionError: expected { ok: true, replayed: false, …(2) } to match object { ok: false, …(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

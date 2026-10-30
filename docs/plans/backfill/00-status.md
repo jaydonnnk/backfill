@@ -8,7 +8,8 @@ Updated: 2026-10-30.
 In the user's words: "update the pitch, tech stack and build plan for the Singapore steer: path A plus B, with E as a stretch. Add the Muse custom connector Day 0 check."
 Pitch in [../../pitch.md](../../pitch.md); S2, S4 and S7 changed, S6b (WhatsApp) added as a stretch.
 - Day 0 checks: model IDs done in S1 (below); the Muse custom connector check passed on 2026-10-29 (S4, below); the others not started.
-- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), on `main` at `ded7a05`, migrations `0004` and `0005` on Neon.
+- Slices: S1 done 2026-10-27, reviewed and fixed 2026-10-28; S2 done 2026-10-28 and merged to `main` at `dfd257c`; S3 done 2026-10-28, reviewed and fixed 2026-10-28 (below), merged to `main` at `97c1024`, migration `0003` on Neon; S4 done 2026-10-29 (below), merged to `main` at `ded7a05`, migrations `0004` and `0005` on Neon; S5 done 2026-10-30 (below) on its branch only, migrations `0006` and `0007` not on Neon.
+- `main` is at `96900fb`: S4's code at `ded7a05` plus four status-only commits.
 
 ### S1 tracer bullet, 2026-10-27
 
@@ -282,7 +283,7 @@ The user minted the agent `muse-user` and added `https://backfill-9d0x.onrender.
 ### S5 negotiation, 2026-10-30
 
 Branch: `backfill/slice-5-negotiation`, cut from `main` at `96900fb`.
-In progress.
+Code done and tested locally; not pushed, not on Neon, not on Render.
 
 Decisions, taken before coding; the user picked the recommended option for each on 2026-10-30:
 - **Price model:** a counter-offer sets the price per cover of one buyer's commitment only.
@@ -298,3 +299,34 @@ At most 3 rounds, then refusal; the HMAC token names its stored round, and one n
 
 Authorizations, in the user's words:
 - 2026-10-30, answering the open decisions: "Per-commitment price (Recommended)", "Buyer via MCP, pre-submit (Recommended)", "Table, 1 per occurrence (Recommended)", "Fake HTTP + 1 live, cap US$0.10 (Recommended)".
+- 2026-10-30, for the local work after the code: "Local work first".
+
+Built:
+- Migration `0006_s5_negotiations` (generated): `negotiations` (one per agent, rule and visit date, with fixed covers and terms version) and `negotiation_rounds` (rounds 1 to 3, the bid, the model's proposal and why it did or did not count, the status and the merchant's price after the round); `commitments.negotiation_id` (at most one commitment per negotiation) and `negotiated_price_cents`; `clearing_fills.price_per_cover_cents`, NOT NULL with no default.
+- Migration `0007_s5_negotiation_triggers` (custom): `commitments_until_cleared` now also fixes the two new commitment columns; `commitments_negotiated_match` refuses a commitment whose agent, rule, terms version, visit date, covers or price differ from its negotiation and that negotiation's latest round; `negotiation_rounds_in_order` keeps rounds in order with no gap and the merchant's price never rising; both new tables are append-only and refuse TRUNCATE for every role; `backfill_app` gets SELECT and INSERT on both.
+- `src/domain/negotiation/rules.ts`: at most 3 rounds, at most 250 bps of the list price conceded per round, rounded down; `judgeProposal` refuses a proposal that rises, concedes more than one step, falls below the bid or below the floor; `settleRound` holds at the previous price on any refused or missing proposal, and closes when the previous price is below a raised floor or above the offer price.
+- `src/domain/negotiation/counter-offer.ts`: a strict `CounterOffer` signed with HMAC-SHA256 under `NEGOTIATION_SIGNING_SECRET` (at least 32 characters), verified in constant time; a token with extra parts, a re-encoded signature or a payload that is not a valid offer is refused.
+- `src/lib/negotiation/merchant-agent.ts`: `sparkMerchant` asks Muse Spark for a price per cover with the public numbers and the round's bounds, never the floor; any failure becomes a hold.
+- `src/lib/negotiation/service.ts` and the MCP tool `negotiate_offer`, offered only when the server has the signing secret: the same refusals as submit for availability, terms, weekday, deadline and cap, plus `round_limit`, `negotiation_mismatch`, `negotiation_closed`, `negotiation_used` and `negotiation_busy`; the model is called outside any transaction and the round stored under its primary key.
+- `submit_commitment` takes an optional `counterOffer`: it must verify, name this agent and these arguments, be its negotiation's latest round and meet the current floor, or the reply is `counter_offer_invalid`; then `max_price_below_counter_price` and `counter_offer_used`.
+The per-agent cap counts each held commitment at its own price.
+- `clear()` fills each commitment at its own price: the negotiated price, or else the offer price, and only when that is at or below its max, at or below the offer price and at or above the floor.
+The stored fill and `get_commitment_status` carry that price.
+- The mutation runner takes several edits per mutation, so an app check and the trigger behind it can be removed together.
+
+Evidence:
+- **[verified]** Typecheck and lint clean; 194 tests pass (130 unit, 64 integration) on a local PostgreSQL 18 through `TEST_DATABASE_URL`.
+- **[verified]** `tests/integration/s5-negotiation.test.ts` drives the route's handler with the SDK's MCP client, connected as a login role that is only a member of `backfill_app`, with the real Meta provider and its fetch faked at the HTTP boundary.
+It covers the exit: a proposal below the floor (899 against a floor of 903) is recorded `below_floor`, holds with the same reply as any hold, cannot be committed with a token signed by another secret, with a token signed by the right secret, or by a direct insert as the runtime role, and never reaches a commitment or a clearing; the held counter commits and clears at 907 while unnegotiated commitments clear at 938.
+It also covers each round outcome, the round limit, model failure, every refusal, races for the first and second round, counter-offer misuse, idempotency, the cap at the negotiated price, a floor raised after a counter, and the database guards and grants.
+- **[verified]** Mutations in [evidence/s5-negotiation](evidence/s5-negotiation/README.md), at `7a5382b`: all 68 killed on an AssertionError, each file restored byte-identical and each rerun green.
+A first run, at `2b2e58c`, gave 58 killed and 10 survivors, all test gaps, closed in `7a5382b`; 2 of its reruns failed on unmutated files, most likely chance collisions of random ids with the floor's digits in two leak checks, also fixed there.
+- Known limit: `counter_offer_invalid` for a token that was valid, and `negotiation_closed`, each tell a buyer that the floor rose past a price it already knows (or that the terms changed); neither names the floor.
+- Known limit: `sparkMerchant` turns every error into a hold, including a wrong key, an unpriced model or a code bug, so a broken model setup looks like a stubborn merchant to the buyer; each failure is logged as `negotiation.proposal_failed` and recorded in `llm_calls`.
+
+Not done:
+- **[unknown]** The live Spark negotiation (one, capped at US$0.10): no script exists yet, and whether `NEGOTIATION_SIGNING_SECRET` is set locally is unknown.
+- Neon: migrations `0006` and `0007` are not applied.
+`0006` adds a NOT NULL column to `clearing_fills` with no default, so it needs 0 fill rows on Neon; the exit occurrence of 2026-11-03 becomes binding at 12:00 SGT and clears at its first status read after that.
+- Render: whether `NEGOTIATION_SIGNING_SECRET` is set there is unknown; without it `negotiate_offer` is not offered.
+- The branch is not pushed and has no CI run; `main` is not fast-forwarded.

@@ -84,7 +84,7 @@ Each slice ends with its tests green and its exit check done.
 - Commitments are binding until their deadline; idempotency key per agent.
 - Exit: a real Muse account submits a commitment against the Render URL; if the Day 0 check failed, Claude does.
 
-### S5 - Negotiation (Oct 29-30)
+### S5 - Negotiation (Oct 29-30) - done 2026-10-30
 
 - `src/domain/negotiation`: max 3 rounds, signed counter-offers (HMAC), refusal at round limit.
 - Muse Spark proposes; the domain validates every proposal against both limits before it counts.

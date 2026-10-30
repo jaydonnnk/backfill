@@ -1,0 +1,514 @@
+[
+  {
+    "id": "rules-max-rounds",
+    "guard": "a negotiation has at most 3 rounds",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "export const MAX_ROUNDS = 3;",
+    "to": "export const MAX_ROUNDS = 4;"
+  },
+  {
+    "id": "rules-concession-bps",
+    "guard": "one round concedes at most 250 bps of the list price",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "export const MAX_CONCESSION_BPS = 250;",
+    "to": "export const MAX_CONCESSION_BPS = 500;"
+  },
+  {
+    "id": "rules-concession-rounding",
+    "guard": "the concession step rounds down, so it never exceeds the published basis points",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "return Math.floor((rule.listPriceCents * MAX_CONCESSION_BPS) / BASIS_POINTS);",
+    "to": "return Math.ceil((rule.listPriceCents * MAX_CONCESSION_BPS) / BASIS_POINTS);"
+  },
+  {
+    "id": "judge-rises",
+    "guard": "a proposal above the merchant's previous price does not count",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (proposedCents > ctx.previousPriceCents) return { ok: false, reason: \"rises\" };",
+    "to": ""
+  },
+  {
+    "id": "judge-concedes-too-much",
+    "guard": "a proposal more than one concession step down does not count",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (proposedCents < ctx.previousPriceCents - maxConcessionCents(ctx.rule)) return { ok: false, reason: \"concedes_too_much\" };",
+    "to": ""
+  },
+  {
+    "id": "judge-below-bid",
+    "guard": "a proposal below the buyer's bid does not count",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (proposedCents < ctx.bidCents) return { ok: false, reason: \"below_bid\" };",
+    "to": ""
+  },
+  {
+    "id": "judge-below-floor",
+    "guard": "a proposal below the hidden floor does not count",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (!meetsFloor(ctx.rule.terms, proposedCents)) return { ok: false, reason: \"below_floor\" };",
+    "to": ""
+  },
+  {
+    "id": "start-round-limit",
+    "guard": "a round after the last is refused",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (ctx.round > MAX_ROUNDS) return { ok: false, reason: \"round_limit\" };",
+    "to": "if (ctx.round > MAX_ROUNDS + 1) return { ok: false, reason: \"round_limit\" };"
+  },
+  {
+    "id": "start-needs-proposal",
+    "guard": "a bid at the merchant's price is accepted without asking the model",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "needsProposal: ctx.bidCents < ctx.previousPriceCents",
+    "to": "needsProposal: ctx.bidCents <= ctx.previousPriceCents"
+  },
+  {
+    "id": "settle-closed-floor",
+    "guard": "a negotiation whose previous price is below a raised floor closes",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (!meetsFloor(ctx.rule.terms, ctx.previousPriceCents) || ctx.previousPriceCents > offerPriceCents(ctx.rule)) return { status: \"closed\" };",
+    "to": "if (ctx.previousPriceCents > offerPriceCents(ctx.rule)) return { status: \"closed\" };"
+  },
+  {
+    "id": "settle-closed-offer",
+    "guard": "a negotiation whose previous price is above the offer price closes",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (!meetsFloor(ctx.rule.terms, ctx.previousPriceCents) || ctx.previousPriceCents > offerPriceCents(ctx.rule)) return { status: \"closed\" };",
+    "to": "if (!meetsFloor(ctx.rule.terms, ctx.previousPriceCents)) return { status: \"closed\" };"
+  },
+  {
+    "id": "settle-no-proposal-holds",
+    "guard": "a round the model gave no proposal for holds",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (proposedCents === null) return { status: \"held\", counterCents: ctx.previousPriceCents };",
+    "to": "if (proposedCents === null) return { status: \"countered\", counterCents: ctx.previousPriceCents };"
+  },
+  {
+    "id": "settle-rejected-holds",
+    "guard": "a proposal outside the limits holds at the previous price, never at the proposal",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "if (!verdict.ok) return { status: \"held\", counterCents: ctx.previousPriceCents, proposal };",
+    "to": "if (!verdict.ok) return { status: \"held\", counterCents: proposedCents, proposal };"
+  },
+  {
+    "id": "settle-accepted-at-bid",
+    "guard": "a proposal equal to the bid is an acceptance",
+    "file": "src/domain/negotiation/rules.ts",
+    "from": "proposedCents === ctx.bidCents ? \"accepted\"",
+    "to": "proposedCents === ctx.bidCents ? \"countered\""
+  },
+  {
+    "id": "co-strict",
+    "guard": "a counter-offer names no field beyond its own",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "export const CounterOffer = z.strictObject({",
+    "to": "export const CounterOffer = z.object({"
+  },
+  {
+    "id": "co-secret-length",
+    "guard": "a signing secret shorter than 32 characters is refused",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "if (secret.length < MIN_SECRET_LENGTH) throw new Error(\"negotiation signing secret is too short\");",
+    "to": ""
+  },
+  {
+    "id": "co-parts",
+    "guard": "a token with more than two parts is refused",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "if (parts.length !== 2) return null;",
+    "to": "if (parts.length < 2) return null;"
+  },
+  {
+    "id": "co-reencode",
+    "guard": "a signature with characters base64url skips is refused",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "if (given.toString(\"base64url\") !== signature) return null;",
+    "to": ""
+  },
+  {
+    "id": "co-mac",
+    "guard": "a token not signed with the secret is refused",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "if (given.length !== expected.length || !timingSafeEqual(given, expected)) return null;",
+    "to": "if (given.length !== expected.length) return null;"
+  },
+  {
+    "id": "co-verify-parse",
+    "guard": "a well-signed payload that is not a valid offer is refused",
+    "file": "src/domain/negotiation/counter-offer.ts",
+    "from": "return parsed.success ? parsed.data : null;",
+    "to": "return parsed.success ? parsed.data : (json as CounterOffer);"
+  },
+  {
+    "id": "neg-unavailable",
+    "guard": "negotiate_offer refuses a rule whose offer price is below its floor",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (!row || !rule || !available(rule)) throw new Refused(\"offer_unavailable\");",
+    "to": "if (!row || !rule) throw new Refused(\"offer_unavailable\");"
+  },
+  {
+    "id": "neg-stale-terms",
+    "guard": "negotiate_offer refuses stale terms",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (input.termsVersion !== rule.termsVersion) throw new Refused(\"stale_terms\");",
+    "to": ""
+  },
+  {
+    "id": "neg-weekday",
+    "guard": "negotiate_offer refuses a date off the offer's weekday",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (!occurrence) throw new Refused(\"not_on_offer_weekday\");",
+    "to": "if (!occurrence) throw new Error(\"no occurrence\");"
+  },
+  {
+    "id": "neg-deadline",
+    "guard": "negotiate_offer refuses at the deadline itself",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (now >= deadlineOf(rule, input.visitDate)) throw new Refused(\"past_deadline\");",
+    "to": "if (now > deadlineOf(rule, input.visitDate)) throw new Refused(\"past_deadline\");"
+  },
+  {
+    "id": "neg-agent-cap",
+    "guard": "negotiate_offer refuses covers over the per-agent cap",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (input.covers > rule.terms.perAgentCapCovers) throw new Refused(\"over_agent_cap\");",
+    "to": ""
+  },
+  {
+    "id": "neg-mismatch",
+    "guard": "one negotiation per visit, with fixed covers",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (existing && existing.covers !== input.covers) throw new Refused(\"negotiation_mismatch\");",
+    "to": ""
+  },
+  {
+    "id": "neg-closed-terms",
+    "guard": "a negotiation started under older terms takes no more rounds",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (existing && existing.termsVersion !== rule.termsVersion) throw new Refused(\"negotiation_closed\");",
+    "to": ""
+  },
+  {
+    "id": "neg-used",
+    "guard": "a negotiation that made a commitment takes no more rounds",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (used) throw new Refused(\"negotiation_used\");",
+    "to": ""
+  },
+  {
+    "id": "neg-previous-price",
+    "guard": "each round starts from the merchant's last counter",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "previousPriceCents: last?.counterCents ?? offerPriceCents(rule)",
+    "to": "previousPriceCents: offerPriceCents(rule)"
+  },
+  {
+    "id": "neg-busy-first-round",
+    "guard": "of two simultaneous first bids, the second is answered negotiation_busy",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (!created) throw new Refused(\"negotiation_busy\");",
+    "to": "if (!created) throw new Error(\"lost the race\");"
+  },
+  {
+    "id": "neg-busy-mapping",
+    "guard": "a round lost to a simultaneous bid is answered negotiation_busy",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "if (constraintOf(err) === \"negotiation_rounds_pkey\" || constraintOf(err) === \"negotiation_rounds_in_order\") return { ok: false, reason: \"negotiation_busy\" };",
+    "to": ""
+  },
+  {
+    "id": "neg-sign-counter",
+    "guard": "the signed counter-offer carries the merchant's price after the round",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "priceCents: counterCents,",
+    "to": "priceCents: input.bidCents,"
+  },
+  {
+    "id": "neg-store-verdict",
+    "guard": "a round records why a proposal did not count",
+    "file": "src/lib/negotiation/service.ts",
+    "from": "(outcome.proposal.verdict.ok ? \"ok\" : outcome.proposal.verdict.reason)",
+    "to": "\"ok\""
+  },
+  {
+    "id": "spark-error-holds",
+    "guard": "a model failure becomes a hold, not an error to the buyer",
+    "file": "src/lib/negotiation/merchant-agent.ts",
+    "from": "      return null;\n    }",
+    "to": "      throw err;\n    }"
+  },
+  {
+    "id": "mcp-tool-conditional",
+    "guard": "negotiate_offer is offered only with a signing secret",
+    "file": "src/lib/mcp/server.ts",
+    "from": "  if (negotiation) {",
+    "to": "  if (true) {"
+  },
+  {
+    "id": "mcp-submit-secret",
+    "guard": "submit_commitment verifies counter-offers with the server's secret",
+    "file": "src/lib/mcp/server.ts",
+    "from": "submitCommitment(db, agentId, input, clock, negotiation?.secret)",
+    "to": "submitCommitment(db, agentId, input, clock, \"x\".repeat(32))"
+  },
+  {
+    "id": "submit-counter-agent",
+    "guard": "a counter-offer is refused for another agent, by the app check and by the trigger",
+    "edits": [
+      {
+        "file": "src/lib/commitments/service.ts",
+        "from": "counter.agentId === agentId &&",
+        "to": "true &&"
+      },
+      {
+        "file": "drizzle/0007_s5_negotiation_triggers.sql",
+        "from": "IF n.agent_id IS DISTINCT FROM NEW.agent_id OR n.rule_id",
+        "to": "IF n.rule_id"
+      }
+    ]
+  },
+  {
+    "id": "submit-counter-covers",
+    "guard": "a counter-offer is refused for other covers, by the app check and by the trigger",
+    "edits": [
+      {
+        "file": "src/lib/commitments/service.ts",
+        "from": "counter.visitDate === input.visitDate &&\n      counter.covers === input.covers;",
+        "to": "counter.visitDate === input.visitDate;"
+      },
+      {
+        "file": "drizzle/0007_s5_negotiation_triggers.sql",
+        "from": " OR n.covers IS DISTINCT FROM NEW.covers",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "submit-counter-latest-price",
+    "guard": "an earlier round's counter-offer is refused, by the app check and by the trigger",
+    "edits": [
+      {
+        "file": "src/lib/commitments/service.ts",
+        "from": "if (!latest || latest.round !== counter.round || latest.counterCents !== counter.priceCents || !meetsFloor",
+        "to": "if (!latest || !meetsFloor"
+      },
+      {
+        "file": "drizzle/0007_s5_negotiation_triggers.sql",
+        "from": "\n      OR latest IS DISTINCT FROM NEW.negotiated_price_cents THEN",
+        "to": " THEN"
+      }
+    ]
+  },
+  {
+    "id": "submit-counter-trigger-mapping",
+    "guard": "a commitment the trigger refuses is answered counter_offer_invalid",
+    "edits": [
+      {
+        "file": "src/lib/commitments/service.ts",
+        "from": "if (!latest || latest.round !== counter.round || latest.counterCents !== counter.priceCents || !meetsFloor",
+        "to": "if (!latest || !meetsFloor"
+      },
+      {
+        "file": "src/lib/commitments/service.ts",
+        "from": "if (constraint === \"commitments_negotiated_match\") return { ok: false, reason: \"counter_offer_invalid\" };",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "submit-counter-floor",
+    "guard": "a counter-offer below a floor raised after it is refused",
+    "file": "src/lib/commitments/service.ts",
+    "from": " || !meetsFloor(rule.terms, counter.priceCents)) {",
+    "to": ") {"
+  },
+  {
+    "id": "submit-max-below-counter",
+    "guard": "a max price below the counter-offer's price is refused",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (input.maxPricePerCoverCents < counter.priceCents) throw new Refused(\"max_price_below_counter_price\");",
+    "to": ""
+  },
+  {
+    "id": "submit-counter-replaces-offer-check",
+    "guard": "a counter-offer lets the max price sit below the offer price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "} else if (input.maxPricePerCoverCents < price) throw new Refused(\"max_price_below_offer_price\");",
+    "to": "}\n      if (input.maxPricePerCoverCents < price) throw new Refused(\"max_price_below_offer_price\");"
+  },
+  {
+    "id": "submit-stores-negotiation",
+    "guard": "a commitment made with a counter-offer stores its negotiation and price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "const negotiated = counter ? { negotiationId: counter.negotiationId, negotiatedPriceCents: counter.priceCents } : {};",
+    "to": "const negotiated = {};"
+  },
+  {
+    "id": "submit-once-mapping",
+    "guard": "a second commitment from one negotiation is answered counter_offer_used",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (constraint === \"commitments_negotiation_once\") return { ok: false, reason: \"counter_offer_used\" };",
+    "to": ""
+  },
+  {
+    "id": "submit-idempotency-negotiation",
+    "guard": "a replay must name the same negotiation",
+    "file": "src/lib/commitments/service.ts",
+    "from": " &&\n          existing.negotiationId === (counter?.negotiationId ?? null);",
+    "to": ";"
+  },
+  {
+    "id": "submit-cap-own-price",
+    "guard": "the per-agent cap counts each commitment at its own price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "c.maxPricePerCoverCents >= (c.negotiatedPriceCents ?? price)",
+    "to": "c.maxPricePerCoverCents >= price"
+  },
+  {
+    "id": "store-fill-price",
+    "guard": "a stored fill keeps the commitment's own price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "covers: f.covers, pricePerCoverCents: f.pricePerCoverCents })));",
+    "to": "covers: f.covers, pricePerCoverCents: result.pricePerCoverCents })));"
+  },
+  {
+    "id": "status-fill-price",
+    "guard": "a filled commitment reports its own price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "status: \"filled\", pricePerCoverCents: fill.pricePerCoverCents }",
+    "to": "status: \"filled\", pricePerCoverCents: fill.pricePerCoverCents + 1 }"
+  },
+  {
+    "id": "clear-negotiated-price",
+    "guard": "clearing fills a negotiated commitment at its negotiated price",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "const price = c.negotiatedPriceCents ?? offerPrice;",
+    "to": "const price = offerPrice;"
+  },
+  {
+    "id": "clear-max-price",
+    "guard": "clearing skips a commitment whose max is below its own price",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "if (price > c.maxPricePerCoverCents || price > offerPrice",
+    "to": "if (price > offerPrice"
+  },
+  {
+    "id": "clear-above-offer",
+    "guard": "clearing skips a negotiated price above the offer price",
+    "file": "src/domain/clearing/clear.ts",
+    "from": " || price > offerPrice || ",
+    "to": " || "
+  },
+  {
+    "id": "clear-floor",
+    "guard": "clearing skips a negotiated price below a raised floor",
+    "file": "src/domain/clearing/clear.ts",
+    "from": " || !meetsFloor(rule.terms, price)) return null;",
+    "to": ") return null;"
+  },
+  {
+    "id": "clear-fill-price",
+    "guard": "each fill carries its commitment's own price",
+    "file": "src/domain/clearing/clear.ts",
+    "from": "pricePerCoverCents: clearsAt(rule, price, commitment)!",
+    "to": "pricePerCoverCents: price"
+  },
+  {
+    "id": "db-match-rule",
+    "guard": "the trigger refuses a commitment for another rule than its negotiation's",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": " OR n.rule_id IS DISTINCT FROM NEW.rule_id",
+    "to": ""
+  },
+  {
+    "id": "db-match-terms",
+    "guard": "the trigger refuses a commitment under other terms than its negotiation's",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": " OR n.terms_version IS DISTINCT FROM NEW.terms_version",
+    "to": ""
+  },
+  {
+    "id": "db-match-visit",
+    "guard": "the trigger refuses a commitment for another visit than its negotiation's",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "\n      OR n.visit_date IS DISTINCT FROM (NEW.visit_at AT TIME ZONE 'Asia/Singapore')::date",
+    "to": ""
+  },
+  {
+    "id": "db-commitment-fixed-negotiation",
+    "guard": "a commitment's negotiation and negotiated price never change",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "NEW.committed_at, NEW.negotiation_id, NEW.negotiated_price_cents)\n        IS DISTINCT FROM (OLD.id, OLD.rule_id, OLD.agent_id, OLD.idempotency_key, OLD.terms_version, OLD.covers, OLD.max_price_per_cover_cents, OLD.visit_at, OLD.committed_at, OLD.negotiation_id, OLD.negotiated_price_cents)",
+    "to": "NEW.committed_at)\n        IS DISTINCT FROM (OLD.id, OLD.rule_id, OLD.agent_id, OLD.idempotency_key, OLD.terms_version, OLD.covers, OLD.max_price_per_cover_cents, OLD.visit_at, OLD.committed_at)"
+  },
+  {
+    "id": "db-rounds-in-order",
+    "guard": "rounds run 1, 2, 3 with no gap",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "IF NEW.round <> COALESCE(last_round, 0) + 1 THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "db-rounds-never-rise",
+    "guard": "the merchant's price never rises from one round to the next",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "IF last_counter IS NOT NULL AND NEW.counter_cents > last_counter THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "db-negotiations-append-only",
+    "guard": "negotiations refuse UPDATE and DELETE",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "BEFORE UPDATE OR DELETE ON negotiations FOR EACH ROW EXECUTE",
+    "to": "BEFORE UPDATE OR DELETE ON negotiations FOR EACH ROW WHEN (false) EXECUTE"
+  },
+  {
+    "id": "db-negotiations-no-truncate",
+    "guard": "negotiations refuse TRUNCATE",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "BEFORE TRUNCATE ON negotiations FOR EACH STATEMENT EXECUTE",
+    "to": "BEFORE TRUNCATE ON negotiations FOR EACH STATEMENT WHEN (false) EXECUTE"
+  },
+  {
+    "id": "db-rounds-append-only",
+    "guard": "rounds refuse UPDATE and DELETE",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "BEFORE UPDATE OR DELETE ON negotiation_rounds FOR EACH ROW EXECUTE",
+    "to": "BEFORE UPDATE OR DELETE ON negotiation_rounds FOR EACH ROW WHEN (false) EXECUTE"
+  },
+  {
+    "id": "db-rounds-no-truncate",
+    "guard": "rounds refuse TRUNCATE",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "BEFORE TRUNCATE ON negotiation_rounds FOR EACH STATEMENT EXECUTE",
+    "to": "BEFORE TRUNCATE ON negotiation_rounds FOR EACH STATEMENT WHEN (false) EXECUTE"
+  },
+  {
+    "id": "db-grants",
+    "guard": "the runtime role may only select and insert negotiations and rounds",
+    "file": "drizzle/0007_s5_negotiation_triggers.sql",
+    "from": "GRANT SELECT, INSERT ON negotiations, negotiation_rounds TO backfill_app;",
+    "to": "GRANT SELECT, INSERT, UPDATE ON negotiations, negotiation_rounds TO backfill_app;"
+  },
+  {
+    "id": "db-round-range",
+    "guard": "a round is between 1 and 3",
+    "file": "drizzle/0006_s5_negotiations.sql",
+    "from": "\"negotiation_rounds\".\"round\" between 1 and 3",
+    "to": "\"negotiation_rounds\".\"round\" between 1 and 4"
+  },
+  {
+    "id": "db-once-per-occurrence",
+    "guard": "one negotiation per agent per rule occurrence",
+    "file": "drizzle/0006_s5_negotiations.sql",
+    "from": ",\n\tCONSTRAINT \"negotiations_once_per_occurrence\" UNIQUE(\"agent_id\",\"rule_id\",\"visit_date\")",
+    "to": ""
+  },
+  {
+    "id": "db-negotiation-once",
+    "guard": "a negotiation makes at most one commitment",
+    "file": "drizzle/0006_s5_negotiations.sql",
+    "from": "ALTER TABLE \"commitments\" ADD CONSTRAINT \"commitments_negotiation_once\" UNIQUE(\"negotiation_id\");",
+    "to": "SELECT 1;"
+  }
+]
