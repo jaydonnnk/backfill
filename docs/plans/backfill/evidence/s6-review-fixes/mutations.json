@@ -1,0 +1,44 @@
+[
+  {
+    "id": "f1-rule-owner-check",
+    "guard": "apply_owner_change refuses a change whose rule belongs to another merchant",
+    "file": "drizzle/0012_s6_review_owner_change_rule.sql",
+    "from": " OR r.merchant_id IS DISTINCT FROM p_merchant_id THEN",
+    "to": " THEN"
+  },
+  {
+    "id": "f4-settle-in-dashboard",
+    "guard": "the merchant dashboard settles due occurrences, so a sellout shows without a buyer asking",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "  await settleDue(db, merchantId, clock);\n  const ruleRows",
+    "to": "  const ruleRows"
+  },
+  {
+    "id": "f4-settle-in-apply",
+    "guard": "applyPlan settles due occurrences before applying",
+    "file": "src/lib/onboarding/service.ts",
+    "from": "  await settleDue(db, merchantId, clock);\n  try {",
+    "to": "  try {"
+  },
+  {
+    "id": "f4-settle-in-confirm",
+    "guard": "a WhatsApp YES settles due occurrences before applying",
+    "file": "src/lib/whatsapp/service.ts",
+    "from": "  await settleDue(db, merchantId, () => now);\n",
+    "to": ""
+  },
+  {
+    "id": "f4-deadline-boundary",
+    "guard": "an occurrence settles exactly at its deadline",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (now >= deadlineOf(rule, visitDate)) await ensureClearing",
+    "to": "if (now > deadlineOf(rule, visitDate)) await ensureClearing"
+  },
+  {
+    "id": "f4-deadline-ignored",
+    "guard": "an occurrence before its deadline is not settled",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (now >= deadlineOf(rule, visitDate)) await ensureClearing",
+    "to": "if (now.getTime() > 0) await ensureClearing"
+  }
+]
