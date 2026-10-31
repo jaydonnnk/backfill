@@ -542,4 +542,6 @@ Each failed on an AssertionError before its fix.
 - **[verified]** Branch pushed to `origin/backfill/slice-6-review-fixes`.
 - **[verified]** Migration `0012` applied on Neon with `npm run db:migrate`: a read-only read before showed 12 migrations and `apply_owner_change` without the rule's merchant check; after, 13 migrations and the check present, `backfill_app` still with EXECUTE and PUBLIC without; rules (Demo Kopitiam 2500 bps v1, Singapore Test Restaurant 2000 bps v2, both capacity 20), 2 live commitments, 0 clearings and 1 owner change unchanged.
 - Once `settleDue` is deployed, the first merchant page view for Demo Kopitiam after 2026-11-03's deadline clears that occurrence and its 2 S4 commitments, as a buyer's status call would have.
-- Not done: `main` and Render; each waits for the user's yes.
+- 2026-10-31, for main: "Yes, ff and push main".
+- **[verified]** `main` fast-forwarded from `cc35e0b` to `0e7e091` and pushed; CI run 41178770080 on `main` passed.
+- Not done: the Render redeploy, which the user performs.
