@@ -61,7 +61,9 @@ async function main(baseUrl: string, mode: "record" | "replay", path: string): P
       models,
       now: () => new Date(),
       sleep: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-      leadMinutes: mode === "record" ? 4 : 2,
+      // A failing model call can burn three 60 s attempts, so the lead has to outlast the slowest
+      // buyer round or its submit lands after the deadline and is refused.
+      leadMinutes: mode === "record" ? 10 : 5,
       concurrency: 4,
       settleMs: 5000,
       out: (line) => console.log(line),
