@@ -99,6 +99,8 @@ describe("the S7 demo scene", () => {
     expect(s.phase).toBe("cleared");
     expect(s.buyers).toHaveLength(16);
     expect(s.buyers.filter((b) => b.soloUnlocks)).toEqual([]);
+    expect(s.buyers.filter((b) => b.outcome === "filled").map((b) => b.agentId).sort()).toEqual(filled);
+    expect(s.buyers.filter((b) => b.outcome === "not_filled")).toHaveLength(7);
     expect(s.pooled).toEqual({ covers: 38, unlocked: true, filledCovers: 16, soldOut: true });
     expect(s.plan).toEqual({ ...PLAN, verdict: "ok", applied: false });
     const [plan] = await t.admin`select model from wonder_plans where rule_id = ${result.ruleId}`;

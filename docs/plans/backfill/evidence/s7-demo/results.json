@@ -1,0 +1,170 @@
+{
+  "baseline": 334,
+  "results": [
+    {
+      "id": "solo-is-alone",
+      "guard": "solo clears each commitment as the only one in its occurrence",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected [ …(16) ] to deeply equal []",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-partial-minute",
+      "guard": "a deadline is at least the lead away when now is part way through a minute",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow closes at the first whole minute at least the lead away, on today's Singapore date :: AssertionError: expected 842 to be 843 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-midnight",
+      "guard": "a window ending exactly at midnight is allowed",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow refuses a window that would cross midnight, and only then :: AssertionError: expected null to match object { endMinute: 1440 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-singapore-date",
+      "guard": "the scene date is the Singapore date, not the UTC date",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow closes at the first whole minute at least the lead away, on today's Singapore date :: AssertionError: expected { visitDate: '2026-11-03', …(4) } to match object { visitDate: '2026-11-04', …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "retire-old-rules",
+      "guard": "a new scene retires the merchant's earlier rules from list_offers",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: AssertionError: expected 500 to be 680 // Object.is equality",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected { covers: 15, unlocked: true, …(2) } to deeply equal { covers: 5, unlocked: false, …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "wait-for-deadline",
+      "guard": "status calls wait for the deadline, so they clear the pool",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: sim-buyer-01: expected 'pending' to be 'filled' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "spend-cap",
+      "guard": "no model call starts once the billed cost reaches the cap",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected 6 to be 5 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "replay-plan-label",
+      "guard": "a replayed Wonder plan is stored as a replay, not as a live model's",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected 'muse-wonder-1.0' to be 'replay:muse-wonder-1.0' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-fill-outcome",
+      "guard": "a buyer whose commitment did not fill shows not filled",
+      "verdict": "survived",
+      "failedTests": [],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-sold-out",
+      "guard": "a pool that filled its whole capacity shows sold out",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { covers: 38, unlocked: true, …(2) } to deeply equal { covers: 38, unlocked: true, …(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-muse-agent",
+      "guard": "the Muse card shows the real Muse user's commitment, not the latest of any agent",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { …(7) } to deeply equal { …(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-only-changes",
+      "guard": "the stream sends a snapshot only when it changed",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream sends a snapshot only when it changes, pings while idle and ends at maxMs :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:…' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-heartbeat",
+      "guard": "an idle stream sends a ping",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream sends a snapshot only when it changes, pings while idle and ends at maxMs :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:…' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-abort",
+      "guard": "the stream stops when the request is aborted",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream keeps going after a failed read and stops when the request is aborted :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":2}\\n\\ndata:…' to be 'retry: 2000\\n\\ndata: {\"n\":2}\\n\\ndata:…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-survives-read-error",
+      "guard": "a failed read does not end the stream",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream keeps going after a failed read and stops when the request is aborted :: AssertionError: expected 'retry: 2000\\n\\n' to be 'retry: 2000\\n\\ndata: {\"n\":2}\\n\\ndata:…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}
