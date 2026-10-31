@@ -51,8 +51,10 @@
       "guard": "a new scene retires the merchant's earlier rules from list_offers",
       "verdict": "killed",
       "failedTests": [
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: AssertionError: expected 'cleared' to be 'open' // Object.is equality",
         "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: AssertionError: expected 500 to be 680 // Object.is equality",
-        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected { covers: 15, unlocked: true, …(2) } to deeply equal { covers: 5, unlocked: false, …(2) }"
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected { covers: 38, unlocked: true, …(2) } to deeply equal { covers: 5, unlocked: false, …(2) }",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: AssertionError: expected [ …(16) ] to deeply equal []"
       ],
       "fileErrors": [],
       "restoredByteIdentical": true,
@@ -94,8 +96,10 @@
     {
       "id": "snapshot-fill-outcome",
       "guard": "a buyer whose commitment did not fill shows not filled",
-      "verdict": "survived",
-      "failedTests": [],
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected [ 'sim-buyer-01', …(15) ] to deeply equal [ Array(9) ]"
+      ],
       "fileErrors": [],
       "restoredByteIdentical": true,
       "rerunGreen": true
