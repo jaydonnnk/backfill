@@ -543,3 +543,40 @@ Each failed on an AssertionError before its fix.
 - **[verified]** Migration `0012` applied on Neon with `npm run db:migrate`: a read-only read before showed 12 migrations and `apply_owner_change` without the rule's merchant check; after, 13 migrations and the check present, `backfill_app` still with EXECUTE and PUBLIC without; rules (Demo Kopitiam 2500 bps v1, Singapore Test Restaurant 2000 bps v2, both capacity 20), 2 live commitments, 0 clearings and 1 owner change unchanged.
 - Once `settleDue` is deployed, the first merchant page view for Demo Kopitiam after 2026-11-03's deadline clears that occurrence and its 2 S4 commitments, as a buyer's status call would have.
 - Not done: `main` and Render; each waits for the user's yes.
+
+### S7 buyer sim and live demo screen, 2026-10-31 (in progress)
+
+Branch: `backfill/slice-7-demo`, cut from `main` at `0e7e091`; `backfill/slice-6-review-fixes` (one status-only commit, `262edbd`) was not brought in.
+
+Decisions, taken before coding, in the user's words on 2026-10-31:
+- Scene: "Backfill Demo Cafe instea, no synthetic label. One new merchant on Neon ... Each run resets its rule so the deadline is a few minutes ahead, then the pool clears live on Render. Real rows untouched".
+This re-steers the cut-order note that synthetic merchants carry a test name.
+- Muse commitment: "Show it read-only beside the scene (Recommended)"; it stays in the Demo Kopitiam pool and the screen says so.
+- Tokens: "Mint once into .env.local (Recommended)". Spend cap: "US$5 hard cap". Wonder: "Record once, replay (Recommended)".
+- Taken by Claude: SSE polls Postgres once a second, since writes come from Render and from the scene command; recordings are JSON in `sim/buyers/recordings/`.
+- A rule cannot be reset for a second run on the same day, because a cleared occurrence and its Wonder plan are kept once per rule and date.
+So each run adds a new rule and retires the merchant's older ones by raising their hidden floor to the list price, which hides them from `list_offers` without moving a terms version.
+- The scene shows Wonder's plan but does not apply it: the merchant applies a plan, as in S6.
+
+Authorizations, in the user's words, 2026-10-31: "1. Fast-forward and push main", "2. Neon writes", "3. Live record run, US$5 cap", "4. Replay run as the exit"; then "Deployed, it shows Live" for the Render redeploy.
+
+Built:
+- `src/domain/demo/scene.ts`: the scene window (today in Singapore, deadline the first whole minute at least the lead away, refused past midnight) and solo vs pooled through the same `clear()`.
+- `sim/buyers`: 20 intents, a Muse Spark buyer decision, `npm run sim:mint`, and `npm run demo:scene -- <base-url> record|replay [recording]`, which talks to the MCP server with each buyer's own token, 4 at a time.
+- `src/lib/demo/snapshot.ts`, `src/lib/demo/sse.ts`, `/api/demo/stream` and `/demo`: the live screen, read only, with no floor and capacity only after a sellout.
+
+Evidence:
+- **[verified]** Typecheck and lint clean; 334 tests pass with `TEST_DATABASE_URL`; `git diff --check` clean.
+- **[verified]** Mutations in [evidence/s7-demo](evidence/s7-demo/README.md): 15 of 15 killed on the second run, one survivor fixed after the first.
+- **[verified]** CI run 41180996552 on `4e69dc1` passed.
+- **[verified]** A local replay run against `next dev` on a scratch database showed the screen live: 0 of 16 alone, pooled 38 covers, 16 filled and sold out, the plan card and the Muse card; no horizontal scroll at 375 px.
+- **[verified]** `main` fast-forwarded from `0e7e091` to `4e69dc1` and pushed; after the user's redeploy, Render answered `/demo` with 200.
+- **[verified]** Neon read only before: 13 migrations, 2 merchants, 2 rules, 2 live commitments, 0 clearings, 0 plans, no sim agents; 20 sim agents minted after.
+- **[verified]** First live record run on Render at 22:36 Singapore time, billed US$0.087038: the window was 22:40-23:40, so 12 buyers correctly declined a late-night slot, 1 committed 3 covers, and the pool stayed locked.
+7 buyers had no reply, with the cause not kept; the recording was not committed.
+- **[verified]** Neon read only after: merchant Backfill Demo Cafe, one more rule, one more commitment (`sim-buyer-17`), one locked clearing, 0 plans.
+- Fix since: the recording keeps each failure's name and first line, and buyers may use 2048 output tokens.
+
+Not done:
+- **[unknown]** Why 7 buyer calls failed.
+- A recording made during a Singapore afternoon, so buyers see an afternoon window, then the replay exit on Render.
