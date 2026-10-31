@@ -5,7 +5,7 @@ import { percent } from "@/domain/onboarding/replan";
 import { offerPriceCents } from "@/domain/offers/evaluate";
 import type { MerchantRule } from "@/domain/offers/schema";
 import { tokenSha256 } from "@/lib/agents/tokens";
-import { constraintOf, dollars, toRule } from "@/lib/commitments/service";
+import { constraintOf, dollars, settleDue, toRule } from "@/lib/commitments/service";
 import type { Db } from "@/lib/db/client";
 import { merchants, ownerChangeOutcomes, ownerChanges, rules, whatsappInbound, whatsappLinkCodes, whatsappLinks } from "@/lib/db/schema";
 import { recentAttempts } from "@/lib/llm-calls";
@@ -109,6 +109,8 @@ const APPLY_REFUSAL_TEXT: Record<string, string> = {
 async function confirm(db: Db, merchantId: string, name: string, now: Date): Promise<string> {
   const pending = await pendingChange(db, merchantId, now);
   if (!pending) return "Nothing is waiting for your confirmation. Tell me what to change, for example: make it 20% off.";
+  // Only a commitment still before its deadline should block the change, so settle the rest first.
+  await settleDue(db, merchantId, () => now);
   try {
     const [row] = await db.execute<{ version: number }>(sql`select apply_owner_change(${merchantId}::uuid, ${pending.id}::uuid) as version`);
     return `Done. ${name}'s offer is updated and buyers see the new terms now (terms version ${Number(row?.version)}).`;

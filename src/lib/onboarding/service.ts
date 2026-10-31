@@ -4,7 +4,7 @@ import { judgeDraft, judgePhoto, MenuDraft, ruleFromDraft, type RuleSettings } f
 import { judgePlan, type WonderPlan } from "@/domain/onboarding/replan";
 import { offerPriceCents } from "@/domain/offers/evaluate";
 import type { MerchantRule } from "@/domain/offers/schema";
-import { clockTime, constraintOf, toRule, WEEKDAY_NAMES } from "@/lib/commitments/service";
+import { clockTime, constraintOf, settleDue, toRule, WEEKDAY_NAMES } from "@/lib/commitments/service";
 import type { Db } from "@/lib/db/client";
 import { clearingFills, clearings, menuDrafts, offerPublications, planApplications, rules, wonderPlans } from "@/lib/db/schema";
 import { recentAttempts } from "@/lib/llm-calls";
@@ -148,7 +148,9 @@ async function plansOf(db: Db, ruleIds: string[]): Promise<PlanRow[]> {
 // one without a plan is judged against the current capacity.
 const soldOut = (o: OccurrenceRow, rule: MerchantRule | undefined, planned: boolean) => o.unlocked && (planned || (rule !== undefined && o.covers >= rule.capacityCovers));
 
-export async function dashboard(db: Db, merchantId: string): Promise<Dashboard> {
+// Settles the merchant's due occurrences first, so a sellout shows without any buyer asking.
+export async function dashboard(db: Db, merchantId: string, clock: Clock = () => new Date()): Promise<Dashboard> {
+  await settleDue(db, merchantId, clock);
   const ruleRows = await db.select().from(rules).where(eq(rules.merchantId, merchantId)).orderBy(asc(rules.weekday), asc(rules.startMinute));
   const published = new Set((await db.select({ ruleId: offerPublications.ruleId }).from(offerPublications).where(eq(offerPublications.merchantId, merchantId))).map((r) => r.ruleId));
   const ruleList = ruleRows.map(toRule);
@@ -181,7 +183,7 @@ export async function replanSoldOut(db: Db, merchant: { id: string; name: string
   return db.transaction(async (tx) => {
     const [lock] = await tx.execute<{ locked: boolean }>(sql`select pg_try_advisory_xact_lock(${PLAN_LOCK_KEY}) as locked`);
     if (!lock?.locked) return { status: "busy" };
-    const board = await dashboard(db, merchant.id);
+    const board = await dashboard(db, merchant.id, clock);
     const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
     const todo = board.occurrences.filter((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`)).slice(0, PLANS_PER_PASS);
     let count = 0;
@@ -238,9 +240,11 @@ const APPLY_REFUSALS: Record<string, Exclude<ApplyResult["status"], "applied">> 
   plan_applications_pkey: "already_applied",
 };
 
-// The merchant applies a plan: the rule takes its terms, and the terms version moves on.
-export async function applyPlan(db: Db, merchantId: string, planId: string): Promise<ApplyResult> {
+// The merchant applies a plan: the rule takes its terms, and the terms version moves on. Due
+// occurrences are settled first, so only a commitment still before its deadline counts as pending.
+export async function applyPlan(db: Db, merchantId: string, planId: string, clock: Clock = () => new Date()): Promise<ApplyResult> {
   if (!UUID.test(planId)) return { status: "not_found" };
+  await settleDue(db, merchantId, clock);
   try {
     const [row] = await db.execute<{ version: number }>(sql`select apply_wonder_plan(${merchantId}::uuid, ${planId}::uuid) as version`);
     return { status: "applied", termsVersion: Number(row?.version) };

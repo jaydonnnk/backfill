@@ -320,6 +320,23 @@ async function ensureClearing(db: Db, ruleId: string, visitDate: string): Promis
   });
 }
 
+// Clears every occurrence of the merchant's rules that has a live commitment, no clearing yet and a
+// deadline already passed. Otherwise an occurrence is cleared only when a buyer asks for its status,
+// and one no buyer asks about would stay pending for ever, hiding its sellout and blocking every
+// terms change on its rule.
+export async function settleDue(db: Db, merchantId: string, clock: Clock = () => new Date()): Promise<void> {
+  const due = await db.execute<{ rule_id: string; visit_date: string }>(sql`
+    select distinct c.rule_id, (c.visit_at at time zone 'Asia/Singapore')::date::text as visit_date
+    from commitments c join rules r on r.id = c.rule_id
+    where r.merchant_id = ${merchantId} and c.cancelled_at is null
+      and not exists (select 1 from clearings k where k.rule_id = c.rule_id and k.visit_date = (c.visit_at at time zone 'Asia/Singapore')::date)`);
+  const now = clock();
+  for (const { rule_id: ruleId, visit_date: visitDate } of due) {
+    const rule = toRule(one(await db.select().from(rules).where(eq(rules.id, ruleId))));
+    if (now >= deadlineOf(rule, visitDate)) await ensureClearing(db, ruleId, visitDate);
+  }
+}
+
 async function viewOf(db: Executor, row: CommitmentRow): Promise<CommitmentView> {
   const rule = toRule(one(await db.select().from(rules).where(eq(rules.id, row.ruleId))));
   const visitDate = singaporeLocal(row.visitAt).date;

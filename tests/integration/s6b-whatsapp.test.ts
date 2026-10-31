@@ -333,6 +333,18 @@ describe("changing the offer by message", () => {
     expect(await ruleNow(o.ruleId)).toMatchObject({ discount_bps: 2000 });
   });
 
+  it("settles a commitment whose deadline has passed before confirming, so only one still open blocks the change", async () => {
+    const o = await owner();
+    script = [change({ discountBps: 2000 })];
+    await ask(o, "make it 20% off");
+    // A Tuesday already past: its deadline went by, but no buyer asked for its status, so it was never cleared.
+    const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
+    await t.admin`insert into commitments ${t.admin({ rule_id: o.ruleId, agent_id: agent!.id, idempotency_key: "past", terms_version: 1, covers: 1, max_price_per_cover_cents: LIST, visit_at: new Date("2026-10-27T14:00:00+08:00"), committed_at: new Date("2026-10-27T09:00:00+08:00") })}`;
+    expect(await ask(o, "YES")).toContain("Done.");
+    expect(await ruleNow(o.ruleId)).toMatchObject({ discount_bps: 2000, terms_version: 2 });
+    expect(await t.admin`select unlocked from clearings where rule_id = ${o.ruleId} and visit_date = '2026-10-27'`).toEqual([{ unlocked: false }]);
+  });
+
   it("stops at the daily cap without calling the model, and asks a merchant with no or several offers to use the page", async () => {
     expect(OWNER_CHANGE_DAILY_CAP).toBe(30);
     const o = await owner();
@@ -507,6 +519,16 @@ describe("the database guards", () => {
     expect(await apply(cancelled)).toBe("owner_change_outcomes_pkey");
     expect(await failure(() => runtime`select cancel_owner_change(${o.id}::uuid, ${cancelled}::uuid)`)).toBe("owner_change_outcomes_pkey");
     expect(await ruleNow(o.ruleId)).toMatchObject({ discount_bps: 2000 });
+  });
+
+  it("refuses in SQL a change filed under one merchant that points at another merchant's rule", async () => {
+    const mine = await owner();
+    const theirs = await owner();
+    const wamid = `wamid.${randomBytes(6).toString("hex")}`;
+    await runtime`insert into whatsapp_inbound ${runtime({ wamid, phone: mine.phone })}`;
+    const [row] = await runtime`insert into owner_changes ${runtime({ merchant_id: mine.id, rule_id: theirs.ruleId, terms_version: 1, wamid, message_text: "x", model: WONDER, verdict: "ok", discount_bps: 2000, capacity_covers: 4, min_pool_covers: 2, per_agent_cap_covers: 2, expires_at: new Date(Date.now() + 600_000) })} returning id`;
+    expect(await failure(() => runtime`select apply_owner_change(${mine.id}::uuid, ${row!.id}::uuid)`)).toBe("apply_owner_change_owner");
+    expect(await ruleNow(theirs.ruleId)).toMatchObject({ discount_bps: 2500, terms_version: 1 });
   });
 
   it("takes a price exactly at the floor in SQL and refuses one cent under", async () => {

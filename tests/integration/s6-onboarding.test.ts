@@ -567,6 +567,42 @@ describe("Muse Wonder merchant agent", () => {
     expect(bodies).toHaveLength(0);
   });
 
+  it("settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied", async () => {
+    const m = await merchant();
+    const ruleId = await publishedRule(m);
+    // Two agents fill all 4 covers of 2026-11-10 (commit by 12:00 Singapore time); no clearing is stored.
+    for (const key of ["a", "b"]) {
+      const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
+      await t.admin`insert into commitments ${t.admin({ rule_id: ruleId, agent_id: agent!.id, idempotency_key: key, terms_version: 1, covers: 2, max_price_per_cover_cents: 1440, visit_at: new Date("2026-11-10T14:00:00+08:00"), committed_at: new Date("2026-11-10T09:00:00+08:00") })}`;
+    }
+    const before = () => new Date("2026-11-10T11:59:59+08:00");
+    const after = () => new Date("2026-11-10T12:00:00+08:00");
+    // Before the deadline nothing is settled, and the pending pool still blocks a plan.
+    expect((await dashboard(app.db, m.id, before)).occurrences).toEqual([]);
+    expect(await t.admin`select 1 from clearings where rule_id = ${ruleId}`).toHaveLength(0);
+    // From the deadline on, the merchant's own page settles it and shows the sellout.
+    expect((await dashboard(app.db, m.id, after)).occurrences.map((o) => [o.visitDate, o.covers, o.soldOut])).toEqual([["2026-11-10", 4, true]]);
+    script = [PLAN];
+    expect(await replanSoldOut(app.db, m, wonder(), WONDER, after)).toEqual({ status: "planned", planned: 1 });
+    const [plan] = await t.admin`select id from wonder_plans where rule_id = ${ruleId}`;
+    expect(await applyPlan(app.db, m.id, String(plan!.id), after)).toEqual({ status: "applied", termsVersion: 2 });
+  });
+
+  it("settles a due occurrence before applying a plan, even when the page was never opened after the deadline", async () => {
+    const m = await merchant();
+    const ruleId = await publishedRule(m);
+    await sellOut(ruleId, "2026-11-10");
+    script = [PLAN];
+    await replanSoldOut(app.db, m, wonder(), WONDER);
+    const [plan] = await t.admin`select id from wonder_plans where rule_id = ${ruleId}`;
+    const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
+    await t.admin`insert into commitments ${t.admin({ rule_id: ruleId, agent_id: agent!.id, idempotency_key: "late", terms_version: 1, covers: 1, max_price_per_cover_cents: 1440, visit_at: new Date("2026-11-17T14:00:00+08:00"), committed_at: new Date("2026-11-17T09:00:00+08:00") })}`;
+    expect(await applyPlan(app.db, m.id, String(plan!.id), () => new Date("2026-11-17T11:59:59+08:00"))).toEqual({ status: "pending" });
+    expect(await applyPlan(app.db, m.id, String(plan!.id), () => new Date("2026-11-17T12:00:00+08:00"))).toEqual({ status: "applied", termsVersion: 2 });
+    const [cleared] = await t.admin`select unlocked from clearings where rule_id = ${ruleId} and visit_date = '2026-11-17'`;
+    expect(cleared).toEqual({ unlocked: false });
+  });
+
   it("refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds", async () => {
     const m = await merchant();
     const other = await merchant();
