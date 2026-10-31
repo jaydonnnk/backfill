@@ -21,7 +21,9 @@
     "merchant:mint": "tsx src/lib/onboarding/mint.ts",
     "mcp:smoke": "tsx src/lib/mcp/smoke.ts",
     "negotiation:live": "tsx src/lib/negotiation/live.ts",
-    "onboarding:live": "tsx src/lib/onboarding/live.ts"
+    "onboarding:live": "tsx src/lib/onboarding/live.ts",
+    "sim:mint": "tsx sim/buyers/mint.ts",
+    "demo:scene": "tsx sim/buyers/run.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

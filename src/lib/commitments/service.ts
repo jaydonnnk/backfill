@@ -40,7 +40,7 @@ export function toRule(row: RuleRow): MerchantRule {
   });
 }
 
-function toCommitment(row: CommitmentRow): Commitment {
+export function toCommitment(row: CommitmentRow): Commitment {
   return {
     id: row.id,
     ruleId: row.ruleId,
