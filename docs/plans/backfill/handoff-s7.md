@@ -22,7 +22,7 @@
 - A night run cannot produce the sellout, so it cannot finish the slice: `replanSoldOut` plans only occurrences where `soldOut` (`src/lib/onboarding/service.ts:188`), which needs `filledCovers >= 16`. The only night data point is 1 buyer and 3 covers. Do not "fix" this by faking the clock shown to the model, and do not shrink the rule or rewrite the 20 intents without asking: build-plan.md:108 names those intents and line 110 requires the sellout.
 - The sim's model calls never reach `llm_calls`; `run.ts` records them into an in-memory array. The 22:36 failures left no trace anywhere, which is why the cause had to be re-derived by measurement.
 - One buyer decision used 1502 output tokens. Under the old 1024 limit that reply could not finish: empty content, `validate` calls it invalid, three attempts each with a longer prompt, then `LlmError`, which `sparkBuyer` records as `no_reply`. That is the mechanism behind the 7 failures (a hypothesis for those specific calls, since their error text was never kept). 2048 leaves only about 35% of margin. If tomorrow's recording shows truncation again, raise the cap, but a cap above the model's own maximum is a non-retryable HTTP 4xx, so prove any new value with one probe call first.
-- Render's free tier sleeps: curl `/demo` once or twice before the run, or the first MCP calls can stall on a cold start.
+- Render's free tier sleeps: a `curl` of `/demo` at 00:12 SGT on 2026-11-01 returned 200 in 24.9 s, a cold start. Warm it with one or two curls before the run, or the first MCP calls stall on it.
 - 2026-11-01 is a Sunday, so intent 8 ("weekday afternoon") and intent 11 ("Brunch ... 10am on Sunday only") should decline honestly against a 15:11-16:11 window. Those declines are not a bug.
 - `wonder_plans.model` for a replay is `replay:<model>` on purpose.
 - Neon's migrations table is `public.__drizzle_migrations`, not `drizzle.`.
@@ -103,7 +103,19 @@ await sql.end({ timeout: 5 });
 ## Prompt for New Chat
 
 Backfill is in /Users/jayd0/Desktop/meta-hack; finish slice S7 on `backfill/slice-7-demo`. Read docs/plans/backfill/handoff-s7.md first, especially Traps and the finish sequence in Open Work, then the S7 section at the end of docs/plans/backfill/00-status.md and build-plan.md "### S7".
-Everything but the live run is done: 334 tests, mutations, CI and the code are green, and Render on `4e69dc1` already serves the current `/demo`.
-The record run is mine to start, at about 15:00 SGT today, `npm run demo:scene -- https://backfill-9d0x.onrender.com record`, then the replay exit, screenshots, Neon reads, the finished status section, the build-plan tick and CI. US$4.906 of the US$5 cap is left.
-Wait for me to say the run has started before doing anything that touches Neon, Meta or Render. Rules that still hold: no em dash, no co-author trailer or agent attribution, never read or print `.env.local`, `git branch --show-current` before every edit, ask by name before any fast-forward or push of `main`, and never present a replay or a simulated buyer as a real user.
-Deliver the plan for the run and wait.
+Everything but the live run is done: 334 tests, 15 of 15 mutations, CI and the code are green, and Render on `4e69dc1` already serves the current `/demo`.
+Do the pre-flight now (warm Render, confirm the tip, the read-only Neon before), then wait. At about 15:00 SGT I will say go, and only then run `npm run demo:scene -- https://backfill-9d0x.onrender.com record` (about 11 minutes, about US$0.10 of the US$4.906 left), read the recording, and continue down the finish sequence: the replay exit, `/demo` screenshots at 375 px and 1280 px, the Neon read after, the finished status section, the build-plan tick and CI.
+If the record run does not reach 16 pooled covers, a sold-out pool and a `planned` re-plan, stop and report it. Do not shrink the rule, rewrite the 20 intents or fake the clock shown to the model.
+Rules that still hold: no em dash, no co-author trailer or agent attribution, never read or print `.env.local`, `git branch --show-current` before every edit, ask by name before any fast-forward or push of `main`, and never present a replay or a simulated buyer as a real user.
+Deliver the pre-flight result and wait for my go.
+
+---
+
+## Prompt for Handoff Review
+
+Review slice S7 of Backfill in /Users/jayd0/Desktop/meta-hack, branch `backfill/slice-7-demo` from `0e7e091` to the final S7 tip, against build-plan.md "### S7".
+Claims: 334 tests pass; 15 of 15 mutations in docs/plans/backfill/evidence/s7-demo killed on AssertionError; /demo never shows the hidden floor; replay makes no model call; the scene runs end to end through MCP on Render; the committed recording came from a live afternoon run and its billed cost matches the command's own printout.
+Assume the work is flawed. Re-run the suite with TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres, read every changed file, and check whether each test could fail against broken code, mirrors the implementation, or misses edge cases (SSE on disconnect, retire-by-floor side effects on pending older occurrences, capacity shown on a public page, record mode swallowing errors, same-day rule churn in list_offers, a submit landing after commitBy under the new 10-minute lead, a buyer whose reply is truncated at 2048 tokens).
+Do not pass tests for the sake of passing; flag any claim not backed by evidence. Do not touch Neon, Meta or Render.
+Report PASS, ISSUES FOUND or FAIL with file:line evidence per finding.
+Deliver your verdict and wait for instructions.
