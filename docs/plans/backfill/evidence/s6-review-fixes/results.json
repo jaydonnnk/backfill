@@ -1,0 +1,75 @@
+{
+  "baseline": 324,
+  "results": [
+    {
+      "id": "f1-rule-owner-check",
+      "guard": "apply_owner_change refuses a change whose rule belongs to another merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "the database guards refuses in SQL a change filed under one merchant that points at another merchant's rule :: AssertionError: expected 'no error' to be 'apply_owner_change_owner' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-settle-in-dashboard",
+      "guard": "the merchant dashboard settles due occurrences, so a sellout shows without a buyer asking",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: AssertionError: expected [] to deeply equal [ [ '2026-11-10', 4, true ] ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-settle-in-apply",
+      "guard": "applyPlan settles due occurrences before applying",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent settles a due occurrence before applying a plan, even when the page was never opened after the deadline :: AssertionError: expected { status: 'pending' } to deeply equal { status: 'applied', termsVersion: 2 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-settle-in-confirm",
+      "guard": "a WhatsApp YES settles due occurrences before applying",
+      "verdict": "killed",
+      "failedTests": [
+        "changing the offer by message settles a commitment whose deadline has passed before confirming, so only one still open blocks the change :: AssertionError: expected 'Buyers have commitments waiting on th…' to contain 'Done.'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-deadline-boundary",
+      "guard": "an occurrence settles exactly at its deadline",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: AssertionError: expected [] to deeply equal [ [ '2026-11-10', 4, true ] ]",
+        "Muse Wonder merchant agent settles a due occurrence before applying a plan, even when the page was never opened after the deadline :: AssertionError: expected { status: 'pending' } to deeply equal { status: 'applied', termsVersion: 2 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-deadline-ignored",
+      "guard": "an occurrence before its deadline is not settled",
+      "verdict": "killed",
+      "failedTests": [
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: AssertionError: expected [ { …(5) } ] to deeply equal []",
+        "Muse Wonder merchant agent settles a due occurrence before applying a plan, even when the page was never opened after the deadline :: AssertionError: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'pending' }",
+        "Muse Wonder merchant agent refuses to apply another merchant's plan, a plan while commitments are pending, and a stored plan out of bounds :: AssertionError: expected { status: 'applied', termsVersion: 2 } to deeply equal { status: 'pending' }",
+        "changing the offer by message will not publish a change that expired, was proposed against old terms, or meets pending commitments :: AssertionError: expected 'Done. Singapore Test Restaurant 21\\'s…' to be 'Buyers have commitments waiting on th…' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}
