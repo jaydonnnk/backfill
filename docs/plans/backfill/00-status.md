@@ -500,3 +500,42 @@ Not done:
 - The Graph API version is now v25.0 on Render, matching Meta's page; the code's default is still `v23.0`.
 - A message sent by the owner while buyers hold a pending commitment on the offer is refused, as designed; not exercised live.
 - Real messages from any number but the user's one linked phone, and a second merchant, were not tried.
+
+### S6 and S6b review, 2026-10-31
+
+Branch: `backfill/slice-6-review-fixes`, cut from `main` at `cc35e0b`.
+
+Authorizations, in the user's words:
+- 2026-10-31, asking for the review: "review S6 and S6b, then start S7", then, after a first pass, "Keep reviewing first".
+- 2026-10-31, on the verdict: "Fix F1 and F4".
+
+Review verdict: ISSUES FOUND, no blockers.
+The review read the S6 and S6b code, migrations and tests, and ran tests on a local PostgreSQL 18; no Neon access, no Meta call, no push.
+It reproduced 320 passing tests at `cc35e0b`.
+Fixed:
+1. **Medium: `apply_owner_change` did not check that the rule belongs to the merchant.**
+It checked only the merchant on the change row, and no foreign key ties that row's rule to its merchant, while the runtime role may insert change rows.
+Reproduced as a `backfill_app` login on a scratch database: a change filed under merchant A with merchant B's rule id, applied as A, moved B's discount from 2500 to 6000 bps.
+The WhatsApp code always files the merchant's own rule, so this is the SQL re-check failing, not a path a phone can reach.
+Fix: migration `0012_s6_review_owner_change_rule` (custom, by `drizzle-kit generate --custom`) replaces the function so it also requires the rule's own merchant, as `apply_wonder_plan` already did.
+2. **Medium: an occurrence was cleared only when a buyer asked for its status after the deadline.**
+So a commitment no buyer asked about stayed pending for ever: its sellout never showed on the dashboard, Wonder never planned it, and every plan and WhatsApp change on its rule was refused as pending, even after the visit date.
+This was worse than the recorded limit "no plan or change while a commitment is pending".
+Reproduced with tests that failed before the fix: 4 covers committed by two agents with no status call, and at the deadline the dashboard showed no occurrence; a plan and a WhatsApp `YES` were refused as pending after the deadline had passed.
+Fix: `settleDue` in `src/lib/commitments/service.ts` clears every occurrence of the merchant's rules with a live commitment, no clearing and a deadline already passed; the dashboard (and so `replanSoldOut`), `applyPlan` and the WhatsApp `YES` call it first.
+
+Not fixed, by the user's choice:
+- Any message between a proposal and `YES` makes the newest proposal one that did not count, so the `YES` gets "Nothing is waiting", and the message uses one of the day's 30 model calls.
+- Link codes have no guess limit; about 6.6 x 10^11 codes over 10 minutes, and Meta's sandbox accepts only the recipients added, so not needed before the demo; needed before real use.
+- The S6 record says Spark reads "one read at a time per merchant"; the advisory lock is global, so one merchant's read makes every other merchant's answer `busy`.
+
+Checked and found as recorded: no prompt to Spark or Wonder and no WhatsApp reply to an unlinked number carries the floor; `apply_wonder_plan` refuses what `judgePlan` refuses except an unchanged plan; the floor arithmetic rounds down the same way in SQL and TypeScript; PUBLIC has no EXECUTE on the S6 and S6b functions; the append-only triggers are tested under `session_replication_role = replica`.
+
+Evidence:
+- **[verified]** At `6eb384b`: typecheck and lint clean, 324 tests pass (28 files) with `TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres`, `git diff --check` clean.
+- **[verified]** New tests: the cross-merchant change refused in SQL with the other rule untouched; the dashboard settling and showing a sellout at 12:00:00 and not at 11:59:59, then planning and applying it; `applyPlan` refused as pending before the deadline and applied at it; a WhatsApp `YES` applying after settling a past Tuesday's commitment.
+Each failed on an AssertionError before its fix.
+- **[verified]** Mutations in [evidence/s6-review-fixes](evidence/s6-review-fixes/README.md), at `f1e5df4`: all 6 killed on an AssertionError, each file restored byte-identical and each rerun green.
+- **[unknown]** The S6 and S6b mutation sets were not rerun on the fixed tree.
+- **[unknown]** The S6b mutation runner baseline failure was not retried.
+- Not done: migration `0012` on Neon, `main`, Render; each waits for the user's yes.
