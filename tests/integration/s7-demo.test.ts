@@ -37,7 +37,7 @@ function recording(covers: readonly number[] = COVERS): Recording {
     recordedAt: "2026-11-02T06:00:00.000Z",
     sparkModel: "muse-spark-1.3",
     wonderModel: "muse-wonder-1.0",
-    buyers: BUYERS.map((b, i) => ({ agentId: b.agentId, intent: b.intent, request: { system: "s", prompt: "p" }, reply: { covers: covers[i]!, reason: "fits" }, costNanoUsd: 0 })),
+    buyers: BUYERS.map((b, i) => ({ agentId: b.agentId, intent: b.intent, request: { system: "s", prompt: "p" }, reply: { covers: covers[i]!, reason: "fits" }, error: null, costNanoUsd: 0 })),
     wonder: { prompt: "w", reply: PLAN },
     costNanoUsd: 0,
   };
@@ -155,7 +155,7 @@ describe("the S7 demo scene", () => {
     const decide: DecideBuyer = async (buyer, offer) => {
       calls += 1;
       const reply: BuyerDecision = { covers: 1, reason: `${buyer.agentId} fits` };
-      return { request: { system: "sys", prompt: offer.summary }, reply, costNanoUsd: 100 };
+      return { request: { system: "sys", prompt: offer.summary }, reply, error: null, costNanoUsd: 100 };
     };
     const result = await scene({ mode: "record", spark: "muse-spark-1.3", wonder: "muse-wonder-1.0", decide, propose: async () => null, spentNanoUsd: () => calls * 100, capNanoUsd: 500 });
     expect(calls).toBe(5);

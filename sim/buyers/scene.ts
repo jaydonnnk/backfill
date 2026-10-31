@@ -34,6 +34,7 @@ export const Recording = z.strictObject({
       intent: z.string(),
       request: z.strictObject({ system: z.string(), prompt: z.string() }),
       reply: BuyerDecision.nullable(),
+      error: z.string().nullable(),
       costNanoUsd: z.int().nonnegative(),
     }),
   ),

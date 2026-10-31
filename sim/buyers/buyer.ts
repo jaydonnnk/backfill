@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { LLMProvider } from "@/integrations/meta/provider";
+import { redact } from "@/lib/log";
 import type { BuyerIntent } from "./intents";
 
 // One Muse Spark buyer agent's decision on one offer: how many covers to commit, none when the
@@ -35,7 +36,8 @@ export function buyerRequest(buyer: BuyerIntent, offer: OfferSeen): BuyerRequest
   };
 }
 
-export type Decided = { request: BuyerRequest; reply: BuyerDecision | null; costNanoUsd: number };
+// error is the failure's name and first line, never a key or a prompt.
+export type Decided = { request: BuyerRequest; reply: BuyerDecision | null; error: string | null; costNanoUsd: number };
 
 export type DecideBuyer = (buyer: BuyerIntent, offer: OfferSeen) => Promise<Decided>;
 
@@ -44,10 +46,11 @@ export function sparkBuyer(provider: LLMProvider, model: string): DecideBuyer {
   return async (buyer, offer) => {
     const request = buyerRequest(buyer, offer);
     try {
-      const result = await provider.generate({ model, purpose: BUYER_PURPOSE, ...request, schemaName: "BuyerDecision", schema: BuyerDecision, maxCompletionTokens: 512, reasoningEffort: "low" });
-      return { request, reply: result.value, costNanoUsd: result.costNanoUsd };
-    } catch {
-      return { request, reply: null, costNanoUsd: 0 };
+      const result = await provider.generate({ model, purpose: BUYER_PURPOSE, ...request, schemaName: "BuyerDecision", schema: BuyerDecision, maxCompletionTokens: 2048, reasoningEffort: "low" });
+      return { request, reply: result.value, error: null, costNanoUsd: result.costNanoUsd };
+    } catch (err) {
+      const error = err instanceof Error ? `${err.name}: ${err.message.split("\n")[0]}`.slice(0, 300) : "Error";
+      return { request, reply: null, error: redact(error), costNanoUsd: 0 };
     }
   };
 }
