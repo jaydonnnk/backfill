@@ -538,4 +538,8 @@ Each failed on an AssertionError before its fix.
 - **[verified]** Mutations in [evidence/s6-review-fixes](evidence/s6-review-fixes/README.md), at `f1e5df4`: all 6 killed on an AssertionError, each file restored byte-identical and each rerun green.
 - **[unknown]** The S6 and S6b mutation sets were not rerun on the fixed tree.
 - **[unknown]** The S6b mutation runner baseline failure was not retried.
-- Not done: migration `0012` on Neon, `main`, Render; each waits for the user's yes.
+- 2026-10-31, to push and migrate: "Push, then Neon".
+- **[verified]** Branch pushed to `origin/backfill/slice-6-review-fixes`.
+- **[verified]** Migration `0012` applied on Neon with `npm run db:migrate`: a read-only read before showed 12 migrations and `apply_owner_change` without the rule's merchant check; after, 13 migrations and the check present, `backfill_app` still with EXECUTE and PUBLIC without; rules (Demo Kopitiam 2500 bps v1, Singapore Test Restaurant 2000 bps v2, both capacity 20), 2 live commitments, 0 clearings and 1 owner change unchanged.
+- Once `settleDue` is deployed, the first merchant page view for Demo Kopitiam after 2026-11-03's deadline clears that occurrence and its 2 S4 commitments, as a buyer's status call would have.
+- Not done: `main` and Render; each waits for the user's yes.
