@@ -559,6 +559,7 @@ So each run adds a new rule and retires the merchant's older ones by raising the
 - The scene shows Wonder's plan but does not apply it: the merchant applies a plan, as in S6.
 
 Authorizations, in the user's words, 2026-10-31: "1. Fast-forward and push main", "2. Neon writes", "3. Live record run, US$5 cap", "4. Replay run as the exit"; then "Deployed, it shows Live" for the Render redeploy.
+2026-11-01, after the user wrote "Screw the timing i just want to finish this slice" and the timing blocker below was reported: they chose "Afternoon run, you start it" (the record run is the user's to start, at about 15:00 Singapore on 2026-11-01) and "1 probe call (~US$0.005)".
 
 Built:
 - `src/domain/demo/scene.ts`: the scene window (today in Singapore, deadline the first whole minute at least the lead away, refused past midnight) and solo vs pooled through the same `clear()`.
@@ -576,7 +577,18 @@ Evidence:
 7 buyers had no reply, with the cause not kept; the recording was not committed.
 - **[verified]** Neon read only after: merchant Backfill Demo Cafe, one more rule, one more commitment (`sim-buyer-17`), one locked clearing, 0 plans.
 - Fix since: the recording keeps each failure's name and first line, and buyers may use 2048 output tokens.
+- **[verified]** `b6e49e0` touched only `sim/buyers/{buyer,scene}.ts` and `tests/integration/s7-demo.test.ts`, so Render on `4e69dc1` already serves the current `/demo` and no redeploy is needed for a record or replay run.
+
+2026-11-01, just after midnight:
+- **[verified]** No scene run can start after about 22:55 Singapore. `sceneWindow` refuses when the 60-minute window would cross midnight ([src/domain/demo/scene.ts:25](../../../src/domain/demo/scene.ts)), so `prepareScene` throws "too late in the Singapore day". Run directly against six clocks: 22:56 record fits (commitBy 1380, end 1440); at 23:09 both the record lead and the replay lead return null.
+- **[verified]** A night run cannot produce the sellout, so it cannot meet build-plan's S7 exit: `replanSoldOut` plans only occurrences where `soldOut` ([src/lib/onboarding/service.ts:188](../../../src/lib/onboarding/service.ts)), and `soldOut` needs `filledCovers >= capacityCovers` = 16. The one night data point is 1 buyer and 3 covers. Reported to the user before acting; they chose the afternoon run.
+- **[verified]** One Muse Spark probe call, billed US$0.006844: 1 attempt, HTTP 200, 1502 output tokens, 7.3 s, reply `{"covers":2,"reason":"Kopi kaya toast for two after 2pm matches, Tanjong Pagar is adjacent to Tiong Bahru."}`. The key works and headroom remains: US$4.906 of the US$5 cap. Throwaway script under `src/`, deleted after; no Neon write, no MCP call.
+- **[hypothesis, backed by that measurement]** The 7 `no_reply` calls were truncation at the 1024 output token limit then in force: one buyer decision needs 1502 output tokens, so the reply never reached the JSON, `validate` saw an empty reply, the retry prompt grew, and after 3 attempts the provider threw `LlmError`, which `sparkBuyer` records as a null reply. The 22:36 calls' own error text was never kept, since `run.ts` records model calls into an in-memory array and not into `llm_calls`, so those specific failures cannot be proved directly.
+- Taken by Claude: the record lead went from 4 to 10 minutes and the replay lead from 2 to 5 ([sim/buyers/run.ts:64](../../../sim/buyers/run.ts)). A failing buyer call can burn three 60 s attempts plus backoff at concurrency 4, and a submit after `commitBy` is refused, which would cost covers and could lose the sellout. No test binds either lead; 334 tests, typecheck, lint and `git diff --check` are clean after the change.
+- **[verified]** Neon read only at 00:03 Singapore, throwaway script under `src/` deleted after: 13 migrations, 3 merchants, 3 rules, 3 commitments, 1 clearing (locked, 0 fills), 0 plans, 0 applications, 20 `sim-buyer-*` agents, 1 `muse-user`. Backfill Demo Cafe holds its Saturday 22:40-23:40 rule (floor still 500, not retired) and sim-buyer-17's 3 covers; the `muse-user` commitment `34e1cb93-a6cc-41f8-8869-4e458b6f90c8` is still 2 covers pending in the Demo Kopitiam pool for 2026-11-03, and Singapore Test Restaurant is untouched.
+- 2026-11-01 is a Sunday, so intent 8 ("a weekday afternoon") and intent 11 ("10am on Sunday only") should decline a 15:11-16:11 window honestly. Those declines are expected, not a fault.
 
 Not done:
-- **[unknown]** Why 7 buyer calls failed.
-- A recording made during a Singapore afternoon, so buyers see an afternoon window, then the replay exit on Render.
+- The record run in a Singapore afternoon, started by the user at about 15:00 on 2026-11-01 so the window reads about 15:11-16:11, with its recording committed and the cause of any failed buyer recorded.
+- The replay exit on Render, `npm run demo:scene -- https://backfill-9d0x.onrender.com replay`, and `/demo` screenshots at 375 px and 1280 px showing solo vs pooled, the sellout, Wonder's plan and the real Muse card.
+- Read-only Neon after; this section finished in the S6 format; S7 ticked in build-plan; CI green on the final tip with its run ID; a fresh yes before any fast-forward of `main`.
