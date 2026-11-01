@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-11-01T11:56:50.867Z",
+  "state": {
+    "migrations": 14,
+    "filled_commitments": 15,
+    "ledger_entries": 15,
+    "unique_ledger_commitments": 15,
+    "missing_entries": 0,
+    "orphan_entries": 0,
+    "mismatched_entries": 0,
+    "list_value_cents": "24260",
+    "accepted_total_cents": "19284",
+    "buyer_savings_cents": "4976",
+    "simulated_receipts": 1,
+    "model_call_rows": 4,
+    "validated_ledger_checks": 4,
+    "revoked_test_agent": 1
+  },
+  "originalMuse": {
+    "id": "34e1cb93-a6cc-41f8-8869-4e458b6f90c8",
+    "covers": 2,
+    "not_cancelled": true,
+    "not_cleared": true
+  },
+  "health": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "db": "up"
+    }
+  },
+  "demo": {
+    "status": 200,
+    "recordedReplayDisclosure": true,
+    "privateFloorFieldsAbsent": true
+  },
+  "realPaymentsMade": false,
+  "newModelCalls": 0
+}

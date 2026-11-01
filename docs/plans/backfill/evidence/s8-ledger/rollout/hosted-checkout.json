@@ -1,0 +1,118 @@
+{
+  "checkedAt": "2026-11-01T11:50:51.471Z",
+  "publishedCommit": "94dd8ede54ab009b762897c5ccee64ed5d82ad25",
+  "fixture": {
+    "merchantId": "6c3b6957-dbf1-4b0a-ba2c-1074bd7c1d66",
+    "merchantName": "Backfill S8 checkout verification (simulated)",
+    "ruleId": "86861781-3ee3-4146-b04b-6150c1ec219d",
+    "agentId": "s8-rollout-smoke-a7661a1d0e15",
+    "commitmentId": "f44b499a-5530-4210-b357-9ca5409466df",
+    "visitDate": "2026-11-01",
+    "simulated": true,
+    "operatorSeededWithEarlierTestClock": true,
+    "retainedAsAuditFixture": true
+  },
+  "requestStatus": {
+    "unauthorized": 401,
+    "foreign": 404,
+    "missing": 404,
+    "create": 201,
+    "completeConcurrent": [
+      200,
+      200,
+      200
+    ],
+    "retrieve": 200,
+    "revoked": 401
+  },
+  "simulated": true,
+  "moneyMoved": false,
+  "modelCallRowsBefore": 4,
+  "modelCallRowsAfter": 4,
+  "newAgentRevoked": true,
+  "before": {
+    "counts": {
+      "migrations": 14,
+      "merchants": 3,
+      "rules": 5,
+      "agents": 23,
+      "commitments": 25,
+      "clearings": 3,
+      "fills": 14,
+      "ledger": 14,
+      "receipts": 0,
+      "plans": 2,
+      "llm_calls": 4
+    },
+    "fingerprints": {
+      "protected_commitments": "0ed733562156cae14750a7e17668972a",
+      "protected_rules": "52063b955351aaab8030271fd5889ff0",
+      "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+      "agents": "5b6128b308128268493bfbba09cf8f13",
+      "historical_ledger": "a1fe46b2f4203b0964c5dbc7c45949af"
+    }
+  },
+  "after": {
+    "counts": {
+      "migrations": 14,
+      "merchants": 4,
+      "rules": 6,
+      "agents": 24,
+      "commitments": 26,
+      "clearings": 4,
+      "fills": 15,
+      "ledger": 15,
+      "receipts": 1,
+      "plans": 2,
+      "llm_calls": 4
+    },
+    "fingerprints": {
+      "protected_commitments": "0ed733562156cae14750a7e17668972a",
+      "protected_rules": "52063b955351aaab8030271fd5889ff0",
+      "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+      "agents": "5b6128b308128268493bfbba09cf8f13",
+      "historical_ledger": "a1fe46b2f4203b0964c5dbc7c45949af"
+    }
+  },
+  "demoCafeReport": {
+    "totals": {
+      "merchantId": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "entries": 14,
+      "covers": 32,
+      "listValueCents": 21760,
+      "chargedCents": 17408,
+      "savingsCents": 4352,
+      "buyerShareCents": 4352,
+      "agentShareCents": 0,
+      "networkShareCents": 0
+    },
+    "missing": [],
+    "mismatched": [],
+    "orphaned": [],
+    "reconciled": true
+  },
+  "testMerchantReport": {
+    "totals": {
+      "merchantId": "6c3b6957-dbf1-4b0a-ba2c-1074bd7c1d66",
+      "entries": 1,
+      "covers": 2,
+      "listValueCents": 2500,
+      "chargedCents": 1876,
+      "savingsCents": 624,
+      "buyerShareCents": 624,
+      "agentShareCents": 0,
+      "networkShareCents": 0
+    },
+    "missing": [],
+    "mismatched": [],
+    "orphaned": [],
+    "reconciled": true
+  },
+  "runtimeSessions": [
+    {
+      "usename": "backfill_web",
+      "sessions": 1
+    }
+  ],
+  "protectedRecordsAndHistoricalLedgerUnchanged": true
+}

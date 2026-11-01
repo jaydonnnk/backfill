@@ -690,3 +690,18 @@ Continuation: [s8-handoff.md](s8-handoff.md).
 The user selected the question "Authorize S8 merge/push and Render rollout?" and answered: "I authorize the merchant push and the vendor rollout, and afterwards let me know what I need to do." In that explicit annotation context, this authorizes S8 main integration/push and the Render rollout. S8 production migration and bounded historical backfill were already authorized. No model calls, real payments, S9 or protected-record changes are added to the scope.
 
 Before publication, a fresh secret-free archive of `f492d28` passed 417 tests in 41 files, typecheck and lint, using the explicit disposable local TEST_DATABASE_URL and two Vitest workers. Production rollout verification is in progress.
+
+
+### S8 production exit verified, 2026-11-01
+
+**[verified]** S8 fast-forwarded to `main` and pushed at `94dd8ede54ab009b762897c5ccee64ed5d82ad25`. CI run 41302385552 passed. Render deploy `dep-dbji6tbbc2fs73dfovs0` was confirmed Live at that application commit. Correction: Auto-Deploy was enabled and had also deployed S7 `7cdbb56`; the earlier manual-deploy/pending assumption was stale. No duplicate manual deployment or configuration change was needed.
+
+**[verified]** After fresh read-only pins, migration 0013 applied as the sole pending migration. The count is 14. Source/completeness/append-only guards are ALWAYS; runtime ledger/receipt grants are SELECT/INSERT only. Old SQL migration hashes matched, and no snapshot was read or changed. The bounded backfill inserted exactly 14 historical entries: Demo Cafe buyer savings 4352 cents, zero agent/network shares, totals reconciled. All protected fingerprints matched.
+
+**[verified]** Hosted checkout used one separately labelled simulated S8 verification merchant and an operator-seeded earlier test clock. Valid bearer create returned 201 and exercised the deployed runtime's clearing/ledger transaction. Three simultaneous complete requests returned 200 with one identical receipt; retrieval 200, foreign/missing 404, absent/revoked token 401. Only its new test agent was revoked and only its new rule retired from discovery afterward. The audit fixture is retained and is not a real booking or a new S7 recording.
+
+Final global state: 4 merchants, 6 rules, 24 agents, 26 commitments, 4 clearings, 15 fills, 15 unique matching ledger entries, 1 simulated receipt, 2 plans and 4 existing model-call rows. Zero missing, orphan or mismatched ledger entries. All four ledger CHECK constraints validate. The extra test fixture contributes 624 cents simulated savings; global buyer savings are 4976 cents, while historical Demo Cafe savings remain 4352 cents. No real payment or new model call occurred. Original protected fingerprints and all 14 historical ledger rows are unchanged. The real Muse commitment remains two covers pending, not cancelled or cleared.
+
+**[verified]** Health and demo HTTP 200. Browser public demo displayed Live, simulated buyers and recorded replay, with no private floor text. No authenticated merchant browser was mounted because its pre-existing auto-replan effect may invoke Wonder. Production evidence and public deployment screenshot: [evidence/s8-ledger/rollout](evidence/s8-ledger/rollout/README.md). Frozen recording/screenshots and migrations 0000 through 0012 remain unchanged.
+
+S8 exit is met. No further deployment or production write is required for S8. The user may review the public demo, then decide whether to authorize S9 and its model-call/spending policy. S9, real payments and restoring paid S7 recording remain unauthorized. Current continuation: [s8-handoff.md](s8-handoff.md).

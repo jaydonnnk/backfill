@@ -111,11 +111,11 @@ Each slice ends with its tests green and its exit check done.
 The real Muse commitment from S4, if Day 0 passed, appears in the pool labelled as a real Muse user.
 - Exit: one command runs the full scene end to end on Render.
 
-### S8 - Ledger and checkout (Nov 1)
+### S8 - Ledger and checkout (Nov 1) - done 2026-11-01
 
 - `src/domain/ledger`: savings split (buyer, agent, network), totals per merchant.
 - ACP-shaped checkout endpoints in `src/app/api`, no real money.
-- Exit: every cleared commitment has exactly one ledger entry and the totals reconcile.
+- Exit: every filled commitment has exactly one ledger entry and the totals reconcile.
 
 ### S9 - Evals (Nov 2)
 

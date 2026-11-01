@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-11-01T11:45:37.725Z",
+  "result": {
+    "inserted": 14,
+    "existing": 0
+  },
+  "counts": {
+    "migrations": 14,
+    "merchants": 3,
+    "rules": 5,
+    "commitments": 25,
+    "clearings": 3,
+    "fills": 14,
+    "ledger": 14,
+    "plans": 2,
+    "llm_calls": 4,
+    "read_only": "on"
+  },
+  "fingerprints": {
+    "protected_commitments": "0ed733562156cae14750a7e17668972a",
+    "protected_rules": "52063b955351aaab8030271fd5889ff0",
+    "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+    "agents": "5b6128b308128268493bfbba09cf8f13"
+  },
+  "merchantReport": {
+    "totals": {
+      "merchantId": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "entries": 14,
+      "covers": 32,
+      "listValueCents": 21760,
+      "chargedCents": 17408,
+      "savingsCents": 4352,
+      "buyerShareCents": 4352,
+      "agentShareCents": 0,
+      "networkShareCents": 0
+    },
+    "missing": [],
+    "mismatched": [],
+    "orphaned": [],
+    "reconciled": true
+  }
+}

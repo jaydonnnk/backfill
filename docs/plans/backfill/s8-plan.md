@@ -1,12 +1,12 @@
 # S8 ledger and checkout plan
 
-Status: implementation authorized. Split policy approved 2026-11-01. Production changes require the verification sequence below.
+Status: implemented, published and verified in production on 2026-11-01. The zero-fee split is approved. Rollout evidence is in `evidence/s8-ledger/rollout/`.
 
 ## Authority and scope
 
 The approved [build plan](build-plan.md#s8---ledger-and-checkout-nov-1) names savings splits, merchant totals, ACP-shaped checkout without real money, and one reconciled ledger entry per filled commitment. The user named S8 and production writes on 2026-11-01 after authorizing S7 integration. S7 is published on main at `7cdbb56d5cd2b3ad0bcfa3fbf6cefe200f25661c`. S8 branch: `backfill/slice-8-ledger-checkout`.
 
-Production writes remain scoped to this slice. Preserve the original Muse commitment, Demo Kopitiam, Singapore Test Restaurant, existing agents, frozen recording, screenshots and migrations 0000 through 0012. No model calls or real payments. Migration 0013 is available. This does not authorize S8 main integration or a Render redeploy.
+Production writes remain scoped to this slice. Preserve the original Muse commitment, Demo Kopitiam, Singapore Test Restaurant, existing agents, frozen recording, screenshots and migrations 0000 through 0012. No model calls or real payments. Migration 0013 is available. The user subsequently authorized S8 main publication and Render rollout on 2026-11-01, after reviewing the local completion report.
 
 ## Required policy decision
 
@@ -32,7 +32,7 @@ Merchant totals require merchant authorization. Reconciliation must identify mis
 
 ## Historical backfill
 
-Prepare a separate bounded reconciliation transaction after a read-only inventory. Prove each historical fill's original list price and merchant using unchanged versioned public terms plus the frozen recording/source context and recorded rule IDs. If any identity or price is ambiguous, stop that backfill. Do not re-clear occurrences, rewrite immutable history or guess current prices. The original protected records remain outside writes. No historical insert has been executed.
+Prepare a separate bounded reconciliation transaction after a read-only inventory. Prove each historical fill's original list price and merchant using unchanged versioned public terms plus the frozen recording/source context and recorded rule IDs. If any identity or price is ambiguous, stop that backfill. Do not re-clear occurrences, rewrite immutable history or guess current prices. The original protected records remain outside writes. The bounded backfill subsequently inserted 14 verified entries on 2026-11-01, without rewriting historical rows.
 
 ## Implementation sequence
 

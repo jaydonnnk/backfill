@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-11-01T11:45:11.958Z",
+  "migration": "0013_s8_ledger_checkout",
+  "counts": {
+    "migrations": 14,
+    "merchants": 3,
+    "rules": 5,
+    "commitments": 25,
+    "clearings": 3,
+    "fills": 14,
+    "ledger": 0,
+    "plans": 2,
+    "llm_calls": 4,
+    "read_only": "on"
+  },
+  "fingerprints": {
+    "protected_commitments": "0ed733562156cae14750a7e17668972a",
+    "protected_rules": "52063b955351aaab8030271fd5889ff0",
+    "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+    "agents": "5b6128b308128268493bfbba09cf8f13"
+  },
+  "triggers": [
+    {
+      "table_name": "checkout_receipts",
+      "tgname": "checkout_receipts_append_only",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "checkout_receipts",
+      "tgname": "checkout_receipts_no_truncate",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "clearing_fills",
+      "tgname": "clearing_fills_append_only",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "clearing_fills",
+      "tgname": "clearing_fills_no_truncate",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "clearing_fills",
+      "tgname": "s8_fill_has_ledger",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "ledger",
+      "tgname": "ledger_append_only",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "ledger",
+      "tgname": "ledger_no_truncate",
+      "tgenabled": "A"
+    },
+    {
+      "table_name": "ledger",
+      "tgname": "zz_s8_ledger_source",
+      "tgenabled": "A"
+    }
+  ],
+  "grants": [
+    {
+      "table_name": "checkout_receipts",
+      "privileges": "INSERT,SELECT"
+    },
+    {
+      "table_name": "ledger",
+      "privileges": "INSERT,SELECT"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-11-01T12:00:49.382Z",
+  "ruleId": "86861781-3ee3-4146-b04b-6150c1ec219d",
+  "merchantId": "6c3b6957-dbf1-4b0a-ba2c-1074bd7c1d66",
+  "retired": {
+    "id": "86861781-3ee3-4146-b04b-6150c1ec219d",
+    "terms_version": 1,
+    "floor_price_cents": 1250
+  },
+  "unfilledCommitments": 0,
+  "ledgerEntriesRetained": 1,
+  "receiptRetained": 1,
+  "hiddenFromOffers": true,
+  "onlyNewVerificationRuleChanged": true
+}

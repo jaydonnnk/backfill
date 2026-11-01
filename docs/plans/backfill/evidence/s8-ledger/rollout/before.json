@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-11-01T11:45:00.044Z",
+  "publishedCommit": "94dd8ede54ab009b762897c5ccee64ed5d82ad25",
+  "ciRun": 41302385552,
+  "newHostedRouteStatus": 401,
+  "counts": {
+    "migrations": 13,
+    "merchants": 3,
+    "rules": 5,
+    "commitments": 25,
+    "clearings": 3,
+    "fills": 14,
+    "ledger": 0,
+    "plans": 2,
+    "llm_calls": 4,
+    "read_only": "on"
+  },
+  "fingerprints": {
+    "protected_commitments": "0ed733562156cae14750a7e17668972a",
+    "protected_rules": "52063b955351aaab8030271fd5889ff0",
+    "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+    "agents": "5b6128b308128268493bfbba09cf8f13"
+  }
+}

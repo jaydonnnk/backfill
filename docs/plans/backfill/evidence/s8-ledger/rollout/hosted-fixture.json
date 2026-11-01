@@ -1,0 +1,14 @@
+{
+  "createdAt": "2026-11-01T11:50:42.496Z",
+  "merchantId": "6c3b6957-dbf1-4b0a-ba2c-1074bd7c1d66",
+  "merchantName": "Backfill S8 checkout verification (simulated)",
+  "ruleId": "86861781-3ee3-4146-b04b-6150c1ec219d",
+  "agentId": "s8-rollout-smoke-a7661a1d0e15",
+  "commitmentId": "f44b499a-5530-4210-b357-9ca5409466df",
+  "visitDate": "2026-11-01",
+  "simulated": true,
+  "operatorSeededWithEarlierTestClock": true,
+  "retainedAsAuditFixture": true,
+  "testAgentRevoked": true,
+  "testOfferRetired": true
+}
