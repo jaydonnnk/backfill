@@ -7,8 +7,9 @@ import { connectDb, type Db } from "@/lib/db/client";
 import { demoSnapshot, DEMO_MERCHANT_NAME, MUSE_AGENT_ID } from "@/lib/demo/snapshot";
 import { methodNotAllowed, mcpPostHandler } from "@/lib/mcp/http";
 import { floorHidden } from "@/lib/onboarding/live";
-import type { BuyerDecision, DecideBuyer } from "../../sim/buyers/buyer";
+import { buyerRequest, type BuyerDecision, type DecideBuyer } from "../../sim/buyers/buyer";
 import { BUYERS } from "../../sim/buyers/intents";
+import { sourceOffer, type SourceContext } from "../../sim/buyers/recording";
 import { mcpConnector } from "../../sim/buyers/run";
 import { prepareScene, Recording, runScene, SCENE_RULE } from "../../sim/buyers/scene";
 import { createTestDatabase, type TestDatabase } from "../support/db";
@@ -32,12 +33,19 @@ const COVERS = [2, 1, 4, 1, 2, 3, 1, 4, 0, 1, 0, 2, 0, 4, 2, 0, 3, 1, 3, 4];
 const PLAN = { discountBps: 1800, capacityCovers: 24, minPoolCovers: 8, perAgentCapCovers: 4, rationale: "It sold out at 16 covers. Add seats and trim the discount." };
 
 function recording(covers: readonly number[] = COVERS): Recording {
+  const source: SourceContext = {
+    merchantName: DEMO_MERCHANT_NAME,
+    about: "a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks",
+    visitDate: "2026-11-01",
+    offer: { listPriceCents: 680, offerPriceCents: 544, discountBps: 2000, minPoolCovers: 8, perAgentCapCovers: 4, window: { weekday: 7, startMinute: 847, endMinute: 907, commitByMinute: 847 } },
+  };
   return {
-    version: 1,
+    version: 2,
+    source,
     recordedAt: "2026-11-02T06:00:00.000Z",
     sparkModel: "muse-spark-1.3",
     wonderModel: "muse-wonder-1.0",
-    buyers: BUYERS.map((b, i) => ({ agentId: b.agentId, intent: b.intent, request: { system: "s", prompt: "p" }, reply: { covers: covers[i]!, reason: "fits" }, error: null, costNanoUsd: 0 })),
+    buyers: BUYERS.map((b, i) => ({ agentId: b.agentId, intent: b.intent, request: buyerRequest(b, sourceOffer(source)), reply: { covers: covers[i]!, reason: "fits" }, error: null, costNanoUsd: 0 })),
     wonder: { prompt: "w", reply: PLAN },
     costNanoUsd: 0,
   };
@@ -102,7 +110,7 @@ describe("the S7 demo scene", () => {
     expect(s.buyers.filter((b) => b.outcome === "filled").map((b) => b.agentId).sort()).toEqual(filled);
     expect(s.buyers.filter((b) => b.outcome === "not_filled")).toHaveLength(7);
     expect(s.pooled).toEqual({ covers: 38, unlocked: true, filledCovers: 16, soldOut: true });
-    expect(s.plan).toEqual({ ...PLAN, verdict: "ok", applied: false });
+    expect(s.plan).toEqual({ ...PLAN, provenance: "recorded_replay", verdict: "ok", applied: false });
     const [plan] = await t.admin`select model from wonder_plans where rule_id = ${result.ruleId}`;
     expect(plan?.model).toBe("replay:muse-wonder-1.0");
     expect((await t.admin`select count(*)::int as n from llm_calls`)[0]?.n).toBe(0);
@@ -155,7 +163,7 @@ describe("the S7 demo scene", () => {
     const decide: DecideBuyer = async (buyer, offer) => {
       calls += 1;
       const reply: BuyerDecision = { covers: 1, reason: `${buyer.agentId} fits` };
-      return { request: { system: "sys", prompt: offer.summary }, reply, error: null, costNanoUsd: 100 };
+      return { request: buyerRequest(buyer, offer), reply, error: null, costNanoUsd: 100 };
     };
     const result = await scene({ mode: "record", spark: "muse-spark-1.3", wonder: "muse-wonder-1.0", decide, propose: async () => null, spentNanoUsd: () => calls * 100, capNanoUsd: 500 });
     expect(calls).toBe(5);

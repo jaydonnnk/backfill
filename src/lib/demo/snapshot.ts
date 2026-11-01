@@ -26,7 +26,7 @@ export type DemoBuyer = {
   outcome: "pending" | "filled" | "not_filled";
 };
 
-export type DemoPlan = { verdict: string; discountBps: number | null; capacityCovers: number | null; minPoolCovers: number | null; perAgentCapCovers: number | null; rationale: string | null; applied: boolean };
+export type DemoPlan = { provenance: "recorded_replay" | "model"; verdict: string; discountBps: number | null; capacityCovers: number | null; minPoolCovers: number | null; perAgentCapCovers: number | null; rationale: string | null; applied: boolean };
 
 export type DemoScene = {
   merchantName: string;
@@ -120,6 +120,7 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
     pooled: { covers, unlocked: cleared ? cleared.unlocked : pooled.unlocked, filledCovers, soldOut: cleared !== null && cleared.unlocked && filledCovers >= rule.capacityCovers },
     plan: plan
       ? {
+          provenance: plan.p.model.startsWith("replay:") ? "recorded_replay" : "model",
           verdict: plan.p.verdict,
           discountBps: plan.p.discountBps,
           capacityCovers: plan.p.capacityCovers,

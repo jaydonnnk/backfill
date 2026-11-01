@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { LLMProvider } from "@/integrations/meta/provider";
+import { LlmRecordingError, type LLMProvider } from "@/integrations/meta/provider";
 import { redact } from "@/lib/log";
 import type { BuyerIntent } from "./intents";
 
@@ -41,7 +41,7 @@ export type Decided = { request: BuyerRequest; reply: BuyerDecision | null; erro
 
 export type DecideBuyer = (buyer: BuyerIntent, offer: OfferSeen) => Promise<Decided>;
 
-// A failed or invalid model call is a buyer that does not commit, recorded with a null reply.
+// A model failure becomes a null reply; a recording failure aborts the caller.
 export function sparkBuyer(provider: LLMProvider, model: string): DecideBuyer {
   return async (buyer, offer) => {
     const request = buyerRequest(buyer, offer);
@@ -49,6 +49,7 @@ export function sparkBuyer(provider: LLMProvider, model: string): DecideBuyer {
       const result = await provider.generate({ model, purpose: BUYER_PURPOSE, ...request, schemaName: "BuyerDecision", schema: BuyerDecision, maxCompletionTokens: 2048, reasoningEffort: "low" });
       return { request, reply: result.value, error: null, costNanoUsd: result.costNanoUsd };
     } catch (err) {
+      if (err instanceof LlmRecordingError) throw err;
       const error = err instanceof Error ? `${err.name}: ${err.message.split("\n")[0]}`.slice(0, 300) : "Error";
       return { request, reply: null, error: redact(error), costNanoUsd: 0 };
     }

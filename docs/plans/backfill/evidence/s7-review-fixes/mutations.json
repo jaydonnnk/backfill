@@ -1,0 +1,557 @@
+[
+  {
+    "id": "f1-paid-record-closed",
+    "guard": "paid recording fails closed without enforced allowance",
+    "file": "sim/buyers/run.ts",
+    "from": "if (mode === \"record\") throw new Error(\"paid S7 recording is disabled: no provider-enforced spending allowance is configured; replay remains available\");",
+    "to": "if (false) throw new Error(\"paid S7 recording is disabled: no provider-enforced spending allowance is configured; replay remains available\");"
+  },
+  {
+    "id": "f1-entry-preflight",
+    "guard": "CLI calls paid-mode preflight before loading configuration",
+    "file": "sim/buyers/run.ts",
+    "from": "  assertSceneExecutionAllowed(mode);\n",
+    "to": ""
+  },
+  {
+    "id": "f2-existing-recording",
+    "guard": "existing frozen recording refused before setup",
+    "file": "sim/buyers/journal.ts",
+    "from": "if (existsSync(recordingPath))",
+    "to": "if (false)"
+  },
+  {
+    "id": "f2-exclusive-journal",
+    "guard": "a second writer cannot replace partial evidence",
+    "file": "sim/buyers/journal.ts",
+    "from": "openSync(path, \"wx\", 0o600)",
+    "to": "openSync(path, \"w\", 0o600)"
+  },
+  {
+    "id": "f2-journal-append",
+    "guard": "decision and failure events remain in partial file",
+    "file": "sim/buyers/journal.ts",
+    "from": "    writeFileSync(fd, `${JSON.stringify(event)}\\n`);",
+    "to": ""
+  },
+  {
+    "id": "f2-request-before-attempt",
+    "guard": "started request persists with invocation ID",
+    "file": "sim/buyers/journal.ts",
+    "from": "      append({ type, data: { ...data, callId } });",
+    "to": ""
+  },
+  {
+    "id": "f2-attempt-attribution",
+    "guard": "concurrent attempts retain the invocation that started them",
+    "file": "sim/buyers/journal.ts",
+    "from": "return scope.run(callId, operation);",
+    "to": "return scope.run(\"wrong\", operation);"
+  },
+  {
+    "id": "f2-unscoped-attempt",
+    "guard": "an unattributed attempt is refused",
+    "file": "sim/buyers/journal.ts",
+    "from": "if (callId === undefined) throw new Error(\"model attempt is outside its recording invocation\");",
+    "to": ""
+  },
+  {
+    "id": "f2-stop-queued-workers",
+    "guard": "fatal failure prevents queued work from starting",
+    "file": "sim/buyers/scene.ts",
+    "from": "while (failures.length === 0 && next < items.length)",
+    "to": "while (next < items.length)"
+  },
+  {
+    "id": "f2-rethrow-after-drain",
+    "guard": "failure is propagated after started workers drain",
+    "file": "sim/buyers/scene.ts",
+    "from": "  if (failures.length > 0) throw failures[0];\n",
+    "to": ""
+  },
+  {
+    "id": "f2-checkpoint-before-submit",
+    "guard": "completed buyer decision saved before MCP",
+    "file": "sim/buyers/scene.ts",
+    "from": "        await o.checkpoint?.({ type: \"buyer\", data: { ...saved, source } });\n",
+    "to": ""
+  },
+  {
+    "id": "f4-settle-before-retire",
+    "guard": "due pool settles at accepted price before floor retirement",
+    "file": "sim/buyers/scene.ts",
+    "from": "  await settleDue(db, merchant.id, () => now);\n",
+    "to": ""
+  },
+  {
+    "id": "f4-old-rule-lock",
+    "guard": "pending check waits for already inserting commitments",
+    "file": "sim/buyers/scene.ts",
+    "from": ".orderBy(asc(rules.id)).for(\"update\")",
+    "to": ".orderBy(asc(rules.id))"
+  },
+  {
+    "id": "f4-pending-refusal",
+    "guard": "future pending commitments cannot be stranded",
+    "file": "sim/buyers/scene.ts",
+    "from": "if (pending?.held) throw new Error",
+    "to": "if (false) throw new Error"
+  },
+  {
+    "id": "f4-cancelled-not-pending",
+    "guard": "cancelled commitment does not block scene retirement",
+    "file": "sim/buyers/scene.ts",
+    "from": " and c.cancelled_at is null\n",
+    "to": "\n"
+  },
+  {
+    "id": "f4-merchant-scope",
+    "guard": "another merchant pending pool cannot block this scene",
+    "file": "sim/buyers/scene.ts",
+    "from": "where r.merchant_id = ${merchant.id} and c.cancelled_at is null",
+    "to": "where c.cancelled_at is null"
+  },
+  {
+    "id": "f4-cleared-not-pending",
+    "guard": "cleared commitments do not block retirement",
+    "file": "sim/buyers/scene.ts",
+    "from": "        and not exists (select 1 from clearings k where k.rule_id = c.rule_id\n          and k.visit_date = (c.visit_at at time zone 'Asia/Singapore')::date)",
+    "to": ""
+  },
+  {
+    "id": "f2-drain-started-workers",
+    "guard": "already started work is awaited before shutdown",
+    "file": "sim/buyers/scene.ts",
+    "from": "  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));",
+    "to": "  void Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));"
+  },
+  {
+    "id": "f2-scene-checkpoint",
+    "guard": "partial evidence identifies prepared rule and occurrence",
+    "file": "sim/buyers/scene.ts",
+    "from": "  await o.checkpoint?.({ type: \"scene\", data: { ruleId, visitDate } });\n",
+    "to": ""
+  },
+  {
+    "id": "f2-wonder-checkpoint",
+    "guard": "Wonder proposal is saved before DB plan storage",
+    "file": "sim/buyers/scene.ts",
+    "from": "          await o.checkpoint?.({ type: \"wonder\", data: wonder });\n",
+    "to": ""
+  },
+  {
+    "id": "f2-exclusive-completion",
+    "guard": "completion never overwrites a competing recording",
+    "file": "sim/buyers/journal.ts",
+    "from": "{ flag: \"wx\" }",
+    "to": "{ flag: \"w\" }"
+  },
+  {
+    "id": "f2-completion-marker",
+    "guard": "completed cost is retained in the durable journal",
+    "file": "sim/buyers/journal.ts",
+    "from": "      append({ type: \"complete\", data: { costNanoUsd: recording.costNanoUsd } });\n",
+    "to": ""
+  },
+  {
+    "id": "f2-provider-recorder-fatal-classification",
+    "guard": "Recorder errors carry the fatal error type",
+    "file": "src/integrations/meta/provider.ts",
+    "from": "throw new LlmRecordingError();",
+    "to": "throw new Error(\"Model call recording failed\");"
+  },
+  {
+    "id": "f2-spark-recorder-error-propagation",
+    "guard": "Spark buyer rethrows fatal recording errors",
+    "file": "sim/buyers/buyer.ts",
+    "from": "      if (err instanceof LlmRecordingError) throw err;\n",
+    "to": ""
+  },
+  {
+    "id": "f2-wonder-recorder-error-propagation",
+    "guard": "Wonder merchant rethrows fatal recording errors",
+    "file": "src/lib/onboarding/models.ts",
+    "from": "      if (err instanceof LlmRecordingError) throw err;\n",
+    "to": ""
+  },
+  {
+    "id": "f3-legacy-source-hash",
+    "guard": "only the verified committed V1 recording may use the attached legacy source context",
+    "file": "sim/buyers/recording.ts",
+    "from": "=== \"1d7055a98e5335bef6c3561322894083b78c2eb37de3d7e46689755488361d33\"",
+    "to": "!== \"not-a-recording-hash\""
+  },
+  {
+    "id": "f3-source-weekday",
+    "guard": "source weekday must match its original visit date",
+    "file": "sim/buyers/recording.ts",
+    "from": "singaporeLocal(noon).weekday === source.offer.window.weekday",
+    "to": "true"
+  },
+  {
+    "id": "f3-invalid-source-parser",
+    "guard": "invalid source dates must be rejected without a raw parser exception",
+    "file": "sim/buyers/recording.ts",
+    "from": "  if (!SourceContext.safeParse(recording.source).success) return;\n",
+    "to": ""
+  },
+  {
+    "id": "f3-known-buyer",
+    "guard": "recorded buyer identities must belong to the canonical buyer set",
+    "file": "sim/buyers/recording.ts",
+    "from": "canonical === undefined || seen.has(buyer.agentId)",
+    "to": "false || seen.has(buyer.agentId)"
+  },
+  {
+    "id": "f3-unique-buyers",
+    "guard": "duplicate buyer identities are refused",
+    "file": "sim/buyers/recording.ts",
+    "from": "canonical === undefined || seen.has(buyer.agentId)",
+    "to": "canonical === undefined || false"
+  },
+  {
+    "id": "f3-source-intent",
+    "guard": "each recorded intent matches that buyer identity",
+    "file": "sim/buyers/recording.ts",
+    "from": "canonical !== undefined && canonical.intent !== buyer.intent",
+    "to": "false"
+  },
+  {
+    "id": "f3-source-request-system",
+    "guard": "the recorded system request matches the source context",
+    "file": "sim/buyers/recording.ts",
+    "from": "buyer.request.system !== expected.system || buyer.request.prompt !== expected.prompt",
+    "to": "false || buyer.request.prompt !== expected.prompt"
+  },
+  {
+    "id": "f3-source-request-prompt",
+    "guard": "the recorded prompt matches the source context",
+    "file": "sim/buyers/recording.ts",
+    "from": "buyer.request.system !== expected.system || buyer.request.prompt !== expected.prompt",
+    "to": "buyer.request.system !== expected.system || false"
+  },
+  {
+    "id": "f3-replay-exact-buyer-count",
+    "guard": "a recording cannot contain buyers outside the intended replay set",
+    "file": "sim/buyers/recording.ts",
+    "from": "recording.buyers.length !== buyers.length ||",
+    "to": "false ||"
+  },
+  {
+    "id": "f3-replay-requested-unique",
+    "guard": "the requested replay buyer identities must be unique",
+    "file": "sim/buyers/recording.ts",
+    "from": "new Set(buyers.map((buyer) => buyer.agentId)).size !== buyers.length",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-requested-intents",
+    "guard": "the selected buyer identities and intents match the recording",
+    "file": "sim/buyers/recording.ts",
+    "from": "buyers.some((buyer) => !recording.buyers.some((recorded) => recorded.agentId === buyer.agentId && recorded.intent === buyer.intent))",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-merchant",
+    "guard": "replay must preserve the original merchant",
+    "file": "sim/buyers/recording.ts",
+    "from": "source.merchantName !== expected.merchantName",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-cover",
+    "guard": "replay must preserve what one cover means",
+    "file": "sim/buyers/recording.ts",
+    "from": "source.about !== expected.about",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-economics",
+    "guard": "replay must preserve list price, paid price, discount, minimum pool and cap",
+    "file": "sim/buyers/recording.ts",
+    "from": "Object.entries(expected.offer).some(([key, value]) => !Object.entries(source.offer).some(([sourceKey, sourceValue]) => sourceKey === key && sourceValue === value))",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-duration",
+    "guard": "replay must preserve the source visit duration",
+    "file": "sim/buyers/recording.ts",
+    "from": "source.offer.window.endMinute - source.offer.window.startMinute !== expected.durationMinutes",
+    "to": "false"
+  },
+  {
+    "id": "f3-replay-deadline",
+    "guard": "replay must preserve the source deadline-to-visit relation",
+    "file": "sim/buyers/recording.ts",
+    "from": "source.offer.window.commitByMinute !== source.offer.window.startMinute",
+    "to": "false"
+  },
+  {
+    "id": "f3-preflight-before-prepare",
+    "guard": "replay validation happens before prepareScene and MCP",
+    "file": "sim/buyers/scene.ts",
+    "from": "validateReplay(o.models.recording, buyers, {",
+    "to": "((..._ignored: unknown[]) => null)(o.models.recording, buyers, {"
+  },
+  {
+    "id": "f3-snapshot-replay-provenance",
+    "guard": "the API recognizes persisted replay model prefixes",
+    "file": "src/lib/demo/snapshot.ts",
+    "from": "plan.p.model.startsWith(\"replay:\") ? \"recorded_replay\" : \"model\"",
+    "to": "false ? \"recorded_replay\" : \"model\""
+  },
+  {
+    "id": "f3-board-replay-buyers",
+    "guard": "the public board labels simulated recorded replay buyers and shifted windows",
+    "file": "src/app/demo/live-board.tsx",
+    "from": "Simulated buyers. {scene.plan?.provenance === \"recorded_replay\"",
+    "to": "Simulated buyers. {false"
+  },
+  {
+    "id": "f3-board-replay-wonder",
+    "guard": "the public board labels a replayed Wonder plan",
+    "file": "src/app/demo/live-board.tsx",
+    "from": ">{scene.plan?.provenance === \"recorded_replay\" ? \"Sold out: recorded Wonder plan replayed\"",
+    "to": ">{false ? \"Sold out: recorded Wonder plan replayed\""
+  },
+  {
+    "id": "f4-submit-before-retirement-rule-lock",
+    "path": "src/lib/commitments/service.ts",
+    "before": "      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n",
+    "after": "",
+    "test": "tests/integration/s7-retirement-race.test.ts",
+    "testNamePattern": "refuses retirement when a submission has read",
+    "file": "src/lib/commitments/service.ts",
+    "from": "      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n",
+    "to": "",
+    "guard": "refuses retirement when a submission has read"
+  },
+  {
+    "id": "f4-retirement-before-submit-availability-read",
+    "path": "src/lib/commitments/service.ts",
+    "before": "      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n      const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));\n      const rule = ruleRow && toRule(ruleRow);\n      if (!rule || !available(rule)) throw new Refused(\"offer_unavailable\");\n",
+    "after": "      const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));\n      const rule = ruleRow && toRule(ruleRow);\n      if (!rule || !available(rule)) throw new Refused(\"offer_unavailable\");\n      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n",
+    "test": "tests/integration/s7-retirement-race.test.ts",
+    "testNamePattern": "refuses a submission that reads while retirement",
+    "file": "src/lib/commitments/service.ts",
+    "from": "      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n      const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));\n      const rule = ruleRow && toRule(ruleRow);\n      if (!rule || !available(rule)) throw new Refused(\"offer_unavailable\");\n",
+    "to": "      const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));\n      const rule = ruleRow && toRule(ruleRow);\n      if (!rule || !available(rule)) throw new Refused(\"offer_unavailable\");\n      // Hold availability through insertion so a scene cannot retire an accepted offer.\n      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);\n",
+    "guard": "refuses a submission that reads while retirement"
+  },
+  {
+    "id": "f5-server-stale-status",
+    "guard": "Read failures emit stale status",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          if (!stale) {",
+    "to": "          if (false) {"
+  },
+  {
+    "id": "f5-server-recovery-status",
+    "guard": "An unchanged successful read recovers freshness",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          } else if (stale) {",
+    "to": "          } else if (false) {"
+  },
+  {
+    "id": "f5-server-stale-reset",
+    "guard": "Successful reads reset the stale transition",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          stale = false;",
+    "to": "          void stale;"
+  },
+  {
+    "id": "f5-server-failure-heartbeat",
+    "guard": "Persistent read failure preserves heartbeats",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          } else if (now() - lastWriteAt >= options.heartbeatMs) {\n            write(\": ping\\n\\n\");\n          }\n        }",
+    "to": "          } else if (false) {\n            write(\": ping\\n\\n\");\n          }\n        }"
+  },
+  {
+    "id": "f5-client-open-is-not-live",
+    "guard": "Connection-open alone cannot become Live",
+    "file": "src/app/demo/live-feed.ts",
+    "from": "  source.addEventListener(\"message\", () => onState(\"live\"));",
+    "to": "  source.addEventListener(\"open\", () => onState(\"live\"));"
+  },
+  {
+    "id": "f5-client-snapshot-is-live",
+    "guard": "A successful snapshot marks the client Live",
+    "file": "src/app/demo/live-feed.ts",
+    "from": "  source.addEventListener(\"message\", () => onState(\"live\"));",
+    "to": ""
+  },
+  {
+    "id": "f5-client-stale-clears-live",
+    "guard": "Read failure clears Live",
+    "file": "src/app/demo/live-feed.ts",
+    "from": "  source.addEventListener(\"stale\", () => onState(\"stale\"));",
+    "to": "  source.addEventListener(\"stale\", () => onState(\"live\"));"
+  },
+  {
+    "id": "f5-client-recovery-is-live",
+    "guard": "Read recovery restores Live",
+    "file": "src/app/demo/live-feed.ts",
+    "from": "  source.addEventListener(\"recovered\", () => onState(\"live\"));",
+    "to": "  source.addEventListener(\"recovered\", () => onState(\"stale\"));"
+  },
+  {
+    "id": "f5-client-error-clears-live",
+    "guard": "Transport errors clear Live",
+    "file": "src/app/demo/live-feed.ts",
+    "from": "  source.addEventListener(\"error\", () => onState(\"connecting\"));",
+    "to": "  source.addEventListener(\"error\", () => onState(\"live\"));"
+  },
+  {
+    "id": "f6-success-reply-null",
+    "path": "sim/buyers/buyer.ts",
+    "before": "reply: result.value",
+    "after": "reply: null",
+    "test": "tests/unit/s7-buyer.test.ts",
+    "testNamePattern": "returns the validated decision",
+    "file": "sim/buyers/buyer.ts",
+    "from": "reply: result.value",
+    "to": "reply: null",
+    "guard": "returns the validated decision"
+  },
+  {
+    "id": "f6-failure-error-null",
+    "path": "sim/buyers/buyer.ts",
+    "before": "error: redact(error)",
+    "after": "error: null",
+    "test": "tests/unit/s7-buyer.test.ts",
+    "testNamePattern": "keeps a null decision",
+    "file": "sim/buyers/buyer.ts",
+    "from": "error: redact(error)",
+    "to": "error: null",
+    "guard": "keeps a null decision"
+  },
+  {
+    "id": "f6-output-token-cap",
+    "path": "sim/buyers/buyer.ts",
+    "before": "maxCompletionTokens: 2048",
+    "after": "maxCompletionTokens: 1024",
+    "test": "tests/unit/s7-buyer.test.ts",
+    "testNamePattern": "returns the validated decision",
+    "file": "sim/buyers/buyer.ts",
+    "from": "maxCompletionTokens: 2048",
+    "to": "maxCompletionTokens: 1024",
+    "guard": "returns the validated decision"
+  },
+  {
+    "id": "f6-fractional-scene-lead",
+    "path": "src/domain/demo/scene.ts",
+    "before": "!Number.isInteger(leadMinutes) || leadMinutes < 1",
+    "after": "leadMinutes < 1",
+    "test": "tests/unit/s7-buyer.test.ts",
+    "testNamePattern": "refuses a positive fractional scene lead",
+    "file": "src/domain/demo/scene.ts",
+    "from": "!Number.isInteger(leadMinutes) || leadMinutes < 1",
+    "to": "leadMinutes < 1",
+    "guard": "refuses a positive fractional scene lead"
+  },
+  {
+    "id": "solo-is-alone",
+    "guard": "solo clears each commitment as the only one in its occurrence",
+    "file": "src/domain/demo/scene.ts",
+    "from": "unlocked: clear(rule, visitDate, [c]).unlocked",
+    "to": "unlocked: clear(rule, visitDate, commitments).unlocked"
+  },
+  {
+    "id": "window-partial-minute",
+    "guard": "a deadline is at least the lead away when now is part way through a minute",
+    "file": "src/domain/demo/scene.ts",
+    "from": "now.getUTCSeconds() > 0 || now.getUTCMilliseconds() > 0 ? 1 : 0",
+    "to": "now.getUTCSeconds() > 0 ? 1 : 0"
+  },
+  {
+    "id": "window-midnight",
+    "guard": "a window ending exactly at midnight is allowed",
+    "file": "src/domain/demo/scene.ts",
+    "from": "if (endMinute > MINUTES_PER_DAY) return null;",
+    "to": "if (endMinute >= MINUTES_PER_DAY) return null;"
+  },
+  {
+    "id": "window-singapore-date",
+    "guard": "the scene date is the Singapore date, not the UTC date",
+    "file": "src/domain/demo/scene.ts",
+    "from": "return { visitDate: local.date,",
+    "to": "return { visitDate: now.toISOString().slice(0, 10),"
+  },
+  {
+    "id": "retire-old-rules",
+    "guard": "a new scene retires the merchant's earlier rules from list_offers",
+    "file": "sim/buyers/scene.ts",
+    "from": "    for (const r of old) await tx.update(rules).set({ floorPriceCents: r.list }).where(and(eq(rules.id, r.id), eq(rules.merchantId, merchant.id)));\n",
+    "to": ""
+  },
+  {
+    "id": "wait-for-deadline",
+    "guard": "status calls wait for the deadline, so they clear the pool",
+    "file": "sim/buyers/scene.ts",
+    "from": "    await o.sleep(wait);\n",
+    "to": ""
+  },
+  {
+    "id": "spend-cap",
+    "guard": "no model call starts once the billed cost reaches the cap",
+    "file": "sim/buyers/scene.ts",
+    "from": "if (o.models.spentNanoUsd() >= o.models.capNanoUsd) return { agentId",
+    "to": "if (o.models.spentNanoUsd() > o.models.capNanoUsd) return { agentId"
+  },
+  {
+    "id": "replay-plan-label",
+    "guard": "a replayed Wonder plan is stored as a replay, not as a live model's",
+    "file": "sim/buyers/scene.ts",
+    "from": "`replay:${o.models.recording.wonderModel}`",
+    "to": "o.models.recording.wonderModel"
+  },
+  {
+    "id": "snapshot-fill-outcome",
+    "guard": "a buyer whose commitment did not fill shows not filled",
+    "file": "src/lib/demo/snapshot.ts",
+    "from": "outcome: !cleared ? \"pending\" : cleared.fills.has(r.c.id) ? \"filled\" : \"not_filled\",",
+    "to": "outcome: !cleared ? \"pending\" : \"filled\","
+  },
+  {
+    "id": "snapshot-sold-out",
+    "guard": "a pool that filled its whole capacity shows sold out",
+    "file": "src/lib/demo/snapshot.ts",
+    "from": "filledCovers >= rule.capacityCovers",
+    "to": "filledCovers > rule.capacityCovers"
+  },
+  {
+    "id": "snapshot-muse-agent",
+    "guard": "the Muse card shows the real Muse user's commitment, not the latest of any agent",
+    "file": "src/lib/demo/snapshot.ts",
+    "from": "    .where(eq(commitments.agentId, MUSE_AGENT_ID))\n",
+    "to": ""
+  },
+  {
+    "id": "sse-only-changes",
+    "guard": "the stream sends a snapshot only when it changed",
+    "file": "src/lib/demo/sse.ts",
+    "from": "if (json !== last) {",
+    "to": "if (true) {"
+  },
+  {
+    "id": "sse-heartbeat",
+    "guard": "an idle stream sends a ping (healthy-read branch; outage heartbeat has its own F5 mutation)",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          } else if (now() - lastWriteAt >= options.heartbeatMs) {\n            write(\": ping\\n\\n\");\n          }\n          stale = false;",
+    "to": "          }\n          stale = false;"
+  },
+  {
+    "id": "sse-abort",
+    "guard": "the stream stops when the request is aborted",
+    "file": "src/lib/demo/sse.ts",
+    "from": "!cancelled && !options.signal.aborted && now()",
+    "to": "!cancelled && now()"
+  },
+  {
+    "id": "sse-survives-read-error",
+    "guard": "a failed read does not end the stream",
+    "file": "src/lib/demo/sse.ts",
+    "from": "          log(\"error\", \"demo.snapshot_failed\", errorFields(err));\n",
+    "to": "          log(\"error\", \"demo.snapshot_failed\", errorFields(err));\n          break;\n"
+  }
+]

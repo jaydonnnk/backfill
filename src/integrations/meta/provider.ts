@@ -59,6 +59,13 @@ export class LlmError extends Error {
   }
 }
 
+export class LlmRecordingError extends Error {
+  override name = "LlmRecordingError";
+  constructor() {
+    super("Model call recording failed");
+  }
+}
+
 export type MetaProviderOptions = {
   baseUrl: string;
   apiKey: string;
@@ -171,21 +178,25 @@ export function createMetaProvider(options: MetaProviderOptions): LLMProvider {
       totalCost += cost;
       totalLatency += latencyMs;
 
-      await options.record({
-        provider: "meta",
-        model: request.model,
-        purpose: request.purpose,
-        attempt,
-        ...usage,
-        costNanoUsd: cost,
-        latencyMs,
-        ok: outcome.kind === "ok",
-        httpStatus,
-        // Built only from constants, HTTP statuses, error names and Zod issue messages, none of
-        // which carry a request value, so there is nothing to redact.
-        error: outcome.kind === "ok" ? null : outcome.problem,
-        output: content === null ? null : content.slice(0, OUTPUT_LIMIT),
-      });
+      try {
+        await options.record({
+          provider: "meta",
+          model: request.model,
+          purpose: request.purpose,
+          attempt,
+          ...usage,
+          costNanoUsd: cost,
+          latencyMs,
+          ok: outcome.kind === "ok",
+          httpStatus,
+          // Built only from constants, HTTP statuses, error names and Zod issue messages, none of
+          // which carry a request value, so there is nothing to redact.
+          error: outcome.kind === "ok" ? null : outcome.problem,
+          output: content === null ? null : content.slice(0, OUTPUT_LIMIT),
+        });
+      } catch {
+        throw new LlmRecordingError();
+      }
 
       if (outcome.kind === "ok") {
         return { value: outcome.value, attempts: attempt, usage: total, costNanoUsd: totalCost, latencyMs: totalLatency };

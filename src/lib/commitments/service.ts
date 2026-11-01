@@ -71,7 +71,7 @@ export const clockTime = (minute: number) => `${String(Math.floor(minute / 60)).
 export const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
 
 // The terms in one plain sentence, built from the public Offer only.
-export function termsSummary(merchantName: string, offer: Offer): string {
+export function termsSummary(merchantName: string, offer: Pick<Offer, "window" | "discountBps" | "listPriceCents" | "offerPriceCents" | "minPoolCovers" | "perAgentCapCovers">): string {
   const w = offer.window;
   return (
     `${merchantName}: ${offer.discountBps / 100}% off, ${dollars(offer.listPriceCents)} becomes ${dollars(offer.offerPriceCents)} per cover, ` +
@@ -237,6 +237,8 @@ export async function submitCommitment(
         return { ok: true as const, replayed: true, commitment: await viewOf(tx, existing) };
       }
 
+      // Hold availability through insertion so a scene cannot retire an accepted offer.
+      await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);
       const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));
       const rule = ruleRow && toRule(ruleRow);
       if (!rule || !available(rule)) throw new Refused("offer_unavailable");

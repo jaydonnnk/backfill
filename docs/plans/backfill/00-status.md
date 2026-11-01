@@ -610,7 +610,6 @@ Known limits:
 - `/demo` lists only the buyers who committed; the 9 who declined appear in the recording and the command's output, not on the page.
 
 Not done:
-- The S7 review: [handoff-s7.md](handoff-s7.md) carries the review prompt.
 - S8 ledger and checkout.
 
 
@@ -623,3 +622,27 @@ Authorization, in the user's words:
 
 Fixed:
 1. **Minor: stale status for S7 on main.** The S7 status and handoff still listed the fast-forward and push as unfinished. Before this docs-only fix, `git rev-parse HEAD main origin/main backfill/slice-7-demo origin/backfill/slice-7-demo` returned `328569b30203d928dac429bc5046143d0fd908a0` for all five refs and `git status --short` was empty. Both documents now reflect that evidence. The S7 review remains in progress; no code fix, Neon write, Render change or model call is authorized by this entry.
+
+
+Code-fix continuation: `backfill/slice-7-review-fixes`, from `main` at `c7965da`.
+
+Further authorizations, in the user's words:
+- 2026-11-01: "Fix f1-f6 first, then let me know once they're fixed".
+- 2026-11-01, after the test-isolation incident was disclosed and the exact guarded correction was proposed: "Restore those two changes".
+
+Review verdict delivered: ISSUES FOUND, no blocker established. F1-F6 were selected; F7, the unfinished rationale, was not selected. The earlier minor stale-main-status fix is the separate commit `c7965da` above.
+
+Implementation:
+- **F1:** Paid S7 recording now refuses before configuration, database setup, MCP or model requests. A verified provider-enforced spending allowance is not available; byte estimates are not treated as a hard cap. Replay remains available. Restoring paid recording is an open integration requirement, not an implied permission to spend.
+- **F2:** Exclusive append-and-fsync partial journals retain started requests, attributed attempts, completed buyer decisions and Wonder proposals before later steps. Recorder failures are fatal through both S7 model adapters. Queued workers stop, already-started workers drain, and final JSON cannot overwrite an existing recording.
+- **F3:** The frozen V1 recording is unchanged and hash-bound to its verified source. V2 records public source context; identity, intent and economics are checked before scene setup. Source and rehearsal windows are disclosed. The board labels simulated buyers and replayed Wonder output; missing provenance is unknown.
+- **F4:** Due pools settle before floor retirement. Future pending commitments block retirement under rule locks. Submission takes the existing SECURITY DEFINER rule lock before reading availability, so both race orderings are covered without a migration.
+- **F5:** Read errors mark the feed stale; a successful snapshot or recovery marks it Live. Socket-open alone does not. A hung read has no new timeout.
+- **F6:** Direct Spark-adapter tests protect successful replies, saved errors and the 2048-token limit; fractional positive lead is tested separately.
+
+**[verified]** Full suite: 386 tests in 38 files, typecheck, lint and git diff --check passed. The full-suite mutation proof in [evidence/s7-review-fixes](evidence/s7-review-fixes/README.md) killed all 75 faults on AssertionError, restored every file byte-identical and passed every restored rerun, with zero file errors. A scoped independent re-review passed the corrected recorder propagation, attempt attribution and both retirement orderings. A local browser showed Stale during failed reads and Live on recovery, with explicit replay labels. The fixes have not been merged, pushed or deployed. S8 has not started.
+
+Incident record:
+- An initial regression CLI child ran from the real checkout, loaded configuration and prepared a Neon scene before its loopback MCP connection failed. It inserted empty rule `d57a7e1d-0ce3-4bad-b4dd-30f5f36d8543` and raised rule `b80547e2-08d8-44f6-94f5-ffa395be9546` floor from 500 to 680. No model request occurred. This was an unauthorized write, disclosed to the user.
+- With the user's exact correction approval above, one guarded transaction locked and checked both rows, deleted the empty new rule without CASCADE and restored the old floor only if its expected values still matched. Read-only counts went from rules 6 back to 5; commitments 25, clearings 3, fills 14, plans 2 and llm_calls 4 stayed unchanged. The restored floor is 500. Temporary scripts were deleted.
+- The CLI regression now runs in an empty temporary directory with an explicit minimal environment. Mutation copies contain no .env.local. No further production write, model call or Render change is authorized.

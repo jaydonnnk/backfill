@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { DemoBuyer, DemoMuse, DemoScene, DemoSnapshot } from "@/lib/demo/snapshot";
+import { followFeedHealth, type FeedState } from "./live-feed";
 
 const card = "flex min-w-0 flex-col gap-4 rounded-lg border border-[var(--border)] p-5";
 const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
@@ -60,6 +61,11 @@ function Scene({ scene, now }: { scene: DemoScene; now: number }) {
         <p className="text-sm">
           {percent(scene.discountBps)} off: {dollars(scene.listPriceCents)} becomes {dollars(scene.offerPriceCents)} per cover, if at least {scene.minPoolCovers} covers commit by {sgTime(scene.commitBy)}.
         </p>
+        <p className="text-sm text-[var(--muted)]">
+          Simulated buyers. {scene.plan?.provenance === "recorded_replay"
+            ? "Recorded replay: these buyer decisions came from an earlier recording. This rehearsal may use a shifted day and time; the decisions were not made afresh for this window."
+            : "Buyer decision provenance is unknown on this board. A live feed does not establish a fresh model run."}
+        </p>
       </section>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -116,9 +122,9 @@ function Scene({ scene, now }: { scene: DemoScene; now: number }) {
 
       {scene.pooled.soldOut && (
         <section className={card}>
-          <h2 className="text-lg font-medium">Sold out: the merchant&rsquo;s Muse Wonder agent re-plans</h2>
+          <h2 className="text-lg font-medium">{scene.plan?.provenance === "recorded_replay" ? "Sold out: recorded Wonder plan replayed" : "Sold out: the merchant's Muse Wonder plan"}</h2>
           {scene.plan === null ? (
-            <p className="text-sm text-[var(--muted)]">Wonder is planning the next offer…</p>
+            <p className="text-sm text-[var(--muted)]">No Wonder plan stored yet. Its model or replay provenance is unknown.</p>
           ) : scene.plan.verdict === "ok" ? (
             <>
               <p className="text-sm">
@@ -156,12 +162,12 @@ function Muse({ muse }: { muse: DemoMuse }) {
 
 export function LiveBoard({ initial }: { initial: DemoSnapshot }) {
   const [snapshot, setSnapshot] = useState(initial);
-  const [live, setLive] = useState(false);
+  const [feedState, setFeedState] = useState<FeedState>("connecting");
+  const live = feedState === "live";
   const now = useNow();
   useEffect(() => {
     const source = new EventSource("/api/demo/stream");
-    source.onopen = () => setLive(true);
-    source.onerror = () => setLive(false);
+    followFeedHealth(source, setFeedState);
     source.onmessage = (event: MessageEvent<string>) => setSnapshot(JSON.parse(event.data) as DemoSnapshot);
     return () => source.close();
   }, []);
@@ -175,7 +181,7 @@ export function LiveBoard({ initial }: { initial: DemoSnapshot }) {
         </div>
         <p className="flex items-center gap-2 pt-1 text-sm text-[var(--muted)]" aria-live="polite">
           <span className={`inline-block size-2 rounded-full ${live ? "bg-[var(--accent)]" : "bg-[var(--border)]"}`} />
-          {live ? "Live" : "Reconnecting"}
+          {live ? "Live" : feedState === "stale" ? "Stale" : "Reconnecting"}
         </p>
       </header>
       {snapshot.scene ? <Scene scene={snapshot.scene} now={now} /> : <section className={card}><p className="text-sm text-[var(--muted)]">No scene yet. Run the demo scene to start one.</p></section>}

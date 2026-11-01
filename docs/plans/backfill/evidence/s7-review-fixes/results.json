@@ -1,0 +1,917 @@
+{
+  "baseline": 386,
+  "summary": {
+    "baselineTests": 386,
+    "mutations": 75,
+    "assertionKills": 75,
+    "byteIdenticalRestores": 75,
+    "greenReruns": 75,
+    "fileErrors": 0
+  },
+  "results": [
+    {
+      "id": "f1-paid-record-closed",
+      "guard": "paid recording fails closed without enforced allowance",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses paid recording before configuration, database or model access when no enforced allowance exists :: AssertionError: expected 'scene failed: Error: 20 of 20 buyer t\u2026' to contain 'paid S7 recording is disabled: no pro\u2026'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f1-entry-preflight",
+      "guard": "CLI calls paid-mode preflight before loading configuration",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses paid recording before configuration, database or model access when no enforced allowance exists :: AssertionError: expected 'scene failed: Error: 20 of 20 buyer t\u2026' to contain 'paid S7 recording is disabled: no pro\u2026'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-existing-recording",
+      "guard": "existing frozen recording refused before setup",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses an existing recording before creating any new journal or changing its bytes :: AssertionError: expected null to be 'recording already exists; use a new p\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-exclusive-journal",
+      "guard": "a second writer cannot replace partial evidence",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a second writer for the same partial recording :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-journal-append",
+      "guard": "decision and failure events remain in partial file",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps completed decisions in a durable partial journal when a later step fails :: AssertionError: expected [] to deeply equal [ \u2026(2) ]",
+        "refuses a second writer for the same partial recording :: AssertionError: expected '' to be '{\"type\":\"started\",\"data\":{\"mode\":\"rec\u2026' // Object.is equality",
+        "drains started workers and leaves queued decisions unstarted after a fatal failure :: AssertionError: expected '' to be '{\"type\":\"completed\",\"data\":2}\\n' // Object.is equality",
+        "attributes interleaved attempt output to the correct buyer invocation :: AssertionError: expected +0 to be 2 // Object.is equality",
+        "writes a completed recording exclusively and preserves a competing file byte for byte :: AssertionError: expected '' to be '{\"type\":\"complete\",\"data\":{\"costNanoU\u2026' // Object.is equality",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected undefined to match object { type: 'scene', data: { \u2026(2) } }",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected undefined to deeply equal { prompt: StringContaining{\u2026}, \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-request-before-attempt",
+      "guard": "started request persists with invocation ID",
+      "verdict": "killed",
+      "failedTests": [
+        "attributes interleaved attempt output to the correct buyer invocation :: AssertionError: expected +0 to be 2 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-attempt-attribution",
+      "guard": "concurrent attempts retain the invocation that started them",
+      "verdict": "killed",
+      "failedTests": [
+        "attributes interleaved attempt output to the correct buyer invocation :: AssertionError: expected [ [ undefined, 'two' ], \u2026(1) ] to deeply equal [ [ 'two', 'two' ], [ 'one', 'one' ] ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-unscoped-attempt",
+      "guard": "an unattributed attempt is refused",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses an attempt with no request attribution instead of writing an ambiguous entry :: AssertionError: expected null to be 'model attempt is outside its recordin\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-stop-queued-workers",
+      "guard": "fatal failure prevents queued work from starting",
+      "verdict": "killed",
+      "failedTests": [
+        "drains started workers and leaves queued decisions unstarted after a fatal failure :: AssertionError: expected '{\"type\":\"completed\",\"data\":3}\\n{\"type\u2026' to be '{\"type\":\"completed\",\"data\":2}\\n' // Object.is equality",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a valid reply :: AssertionError: expected { Object (terminal, fetches, ...) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a invalid reply :: AssertionError: expected { Object (terminal, fetches, ...) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a retryable HTTP failure :: AssertionError: expected { Object (terminal, fetches, ...) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider sparkBuyer rejects a recording failure before a queued buyer sends or persists a decision :: AssertionError: expected { Object (terminal, fetches, ...) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider wonderMerchant rejects a recording failure before queued work sends or persists a plan :: AssertionError: expected { Object (terminal, fetches, ...) } to deeply equal { Object (terminal, fetches, ...) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-rethrow-after-drain",
+      "guard": "failure is propagated after started workers drain",
+      "verdict": "killed",
+      "failedTests": [
+        "drains started workers and leaves queued decisions unstarted after a fatal failure :: AssertionError: expected null to be 'first failed' // Object.is equality",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a valid reply :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a invalid reply :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a retryable HTTP failure :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider sparkBuyer rejects a recording failure before a queued buyer sends or persists a decision :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider wonderMerchant rejects a recording failure before queued work sends or persists a plan :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected null to be 'MCP submission failed after decision' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-checkpoint-before-submit",
+      "guard": "completed buyer decision saved before MCP",
+      "verdict": "killed",
+      "failedTests": [
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected [ { type: 'scene', data: { \u2026(2) } } ] to deeply equal ArrayContaining{\u2026}"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-settle-before-retire",
+      "guard": "due pool settles at accepted price before floor retirement",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "settles due covers at their accepted price before retiring the old rule :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be null",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be null",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-old-rule-lock",
+      "guard": "pending check waits for already inserting commitments",
+      "verdict": "killed",
+      "failedTests": [
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: AssertionError: expected 'retired' to be 'earlier scene has pending commitments\u2026' // Object.is equality",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: AssertionError: expected null to be 'earlier scene has pending commitments\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-pending-refusal",
+      "guard": "future pending commitments cannot be stranded",
+      "verdict": "killed",
+      "failedTests": [
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: AssertionError: expected 'retired' to be 'earlier scene has pending commitments\u2026' // Object.is equality",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: AssertionError: expected null to be 'earlier scene has pending commitments\u2026' // Object.is equality",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: AssertionError: expected null to be 'earlier scene has pending commitments\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-cancelled-not-pending",
+      "guard": "cancelled commitment does not block scene retirement",
+      "verdict": "killed",
+      "failedTests": [
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be null",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-merchant-scope",
+      "guard": "another merchant pending pool cannot block this scene",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be null",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-cleared-not-pending",
+      "guard": "cleared commitments do not block retirement",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be null",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected 'earlier scene has pending commitments\u2026' to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-drain-started-workers",
+      "guard": "already started work is awaited before shutdown",
+      "verdict": "killed",
+      "failedTests": [
+        "drains started workers and leaves queued decisions unstarted after a fatal failure :: AssertionError: expected true to be false // Object.is equality",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a valid reply :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a invalid reply :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a retryable HTTP failure :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider sparkBuyer rejects a recording failure before a queued buyer sends or persists a decision :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider wonderMerchant rejects a recording failure before queued work sends or persists a plan :: AssertionError: expected { terminal: null, fetches: 1, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: sim-buyer-01: expected 'pending' to be 'filled' // Object.is equality",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: Error: earlier scene has pending commitments; wait for its deadline before starting another",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected null to be 'MCP submission failed after decision' // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected null to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-scene-checkpoint",
+      "guard": "partial evidence identifies prepared rule and occurrence",
+      "verdict": "killed",
+      "failedTests": [
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected { type: 'buyer', data: { \u2026(7) } } to match object { type: 'scene', data: { \u2026(2) } }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-wonder-checkpoint",
+      "guard": "Wonder proposal is saved before DB plan storage",
+      "verdict": "killed",
+      "failedTests": [
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected null to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-exclusive-completion",
+      "guard": "completion never overwrites a competing recording",
+      "verdict": "killed",
+      "failedTests": [
+        "writes a completed recording exclusively and preserves a competing file byte for byte :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-completion-marker",
+      "guard": "completed cost is retained in the durable journal",
+      "verdict": "killed",
+      "failedTests": [
+        "writes a completed recording exclusively and preserves a competing file byte for byte :: AssertionError: expected '' to be '{\"type\":\"complete\",\"data\":{\"costNanoU\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-provider-recorder-fatal-classification",
+      "guard": "Recorder errors carry the fatal error type",
+      "verdict": "killed",
+      "failedTests": [
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a valid reply :: AssertionError: expected { \u2026(3) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a invalid reply :: AssertionError: expected { \u2026(3) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider stops the provider queue after a recorder failure on a retryable HTTP failure :: AssertionError: expected { \u2026(3) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider sparkBuyer rejects a recording failure before a queued buyer sends or persists a decision :: AssertionError: expected { terminal: null, fetches: 2, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }",
+        "fatal recording errors through the real Meta provider wonderMerchant rejects a recording failure before queued work sends or persists a plan :: AssertionError: expected { terminal: null, fetches: 2, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-spark-recorder-error-propagation",
+      "guard": "Spark buyer rethrows fatal recording errors",
+      "verdict": "killed",
+      "failedTests": [
+        "fatal recording errors through the real Meta provider sparkBuyer rejects a recording failure before a queued buyer sends or persists a decision :: AssertionError: expected { terminal: null, fetches: 2, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f2-wonder-recorder-error-propagation",
+      "guard": "Wonder merchant rethrows fatal recording errors",
+      "verdict": "killed",
+      "failedTests": [
+        "fatal recording errors through the real Meta provider wonderMerchant rejects a recording failure before queued work sends or persists a plan :: AssertionError: expected { terminal: null, fetches: 2, \u2026(1) } to deeply equal { Object (terminal, fetches, ...) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-legacy-source-hash",
+      "guard": "only the verified committed V1 recording may use the attached legacy source context",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses edited legacy evidence rather than trusting unstructured source prose :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-source-weekday",
+      "guard": "source weekday must match its original visit date",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses inconsistent or invalid source dates without throwing from the boundary parser :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-invalid-source-parser",
+      "guard": "invalid source dates must be rejected without a raw parser exception",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses inconsistent or invalid source dates without throwing from the boundary parser :: AssertionError: expected [Function] to not throw an error but 'Error: not an ISO date' was thrown"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-known-buyer",
+      "guard": "recorded buyer identities must belong to the canonical buyer set",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses a V2 recording with changed unknown before trusting its decisions :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-unique-buyers",
+      "guard": "duplicate buyer identities are refused",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses a V2 recording with changed duplicate before trusting its decisions :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-source-intent",
+      "guard": "each recorded intent matches that buyer identity",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses a V2 recording with changed intent before trusting its decisions :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-source-request-system",
+      "guard": "the recorded system request matches the source context",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses a V2 recording with changed system before trusting its decisions :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-source-request-prompt",
+      "guard": "the recorded prompt matches the source context",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses a V2 recording with changed prompt before trusting its decisions :: AssertionError: expected true to be false // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-exact-buyer-count",
+      "guard": "a recording cannot contain buyers outside the intended replay set",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses an incomplete replay and changed requested buyer identities or intents :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-requested-unique",
+      "guard": "the requested replay buyer identities must be unique",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses an incomplete replay and changed requested buyer identities or intents :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-requested-intents",
+      "guard": "the selected buyer identities and intents match the recording",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses an incomplete replay and changed requested buyer identities or intents :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-merchant",
+      "guard": "replay must preserve the original merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses changed public merchantName even with matching regenerated requests :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-cover",
+      "guard": "replay must preserve what one cover means",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses changed public about even with matching regenerated requests :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-economics",
+      "guard": "replay must preserve list price, paid price, discount, minimum pool and cap",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses changed public price even with matching regenerated requests :: AssertionError: expected [Function] to throw an error",
+        "recording source validation refuses changed public paid even with matching regenerated requests :: AssertionError: expected [Function] to throw an error",
+        "recording source validation refuses changed public discount even with matching regenerated requests :: AssertionError: expected [Function] to throw an error",
+        "recording source validation refuses changed public pool even with matching regenerated requests :: AssertionError: expected [Function] to throw an error",
+        "recording source validation refuses changed public cap even with matching regenerated requests :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-duration",
+      "guard": "replay must preserve the source visit duration",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses changed public duration even with matching regenerated requests :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-replay-deadline",
+      "guard": "replay must preserve the source deadline-to-visit relation",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation refuses changed public deadline even with matching regenerated requests :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-preflight-before-prepare",
+      "guard": "replay validation happens before prepareScene and MCP",
+      "verdict": "killed",
+      "failedTests": [
+        "recording source validation validates replay before preparing a rule or opening MCP :: AssertionError: expected 'prepareScene reached' to match /recording buyer identities/"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-snapshot-replay-provenance",
+      "guard": "the API recognizes persisted replay model prefixes",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { provenance: 'model', \u2026(7) } to deeply equal { discountBps: 1800, \u2026(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-board-replay-buyers",
+      "guard": "the public board labels simulated recorded replay buyers and shifted windows",
+      "verdict": "killed",
+      "failedTests": [
+        "demo replay labels labels a stored replay plan and the possible shifted rehearsal window :: AssertionError: expected '<main class=\"mx-auto flex min-h-scree\u2026' to contain 'Recorded replay:'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f3-board-replay-wonder",
+      "guard": "the public board labels a replayed Wonder plan",
+      "verdict": "killed",
+      "failedTests": [
+        "demo replay labels labels a stored replay plan and the possible shifted rehearsal window :: AssertionError: expected '<main class=\"mx-auto flex min-h-scree\u2026' to contain 'recorded Wonder plan replayed'"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-submit-before-retirement-rule-lock",
+      "guard": "refuses retirement when a submission has read",
+      "verdict": "killed",
+      "failedTests": [
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: AssertionError: expected 'retired' to be 'earlier scene has pending commitments\u2026' // Object.is equality",
+        "S7 submission and scene retirement serialize at rule availability refuses a submission that reads while retirement holds the old rule :: AssertionError: expected { ok: true, replayed: false, \u2026(1) } to deeply equal { ok: false, \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f4-retirement-before-submit-availability-read",
+      "guard": "refuses a submission that reads while retirement",
+      "verdict": "killed",
+      "failedTests": [
+        "S7 submission and scene retirement serialize at rule availability refuses a submission that reads while retirement holds the old rule :: AssertionError: expected { ok: true, replayed: false, \u2026(1) } to deeply equal { ok: false, \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-server-stale-status",
+      "guard": "Read failures emit stale status",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream keeps going after a failed read and stops when the request is aborted :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":2}\\n\\ndata:\u2026' to be 'retry: 2000\\n\\nevent: stale\\ndata: {}\u2026' // Object.is equality",
+        "demo stream freshness marks a previously readable snapshot stale during repeated read failures and still pings :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\n: pin\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality",
+        "demo stream freshness recovers from one failed read when the next snapshot is unchanged without resending data :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\n' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-server-recovery-status",
+      "guard": "An unchanged successful read recovers freshness",
+      "verdict": "killed",
+      "failedTests": [
+        "demo stream freshness recovers from one failed read when the next snapshot is unchanged without resending data :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-server-stale-reset",
+      "guard": "Successful reads reset the stale transition",
+      "verdict": "killed",
+      "failedTests": [
+        "demo stream freshness recovers from one failed read when the next snapshot is unchanged without resending data :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-server-failure-heartbeat",
+      "guard": "Persistent read failure preserves heartbeats",
+      "verdict": "killed",
+      "failedTests": [
+        "demo stream freshness marks a previously readable snapshot stale during repeated read failures and still pings :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-client-open-is-not-live",
+      "guard": "Connection-open alone cannot become Live",
+      "verdict": "killed",
+      "failedTests": [
+        "demo feed indicator waits for a successful read before marking an opened connection live :: AssertionError: expected [ 'connecting', 'live' ] to deeply equal [ 'connecting' ]",
+        "demo feed indicator shows stale read status until a successful read recovers, even on an open connection :: AssertionError: expected [ 'stale', 'live' ] to deeply equal [ 'live', 'stale' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-client-snapshot-is-live",
+      "guard": "A successful snapshot marks the client Live",
+      "verdict": "killed",
+      "failedTests": [
+        "demo feed indicator waits for a successful read before marking an opened connection live :: AssertionError: expected [ 'connecting' ] to deeply equal [ 'connecting', 'live' ]",
+        "demo feed indicator shows stale read status until a successful read recovers, even on an open connection :: AssertionError: expected [ 'stale' ] to deeply equal [ 'live', 'stale' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-client-stale-clears-live",
+      "guard": "Read failure clears Live",
+      "verdict": "killed",
+      "failedTests": [
+        "demo feed indicator shows stale read status until a successful read recovers, even on an open connection :: AssertionError: expected [ 'live', 'live' ] to deeply equal [ 'live', 'stale' ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-client-recovery-is-live",
+      "guard": "Read recovery restores Live",
+      "verdict": "killed",
+      "failedTests": [
+        "demo feed indicator shows stale read status until a successful read recovers, even on an open connection :: AssertionError: expected [ 'live', 'stale', 'stale', \u2026(1) ] to deeply equal [ 'live', 'stale', 'live', \u2026(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f5-client-error-clears-live",
+      "guard": "Transport errors clear Live",
+      "verdict": "killed",
+      "failedTests": [
+        "demo feed indicator shows stale read status until a successful read recovers, even on an open connection :: AssertionError: expected [ 'live', 'stale', 'live', 'live' ] to deeply equal [ 'live', 'stale', 'live', \u2026(1) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f6-success-reply-null",
+      "guard": "returns the validated decision",
+      "verdict": "killed",
+      "failedTests": [
+        "sparkBuyer through the Meta provider returns the validated decision and bills failed retries while preserving its request and token cap :: AssertionError: expected { Object (request, reply, ...) } to deeply equal { request: { \u2026(2) }, \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f6-failure-error-null",
+      "guard": "keeps a null decision",
+      "verdict": "killed",
+      "failedTests": [
+        "sparkBuyer through the Meta provider keeps a null decision and an explicit error after truncated and invalid replies exhaust retries :: AssertionError: expected { Object (request, reply, ...) } to deeply equal { Object (request, reply, ...) }",
+        "fatal recording errors through the real Meta provider keeps ordinary model failures as null replies in both wrappers :: AssertionError: expected { Object (request, reply, ...) } to match object { reply: null, \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f6-output-token-cap",
+      "guard": "returns the validated decision",
+      "verdict": "killed",
+      "failedTests": [
+        "sparkBuyer through the Meta provider returns the validated decision and bills failed retries while preserving its request and token cap :: AssertionError: expected { model: 'muse-spark-1.3', \u2026(4) } to match object { max_completion_tokens: 2048 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "f6-fractional-scene-lead",
+      "guard": "refuses a positive fractional scene lead",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a positive fractional scene lead :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "solo-is-alone",
+      "guard": "solo clears each commitment as the only one in its occurrence",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected [ \u2026(16) ] to deeply equal []",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-partial-minute",
+      "guard": "a deadline is at least the lead away when now is part way through a minute",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow closes at the first whole minute at least the lead away, on today's Singapore date :: AssertionError: expected 842 to be 843 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-midnight",
+      "guard": "a window ending exactly at midnight is allowed",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow refuses a window that would cross midnight, and only then :: AssertionError: expected null to match object { endMinute: 1440 }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "window-singapore-date",
+      "guard": "the scene date is the Singapore date, not the UTC date",
+      "verdict": "killed",
+      "failedTests": [
+        "sceneWindow closes at the first whole minute at least the lead away, on today's Singapore date :: AssertionError: expected { visitDate: '2026-11-03', \u2026(4) } to match object { visitDate: '2026-11-04', \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "retire-old-rules",
+      "guard": "a new scene retires the merchant's earlier rules from list_offers",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: AssertionError: expected 'cleared' to be 'open' // Object.is equality",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: AssertionError: expected 500 to be 680 // Object.is equality",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected { covers: 38, unlocked: true, \u2026(2) } to deeply equal { covers: 5, unlocked: false, \u2026(2) }",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: AssertionError: expected [ \u2026(16) ] to deeply equal []",
+        "S7 submission and scene retirement serialize at rule availability refuses a submission that reads while retirement holds the old rule :: Error: race fixture did not reach a database lock or complete",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected null to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "wait-for-deadline",
+      "guard": "status calls wait for the deadline, so they clear the pool",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: sim-buyer-01: expected 'pending' to be 'filled' // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected null to be 'plan storage interrupted' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "spend-cap",
+      "guard": "no model call starts once the billed cost reaches the cap",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: AssertionError: expected 6 to be 5 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "replay-plan-label",
+      "guard": "a replayed Wonder plan is stored as a replay, not as a live model's",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { provenance: 'model', \u2026(7) } to deeply equal { discountBps: 1800, \u2026(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-fill-outcome",
+      "guard": "a buyer whose commitment did not fill shows not filled",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected [ 'sim-buyer-01', \u2026(15) ] to deeply equal [ Array(9) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-sold-out",
+      "guard": "a pool that filled its whole capacity shows sold out",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { covers: 38, unlocked: true, \u2026(2) } to deeply equal { covers: 38, unlocked: true, \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "snapshot-muse-agent",
+      "guard": "the Muse card shows the real Muse user's commitment, not the latest of any agent",
+      "verdict": "killed",
+      "failedTests": [
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: AssertionError: expected { \u2026(7) } to deeply equal { \u2026(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-only-changes",
+      "guard": "the stream sends a snapshot only when it changed",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream sends a snapshot only when it changes, pings while idle and ends at maxMs :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:\u2026' // Object.is equality",
+        "demo stream freshness recovers from one failed read when the next snapshot is unchanged without resending data :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-heartbeat",
+      "guard": "an idle stream sends a ping (healthy-read branch; outage heartbeat has its own F5 mutation)",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream sends a snapshot only when it changes, pings while idle and ends at maxMs :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:\u2026' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\ndata:\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-abort",
+      "guard": "the stream stops when the request is aborted",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream keeps going after a failed read and stops when the request is aborted :: AssertionError: expected 'retry: 2000\\n\\nevent: stale\\ndata: {}\u2026' to be 'retry: 2000\\n\\nevent: stale\\ndata: {}\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "sse-survives-read-error",
+      "guard": "a failed read does not end the stream",
+      "verdict": "killed",
+      "failedTests": [
+        "snapshotStream keeps going after a failed read and stops when the request is aborted :: AssertionError: expected 'retry: 2000\\n\\n' to be 'retry: 2000\\n\\nevent: stale\\ndata: {}\u2026' // Object.is equality",
+        "demo stream freshness marks a previously readable snapshot stale during repeated read failures and still pings :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\n' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality",
+        "demo stream freshness recovers from one failed read when the next snapshot is unchanged without resending data :: AssertionError: expected 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\n' to be 'retry: 2000\\n\\ndata: {\"n\":1}\\n\\nevent\u2026' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

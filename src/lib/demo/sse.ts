@@ -30,6 +30,7 @@ export function snapshotStream(read: () => Promise<unknown>, options: StreamOpti
     async start(controller) {
       const startedAt = now();
       let last: string | null = null;
+      let stale = false;
       let lastWriteAt = startedAt;
       const write = (text: string) => {
         controller.enqueue(encoder.encode(text));
@@ -42,12 +43,20 @@ export function snapshotStream(read: () => Promise<unknown>, options: StreamOpti
           if (json !== last) {
             write(`data: ${json}\n\n`);
             last = json;
+          } else if (stale) {
+            write("event: recovered\ndata: {}\n\n");
           } else if (now() - lastWriteAt >= options.heartbeatMs) {
             write(": ping\n\n");
           }
+          stale = false;
         } catch (err) {
           log("error", "demo.snapshot_failed", errorFields(err));
-          if (now() - lastWriteAt >= options.heartbeatMs) write(": ping\n\n");
+          if (!stale) {
+            write("event: stale\ndata: {}\n\n");
+            stale = true;
+          } else if (now() - lastWriteAt >= options.heartbeatMs) {
+            write(": ping\n\n");
+          }
         }
         await sleep(options.intervalMs, options.signal);
       }

@@ -54,7 +54,7 @@ describe("snapshotStream", () => {
       },
       { intervalMs: 1000, heartbeatMs: 60_000, maxMs: 60_000, signal: abort.signal, now: () => t, sleep: async (ms) => void (t += ms) },
     );
-    expect(await drain(stream)).toBe(`retry: 2000\n\ndata: {"n":2}\n\ndata: {"n":3}\n\n`);
+    expect(await drain(stream)).toBe(`retry: 2000\n\nevent: stale\ndata: {}\n\ndata: {"n":2}\n\ndata: {"n":3}\n\n`);
   });
 });
 

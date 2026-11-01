@@ -1,11 +1,11 @@
-import type { ImageInput, LLMProvider } from "@/integrations/meta/provider";
+import { LlmRecordingError, type ImageInput, type LLMProvider } from "@/integrations/meta/provider";
 import { MenuDraft } from "@/domain/onboarding/menu";
 import { percent, WonderPlan } from "@/domain/onboarding/replan";
 import { errorFields, log } from "@/lib/log";
 
 // The two S6 model calls. Muse Spark reads a menu photo into a MenuDraft; Muse Wonder, the
 // merchant's agent, plans the rule's next terms after a sellout. Neither is told the hidden floor,
-// and neither result counts until the domain judges it. Any failure becomes null.
+// and neither result counts until the domain judges it. Invalid model replies become null.
 
 export const MENU_VISION_PURPOSE = "menu_vision";
 export const WONDER_PLAN_PURPOSE = "wonder_plan";
@@ -92,6 +92,7 @@ export function wonderMerchant(provider: LLMProvider, model: string): ProposePla
       log("info", "onboarding.plan", { attempts: result.attempts, costNanoUsd: result.costNanoUsd, latencyMs: result.latencyMs, rationale: result.value.rationale });
       return result.value;
     } catch (err) {
+      if (err instanceof LlmRecordingError) throw err;
       log("error", "onboarding.plan_failed", errorFields(err));
       return null;
     }

@@ -9,7 +9,7 @@ export type CommitmentVerdict = { ok: true } | { ok: false; reason: Refusal };
 
 // The discounted price per cover. The discount rounds down to a whole cent, so any fraction stays
 // with the merchant.
-export function offerPriceCents(rule: MerchantRule): number {
+export function offerPriceCents(rule: Pick<MerchantRule, "listPriceCents"> & { terms: Pick<MerchantRule["terms"], "discountBps"> }): number {
   return rule.listPriceCents - Math.floor((rule.listPriceCents * rule.terms.discountBps) / BASIS_POINTS);
 }
 
