@@ -1,3 +1,5 @@
+import { KopiMessage } from "@/components/kopi-companion";
+import { Kopi } from "@/components/kopi";
 import { percent } from "@/domain/onboarding/replan";
 import { dollars } from "@/lib/commitments/service";
 import { merchantLedger } from "@/lib/ledger/service";
@@ -49,8 +51,8 @@ const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text
 
 function SignedOut() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-3 px-4 py-12 sm:px-6">
-      <h1 className="text-2xl font-semibold tracking-tight">Backfill for merchants</h1>
+    <main className="workspace-page">
+      <Kopi className="entry-kopi" label="Kopi, your Backfill guide" /><p className="eyebrow">Your merchant workspace</p><h1 className="text-2xl font-semibold tracking-tight">Your menu.<br />Your terms.</h1>
       <p className="text-[var(--muted)]">Open the secret link Backfill gave you to manage your offers.</p>
     </main>
   );
@@ -69,7 +71,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const linkedEnding = whatsapp ? await linkedPhoneEnding(webDb(), merchant.id) : null;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
+    <main className="workspace-page">
       <header className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-sm text-[var(--muted)]">Backfill for merchants</p>
@@ -82,6 +84,9 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
         </form>
       </header>
 
+      <KopiMessage pose={status === "plan_refused" ? "shield" : "idle"} text={notice ?? "Start with your menu. You check everything before publishing."} />
+      <ol className="onboarding-steps" aria-label="Merchant journey"><li aria-current={board.rules.length === 0 ? "step" : undefined}>01 / Read your menu</li><li>02 / Confirm your terms</li><li aria-current={board.rules.length > 0 ? "step" : undefined}>03 / Follow your offers</li></ol>
+      <dl className="merchant-summary"><div><dt>Your offers</dt><dd>{board.rules.length}</dd></div><div><dt>Covers filled</dt><dd>{savingsLedger.totals.covers}</dd></div><div><dt>Buyer savings</dt><dd>{dollars(savingsLedger.totals.buyerShareCents)}</dd></div></dl>
       {notice && (
         <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">
           {notice}
@@ -98,6 +103,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           <input
             type="file"
             name="photo"
+            aria-label="Menu photo"
             accept="image/jpeg,image/png,image/webp"
             required
             className="min-w-0 flex-1 text-sm file:mr-3 file:rounded-md file:border file:border-[var(--border)] file:bg-transparent file:px-3 file:py-2 file:text-sm file:text-[var(--foreground)]"

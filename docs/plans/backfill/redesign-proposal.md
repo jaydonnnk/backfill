@@ -1,9 +1,13 @@
 # Redesign proposal: Backfill UI before S9 and S10
 
 Status: approved by the user, 2026-11-01. Start S8.5 directly on its own slice branch.
-Pet decision: Kopi, an original coffee-cup character; implementation belongs to S9.5.
+Pet decision: Kopi, an original coffee-cup character; the user-approved site-wide design now implements the visual companion before S9. See [S9 handoff](s9-handoff.md) for current scope.
 Scope: the web UI only.
 No domain, clearing, ledger or MCP behaviour changes.
+
+## Current design authority, 2026-11-01
+
+The user accepted the implemented Silkscreen/IBM Plex Mono and scanline Kopi design. The current code and [committed HTML review gallery](evidence/kopi-ui/index.html) supersede the older typography, visual examples and Kopi deferral below. The S9 evaluation content requirements remain applicable; [s9-handoff.md](s9-handoff.md) specifies their design continuation. The rest of this proposal preserves historical planning context.
 
 ## Answer first
 

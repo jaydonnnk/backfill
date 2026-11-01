@@ -5,6 +5,9 @@ import type { DemoMuse, DemoScene, DemoSnapshot } from "@/lib/demo/snapshot";
 import type { DemoLedger } from "@/lib/demo/ledger";
 import { followFeedHealth, type FeedState } from "./live-feed";
 
+import { KopiMessage } from "@/components/kopi-companion";
+import { demoKopiCue } from "@/components/kopi-state";
+
 const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
 const percent = (bps: number) => `${bps / 100}%`;
 const sgTime = (iso: string) => new Date(iso).toLocaleString("en-SG", { timeZone: "Asia/Singapore", day: "numeric", month: "short", hour: "numeric", minute: "2-digit", second: "2-digit" });
@@ -108,6 +111,7 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
     setReplay({ snapshot, shown: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? snapshot.scene?.buyers.length ?? 0 : 0 });
   }
   return <main className="page demo-page">
+    <KopiMessage {...demoKopiCue(view.scene, feedState, replay !== null)} />
     <div className="demo-toolbar"><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{feedState === "live" ? "Live" : feedState === "stale" ? "Stale" : "Reconnecting"} feed{replay ? " · Viewing local replay" : " · Stored scene"}</p><div className="actions"><button className="button" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>Replay this scene</button>{replay && <button className="button" onClick={() => setReplay(null)}>Return to live</button>}</div></div>
     {view.scene ? <Scene key={view.scene.id} scene={view.scene} now={now} savings={view.ledger?.pools.find(p => `${p.ruleId}:${p.visitDate}` === view.scene?.id)?.buyerShareCents ?? null} shown={replay?.shown ?? view.scene.buyers.length} /> : <section className="panel"><h1>{feedState === "stale" ? "Feed unavailable" : "No scene yet"}</h1><p>{feedState === "stale" ? "Reconnecting to the stored scene. No results are available yet." : "The dashboard will update when a demo scene is recorded."}</p></section>}
     {playing ? <p className="small muted">Local animation only. Stored results appear when replay finishes.</p> : <div className="results-grid"><Ledger ledger={view.ledger} />{view.muse && <Muse muse={view.muse} />}</div>}

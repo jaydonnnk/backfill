@@ -42,7 +42,7 @@ export default async function System({ searchParams }: { searchParams: Promise<{
   const { row, error, total } = await loadLatest();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
+    <main className="workspace-page">
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-semibold tracking-tight">System diagnostics</h1>
         <p className="text-[var(--muted)]">AI agents pool committed spend. Small merchants sell spoiling off-peak capacity to them.</p>

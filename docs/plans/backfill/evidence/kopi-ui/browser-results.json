@@ -1,0 +1,104 @@
+{
+  "checks": [
+    {
+      "route": "/",
+      "width": 375,
+      "scroll": 375,
+      "title": "Hey, I'mKopi.Let's fillthe table."
+    },
+    {
+      "route": "/demo",
+      "width": 375,
+      "scroll": 375,
+      "title": "Small groups. One full table."
+    },
+    {
+      "route": "/evals",
+      "width": 375,
+      "scroll": 375,
+      "title": "Muse Spark vs DeepSeek"
+    },
+    {
+      "route": "/system",
+      "width": 375,
+      "scroll": 375,
+      "title": "System diagnostics"
+    },
+    {
+      "route": "/merchant",
+      "width": 375,
+      "scroll": 375,
+      "title": "Your menu.Your terms."
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Hey, I'mKopi.Let's fillthe table."
+    },
+    {
+      "route": "/demo",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Small groups. One full table."
+    },
+    {
+      "route": "/evals",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Muse Spark vs DeepSeek"
+    },
+    {
+      "route": "/system",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "System diagnostics"
+    },
+    {
+      "route": "/merchant",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Your menu.Your terms."
+    },
+    {
+      "route": "/merchant",
+      "authenticated": true,
+      "scroll": 375,
+      "title": "Backfill Demo Cafe",
+      "width": 375
+    },
+    {
+      "route": "/merchant/drafts/[id]",
+      "authenticated": true,
+      "scroll": 375,
+      "title": "Check your menu",
+      "width": 375
+    },
+    {
+      "route": "/merchant",
+      "authenticated": true,
+      "scroll": 1280,
+      "title": "Backfill Demo Cafe",
+      "width": 1280
+    },
+    {
+      "route": "/merchant/drafts/[id]",
+      "authenticated": true,
+      "scroll": 1280,
+      "title": "Check your menu",
+      "width": 1280
+    }
+  ],
+  "interactions": [
+    "Kopi dismissal persists across navigation",
+    "Menu validation refusal and successful local publication",
+    "Kopi replay labelled as stored, no new bookings",
+    "Replay finishes and returns to live",
+    "Alone/Pooled comparison",
+    "All 11 mobile buyer popovers within viewport"
+  ],
+  "limitations": [
+    "Dark-mode and reduced-motion runtime emulation unavailable"
+  ],
+  "source": "Local synthetic database"
+}

@@ -1,3 +1,4 @@
+import { KopiMessage } from "@/components/kopi-companion";
 import { notFound } from "next/navigation";
 import { dollars, WEEKDAY_NAMES } from "@/lib/commitments/service";
 import { webDb } from "@/lib/db/client";
@@ -36,7 +37,7 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
   const listPrice = view.listPriceCents;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
+    <main className="workspace-page">
       <header className="flex flex-col gap-1">
         <a href="/merchant" className="text-sm text-[var(--muted)] underline underline-offset-4">
           Back to {merchant.name}
@@ -44,6 +45,8 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
         <h1 className="text-2xl font-semibold tracking-tight">Check your menu</h1>
       </header>
 
+      <KopiMessage pose={notice || view.verdict !== "ok" ? "shield" : "watching"} text={notice ?? (view.ruleId ? "This offer is published." : view.verdict === "ok" ? "Check the prices. You choose the terms." : "This menu needs another look.")} />
+      <ol className="onboarding-steps" aria-label="Merchant journey"><li>01 / Read your menu</li><li aria-current="step">02 / Confirm your terms</li><li>03 / Follow your offers</li></ol>
       {notice && (
         <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">
           {notice}

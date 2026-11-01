@@ -748,3 +748,24 @@ Render Auto-Deploy `dep-dbjklmlg1s2s7382gasg` was confirmed `Deploy succeeded|Li
 Hosted browser verification showed Live feed, 0 of 11 unlocking alone, 30 pooled covers, 16 filled and sold out, recorded Wonder differences, current-pool buyer savings S$21.76, historical Demo Cafe buyer savings S$43.52 and reconciled totals. Client replay completed and returned to Live. The Muse card remained visibly separate. No authenticated merchant browser, tracer button, model call, migration or production data write was used for this verification.
 
 S8.5 is published. Pet and merchant redesign remain S9.5; S9 evaluation results are still pending the separate model-call/spending decision. This final status update changes documentation only and is included in the authorized main push.
+
+### Kopi site-wide design, local review ready, 2026-11-01
+
+The user approved the animated HTML landing mockup and requested: "implement a site wide change according to this design ... let me see the final results ... before we start slice 9". Implementation is local on `codex/kopi-site-design`. This advances the visual companion from the earlier S9.5 deferral; it does not start S9 or authorize publication/model spending.
+
+- Silkscreen headings and IBM Plex Mono supporting text; existing light/dark colours retained. Shared pixel cup mark, landing composition and animated scanline Kopi.
+- Shared route-aware, dismissible companion with persisted preference. Demo guidance distinguishes connecting/stale/replay/open/cleared/sold-out states; merchant pending messages restore the underlying guidance after completion.
+- Existing demo, evals, diagnostics, merchant entry, dashboard and draft review restyled. Merchant summary and onboarding steps use existing data. Forms, server actions, domain rules, migrations and financial policies unchanged.
+- Verified locally: 425 tests in 42 files, typecheck, lint, diffcheck and a secret-free production build with webpack. Fourteen route/viewport checks at 375/1280, no horizontal overflow; local replay/return, comparison, all 11 mobile buyer popovers, persistent dismissal and local merchant validation/publication checked. No browser console errors in the captured session.
+- Independent review found one temporary-message ownership defect; fixed with owner-keyed messages and a regression test, then narrowly re-reviewed without further findings.
+- Dark-mode and reduced-motion CSS are preserved, but this browser interface did not expose preference emulation, so new runtime verification of those preferences is not claimed.
+- Local verification published one synthetic offer in a disposable database; a fresh fixture replaced that database for review. Current review fixture: zero model calls, one unpublished menu draft. No production data writes or model calls.
+
+Review at http://127.0.0.1:3190/; HTML screenshot gallery at http://127.0.0.1:3191/ and [evidence/kopi-ui/index.html](evidence/kopi-ui/index.html). Local merchant is signed in in the review browser. Preview copy: `/tmp/backfill-kopi-preview`. See [verification notes](evidence/kopi-ui/README.md). No commit, merge, push or deployment is claimed; visual acceptance remains with the user. S9 is unstarted.
+
+
+### Kopi design accepted and main publication authorized, 2026-11-01
+
+The user accepted the local site: "Alright looks good" and explicitly requested committing the working tree, pushing it to main, and a copy-paste S9 continuation prompt preserving the design. This authorizes the main push and its existing Render auto-deploy side effect. No migration, production data write or model call is needed.
+
+The S9 handoff is [s9-handoff.md](s9-handoff.md). Build-plan and redesign-proposal now explicitly point to the accepted pixel typography, original palette and shared scanline Kopi implementation; historical typography/pet deferral is superseded. S9 implementation has not started in this session, and model-call/spending policy remains a separate decision. Publication verification is in progress.

@@ -126,6 +126,8 @@ The real Muse commitment from S4, if Day 0 passed, appears in the pool labelled 
 
 ### S9 - Evals (Nov 2)
 
+- Continuation and approved visual direction: [s9-handoff.md](s9-handoff.md). Use the current Silkscreen/IBM Plex Mono, existing palette and shared scanline Kopi design.
+
 - `evals/agenticpay`: Muse Spark vs DeepSeek (OpenRouter) on deal rate, savings and cost per deal.
 - Cost comes from `llm_calls`, not estimates.
 - Same scenarios and seeds for both models; write `evals/results/<run-id>.json` with per-episode proposals, refusals, rounds, outcomes, savings, call IDs and costs, plus summary.
@@ -133,6 +135,8 @@ The real Muse commitment from S4, if Day 0 passed, appears in the pool labelled 
 - Model-call/spending policy remains a separate decision.
 
 ### S9.5 - Pet and merchant dashboard (approved 2026-11-01)
+
+The user subsequently advanced the visual companion and merchant overview/steps into the accepted pre-S9 Kopi site update. Reuse that implementation; expanded pet animation/props, dragging and a deterministic test switch remain unclaimed. See [s9-handoff.md](s9-handoff.md).
 
 - Kopi, an original coffee-cup mascot: idle, nod, unlock, sold out, shield.
 - Merchant KPI tiles, offer chips and onboarding stepper; event-driven pet with dismissal, reduced motion and deterministic test flag.
