@@ -653,6 +653,8 @@ Incident record:
 The user authorized: "Yes. i authroize both fixes into main and push as well as S8 and produiction writes". In context, this names S7 F1-F6 integration and push, S8 implementation, and production writes within S8. It does not select F7 or authorize model calls, real payments, S9, or changes to the protected real Muse commitment and other merchants.
 
 - **[verified]** A secret-free git archive of `7cdbb56d5cd2b3ad0bcfa3fbf6cefe200f25661c` passed 386 tests in 38 files, typecheck and lint. Tests used the explicit disposable local `TEST_DATABASE_URL`.
-- **[verified]** `main` fast-forwarded from `c7965da` to `7cdbb56` and pushed. `git ls-remote origin refs/heads/main` confirmed that exact published tip. CI run 41290674332 was in progress when first checked. No Render redeploy has occurred in this session.
+- **[verified]** `main` fast-forwarded from `c7965da` to `7cdbb56` and pushed. `git ls-remote origin refs/heads/main` confirmed that exact published tip. CI run 41290674332 completed successfully on that exact tip. No Render redeploy has occurred in this session.
 - S8 starts on `backfill/slice-8-ledger-checkout` from `7cdbb56`. The approved build plan covers ledger splits, merchant totals, reconciliation and ACP-shaped checkout without real money or model calls. Migration `0013` is available; `0000` through `0012` remain frozen.
 - The savings split percentages were not specified in the approved plan. The user has been asked to choose a policy before implementation of the split. Existing accepted prices cannot silently gain fees.
+
+S8 design is recorded in [s8-plan.md](s8-plan.md). Two independent sketches and a separate judge compared transaction ownership, source binding and historical price evidence. The split policy remains pending; no S8 product code, migration, backfill, production write or deployment has occurred.
