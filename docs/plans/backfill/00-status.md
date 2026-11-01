@@ -611,5 +611,15 @@ Known limits:
 
 Not done:
 - The S7 review: [handoff-s7.md](handoff-s7.md) carries the review prompt.
-- A fast-forward and push of `main` to the S7 tip: needs a fresh yes from the user.
 - S8 ledger and checkout.
+
+
+### S7 review fixes, 2026-11-01
+
+Branch: `main`, starting at `328569b`.
+
+Authorization, in the user's words:
+- 2026-11-01: "continue the read-only review, treat the repo as authoritative for those two lines, and record them as a single **minor** finding (stale status) rather than stopping. fix both in one docs-only commit, and push to main".
+
+Fixed:
+1. **Minor: stale status for S7 on main.** The S7 status and handoff still listed the fast-forward and push as unfinished. Before this docs-only fix, `git rev-parse HEAD main origin/main backfill/slice-7-demo origin/backfill/slice-7-demo` returned `328569b30203d928dac429bc5046143d0fd908a0` for all five refs and `git status --short` was empty. Both documents now reflect that evidence. The S7 review remains in progress; no code fix, Neon write, Render change or model call is authorized by this entry.

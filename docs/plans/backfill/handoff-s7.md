@@ -41,14 +41,14 @@
 
 ## Open Work
 - The S7 review: the prompt below sets it up.
-- A fast-forward and push of `main` to the S7 tip: needs a fresh yes from the user.
+- S7 is on `main` and `origin/main` at `328569b`, verified from Git on 2026-11-01 before the docs-only review fix.
 - Then the choice: continue to S8 (ledger and checkout), or re-steer.
 
 ## Prompt for New Chat
 
 Backfill is in /Users/jayd0/Desktop/meta-hack. Slice S7 is finished on `backfill/slice-7-demo`: the live record run, the replay exit on Render, the screenshots, the Neon reads and the records are all done and committed.
 Read docs/plans/backfill/handoff-s7.md, the S7 section at the end of docs/plans/backfill/00-status.md, and build-plan.md "### S7" and "### S8" before doing anything.
-`main` has not been fast-forwarded to the S7 tip; ask by name before any fast-forward or push of `main`, and before any Neon or Render write.
+`main` and `origin/main` already contain the S7 tip `328569b`, verified from Git on 2026-11-01. Ask by name before any further fast-forward or push of `main`, and before any Neon or Render write.
 Rules that still hold: no em dash, no co-author trailer or agent attribution, never read or print `.env.local`, `git branch --show-current` before every edit, and never present a replay or a simulated buyer as a real user.
 Wait for instructions.
 
