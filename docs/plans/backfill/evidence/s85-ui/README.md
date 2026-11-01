@@ -19,3 +19,7 @@ Open [the HTML gallery](index.html) to compare the landing and demo at 375px and
 Start a secret-free production copy with that DATABASE_URL, dummy Meta settings pointing at `https://model.invalid`, and port 3185. Then run `browser-check.mjs` with `PLAYWRIGHT_MODULE` pointing to the installed Playwright module and `CHROME_BIN` pointing to Chrome. The runner refuses a non-local PREVIEW_URL and writes the screenshots and JSON beside itself.
 
 The current preview is at `http://localhost:3185/demo`. Its temporary build and database are retained for review. A previous preview database was dropped after replacing it. No production database, deployment, paid call, frozen recording or historical evidence was changed.
+
+## Published application
+
+S8.5 and the README/pitch edits are on main at `b20bd16`. [CI 41315773866](https://github.com/jaydonnnk/backfill/actions/runs/41315773866) passed. Render deployment `dep-dbjklmlg1s2s7382gasg` was confirmed Live at that source. Hosted public pages, feed, comparison and local replay passed; full rollout details are in the latest S8.5 section of [00-status.md](../../00-status.md). No new production data or model call was needed.

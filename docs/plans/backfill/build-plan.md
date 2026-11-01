@@ -117,7 +117,7 @@ The real Muse commitment from S4, if Day 0 passed, appears in the pool labelled 
 - ACP-shaped checkout endpoints in `src/app/api`, no real money.
 - Exit: every filled commitment has exactly one ledger entry and the totals reconcile.
 
-### S8.5 - Design shell (locally verified 2026-11-01; not published)
+### S8.5 - Design shell (published and hosted-verified 2026-11-01)
 
 - Semantic tokens, shared navigation, landing page, tracer moved to `/system`.
 - `/demo`: alone/pooled visual, read-only ledger splits, Wonder diff, event timeline and client-only replay.

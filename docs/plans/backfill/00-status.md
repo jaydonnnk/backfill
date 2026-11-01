@@ -737,3 +737,14 @@ Local exit met; visual acceptance by the user and hosted deployment are not clai
 The user requested: "Go ahead and push and deploy this branch to main and the readme and the page edits as well. Push them to main as well." This authorizes integrating the S8.5 branch and the existing README/pitch edits into main, pushing main and deploying the existing Render service. No model call, payment or database mutation is needed.
 
 Preflight: origin/main and local main both at `95deb4d`; S8.5 at `98dc125`. The README/pitch edits narrow the merchant audience to restaurants and cafés. Fresh local verification passed 418 tests in 41 files, typecheck, lint and diffcheck. The application bytes had already passed the secret-free production build and browser suite. Render currently serves main with Auto-Deploy enabled. Publication and hosted verification are in progress.
+
+
+### S8.5 published and hosted exit verified, 2026-11-01
+
+S8.5 and the user-owned README/pitch edits fast-forwarded to main and were pushed at `b20bd164ec5996479a144c211786d1957c91afb7`. [CI 41315773866](https://github.com/jaydonnnk/backfill/actions/runs/41315773866) passed typecheck, lint, unit tests, integration tests and production build. Local preflight passed 418 tests.
+
+Render Auto-Deploy `dep-dbjklmlg1s2s7382gasg` was confirmed `Deploy succeeded|Live` with source `b20bd16`. No duplicate manual deployment was triggered. [Hosted landing](https://backfill-9d0x.onrender.com/) and `/demo`, `/evals`, `/system` returned 200 with the new shared shell and expected content; health returned `{"ok":true,"db":"up"}`. One request during the rolling transition returned 502, followed by successful hosted checks.
+
+Hosted browser verification showed Live feed, 0 of 11 unlocking alone, 30 pooled covers, 16 filled and sold out, recorded Wonder differences, current-pool buyer savings S$21.76, historical Demo Cafe buyer savings S$43.52 and reconciled totals. Client replay completed and returned to Live. The Muse card remained visibly separate. No authenticated merchant browser, tracer button, model call, migration or production data write was used for this verification.
+
+S8.5 is published. Pet and merchant redesign remain S9.5; S9 evaluation results are still pending the separate model-call/spending decision. This final status update changes documentation only and is included in the authorized main push.
