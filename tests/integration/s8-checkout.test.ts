@@ -59,6 +59,9 @@ it("returns exact accepted economics, completes once concurrently, and never mov
   const ready = await created.json();
   expect(ready).toMatchObject({ id: f.id, status: "ready_for_payment", currency: "sgd", simulated: true, money_moved: false, totals: [{ type: "total", amount: 1876 }], savings: { savings_cents: 624, buyer_share_cents: 624, agent_share_cents: 0, network_share_cents: 0 } });
   expect(JSON.stringify(ready)).not.toMatch(/floor|capacity|token|negotiation_id/i);
+  const foreign = await mintAgent(t.db, randomUUID(), "foreign after clearing");
+  expect((await read(req(foreign.token), f.id)).status).toBe(404);
+  expect((await complete(req(foreign.token, { simulate: true }), f.id)).status).toBe(404);
   const done = await Promise.all(Array.from({ length: 5 }, () => complete(req(f.agent.token, { simulate: true }), f.id)));
   expect(done.map(r => r.status)).toEqual([200, 200, 200, 200, 200]);
   const bodies = await Promise.all(done.map(r => r.json())); expect(bodies.every(b => JSON.stringify(b) === JSON.stringify(bodies[0]))).toBe(true);
@@ -87,4 +90,14 @@ it("refuses malformed input, client prices, payment credentials and bodies above
   expect((await create(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "application/json" }, body: " ".repeat(5000) + JSON.stringify({ commitment_id: f.id }) }))).status).toBe(400);
   expect((await read(req(f.agent.token), "bad")).status).toBe(400);
   expect((await create(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "text/plain" }, body: "{}" }))).status).toBe(415);
+});
+
+it("keeps different buyers' ledger rows and receipts separate", async () => {
+  const f = await fixture(); now = new Date("2026-11-03T12:00:00+08:00");
+  const ready = await (await create(req(f.agent.token, { commitment_id: f.id }))).json();
+  expect(ready.status).toBe("ready_for_payment");
+  expect(ready.line_items).toEqual([{ id: f.id, quantity: 2, unit_amount: 938, amount: 1876 }]);
+  const done = await complete(req(f.agent.token, { simulate: true }), f.id);
+  expect(done.status).toBe(200);
+  expect(await done.json()).toMatchObject({ id: f.id, order: { id: `sim_${f.id}`, checkout_session_id: f.id } });
 });

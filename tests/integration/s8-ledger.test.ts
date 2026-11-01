@@ -186,3 +186,17 @@ it("rejects duplicate historical sources atomically", async () => {
   expect((await attempt(backfillLedger(t.db, [source, source]))).error).not.toBeNull();
   expect(Number((await t.admin`select count(*)::int as n from ledger where rule_id = ${f.ruleId}`)[0]?.n)).toBe(0);
 });
+
+it("reports legacy mismatches and orphan rows and refuses a conflicting backfill", async () => {
+  const { f, source } = await legacyFill(); const orphan = await seed();
+  // Represents invalid pre-S8 history. The production guard is restored before validation.
+  await t.admin.begin(async tx => {
+    await tx.unsafe("ALTER TABLE ledger DISABLE TRIGGER zz_s8_ledger_source");
+    for (const row of [f, orphan]) await tx`insert into ledger (commitment_id, merchant_id, rule_id, covers, list_price_cents, price_per_cover_cents, savings_cents, buyer_share_cents, agent_share_cents, network_share_cents) values (${row.commitmentId}, ${row.merchantId}, ${row.ruleId}, 1, 1250, 938, 312, 312, 0, 0)`;
+    await tx.unsafe("ALTER TABLE ledger ENABLE ALWAYS TRIGGER zz_s8_ledger_source");
+  });
+  expect(await merchantLedger(app.db, f.merchantId)).toMatchObject({ missing: [], mismatched: [f.commitmentId], orphaned: [], reconciled: false });
+  expect(await merchantLedger(app.db, orphan.merchantId)).toMatchObject({ missing: [], mismatched: [], orphaned: [orphan.commitmentId], reconciled: false });
+  expect((await attempt(backfillLedger(t.db, [source]))).error).not.toBeNull();
+  expect(Number((await t.admin`select covers from ledger where commitment_id = ${f.commitmentId}`)[0]?.covers)).toBe(1);
+});

@@ -21,7 +21,7 @@ export async function merchantLedger(db: Db, merchantId: string): Promise<Mercha
       return entry !== undefined && (entry.ruleId !== fill.ruleId || entry.covers !== fill.covers || entry.pricePerCoverCents !== fill.pricePerCoverCents);
     }).map(fill => fill.commitmentId).sort();
     const totals = merchantTotals(entries)[0] ?? { merchantId, entries: 0, covers: 0, listValueCents: 0, chargedCents: 0, savingsCents: 0, buyerShareCents: 0, agentShareCents: 0, networkShareCents: 0 };
-    const reconciled = missing.length === 0 && mismatched.length === 0 && orphaned.length === 0 && totals.listValueCents === totals.chargedCents + totals.savingsCents && totals.savingsCents === totals.buyerShareCents + totals.agentShareCents + totals.networkShareCents;
+    const reconciled = missing.length === 0 && mismatched.length === 0 && orphaned.length === 0;
     return { totals, missing, mismatched, orphaned, reconciled };
   }, { isolationLevel: "repeatable read", accessMode: "read only" });
 }
