@@ -730,3 +730,10 @@ The public ledger read is restricted to the same Demo Cafe selected by the exist
 Ruling: `/evals` is a truthful empty route until S9 supplies results; no invented numbers. Omitted unsourced market/launch claims from the landing. The global feed status is shown on the demo where SSE is actually subscribed. Pet and merchant redesign remain S9.5.
 
 Local exit met; visual acceptance by the user and hosted deployment are not claimed. No merge, push, deployment, production write or model call was performed. Existing README and pitch edits are unchanged. S9.5 is approved in the plan but not implemented here. S9's result contract is approved; its model-call/spending policy remains unselected.
+
+
+### S8.5 publication authorized, 2026-11-01
+
+The user requested: "Go ahead and push and deploy this branch to main and the readme and the page edits as well. Push them to main as well." This authorizes integrating the S8.5 branch and the existing README/pitch edits into main, pushing main and deploying the existing Render service. No model call, payment or database mutation is needed.
+
+Preflight: origin/main and local main both at `95deb4d`; S8.5 at `98dc125`. The README/pitch edits narrow the merchant audience to restaurants and cafés. Fresh local verification passed 418 tests in 41 files, typecheck, lint and diffcheck. The application bytes had already passed the secret-free production build and browser suite. Render currently serves main with Auto-Deploy enabled. Publication and hosted verification are in progress.

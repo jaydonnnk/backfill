@@ -6,12 +6,12 @@ Steer: Singapore, from 2026-10-28, the day Muse launched in Singapore.
 
 ## One-liner
 
-Backfill plugs Singapore's small merchants into Muse: agents pool binding commitments, and kopitiams, cafés and hawkers sell their dead off-peak hours on terms the merchant sets.
+Backfill plugs Singapore's small merchants into Muse: agents pool binding commitments, and restaurants and cafés sell their dead off-peak hours on terms the merchant sets.
 
 ## Why now
 
 - On 2026-10-28, Meta launched Muse, its consumer AI agent, in Singapore with Grab, Shopee, Lazada, Klook, Agoda, ShopBack, Singapore Airlines and Trip.com.
-- The neighbourhood kopitiam, café and hawker stall are not on that list.
+- The independent restaurant and café are not on that list.
 They have no API, no partnerships team, and no way into the agent economy.
 - Abroad, retailers are pushing back on agents.
 Amazon blocks Muse, and Coupang, Kohl's and Delta restrict agent purchases.
@@ -22,7 +22,7 @@ Backfill is an MCP server, so a Muse user's own agent can be the buyer.
 ## Short pitch (about 100 words)
 
 Muse launched in Singapore with Grab and Shopee.
-Your kopitiam isn't on it.
+Your restaurant isn't on it.
 Backfill is how small merchants plug into Muse without giving up control.
 The owner snaps a menu photo, and Muse Spark turns it into an offer.
 The owner sets terms agents must accept: "25% off Tue 2-5pm, only if 8 people commit by noon, never below my hidden floor."
