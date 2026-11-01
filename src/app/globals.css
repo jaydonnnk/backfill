@@ -138,6 +138,6 @@ button:disabled { opacity: .5; cursor: not-allowed; }
   .demo-page .kpi-strip dd { font-size: 26px; line-height: 1.25; }
   .demo-page .pool-panel { padding: 20px; gap: 10px; }
   .demo-page .pool-stage { height: 240px !important; }
-  .demo-page .pool-ring { width: 180px; }
+  .demo-page .pool-ring { width: 160px; }
   .demo-page .muse-panel .pool-ring { width: 125px; }
 }

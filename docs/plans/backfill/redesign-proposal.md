@@ -121,8 +121,7 @@ That also solves "less wordy": a short speech bubble replaces a paragraph.
 **Name and brand.**
 I recommend our own mascot rather than "Muse Pet".
 Muse and its Jolly mascot are Meta's brand; a look-alike risks reading as impersonation to Meta judges.
-Proposal: a small coffee cup or plate character (name to be chosen), labelled "powered by Muse Spark" where relevant.
-The name is the user's call.
+Chosen under the user's delegated choice: Kopi, an original coffee-cup character, labelled "powered by Muse Spark" where relevant.
 
 **Behaviour.**
 It lives bottom-right in the shell, about 72px, draggable, dismissable, and remembers "hidden" in `localStorage`.
@@ -192,8 +191,8 @@ Never cut: the `/demo` pool visual, the `/evals` paired metrics, the shell and n
 5. 2:10 `/evals`: Spark vs DeepSeek paired metrics, the guardrail number, one episode's price ladder.
 6. 2:45 Close on the landing CTA.
 
-## Decisions needed
+## Decisions recorded, 2026-11-01
 
-1. Approve S8.5 and S9.5 as new slices, and S9's exit change to per-episode JSON plus `/evals`.
-2. The pet's name and character (own mascot recommended over "Muse Pet").
-3. Whether to mock up `/demo`, `/evals` and the pet before building, or go straight to S8.5.
+1. S8.5, S9.5 and S9's exit change to per-episode JSON plus `/evals` are approved.
+2. Kopi, an original coffee-cup character, is selected under the user's delegated choice.
+3. Start S8.5 directly on its own slice branch, following the user's final instruction.
