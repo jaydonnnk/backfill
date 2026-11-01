@@ -1,6 +1,6 @@
 # Status: Backfill
 
-Updated: 2026-10-30.
+Updated: 2026-11-01.
 
 - Tech stack: approved by the user on 2026-10-26; see [../../tech-stack.md](../../tech-stack.md).
 - Build plan: drafted 2026-10-26 in [build-plan.md](build-plan.md); approved by the user on 2026-10-28, with the Singapore steer, in their words: "Yes, approved".
@@ -640,9 +640,19 @@ Implementation:
 - **F5:** Read errors mark the feed stale; a successful snapshot or recovery marks it Live. Socket-open alone does not. A hung read has no new timeout.
 - **F6:** Direct Spark-adapter tests protect successful replies, saved errors and the 2048-token limit; fractional positive lead is tested separately.
 
-**[verified]** Full suite: 386 tests in 38 files, typecheck, lint and git diff --check passed. The full-suite mutation proof in [evidence/s7-review-fixes](evidence/s7-review-fixes/README.md) killed all 75 faults on AssertionError, restored every file byte-identical and passed every restored rerun, with zero file errors. A scoped independent re-review passed the corrected recorder propagation, attempt attribution and both retirement orderings. A local browser showed Stale during failed reads and Live on recovery, with explicit replay labels. The fixes have not been merged, pushed or deployed. S8 has not started.
+**[verified]** Full suite: 386 tests in 38 files, typecheck, lint and git diff --check passed. The full-suite mutation proof in [evidence/s7-review-fixes](evidence/s7-review-fixes/README.md) killed all 75 faults on AssertionError, restored every file byte-identical and passed every restored rerun, with zero file errors. A scoped independent re-review passed the corrected recorder propagation, attempt attribution and both retirement orderings. A local browser showed Stale during failed reads and Live on recovery, with explicit replay labels. The fixes were local at that verification. Their later integration and S8 authorization are recorded below.
 
 Incident record:
 - An initial regression CLI child ran from the real checkout, loaded configuration and prepared a Neon scene before its loopback MCP connection failed. It inserted empty rule `d57a7e1d-0ce3-4bad-b4dd-30f5f36d8543` and raised rule `b80547e2-08d8-44f6-94f5-ffa395be9546` floor from 500 to 680. No model request occurred. This was an unauthorized write, disclosed to the user.
 - With the user's exact correction approval above, one guarded transaction locked and checked both rows, deleted the empty new rule without CASCADE and restored the old floor only if its expected values still matched. Read-only counts went from rules 6 back to 5; commitments 25, clearings 3, fills 14, plans 2 and llm_calls 4 stayed unchanged. The restored floor is 500. Temporary scripts were deleted.
 - The CLI regression now runs in an empty temporary directory with an explicit minimal environment. Mutation copies contain no .env.local. No further production write, model call or Render change is authorized.
+
+
+### S7 integration and S8 authorization, 2026-11-01
+
+The user authorized: "Yes. i authroize both fixes into main and push as well as S8 and produiction writes". In context, this names S7 F1-F6 integration and push, S8 implementation, and production writes within S8. It does not select F7 or authorize model calls, real payments, S9, or changes to the protected real Muse commitment and other merchants.
+
+- **[verified]** A secret-free git archive of `7cdbb56d5cd2b3ad0bcfa3fbf6cefe200f25661c` passed 386 tests in 38 files, typecheck and lint. Tests used the explicit disposable local `TEST_DATABASE_URL`.
+- **[verified]** `main` fast-forwarded from `c7965da` to `7cdbb56` and pushed. `git ls-remote origin refs/heads/main` confirmed that exact published tip. CI run 41290674332 was in progress when first checked. No Render redeploy has occurred in this session.
+- S8 starts on `backfill/slice-8-ledger-checkout` from `7cdbb56`. The approved build plan covers ledger splits, merchant totals, reconciliation and ACP-shaped checkout without real money or model calls. Migration `0013` is available; `0000` through `0012` remain frozen.
+- The savings split percentages were not specified in the approved plan. The user has been asked to choose a policy before implementation of the split. Existing accepted prices cannot silently gain fees.
