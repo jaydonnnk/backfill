@@ -544,7 +544,7 @@ Each failed on an AssertionError before its fix.
 - Once `settleDue` is deployed, the first merchant page view for Demo Kopitiam after 2026-11-03's deadline clears that occurrence and its 2 S4 commitments, as a buyer's status call would have.
 - Not done: `main` and Render; each waits for the user's yes.
 
-### S7 buyer sim and live demo screen, 2026-10-31 (in progress)
+### S7 buyer sim and live demo screen, 2026-10-31 to 2026-11-01
 
 Branch: `backfill/slice-7-demo`, cut from `main` at `0e7e091`; `backfill/slice-6-review-fixes` (one status-only commit, `262edbd`) was not brought in.
 
@@ -559,7 +559,7 @@ So each run adds a new rule and retires the merchant's older ones by raising the
 - The scene shows Wonder's plan but does not apply it: the merchant applies a plan, as in S6.
 
 Authorizations, in the user's words, 2026-10-31: "1. Fast-forward and push main", "2. Neon writes", "3. Live record run, US$5 cap", "4. Replay run as the exit"; then "Deployed, it shows Live" for the Render redeploy.
-2026-11-01, after the user wrote "Screw the timing i just want to finish this slice" and the timing blocker below was reported: they chose "Afternoon run, you start it" (the record run is the user's to start, at about 15:00 Singapore on 2026-11-01) and "1 probe call (~US$0.005)".
+2026-11-01, after the user wrote "Screw the timing i just want to finish this slice" and the timing blocker below was reported: they chose "Afternoon run, you start it" (the record run is the user's to start on 2026-11-01) and "1 probe call (~US$0.005)".
 
 Built:
 - `src/domain/demo/scene.ts`: the scene window (today in Singapore, deadline the first whole minute at least the lead away, refused past midnight) and solo vs pooled through the same `clear()`.
@@ -589,7 +589,26 @@ Evidence:
 - **[verified]** Render answered `/demo` with 200 at 00:12 Singapore, in 24.9 s: a cold start on the free tier. The run warms it first, or the first MCP calls stall on it.
 - 2026-11-01 is a Sunday, so intent 8 ("a weekday afternoon") and intent 11 ("10am on Sunday only") should decline a 15:11-16:11 window honestly. Those declines are expected, not a fault.
 
+The run, 2026-11-01:
+- **[verified]** Render was cold before the run: `/demo` answered 200 in 45.1 s on the first warm-up curl and 0.45 s on the second.
+- **[verified]** Read-only Neon before, at 13:57, with a throwaway script under `src/` deleted after: 13 migrations, 3 merchants, 3 rules, 3 commitments, 1 clearing (locked, 0 fills), 0 plans, 0 applications, 20 sim agents, 1 muse-user.
+- **[verified]** Live record run, started 13:58:34 Singapore, `npm run demo:scene -- https://backfill-9d0x.onrender.com record`, exit 0 after about 9 minutes, billed US$0.087824: scene rule `b99be92a-53a6-499a-9b44-c838c2789cc4` for 2026-11-01, window 14:07-15:07. All 20 buyers got a model reply with no error, so the 2048 output limit held where the 1024 limit had failed. 11 committed 30 covers and 9 declined, each reason naming the misfit (kopi not teh tarik, Outram Park not Tanjong Pagar, weekday only, after 3pm, after midnight, vegan at noon, two hours wanted). Solo: 0 of 11 unlock alone. Pooled: 30 covers of a minimum 8, unlocked, 16 filled, sold out. Wonder planned `ok` in 8.7 s for US$0.02394: 20% to 15% off, capacity 16 to 24, pool 8 to 12, cap stays 4. Recording at [sim/buyers/recordings/scene.json](../../../sim/buyers/recordings/scene.json).
+- **[verified]** Replay exit, started 14:08 on the same Render URL, `npm run demo:scene -- https://backfill-9d0x.onrender.com replay`, exit 0: scene rule `b80547e2-08d8-44f6-94f5-ffa395be9546`, window 14:13-15:13, the same 11 commitments and 30 covers, 0 of 11 alone, 16 filled and sold out, re-plan `planned` `ok` stored as `replay:muse-wonder-1.0`, and no model call: every buyer reply, reason and prompt came from the recording.
+- **[verified]** `/demo` on Render after the replay, captured over CDP with the viewport set to 375x812 and 1280x900: [375 px](evidence/s7-demo/demo-375.png) and [1280 px](evidence/s7-demo/demo-1280.png). Both show "Each agent alone 0 of 11 unlock", "Pooled 30 covers ... Unlocked: 16 covers filled at S$5.44, sold out", the sold-out card with Wonder's next terms and rationale, and the Muse card "Real, not simulated" stating its pool is separate. Both had the Live indicator on, `scrollWidth === clientWidth` (no horizontal scroll), and no "floor" word and no "S$5.00" anywhere in the page text, the hidden floor.
+- **[verified]** `/api/demo/stream` sent a full snapshot on connect (`retry: 2000`, `"phase":"cleared"`) with no floor and no capacity in the payload.
+- **[verified]** Read-only Neon after, at 14:15, same script deleted after: 13 migrations, 3 merchants, 5 rules, 25 commitments, 3 clearings, 14 fills, 2 plans, 0 applications, 20 sim agents, 1 muse-user. Each new rule has 11 commitments, one clearing of 16 filled covers across 7 filled commitments, and one plan. Both earlier Backfill Demo Cafe rules now have floor = list price 680, which is how they left `list_offers`. Demo Kopitiam (2 commitments) and Singapore Test Restaurant are unchanged.
+- **[verified]** Total live spend for S7: US$0.181706 (the 22:36 night run US$0.087038, the probe US$0.006844, this record run US$0.087824) of the US$5 cap; the replay made no billed call.
+
+Known limits:
+- Wonder's rationale is exactly 400 characters, the schema's `maxLength`, and the model stopped mid-word ("avoid over-"); the demo card shows it exactly as recorded. A later fix is a shorter bound or a description that asks for a finished sentence, with a fresh record run.
+- The replay's window (14:13-15:13) is six minutes after the recording's (14:07-15:07); the recorded reasons quote the record's window, and `/demo` does not display reasons.
+- The sim's model calls are kept in memory, not written to `llm_calls`; the cost evidence is the recording's `costNanoUsd` and the command's own printout.
+- 2048 output tokens leaves about 35% of margin over the 1502 tokens one buyer decision used; a longer decision would still truncate into a null reply.
+- Every run adds a rule and keeps its commitments and clearing for that date, append-only: two Backfill Demo Cafe rules from 2026-11-01 now sit retired at floor = list price.
+- A scene run cannot start after about 22:55 Singapore, since the 60-minute window would cross midnight.
+- `/demo` lists only the buyers who committed; the 9 who declined appear in the recording and the command's output, not on the page.
+
 Not done:
-- The record run in a Singapore afternoon, started by the user at about 15:00 on 2026-11-01 so the window reads about 15:11-16:11, with its recording committed and the cause of any failed buyer recorded.
-- The replay exit on Render, `npm run demo:scene -- https://backfill-9d0x.onrender.com replay`, and `/demo` screenshots at 375 px and 1280 px showing solo vs pooled, the sellout, Wonder's plan and the real Muse card.
-- Read-only Neon after; this section finished in the S6 format; S7 ticked in build-plan; CI green on the final tip with its run ID; a fresh yes before any fast-forward of `main`.
+- The S7 review: [handoff-s7.md](handoff-s7.md) carries the review prompt.
+- A fast-forward and push of `main` to the S7 tip: needs a fresh yes from the user.
+- S8 ledger and checkout.

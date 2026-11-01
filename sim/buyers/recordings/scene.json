@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "recordedAt": "2026-11-01T06:07:27.248Z",
+  "sparkModel": "muse-spark-1.3",
+  "wonderModel": "muse-wonder-1.0",
+  "buyers": [
+    {
+      "agentId": "sim-buyer-01",
+      "intent": "Kopi and kaya toast after 2pm for me and my mum, near Tiong Bahru",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Kopi and kaya toast after 2pm for me and my mum, near Tiong Bahru.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 2,
+        "reason": "Offer matches kopi kaya toast after 2pm for two near Tiong Bahru area."
+      },
+      "error": null,
+      "costNanoUsd": 5738500
+    },
+    {
+      "agentId": "sim-buyer-02",
+      "intent": "A quiet desk near an MRT station to work from for the afternoon, with kopi",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: A quiet desk near an MRT station to work from for the afternoon, with kopi.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 1,
+        "reason": "Matches quiet desk near MRT with kopi for afternoon work for one person."
+      },
+      "error": null,
+      "costNanoUsd": 2968000
+    },
+    {
+      "agentId": "sim-buyer-03",
+      "intent": "Afternoon tea break for four colleagues from the Tanjong Pagar office",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Afternoon tea break for four colleagues from the Tanjong Pagar office.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 4,
+        "reason": "Fits afternoon kaya toast tea break near Tanjong Pagar for four colleagues."
+      },
+      "error": null,
+      "costNanoUsd": 3625500
+    },
+    {
+      "agentId": "sim-buyer-04",
+      "intent": "Teh tarik and half-boiled eggs, just for myself, any time after lunch",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Teh tarik and half-boiled eggs, just for myself, any time after lunch.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer drink is kopi, not the requested teh tarik, so it does not match intent."
+      },
+      "error": null,
+      "costNanoUsd": 2960750
+    },
+    {
+      "agentId": "sim-buyer-05",
+      "intent": "Somewhere to sit with my two kids after school pick-up, before 5pm",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Somewhere to sit with my two kids after school pick-up, before 5pm.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 3,
+        "reason": "Cafe sit-down 2:07-3:07pm fits before 5pm outing with two kids."
+      },
+      "error": null,
+      "costNanoUsd": 4444000
+    },
+    {
+      "agentId": "sim-buyer-06",
+      "intent": "Kaya toast set for three of us after a Chinatown walking tour",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Kaya toast set for three of us after a Chinatown walking tour.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 3,
+        "reason": "Offer matches kaya toast set for three near Tanjong Pagar after Chinatown tour."
+      },
+      "error": null,
+      "costNanoUsd": 3751750
+    },
+    {
+      "agentId": "sim-buyer-07",
+      "intent": "A cheap kopi stop between client meetings near Outram Park MRT",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: A cheap kopi stop between client meetings near Outram Park MRT.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer location near Tanjong Pagar MRT does not match required near Outram Park MRT."
+      },
+      "error": null,
+      "costNanoUsd": 5143250
+    },
+    {
+      "agentId": "sim-buyer-08",
+      "intent": "Book club of four wants a table and kopi on a weekday afternoon",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Book club of four wants a table and kopi on a weekday afternoon.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer is Sunday afternoon but intent requires a weekday afternoon."
+      },
+      "error": null,
+      "costNanoUsd": 1982500
+    },
+    {
+      "agentId": "sim-buyer-09",
+      "intent": "Dinner for six at 8pm with beer, somewhere lively",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Dinner for six at 8pm with beer, somewhere lively.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer is quiet daytime kopi set, not lively 8pm dinner with beer for six."
+      },
+      "error": null,
+      "costNanoUsd": 2023750
+    },
+    {
+      "agentId": "sim-buyer-10",
+      "intent": "Iced kopi-o kosong and a quiet corner to study for two hours",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Iced kopi-o kosong and a quiet corner to study for two hours.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer is 1-hour hot kopi set, not 2 hours with iced kopi-o kosong for quiet study."
+      },
+      "error": null,
+      "costNanoUsd": 3318250
+    },
+    {
+      "agentId": "sim-buyer-11",
+      "intent": "Brunch for two at 10am on Sunday only",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Brunch for two at 10am on Sunday only.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer at 14:07-15:07 does not fit 10am-only requirement."
+      },
+      "error": null,
+      "costNanoUsd": 2184000
+    },
+    {
+      "agentId": "sim-buyer-12",
+      "intent": "Two retirees who meet every week for kopi and a chat after 3pm",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Two retirees who meet every week for kopi and a chat after 3pm.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Visit window 2:07-3:07pm does not meet the after-3pm requirement."
+      },
+      "error": null,
+      "costNanoUsd": 2044700
+    },
+    {
+      "agentId": "sim-buyer-13",
+      "intent": "A late-night supper spot after midnight, nothing in the daytime",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: A late-night supper spot after midnight, nothing in the daytime.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer is daytime 14:07-15:07, not after-midnight supper."
+      },
+      "error": null,
+      "costNanoUsd": 1510750
+    },
+    {
+      "agentId": "sim-buyer-14",
+      "intent": "Kopi and toast for a team of four after a site visit near the MRT",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Kopi and toast for a team of four after a site visit near the MRT.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 4,
+        "reason": "Matches kopi toast set near Tanjong Pagar MRT for team of four."
+      },
+      "error": null,
+      "costNanoUsd": 3006250
+    },
+    {
+      "agentId": "sim-buyer-15",
+      "intent": "My partner and I want kaya toast and a slow afternoon coffee",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: My partner and I want kaya toast and a slow afternoon coffee.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 2,
+        "reason": "Offer matches 2-person kaya toast and afternoon coffee intent at the right time and place."
+      },
+      "error": null,
+      "costNanoUsd": 2576250
+    },
+    {
+      "agentId": "sim-buyer-16",
+      "intent": "Vegan lunch for one at noon, no eggs or dairy",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Vegan lunch for one at noon, no eggs or dairy.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 0,
+        "reason": "Offer has eggs and dairy timing afternoon, not vegan noon lunch."
+      },
+      "error": null,
+      "costNanoUsd": 1502950
+    },
+    {
+      "agentId": "sim-buyer-17",
+      "intent": "Three nurses coming off a morning shift want kopi and toast after 2pm",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Three nurses coming off a morning shift want kopi and toast after 2pm.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 3,
+        "reason": "Offer matches three nurses wanting kopi and toast after 2pm in the time window."
+      },
+      "error": null,
+      "costNanoUsd": 4393700
+    },
+    {
+      "agentId": "sim-buyer-18",
+      "intent": "A desk and kopi for one freelancer, near Maxwell, mid-afternoon",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: A desk and kopi for one freelancer, near Maxwell, mid-afternoon.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 1,
+        "reason": "Fits one freelancer needing desk and kopi near Maxwell mid-afternoon."
+      },
+      "error": null,
+      "costNanoUsd": 4100250
+    },
+    {
+      "agentId": "sim-buyer-19",
+      "intent": "Grandparents and grandchild, three people, want a kaya toast treat",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Grandparents and grandchild, three people, want a kaya toast treat.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 3,
+        "reason": "Kaya toast set matches the treat wanted for three people."
+      },
+      "error": null,
+      "costNanoUsd": 3496750
+    },
+    {
+      "agentId": "sim-buyer-20",
+      "intent": "Four students want a cheap afternoon snack and a place to revise",
+      "request": {
+        "system": "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.",
+        "prompt": "The person you act for wants: Four students want a cheap afternoon snack and a place to revise.\nOffer from Backfill Demo Cafe: Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Sunday 14:07-15:07 Singapore time. It unlocks only if at least 8 covers are committed before 14:07 that day; one agent may hold at most 4 covers.\nOne cover is a kopi and kaya toast set with soft-boiled eggs at a cafe near Tanjong Pagar MRT, with seats and quiet desks.\nNext visit: 1 Nov 2026, 2:07 pm to 1 Nov 2026, 3:07 pm, commit by 1 Nov 2026, 2:07 pm (Singapore time).\nYou may commit at most 4 covers. Decide how many covers to commit, or 0 if the offer does not fit."
+      },
+      "reply": {
+        "covers": 4,
+        "reason": "Fits four students wanting cheap afternoon snack with seats to revise."
+      },
+      "error": null,
+      "costNanoUsd": 3111750
+    }
+  ],
+  "wonder": {
+    "prompt": "You are the merchant agent of Backfill Demo Cafe, a Singapore food and drink merchant on Backfill, where buyer agents pool off-peak covers.\nThe off-peak slot is Sunday 14:07-15:07, commit by 14:07 Singapore time. List price S$6.80 per cover; current terms 20% off, capacity 16 covers, minimum pool 8, at most 4 covers per agent.\nThe occurrence on 2026-11-01 sold out.\nFill history, oldest first:\n- 2026-11-01: 16 covers filled\nYour past plans:\n- none\nPlan the next terms. Demand beat supply, so you may add capacity (up to 32), raise the minimum pool, give a smaller discount, or change the per-agent cap; never a bigger discount, never less capacity. Change at least one term.",
+    "reply": {
+      "discountBps": 1500,
+      "capacityCovers": 24,
+      "minPoolCovers": 12,
+      "perAgentCapCovers": 4,
+      "rationale": "The 2026-11-01 occurrence sold out all 16 covers, so demand beat supply. I raise capacity from 16 to 24 covers (within the 32 cap), trim the discount from 20% to 15% to test price while still offering off-peak value, and lift the minimum pool from 8 to 12 to keep the pool commercially meaningful at the larger capacity. I keep the per-agent cap at 4 covers to preserve pool diversity and avoid over-"
+    }
+  },
+  "costNanoUsd": 87823600
+}

@@ -103,7 +103,7 @@ Each slice ends with its tests green and its exit check done.
 - The owner sends "no discount this Tuesday" or "make it 20% off"; Muse Wonder turns it into an `AgentTerms` change, and the owner confirms by reply before it publishes.
 - Exit: one message from the owner's phone changes a live offer on the Render URL.
 
-### S7 - Buyer sim and live demo screen (Oct 31-Nov 1)
+### S7 - Buyer sim and live demo screen (Oct 31-Nov 1) - done 2026-11-01
 
 - `sim/buyers`: 20 Muse Spark agents with varied Singapore intents (kopi and kaya toast after 2pm, a quiet desk near an MRT station), concurrency-limited, through the MCP server.
 - Record mode saves every buyer request and model reply from a live run; replay mode re-sends them through the same MCP and clearing path with no model calls.
