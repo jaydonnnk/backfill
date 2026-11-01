@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { and, asc, desc, eq, gte, isNull, lt, sql } from "drizzle-orm";
 import { clear } from "@/domain/clearing/clear";
+import { ledgerEntry } from "@/domain/ledger/calculate";
 import { nextOccurrence, type Occurrence, occurrenceOn, singaporeInstant } from "@/domain/commitments/occurrence";
 import type { Commitment } from "@/domain/commitments/schema";
 import { verifyCounterOffer } from "@/domain/negotiation/counter-offer";
@@ -8,7 +9,7 @@ import { evaluateCommitment, evaluatePool, meetsFloor, offerPriceCents, toOffer 
 import { MerchantRule, type Offer } from "@/domain/offers/schema";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
 import type { Db, Executor } from "@/lib/db/client";
-import { clearingFills, clearings, commitments, merchants, negotiationRounds, rules } from "@/lib/db/schema";
+import { clearingFills, clearings, commitments, ledger, merchants, negotiationRounds, rules } from "@/lib/db/schema";
 
 // Everything a buyer agent can do through the MCP server, against the database. Nothing returned
 // here carries the hidden floor, the capacity or a reason that compares the floor with the price:
@@ -318,6 +319,10 @@ async function ensureClearing(db: Db, ruleId: string, visitDate: string): Promis
     const result = clear(toRule(ruleRow), visitDate, await occurrenceCommitments(tx, ruleId, visitDate));
     await tx.insert(clearings).values({ ruleId, visitDate, termsVersion: result.termsVersion, unlocked: result.unlocked, pricePerCoverCents: result.pricePerCoverCents });
     if (result.fills.length > 0) await tx.insert(clearingFills).values(result.fills.map((f) => ({ commitmentId: f.commitmentId, ruleId, visitDate, covers: f.covers, pricePerCoverCents: f.pricePerCoverCents })));
+    if (result.fills.length > 0) await tx.insert(ledger).values(result.fills.map((fill) => ledgerEntry({
+      commitmentId: fill.commitmentId, merchantId: ruleRow.merchantId, ruleId,
+      covers: fill.covers, listPriceCents: ruleRow.listPriceCents, pricePerCoverCents: fill.pricePerCoverCents,
+    })));
     return (await read())!;
   });
 }

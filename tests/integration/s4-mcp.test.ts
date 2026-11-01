@@ -473,7 +473,10 @@ describe("database guards", () => {
     const { ruleId } = await seedRule();
     const id = await committed(ruleId);
     await t.admin`insert into clearings ${t.admin({ rule_id: ruleId, visit_date: "2026-11-03", terms_version: 1, unlocked: true, price_per_cover_cents: 938 })}`;
-    await t.admin`insert into clearing_fills ${t.admin({ commitment_id: id, rule_id: ruleId, visit_date: "2026-11-03", covers: 2, price_per_cover_cents: 938 })}`;
+    await t.admin.begin(async tx => {
+      await tx`insert into clearing_fills ${tx({ commitment_id: id, rule_id: ruleId, visit_date: "2026-11-03", covers: 2, price_per_cover_cents: 938 })}`;
+      await tx`insert into ledger (commitment_id, merchant_id, rule_id, covers, list_price_cents, price_per_cover_cents, savings_cents, buyer_share_cents, agent_share_cents, network_share_cents) select ${id}, merchant_id, id, 2, list_price_cents, 938, 624, 624, 0, 0 from rules where id = ${ruleId}`;
+    });
     const messages = {
       updateClearing: (await failure(t.admin`update clearings set unlocked = false where rule_id = ${ruleId}`))?.message,
       deleteClearing: (await failure(t.admin`delete from clearings where rule_id = ${ruleId}`))?.message,
@@ -510,7 +513,7 @@ describe("database guards", () => {
         cancel: (await failure(rt`update commitments set cancelled_at = now() where id = ${id}`)) === null,
         insertLlmCall: (await failure(rt`insert into llm_calls ${rt({ provider: "p", model: "m", purpose: "x", attempt: 1, tokens_in: 0, tokens_cached_in: 0, tokens_out: 0, cost_nano_usd: 0, latency_ms: 0, ok: true })}`)) === null,
       };
-      expect(result).toEqual({ deleteCommitment: true, updateCovers: true, updateRule: true, insertAgent: true, readLedger: true, truncateLlmCalls: true, cancel: true, insertLlmCall: true });
+      expect(result).toEqual({ deleteCommitment: true, updateCovers: true, updateRule: true, insertAgent: true, readLedger: false, truncateLlmCalls: true, cancel: true, insertLlmCall: true });
     } finally {
       await rt.end({ timeout: 5 });
     }

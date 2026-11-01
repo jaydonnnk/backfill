@@ -461,3 +461,9 @@ export const ownerChangeOutcomes = pgTable(
   },
   (t) => [check("owner_change_outcomes_outcome", sql`${t.outcome} in ('applied', 'cancelled')`)],
 );
+
+// S8 records simulated completion only. Accepted prices and ledger rows never change.
+export const checkoutReceipts = pgTable("checkout_receipts", {
+  commitmentId: uuid("commitment_id").primaryKey(),
+  completedAt: timestamp("completed_at", { withTimezone: true }).notNull().defaultNow(),
+}, t => [foreignKey({ name: "checkout_receipts_ledger_fk", columns: [t.commitmentId], foreignColumns: [ledger.commitmentId] })]);

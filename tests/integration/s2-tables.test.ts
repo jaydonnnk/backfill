@@ -33,7 +33,17 @@ type PgError = { message: string; constraint_name?: string };
 
 const failure = (query: Promise<unknown>): Promise<PgError | null> => query.then(() => null, (err: PgError) => err);
 
-async function insert(table: string, row: Row): Promise<Row> {
+async function insert(table: string, row: Row, role?: string): Promise<Row> {
+  if (table === "ledger") return t.admin.begin(async tx => {
+    const [c] = await tx`select c.id, c.rule_id, c.terms_version from commitments c where c.id = ${row.commitment_id!}`;
+    if (c) {
+      await tx`insert into clearings (rule_id, visit_date, terms_version, unlocked, price_per_cover_cents) values (${c.rule_id}, '2026-11-03', ${c.terms_version}, true, 938) on conflict do nothing`;
+      await tx`insert into clearing_fills (commitment_id, rule_id, visit_date, covers, price_per_cover_cents) values (${c.id}, ${c.rule_id}, '2026-11-03', 3, 938) on conflict do nothing`;
+    }
+    if (role) await tx.unsafe(`SET LOCAL ROLE ${role}`);
+    const [created] = await tx`insert into ledger ${tx(row)} returning *`;
+    return created as Row;
+  });
   const [created] = await t.admin`insert into ${t.admin(table)} ${t.admin(row)} returning *`;
   return created as Row;
 }
@@ -74,16 +84,16 @@ const ledgerRow = (ids: { commitment_id: string; merchant_id: string; rule_id: s
   list_price_cents: 1250,
   price_per_cover_cents: 938,
   savings_cents: 936,
-  buyer_share_cents: 700,
-  agent_share_cents: 136,
-  network_share_cents: 100,
+  buyer_share_cents: 936,
+  agent_share_cents: 0,
+  network_share_cents: 0,
   ...overrides,
 });
 
 async function fixture() {
   const m = await merchant();
   const r = await insert("rules", ruleRow(String(m.id)));
-  const c = await insert("commitments", commitmentRow(String(r.id)));
+  const c = await insert("commitments", commitmentRow(String(r.id), { covers: 3 }));
   return { merchantId: String(m.id), ruleId: String(r.id), commitmentId: String(c.id) };
 }
 
@@ -114,12 +124,12 @@ describe("check constraints", () => {
     const ids = { commitment_id: ledgerIds.commitmentId, merchant_id: ledgerIds.merchantId, rule_id: ledgerIds.ruleId };
     cases.push(
       ["ledger", ledgerRow(ids, { covers: 0, savings_cents: 0, buyer_share_cents: 0, agent_share_cents: 0, network_share_cents: 0 }), "ledger_covers_positive"],
-      ["ledger", ledgerRow(ids, { price_per_cover_cents: -1, savings_cents: 3753, buyer_share_cents: 3517 }), "ledger_price_nonnegative"],
-      ["ledger", ledgerRow(ids, { savings_cents: 935, buyer_share_cents: 699 }), "ledger_savings_match"],
-      ["ledger", ledgerRow(ids, { buyer_share_cents: 701 }), "ledger_split_sums"],
-      ["ledger", ledgerRow(ids, { buyer_share_cents: -1, agent_share_cents: 837 }), "ledger_split_sums"],
-      ["ledger", ledgerRow(ids, { agent_share_cents: -1, buyer_share_cents: 837 }), "ledger_split_sums"],
-      ["ledger", ledgerRow(ids, { network_share_cents: -1, buyer_share_cents: 801 }), "ledger_split_sums"],
+      ["ledger", ledgerRow(ids, { price_per_cover_cents: -1, savings_cents: 3753, buyer_share_cents: 3753 }), "ledger_price_nonnegative"],
+      ["ledger", ledgerRow(ids, { savings_cents: 935, buyer_share_cents: 935 }), "ledger_savings_match"],
+      ["ledger", ledgerRow(ids, { buyer_share_cents: 937 }), "ledger_split_sums"],
+      ["ledger", ledgerRow(ids, { buyer_share_cents: -1, agent_share_cents: 937 }), "ledger_split_sums"],
+      ["ledger", ledgerRow(ids, { agent_share_cents: -1, buyer_share_cents: 937 }), "ledger_split_sums"],
+      ["ledger", ledgerRow(ids, { network_share_cents: -1, buyer_share_cents: 937 }), "ledger_split_sums"],
     );
 
     const seen = [];
@@ -143,6 +153,8 @@ describe("keys", () => {
     const ids = { commitment_id: f.commitmentId, merchant_id: f.merchantId, rule_id: f.ruleId };
     const key = "retry-1";
     const spare = String((await insert("commitments", commitmentRow(f.ruleId, { idempotency_key: key }))).id);
+    const sameKeyError = await failure(insert("commitments", commitmentRow(f.ruleId, { idempotency_key: key })));
+    const otherAgentError = await failure(insert("commitments", commitmentRow(f.ruleId, { idempotency_key: key, agent_id: "agent-b" })));
     await insert("ledger", ledgerRow(ids));
 
     const results = {
@@ -152,7 +164,7 @@ describe("keys", () => {
       ledgerRule: (await failure(insert("ledger", ledgerRow({ ...ids, commitment_id: spare, rule_id: unknown }))))?.constraint_name,
       deleteRule: (await failure(t.admin`delete from rules where id = ${f.ruleId}`))?.constraint_name,
       ledgerTwice: (await failure(insert("ledger", ledgerRow(ids))))?.constraint_name,
-      sameKey: (await failure(insert("commitments", commitmentRow(f.ruleId, { idempotency_key: key }))))?.constraint_name,
+      sameKey: sameKeyError?.constraint_name,
     };
     expect(results).toEqual({
       ruleMerchant: "rules_merchant_id_merchants_id_fk",
@@ -164,7 +176,7 @@ describe("keys", () => {
       sameKey: "commitments_agent_idempotency_key",
     });
     // The same key from another agent is a different submission.
-    expect(await failure(insert("commitments", commitmentRow(f.ruleId, { idempotency_key: key, agent_id: "agent-b" })))).toBeNull();
+    expect(otherAgentError).toBeNull();
   });
 });
 
@@ -313,13 +325,13 @@ describe("ledger", () => {
   const refused = {
     update: "ledger is append-only: UPDATE refused",
     delete: "ledger is append-only: DELETE refused",
-    truncate: "ledger is append-only: TRUNCATE refused",
+    truncate: "cannot truncate a table referenced in a foreign key constraint",
     truncateCascade: "ledger is append-only: TRUNCATE refused",
   };
 
   async function expectUntouched(ledgerId: number) {
     const [row] = await t.admin`select buyer_share_cents, network_share_cents from ledger where id = ${ledgerId}`;
-    expect(row).toEqual({ buyer_share_cents: 700, network_share_cents: 100 });
+    expect(row).toEqual({ buyer_share_cents: 936, network_share_cents: 0 });
   }
 
   it("refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege", async () => {
@@ -359,15 +371,7 @@ describe("ledger", () => {
   it("still takes new entries", async () => {
     await t.admin.unsafe(`GRANT INSERT ON ledger TO ${APP_ROLE}`);
     const f = await fixture();
-    const conn = await t.admin.reserve();
-    try {
-      await conn.unsafe(`SET ROLE ${APP_ROLE}`);
-      const err = await failure(conn`insert into ledger ${conn(ledgerRow({ commitment_id: f.commitmentId, merchant_id: f.merchantId, rule_id: f.ruleId }))}`);
-      expect(err).toBeNull();
-    } finally {
-      await conn.unsafe("RESET ROLE");
-      conn.release();
-    }
+    expect(await failure(insert("ledger", ledgerRow({ commitment_id: f.commitmentId, merchant_id: f.merchantId, rule_id: f.ruleId }), APP_ROLE))).toBeNull();
     const [row] = await t.admin`select count(*)::int as n from ledger where commitment_id = ${f.commitmentId}`;
     expect(row?.n).toBe(1);
   });

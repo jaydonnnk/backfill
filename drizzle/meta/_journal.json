@@ -92,6 +92,13 @@
       "when": 1793427958425,
       "tag": "0012_s6_review_owner_change_rule",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1793510000000,
+      "tag": "0013_s8_ledger_checkout",
+      "breakpoints": true
     }
   ]
 }

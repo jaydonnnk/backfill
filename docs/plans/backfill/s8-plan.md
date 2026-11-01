@@ -1,6 +1,6 @@
 # S8 ledger and checkout plan
 
-Status: design prepared, split policy pending. No S8 product code or production write has occurred.
+Status: implementation authorized. Split policy approved 2026-11-01. Production changes require the verification sequence below.
 
 ## Authority and scope
 
@@ -10,7 +10,7 @@ Production writes remain scoped to this slice. Preserve the original Muse commit
 
 ## Required policy decision
 
-The existing plan does not specify percentages. Proposed policy: 100% of savings to the buyer, 0% agent, 0% network. It preserves the prices existing buyers accepted. Nonzero agent or network shares require a decision about who pays them and validation against accepted maximum prices. Do not silently reinterpret a clearing price as net merchant revenue. The user's answer remains pending.
+The user approved: "100% buyer, 0% agent, 0% network. Keep the split as explicit ledger fields (buyer/agent/network) so a fee policy can be added later for new commitments only. Do not apply fees to existing commitments." Preserve accepted clearing prices. Keep every explicit share field. Any later fee policy applies only to newly accepted commitments, never to existing commitments or immutable ledger rows.
 
 ## Current ownership
 
@@ -20,7 +20,7 @@ Neither clearings nor fills stores the historical list price. Rules hold current
 
 ## Design
 
-Use one TypeScript ledger constructor in `src/domain/ledger/calculate.ts` and extend the existing clearing transaction. The constructor consumes commitment, merchant and rule IDs, filled covers, locked list price and the fill's own price. It returns the existing LedgerEntry schema. The split policy will be fixed by the user's answer, without a new configuration framework.
+Use one TypeScript ledger constructor in `src/domain/ledger/calculate.ts` and extend the existing clearing transaction. The constructor consumes commitment, merchant and rule IDs, filled covers, locked list price and the fill's own price. It returns the existing LedgerEntry schema. The fixed S8 policy gives all savings to the buyer and zero to agent and network, without a configuration framework.
 
 Insert ledger rows after fills inside the same transaction. Keep uniqueness and append-only protections. Migration 0013 will add source binding and a deferred completeness check so a new fill cannot commit without its matching ledger row. Invalid ledger writes must roll back the clearing and fills. Existing S2 and S4 fixtures must satisfy the stronger invariant without weakening their original assertions.
 

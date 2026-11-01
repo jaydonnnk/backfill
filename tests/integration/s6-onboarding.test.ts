@@ -428,8 +428,15 @@ describe("Muse Wonder merchant agent", () => {
   async function sellOut(ruleId: string, visitDate: string, covers = 4): Promise<void> {
     const [agent] = await t.admin`insert into agents ${t.admin({ id: `a-${randomBytes(4).toString("hex")}`, label: "t", token_sha256: randomBytes(32).toString("hex") })} returning id`;
     const [c] = await t.admin`insert into commitments ${t.admin({ rule_id: ruleId, agent_id: agent!.id, idempotency_key: randomBytes(4).toString("hex"), terms_version: (await t.admin`select terms_version from rules where id = ${ruleId}`)[0]!.terms_version, covers, max_price_per_cover_cents: 1440, visit_at: new Date(`${visitDate}T14:00:00+08:00`), committed_at: new Date(`${visitDate}T09:00:00+08:00`) })} returning id`;
-    await t.admin`insert into clearings ${t.admin({ rule_id: ruleId, visit_date: visitDate, terms_version: 1, unlocked: covers >= 2, price_per_cover_cents: 1080 })}`;
-    if (covers >= 2) await t.admin`insert into clearing_fills ${t.admin({ commitment_id: c!.id, rule_id: ruleId, visit_date: visitDate, covers, price_per_cover_cents: 1080 })}`;
+    await t.admin.begin(async tx => {
+      const [rule] = await tx`select merchant_id, list_price_cents, terms_version from rules where id = ${ruleId}`;
+      await tx`insert into clearings ${tx({ rule_id: ruleId, visit_date: visitDate, terms_version: rule!.terms_version, unlocked: covers >= 2, price_per_cover_cents: 1080 })}`;
+      if (covers >= 2) {
+        await tx`insert into clearing_fills ${tx({ commitment_id: c!.id, rule_id: ruleId, visit_date: visitDate, covers, price_per_cover_cents: 1080 })}`;
+        const savings = covers * (Number(rule!.list_price_cents) - 1080);
+        await tx`insert into ledger ${tx({ commitment_id: c!.id, merchant_id: rule!.merchant_id, rule_id: ruleId, covers, list_price_cents: rule!.list_price_cents, price_per_cover_cents: 1080, savings_cents: savings, buyer_share_cents: savings, agent_share_cents: 0, network_share_cents: 0 })}`;
+      }
+    });
   }
 
   const wonder = () => wonderMerchant(provider, WONDER);

@@ -1,5 +1,6 @@
 import { percent } from "@/domain/onboarding/replan";
 import { dollars } from "@/lib/commitments/service";
+import { merchantLedger } from "@/lib/ledger/service";
 import { webDb } from "@/lib/db/client";
 import { MAX_PHOTO_BYTES } from "@/domain/onboarding/menu";
 import { dashboard, windowText } from "@/lib/onboarding/service";
@@ -61,6 +62,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const { status } = await searchParams;
   const notice = status ? STATUS_TEXT[status] : undefined;
   const board = await dashboard(webDb(), merchant.id);
+  const savingsLedger = await merchantLedger(webDb(), merchant.id);
   const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   const needsPlan = board.occurrences.some((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`));
   const whatsapp = whatsappEnv(webEnv()) !== null;
@@ -136,6 +138,13 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
             ))}
           </ul>
         )}
+      </section>
+
+      <section className={card}>
+        <h2 className="text-lg font-medium">Savings ledger</h2>
+        <p className="text-sm">{savingsLedger.totals.entries} filled commitments, {savingsLedger.totals.covers} covers. Buyers saved {dollars(savingsLedger.totals.buyerShareCents)}.</p>
+        <p className="text-sm text-[var(--muted)]">Accepted total {dollars(savingsLedger.totals.chargedCents)}. Agent share {dollars(savingsLedger.totals.agentShareCents)}. Network share {dollars(savingsLedger.totals.networkShareCents)}. No money is collected by this demo.</p>
+        <p className="text-sm text-[var(--muted)]">{savingsLedger.reconciled ? "Ledger totals reconcile." : "Historical entries need reconciliation. Totals above include recorded entries only."}</p>
       </section>
 
       {board.occurrences.length > 0 && (

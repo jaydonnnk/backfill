@@ -658,3 +658,5 @@ The user authorized: "Yes. i authroize both fixes into main and push as well as 
 - The savings split percentages were not specified in the approved plan. The user has been asked to choose a policy before implementation of the split. Existing accepted prices cannot silently gain fees.
 
 S8 design is recorded in [s8-plan.md](s8-plan.md). Two independent sketches and a separate judge compared transaction ownership, source binding and historical price evidence. The split policy remains pending; no S8 product code, migration, backfill, production write or deployment has occurred.
+
+S8 split decision, 2026-11-01, in the user's words: "100% buyer, 0% agent, 0% network. Keep the split as explicit ledger fields (buyer/agent/network) so a fee policy can be added later for new commitments only. Do not apply fees to existing commitments." Implementation continues under this policy.
