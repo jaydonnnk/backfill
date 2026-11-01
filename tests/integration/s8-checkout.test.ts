@@ -68,7 +68,10 @@ it("returns exact accepted economics, completes once concurrently, and never mov
   expect(bodies[0]).toMatchObject({ status: "completed", simulated: true, money_moved: false, order: { id: `sim_${f.id}` } });
   expect(Number((await t.admin`select count(*)::int as n from checkout_receipts where commitment_id = ${f.id}`)[0]?.n)).toBe(1);
   expect(await (await complete(req(f.agent.token, { simulate: true }), f.id)).json()).toEqual(bodies[0]);
-  for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) await expect(t.admin.unsafe(statement)).rejects.toThrow(/append-only/);
+  for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) {
+    const failure = await t.admin.unsafe(statement).then(() => null, (err: Error) => err.message);
+    expect(failure).toMatch(/append-only/);
+  }
   await t.admin`update rules set list_price_cents = 1500 where id = ${f.ruleId}`;
   expect(await (await read(req(f.agent.token), f.id)).json()).toEqual(bodies[0]);
   await t.admin`update rules set commit_by_minute = 810 where id = ${f.ruleId}`;
@@ -109,11 +112,15 @@ it("returns an unavailable response without exposing database error values", asy
 });
 it("requires a filled ledger source for receipts and keeps receipts immutable in replica mode", async () => {
   const f = await fixture();
-  await expect(t.admin`insert into checkout_receipts (commitment_id) values (${f.id})`).rejects.toThrow(/foreign key/);
+  const missingSource = await t.admin`insert into checkout_receipts (commitment_id) values (${f.id})`.then(() => null, (err: Error) => err.message);
+  expect(missingSource).toMatch(/foreign key/);
   now = new Date("2026-11-03T12:00:00+08:00");
   expect((await complete(req(f.agent.token, { simulate: true }), f.id)).status).toBe(200);
-  for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) await expect(t.admin.begin(async tx => {
-    await tx.unsafe("SET LOCAL session_replication_role = replica");
-    await tx.unsafe(statement);
-  })).rejects.toThrow(/append-only/);
+  for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) {
+    const failure = await t.admin.begin(async tx => {
+      await tx.unsafe("SET LOCAL session_replication_role = replica");
+      await tx.unsafe(statement);
+    }).then(() => null, (err: Error) => err.message);
+    expect(failure).toMatch(/append-only/);
+  }
 });

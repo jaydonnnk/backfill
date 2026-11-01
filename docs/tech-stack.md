@@ -16,7 +16,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Locale | `Asia/Singapore` time zone, SGD stored as integer cents | Off-peak windows and prices match the Singapore market |
 | Domain | `src/domain/*`, pure TS, no I/O | Deterministic clearing; limits enforced in code, not prompts |
 | MCP server | `@modelcontextprotocol/sdk`, streamable HTTP at `src/app/mcp` | Doubles as a Muse custom connector; any MCP client (Muse, Claude) can submit commitments |
-| Checkout | ACP-shaped endpoints in `src/app/api`, no real money | Protocol-compatible without a payments license |
+| Checkout | ACP-shaped endpoints in `src/app/api`, no real money | Simulated checkout shape; no payment processing or ACP conformance claim |
 | Live updates | Server-Sent Events | Clearing appears live in the demo |
 | DB | Postgres on Neon, Drizzle ORM, append-only `ledger`, `llm_calls` (tokens, cost, latency) | Audit trail and cost-per-deal data |
 

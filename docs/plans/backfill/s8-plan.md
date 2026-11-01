@@ -51,7 +51,7 @@ Two independent sketches compared TypeScript-owned writes with database-owned in
 
 ## Verification focus
 
-- An insertion failure must leave no new clearing, fill, ledger row or receipt.
+- A ledger insertion failure must roll back its clearing and every fill. A simulated receipt is a separate append-only step; its failure leaves the accepted ledger available for retry.
 - A negotiated fill must never inherit the headline clearing price.
 - Concurrent retries must produce one entry and one receipt.
 - Later rule changes must not change stored totals or checkout prices.
