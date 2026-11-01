@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-The user visually accepted the Kopi site on 2026-11-01 and authorized committing the working tree and pushing it to main. S9 is not implemented in this handoff. Their requested continuation prompt starts S9 implementation, while paid model calls still require a separately agreed policy. Offline harness, schema, tests and UI preparation can proceed without model spending. No production data write, new live S7 scene, real payment or separate publication is authorized for S9 by this handoff.
+The user visually accepted the Kopi site on 2026-11-01 and authorized committing the working tree and pushing it to main. The accepted application/handoff commit `f3553421125fa9cc9146de7daecde9dfa3ade3dc` has been pushed to main; later documentation commits may follow it. S9 is not implemented in this handoff. Their requested continuation prompt starts S9 implementation, while paid model calls still require a separately agreed policy. Offline harness, schema, tests and UI preparation can proceed without model spending. No production data write, new live S7 scene, real payment or separate publication is authorized for S9 by this handoff.
 
 Read the latest status in `00-status.md`, the S9 section of `build-plan.md`, and this document. The older `redesign-proposal.md` supplies evaluation content requirements; its Gloock/Manrope styling and Kopi deferral are superseded by the accepted site. Do not reopen completed S8/S8.5 work.
 
