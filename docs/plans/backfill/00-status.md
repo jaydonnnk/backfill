@@ -660,3 +660,26 @@ The user authorized: "Yes. i authroize both fixes into main and push as well as 
 S8 design is recorded in [s8-plan.md](s8-plan.md). Two independent sketches and a separate judge compared transaction ownership, source binding and historical price evidence. The split policy remains pending; no S8 product code, migration, backfill, production write or deployment has occurred.
 
 S8 split decision, 2026-11-01, in the user's words: "100% buyer, 0% agent, 0% network. Keep the split as explicit ledger fields (buyer/agent/network) so a fee policy can be added later for new commitments only. Do not apply fees to existing commitments." Implementation continues under this policy.
+
+
+### S8 ledger and checkout, 2026-11-01
+
+Branch: `backfill/slice-8-ledger-checkout`, from published S7 `7cdbb56`. Source and final assertion harness: `2dda7bc`; later commits record proof. The user authorized S8 and scoped production writes, and explicitly selected 100% buyer savings, zero agent/network fees, explicit share fields, and no future fee applied to existing commitments.
+
+Built:
+- Pure ledger constructor and merchant totals. The existing rule-locked clearing transaction writes fills and each ledger entry atomically, using per-fill negotiated prices.
+- Migration 0013 source checks, zero-fee enforcement, deferred fill completeness, append-only simulated receipts and narrow runtime SELECT/INSERT grants. No old migration or snapshot changed.
+- Bearer-owned ACP-shaped simulated create/read/complete endpoints. They refuse payment credentials, malformed requests and foreign IDs. Stored receipts and ledger prices survive current rule/deadline changes. The merchant dashboard shows authenticated totals and read-only historical reconciliation.
+- A bounded evidence-pinned backfill function refuses drift, wrong identities, unapproved buyers and conflicting rows; its entire batch rolls back together. It has not run on Neon.
+
+**[verified locally]** 417 tests in 41 files; typecheck, lint, diffcheck and a secret-free production build. A real local HTTP smoke as the runtime role returned 401/201/200/405, persisted one ledger and one receipt, kept the accepted 1876-cent total and 624-cent buyer savings, and recorded zero model attempts. Merchant server HTML was checked; browser interaction and hosted behavior were not.
+
+**[verified locally]** All 88 guard faults in [evidence/s8-ledger](evidence/s8-ledger/README.md) have S8 AssertionError kills, byte-identical restores, green restored full-suite reruns and zero file errors. Initial diagnostic failures remain disclosed: unrestricted parallel suites exhausted local connections, and receipt promise/string matchers produced generic errors. A complete worker-limited rerun and six explicit receipt confirmations supply the accepted proof. Application bytes are identical across the proof stages.
+
+Independent source review reported one P2: completed checkout could become pending after a changed deadline. Its regression failed on AssertionError, then passed after immutable ledger/receipt reads preceded mutable timing. No other actionable finding was reported; no second independent review of the fix or hosted acceptance is claimed.
+
+**[verified read-only]** Neon preflight: 13 migrations, 3 merchants, 5 rules, 25 commitments, 3 clearings, 14 fills, zero ledger entries, 2 plans and 4 existing model-call rows. The two S7 scene rules each have 7 fills and 16 covers at 544 cents, list 680 cents, version 1. [Prepared source pins](evidence/s8-ledger/historical-sources.json) bind the recorded ownership/economics and allowed simulated buyers. Protected fingerprints are recorded. Expected after the unapplied backfill: 14 entries and 4352 cents buyer savings, zero other shares. No production write, model call, new live scene or redeploy occurred in S8.
+
+Not done: S8 main merge/push, published-tip CI, Render rollout, migration 0013 on Neon, bounded historical backfill and hosted acceptance. Production-write authorization is already given. Main publication and Render changes still need named authorization. Migration 0013 requires the S8 writer; the old writer would fail its completeness guard. Coordinate rollout. Original Muse and other merchants remain outside the prepared writes. Paid S7 recording remains closed, F7 remains unselected and S9 is not authorized.
+
+Continuation: [s8-handoff.md](s8-handoff.md).

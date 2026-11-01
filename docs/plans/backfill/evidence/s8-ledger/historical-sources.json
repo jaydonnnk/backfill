@@ -1,0 +1,64 @@
+{
+  "status": "prepared, not applied",
+  "sourceRecordingSha256": "ede0975b19f7e4943aadcd6ffcda43e7e89c191472702b7f9c02fdc18655150c",
+  "provenance": "Rule IDs and Demo Cafe ownership recorded in the S7 status. Prices and committed buyer identities from the hash-verified recording. Current rule/clearing versions and counts checked read-only. No database audit of historical merchant reassignment exists; refuse any drift from these pins.",
+  "sources": [
+    {
+      "ruleId": "b80547e2-08d8-44f6-94f5-ffa395be9546",
+      "merchantId": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "merchantName": "Backfill Demo Cafe",
+      "visitDate": "2026-11-01",
+      "termsVersion": 1,
+      "listPriceCents": 680,
+      "pricePerCoverCents": 544,
+      "expectedFills": 7,
+      "expectedCovers": 16,
+      "allowedAgentIds": [
+        "sim-buyer-01",
+        "sim-buyer-02",
+        "sim-buyer-03",
+        "sim-buyer-05",
+        "sim-buyer-06",
+        "sim-buyer-14",
+        "sim-buyer-15",
+        "sim-buyer-17",
+        "sim-buyer-18",
+        "sim-buyer-19",
+        "sim-buyer-20"
+      ]
+    },
+    {
+      "ruleId": "b99be92a-53a6-499a-9b44-c838c2789cc4",
+      "merchantId": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "merchantName": "Backfill Demo Cafe",
+      "visitDate": "2026-11-01",
+      "termsVersion": 1,
+      "listPriceCents": 680,
+      "pricePerCoverCents": 544,
+      "expectedFills": 7,
+      "expectedCovers": 16,
+      "allowedAgentIds": [
+        "sim-buyer-01",
+        "sim-buyer-02",
+        "sim-buyer-03",
+        "sim-buyer-05",
+        "sim-buyer-06",
+        "sim-buyer-14",
+        "sim-buyer-15",
+        "sim-buyer-17",
+        "sim-buyer-18",
+        "sim-buyer-19",
+        "sim-buyer-20"
+      ]
+    }
+  ],
+  "expectedAfterBackfill": {
+    "entries": 14,
+    "covers": 32,
+    "listValueCents": 21760,
+    "chargedCents": 17408,
+    "buyerShareCents": 4352,
+    "agentShareCents": 0,
+    "networkShareCents": 0
+  }
+}

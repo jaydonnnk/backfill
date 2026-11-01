@@ -1,0 +1,1149 @@
+{
+  "baseline": 417,
+  "vitestMaxWorkers": 2,
+  "results": [
+    {
+      "id": "split-savings",
+      "guard": "all covers contribute exact savings",
+      "verdict": "killed",
+      "failedTests": [
+        "records every saved cent for the buyer with explicit zero agent and network shares :: ZodError: [",
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: ZodError: [",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', \u2026(1) }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', \u2026(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: ZodError: [",
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: ZodError: [",
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: ZodError: [",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: ZodError: [",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: ZodError: [",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: ZodError: [",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: ZodError: [",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: ZodError: [",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: ZodError: [",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: ZodError: [",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: ZodError: [",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: ZodError: [",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'plan storage interrupted' // Object.is equality",
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 503 to be 201 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected undefined to be 'ready_for_payment' // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "writes one ledger entry with zero fees per filled commitment through the runtime role, including concurrent retries :: AssertionError: expected [ 'error', 'error', 'error', \u2026(3) ] to deeply equal [ null, null, null, null, null, null ]",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'error' to be null",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected 'error' to be null",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: ZodError: [",
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected 'error' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "split-agent",
+      "guard": "agent fee stays zero",
+      "verdict": "killed",
+      "failedTests": [
+        "records every saved cent for the buyer with explicit zero agent and network shares :: ZodError: [",
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: ZodError: [",
+        "refuses totals that exceed safe integer cents :: ZodError: [",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', \u2026(1) }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', \u2026(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: ZodError: [",
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: ZodError: [",
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: ZodError: [",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: ZodError: [",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: ZodError: [",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: ZodError: [",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: ZodError: [",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: ZodError: [",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: ZodError: [",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: ZodError: [",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: ZodError: [",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: ZodError: [",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'plan storage interrupted' // Object.is equality",
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 503 to be 201 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected undefined to be 'ready_for_payment' // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "writes one ledger entry with zero fees per filled commitment through the runtime role, including concurrent retries :: AssertionError: expected [ 'error', 'error', 'error', \u2026(3) ] to deeply equal [ null, null, null, null, null, null ]",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'error' to be null",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected 'error' to be null",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: ZodError: [",
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected 'error' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "split-boundary",
+      "guard": "constructor validates filled economics",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses negative savings and invalid filled economics :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-covers",
+      "guard": "merchant total covers",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-chargedCents",
+      "guard": "merchant total chargedCents",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { reconciled: true, missing: [], \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-buyerShareCents",
+      "guard": "merchant total buyerShareCents",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "totals retain every explicit share field from persisted entries :: AssertionError: expected [ { \u2026(9) } ] to match object [ { buyerShareCents: 700, \u2026(2) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { reconciled: true, missing: [], \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-networkShareCents",
+      "guard": "merchant total networkShareCents",
+      "verdict": "killed",
+      "failedTests": [
+        "totals retain every explicit share field from persisted entries :: AssertionError: expected [ { \u2026(9) } ] to match object [ { buyerShareCents: 700, \u2026(2) } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-safe",
+      "guard": "totals remain safe integer cents",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses totals that exceed safe integer cents :: AssertionError: expected [Function] to throw an error"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-rule",
+      "guard": "stored ledger source rule",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-covers",
+      "guard": "stored ledger source covers",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-list",
+      "guard": "stored ledger source list",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality",
+        "keeps source validation enabled in replica mode :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-accepted-terms",
+      "guard": "stored ledger source accepted-terms",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses wrong source rule/date and stale current or accepted terms :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-accepted-date",
+      "guard": "stored ledger source accepted-date",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses wrong source rule/date and stale current or accepted terms :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-cancelled",
+      "guard": "stored ledger source cancelled",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-max-price",
+      "guard": "stored ledger source max-price",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-no-agent-fee",
+      "guard": "database refuses agent fees",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps all existing commitments fee-free even for direct database writes :: AssertionError: expected null to be 'ledger_s8_no_fees' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-always",
+      "guard": "source checks run in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps source validation enabled in replica mode :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "fill-always",
+      "guard": "completeness runs in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a fill without a ledger entry, including replica mode :: AssertionError: expected null to be 'fill_ledger_required' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-unique",
+      "guard": "one receipt per commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected [ 503, 503, 503, 503, 503 ] to deeply equal [ 200, 200, 200, 200, 200 ]",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-delete",
+      "guard": "receipt refuses delete",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: TypeError: .toMatch() expects to receive a string, but got object",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout_receipts_append_only-always",
+      "guard": "receipt guard in replica mode",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "runtime-grants",
+      "guard": "runtime privileges stay narrow",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps the runtime's ledger and receipt privileges to SELECT and INSERT :: AssertionError: expected [ \u2026(2) ] to deeply equal [ \u2026(2) ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-own-price",
+      "guard": "negotiated fill keeps own price",
+      "verdict": "killed",
+      "failedTests": [
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'ledger_source_match' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-owned-refusal",
+      "guard": "foreign ready ledger stays inaccessible",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 200 to be 404 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-first-ledger-id",
+      "guard": "first ledger lookup names commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "cannot complete pending, cancelled or unfilled commitments :: AssertionError: expected 503 to be 422 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected [ { \u2026(4) } ] to deeply equal [ { \u2026(4) } ]",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "waits for historical ledger reconciliation before simulating checkout completion :: AssertionError: expected { \u2026(9) } to match object { \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-receipt-id",
+      "guard": "receipt lookup names commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected 'completed' to be 'ready_for_payment' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-simulation",
+      "guard": "checkout discloses simulation",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected { \u2026(9) } to match object { \u2026(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "complete-terminal",
+      "guard": "completion retry returns stored receipt",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected [ 200, 200, 422, 422, 422 ] to deeply equal [ 200, 200, 200, 200, 200 ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "complete-save",
+      "guard": "simulated completion persists receipt",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected [ 503, 503, 503, 503, 503 ] to deeply equal [ 200, 200, 200, 200, 200 ]",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-create-strict",
+      "guard": "clients cannot supply prices or identities",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 201 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-create-id",
+      "guard": "create requires valid UUID",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 503 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-consent",
+      "guard": "simulation requires explicit true",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 422 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-private-cache",
+      "guard": "responses never cached publicly",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 'public, max-age=3600' to be 'no-store' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-merchant-name",
+      "guard": "historical evidence merchant-name",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-covers",
+      "guard": "historical evidence covers",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-agents",
+      "guard": "historical evidence agents",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-list",
+      "guard": "historical list price cannot be invented",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality",
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null",
+        "keeps source validation enabled in replica mode :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-duplicates",
+      "guard": "historical occurrence cannot be counted twice",
+      "verdict": "killed",
+      "failedTests": [
+        "rejects duplicate historical sources atomically :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-atomic",
+      "guard": "bounded history batch rolls back all earlier entries",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected 1 to be +0 // Object.is equality",
+        "rejects duplicate historical sources atomically :: AssertionError: expected 1 to be +0 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-fill-scope",
+      "guard": "merchant fill reconciliation scoped by merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, \u2026(4) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: AssertionError: expected { totals: { \u2026(9) }, \u2026(4) } to match object { reconciled: true, missing: [], \u2026(1) }",
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected { totals: { \u2026(9) }, \u2026(4) } to match object { missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-orphan",
+      "guard": "orphan historical entries reported",
+      "verdict": "killed",
+      "failedTests": [
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { missing: [], mismatched: [], \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-reconciled",
+      "guard": "missing data never labelled reconciled",
+      "verdict": "killed",
+      "failedTests": [
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, \u2026(4) } to match object { \u2026(2) }",
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-empty-body",
+      "guard": "empty body is a client refusal",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 503 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-json-type-create",
+      "guard": "JSON content type for create",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 400 to be 415 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "split-buyer",
+      "guard": "all savings belong to buyer",
+      "verdict": "killed",
+      "failedTests": [
+        "records every saved cent for the buyer with explicit zero agent and network shares :: ZodError: [",
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: ZodError: [",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', \u2026(1) }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', \u2026(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: ZodError: [",
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: ZodError: [",
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: ZodError: [",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: ZodError: [",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: ZodError: [",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: ZodError: [",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: ZodError: [",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: ZodError: [",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: ZodError: [",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: ZodError: [",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: ZodError: [",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: ZodError: [",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'plan storage interrupted' // Object.is equality",
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 503 to be 201 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected undefined to be 'ready_for_payment' // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "writes one ledger entry with zero fees per filled commitment through the runtime role, including concurrent retries :: AssertionError: expected [ 'error', 'error', 'error', \u2026(3) ] to deeply equal [ null, null, null, null, null, null ]",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'error' to be null",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected 'error' to be null",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: ZodError: [",
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected 'error' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "split-network",
+      "guard": "network fee stays zero",
+      "verdict": "killed",
+      "failedTests": [
+        "records every saved cent for the buyer with explicit zero agent and network shares :: ZodError: [",
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: ZodError: [",
+        "refuses totals that exceed safe integer cents :: ZodError: [",
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', \u2026(1) }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', \u2026(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: ZodError: [",
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: ZodError: [",
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: ZodError: [",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: ZodError: [",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: ZodError: [",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: ZodError: [",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: ZodError: [",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: ZodError: [",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: ZodError: [",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: ZodError: [",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: ZodError: [",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: ZodError: [",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected '[\\n  {\\n    \"code\": \"custom\",\\n    \"p\u2026' to be 'plan storage interrupted' // Object.is equality",
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 503 to be 201 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected undefined to be 'ready_for_payment' // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "writes one ledger entry with zero fees per filled commitment through the runtime role, including concurrent retries :: AssertionError: expected [ 'error', 'error', 'error', \u2026(3) ] to deeply equal [ null, null, null, null, null, null ]",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'error' to be null",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected 'error' to be null",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: ZodError: [",
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected 'error' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-entries",
+      "guard": "merchant total entries",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-listValueCents",
+      "guard": "merchant total listValueCents",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-savingsCents",
+      "guard": "merchant total savingsCents",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-agentShareCents",
+      "guard": "merchant total agentShareCents",
+      "verdict": "killed",
+      "failedTests": [
+        "totals retain every explicit share field from persisted entries :: AssertionError: expected [ { \u2026(9) } ] to match object [ { buyerShareCents: 700, \u2026(2) } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "total-merchant",
+      "guard": "different merchants stay separate",
+      "verdict": "killed",
+      "failedTests": [
+        "reconciles literal merchant totals using persisted prices and keeps merchants separate :: AssertionError: expected [ { \u2026(9) }, { \u2026(9) } ] to deeply equal [ { \u2026(9) }, { \u2026(9) } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-commitment",
+      "guard": "stored ledger source commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-merchant",
+      "guard": "stored ledger source merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-price",
+      "guard": "stored ledger source price",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-current-terms",
+      "guard": "stored ledger source current-terms",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses wrong source rule/date and stale current or accepted terms :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-accepted-rule",
+      "guard": "stored ledger source accepted-rule",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses wrong source rule/date and stale current or accepted terms :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-unlocked",
+      "guard": "stored ledger source unlocked",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-cover-bound",
+      "guard": "stored ledger source cover-bound",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-agreed-price",
+      "guard": "stored ledger source agreed-price",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "source-no-network-fee",
+      "guard": "database refuses network fees",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps all existing commitments fee-free even for direct database writes :: AssertionError: expected null to be 'ledger_s8_no_fees' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "fill-completeness",
+      "guard": "fill cannot commit without ledger",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses a fill without a ledger entry, including replica mode :: AssertionError: expected null to be 'fill_ledger_required' // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-ledger-fk",
+      "guard": "only filled ledger commitments receive receipts",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "ledger refuses them for the table owner :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-update",
+      "guard": "receipt refuses update",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: TypeError: .toMatch() expects to receive a string, but got object",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-truncate",
+      "guard": "receipt refuses truncate",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: TypeError: .toMatch() expects to receive a string, but got object",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout_receipts_no_truncate-always",
+      "guard": "receipt guard in replica mode",
+      "verdict": "killed-not-assertion",
+      "failedTests": [
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: TypeError: .toMatch() expects to receive a string, but got object"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "clearing-ledger-write",
+      "guard": "clearing writes ledger in transaction",
+      "verdict": "killed",
+      "failedTests": [
+        "status and clearing is pending with the pooled covers before the deadline, and filled at the offer price from the deadline on :: AssertionError: expected undefined to match object { status: 'filled', \u2026(1) }",
+        "status and clearing stores the clearing once, so a later change to the floor or capacity cannot change an outcome :: AssertionError: expected [ 'unavailable', 'unavailable', \u2026(1) ] to deeply equal [ 'filled', 'filled', 'not_filled' ]",
+        "cancel_commitment cancels before the deadline, leaves the commitment out of the pool and the clearing, and is binding from the deadline on :: AssertionError: expected undefined to be 'filled' // Object.is equality",
+        "a model proposal outside the limits is rejected, holds like any other hold, and never reaches a commitment or a clearing :: AssertionError: expected undefined to match object { status: 'filled', \u2026(2) }",
+        "onboarding:live reads the menu photo, publishes with a hidden floor, plans the sellout, applies the plan and cleans up :: PostgresError: a filled commitment needs its ledger entry",
+        "onboarding:live starts no model step once the recorded cost reaches the cap :: PostgresError: a filled commitment needs its ledger entry",
+        "Muse Wonder merchant agent settles an occurrence whose deadline has passed though no buyer asked for its status, so its sellout is planned and applied :: PostgresError: a filled commitment needs its ledger entry",
+        "the S7 demo scene replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored :: PostgresError: a filled commitment needs its ledger entry",
+        "the S7 demo scene shows the open pool before the deadline, and one buyer alone unlocking only when it holds the minimum :: PostgresError: a filled commitment needs its ledger entry",
+        "the S7 demo scene retires the earlier scene rule without moving its terms version, so only the new one is listed :: PostgresError: a filled commitment needs its ledger entry",
+        "the S7 demo scene records: asks the model once per buyer until the spend cap, and saves every request and reply :: PostgresError: a filled commitment needs its ledger entry",
+        "the S7 demo scene refuses a replayed reply over the per-agent cap through MCP, like any buyer's :: PostgresError: a filled commitment needs its ledger entry",
+        "S7 submission and scene retirement serialize at rule availability refuses retirement when a submission has read the old offer before inserting :: PostgresError: a filled commitment needs its ledger entry",
+        "S7 review fixes refuses retirement while an earlier scene has accepted future commitments, which still fill :: PostgresError: a filled commitment needs its ledger entry",
+        "S7 review fixes waits for an in-flight commitment before deciding whether retirement is safe :: PostgresError: a filled commitment needs its ledger entry",
+        "checkpoints a completed decision before its MCP submission fails :: AssertionError: expected 'a filled commitment needs its ledger \u2026' to be 'MCP submission failed after decision' // Object.is equality",
+        "settles due covers at their accepted price before retiring the old rule :: PostgresError: a filled commitment needs its ledger entry",
+        "ignores cancelled commitments and another merchant's pending pool when retiring :: AssertionError: expected false to be true // Object.is equality",
+        "checkpoints Wonder's proposal before a later plan-storage failure :: AssertionError: expected 'a filled commitment needs its ledger \u2026' to be 'plan storage interrupted' // Object.is equality",
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 503 to be 201 // Object.is equality",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected undefined to be 'ready_for_payment' // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected 503 to be 200 // Object.is equality",
+        "writes one ledger entry with zero fees per filled commitment through the runtime role, including concurrent retries :: AssertionError: expected [ 'fill_ledger_required', \u2026(5) ] to deeply equal [ null, null, null, null, null, null ]",
+        "stores each negotiated fill's own price rather than the clearing headline :: AssertionError: expected 'fill_ledger_required' to be null",
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected 'fill_ledger_required' to be null",
+        "cannot give an unfilled commitment another commitment's ledger source :: AssertionError: expected 'fill_ledger_required' to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-owned",
+      "guard": "checkout fast path verifies ownership",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected 200 to be 404 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-frozen",
+      "guard": "saved checkout precedes mutable timing",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected { \u2026(7) } to deeply equal { \u2026(10) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-settled-ledger-id",
+      "guard": "settled ledger lookup names commitment",
+      "verdict": "killed",
+      "failedTests": [
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected [ { \u2026(4) } ] to deeply equal [ { \u2026(4) } ]",
+        "waits for historical ledger reconciliation before simulating checkout completion :: AssertionError: expected { \u2026(9) } to match object { \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-total-price",
+      "guard": "checkout charges accepted price",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected { \u2026(9) } to match object { \u2026(7) }",
+        "keeps different buyers' ledger rows and receipts separate :: AssertionError: expected [ { \u2026(4) } ] to deeply equal [ { \u2026(4) } ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-no-money",
+      "guard": "checkout discloses no money moved",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected { \u2026(9) } to match object { \u2026(7) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "complete-readiness",
+      "guard": "unfilled or pending cannot complete",
+      "verdict": "killed",
+      "failedTests": [
+        "cannot complete pending, cancelled or unfilled commitments :: AssertionError: expected 503 to be 422 // Object.is equality",
+        "waits for historical ledger reconciliation before simulating checkout completion :: AssertionError: expected 503 to be 422 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-auth",
+      "guard": "bearer authentication gates checkout",
+      "verdict": "killed",
+      "failedTests": [
+        "authenticates missing, malformed, unknown and revoked agents before reading or settling :: AssertionError: expected [ 404, 404, 404 ] to deeply equal [ 401, 401, 401 ]"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-complete-strict",
+      "guard": "payment credentials refused",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 422 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-route-id",
+      "guard": "path requires valid UUID",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 503 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-size",
+      "guard": "request body bounded independently of JSON shape",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 201 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-error",
+      "guard": "database failure becomes sanitized unavailable response",
+      "verdict": "killed",
+      "failedTests": [
+        "returns an unavailable response without exposing database error values :: AssertionError: expected null to deeply equal { status: 503, \u2026(1) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-fills",
+      "guard": "historical evidence fills",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-price",
+      "guard": "historical evidence price",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-merchant",
+      "guard": "historical identity bound to pinned merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "binds ledger rule, merchant, covers, fill price and original list price :: AssertionError: expected null to be 'ledger_source_match' // Object.is equality",
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-version",
+      "guard": "historical source versions match throughout",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses historical drift and rolls back earlier entries in the same bounded batch :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "history-existing",
+      "guard": "conflicting existing ledger never silently trusted",
+      "verdict": "killed",
+      "failedTests": [
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected null not to be null"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-ledger-scope",
+      "guard": "merchant ledger entries scoped by authenticated merchant",
+      "verdict": "killed",
+      "failedTests": [
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to deeply equal { totals: { \u2026(9) }, missing: [], \u2026(3) }",
+        "backfills only pinned historical sources once, preserving other merchants and accepted prices :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { reconciled: true, missing: [], \u2026(1) }",
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-missing",
+      "guard": "missing historical ledger rows reported",
+      "verdict": "killed",
+      "failedTests": [
+        "reports exact merchant totals and detects historical missing entries without writing :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "report-mismatch",
+      "guard": "mismatched historical source reported",
+      "verdict": "killed",
+      "failedTests": [
+        "reports legacy mismatches and orphan rows and refuses a conflicting backfill :: AssertionError: expected { totals: { \u2026(9) }, missing: [], \u2026(3) } to match object { missing: [], \u2026(3) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-json-syntax",
+      "guard": "malformed JSON is a client refusal",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 503 to be 400 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout-historical-gap",
+      "guard": "historical fill cannot complete without ledger",
+      "verdict": "killed",
+      "failedTests": [
+        "waits for historical ledger reconciliation before simulating checkout completion :: AssertionError: expected { error: 'unavailable' } to match object { \u2026(2) }"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "http-json-type-complete",
+      "guard": "JSON content type for complete",
+      "verdict": "killed",
+      "failedTests": [
+        "refuses malformed input, client prices, payment credentials and bodies above 4096 bytes :: AssertionError: expected 422 to be 415 // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

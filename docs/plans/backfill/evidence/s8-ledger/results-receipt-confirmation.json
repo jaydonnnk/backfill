@@ -1,0 +1,77 @@
+{
+  "baseline": 417,
+  "results": [
+    {
+      "id": "receipt-ledger-fk",
+      "guard": "only filled ledger commitments receive receipts",
+      "verdict": "killed",
+      "failedTests": [
+        "ledger refuses UPDATE, DELETE and TRUNCATE for a non-superuser role holding every privilege :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "ledger refuses them for the table owner :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "ledger refuses them for the superuser, even in replica mode :: AssertionError: expected { \u2026(4) } to deeply equal { \u2026(4) }",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-update",
+      "guard": "receipt refuses update",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected false to be true // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-delete",
+      "guard": "receipt refuses delete",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected false to be true // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "receipt-truncate",
+      "guard": "receipt refuses truncate",
+      "verdict": "killed",
+      "failedTests": [
+        "returns exact accepted economics, completes once concurrently, and never moves money :: AssertionError: expected false to be true // Object.is equality",
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout_receipts_append_only-always",
+      "guard": "receipt guard in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    },
+    {
+      "id": "checkout_receipts_no_truncate-always",
+      "guard": "receipt guard in replica mode",
+      "verdict": "killed",
+      "failedTests": [
+        "requires a filled ledger source for receipts and keeps receipts immutable in replica mode :: AssertionError: expected false to be true // Object.is equality"
+      ],
+      "fileErrors": [],
+      "restoredByteIdentical": true,
+      "rerunGreen": true
+    }
+  ]
+}

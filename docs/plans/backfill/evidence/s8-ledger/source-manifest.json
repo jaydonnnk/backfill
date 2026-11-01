@@ -1,0 +1,49 @@
+{
+  "sourceCommit": "2dda7bce3f88c625db4ec033d392b154688d05b7",
+  "applicationEquivalentToHttpBuildCommit": "1b4a7274a5db4a4330ec44b17930a072a32b6823",
+  "testCount": 417,
+  "vitestMaxWorkers": 2,
+  "files": {
+    "drizzle/0013_s8_ledger_checkout.sql": "3e5d1b75f9744a7e2ecf35d1774753d4077804db289dd92fd9de1c95509953da",
+    "drizzle/meta/_journal.json": "08af58a60f87a0089380bb8f9dd64da96059855089ba4129d52a98e9d71e0340",
+    "src/app/api/checkout_sessions/[id]/complete/route.ts": "5bd29d66ab6a5c0647e9bc9531dbbb66417f04950f8844044ca84eb2c9afef8b",
+    "src/app/api/checkout_sessions/[id]/route.ts": "4459b243b8a5faafbe5ee385609ce96e2647ea541f3880167b6c443c80c39832",
+    "src/app/api/checkout_sessions/route.ts": "65776e12df605e68dacd85368bc02b1ca235be2996ee896909b3f0324aa0d9f2",
+    "src/app/merchant/page.tsx": "5e272d4056185a8172935330ba9ebcfe2050d9fcda3638594ddda40c43e454b0",
+    "src/domain/ledger/calculate.ts": "ff372e30b484c69b9dac1b1d88b5ce2939bb0c6b2109fb5d2f4d6f74fbb18135",
+    "src/lib/checkout/http.ts": "855dcf11613624fbfafecbd14d6392dd0768db17d73a5fef16492c031e452890",
+    "src/lib/checkout/service.ts": "60dccd4c0a9c69ef68f6dd38338e868720e2bcaa84f3d4b953d50f15c7e16476",
+    "src/lib/commitments/service.ts": "7b27796ff47619d33299177689aa18685d2f8d3683cbe3640c800e97b6d91198",
+    "src/lib/db/schema.ts": "908e58e6a3a2e24e5ddc3f1a57cf4f79ed87b7502918adcef8729b6599c03290",
+    "src/lib/ledger/backfill.ts": "445d68c061b7209740e94ab6a2a5b57b9938fb4be82d981d8e26c533a1252bd4",
+    "src/lib/ledger/service.ts": "b84f570ce7787cd17228c6a58a13d41068744c7db6c3b6388f18ab03c76c44b4",
+    "tests/integration/s2-tables.test.ts": "92e818838a7fe4706e66a1cf5e67820dad3dd7169199062140a8546f2f8900a7",
+    "tests/integration/s4-mcp.test.ts": "835113c65dd5dd8769cc5ea4be43e6f4c34a75055b1d42a7db5e975944ccf493",
+    "tests/integration/s6-onboarding.test.ts": "fb562e8acc0632f6afe5781b81b487ffa22a22c6db64dd3dc9c4dbb3e1ae1266",
+    "tests/integration/s8-checkout.test.ts": "4a007ea9d56944f46da7cf7bd729256f531bebbe4d8fca651501deca9d3f5129",
+    "tests/integration/s8-ledger.test.ts": "03bf44dae987e4421ac0bbf8e974282947433f396e4a411ec57902a21bc6f01b",
+    "tests/unit/s8-ledger.test.ts": "97c6a3f9b7f2614a16a490997acfecc699b145676b82ab22b11b510e6b7c5b73"
+  },
+  "frozenFiles": {
+    "sim/buyers/recordings/scene.json": "ede0975b19f7e4943aadcd6ffcda43e7e89c191472702b7f9c02fdc18655150c",
+    "docs/plans/backfill/evidence/s7-demo/demo-375.png": "b982abe269d4a2fdd7761df23063a9d1329684d82e56d5750a5e398f162b7f7a",
+    "docs/plans/backfill/evidence/s7-demo/demo-1280.png": "316bd8ec9b288cde03c9a789dc4ac7b14c063da2032377668b99d55e43afa9d8",
+    "drizzle/0002_s2_triggers.sql": "7edc9254d15697d78396011da2290b7786318d938283f0d2ad7f7f0f7b9b95d3",
+    "drizzle/0004_s4_agents_cancel_clearings.sql": "51e1d4499287c9ab2e2bdee427f09f9565ad03e94f8ef47598076f12c39c0f5f",
+    "drizzle/0000_llm_calls.sql": "a96bee8dee100a9f556dfea2c4d4d7472a4dd9bf7744b00479a5c6638201c1cf",
+    "drizzle/0008_s6_onboarding.sql": "3c74f35c054c5591ddfc5e9342848f9a6ec6c779db41a7b636e631d3ad57b3bc",
+    "drizzle/0005_s4_triggers_runtime_role.sql": "2b1f301956214f0ac4364411e5c79429201989bfc16f4f15313ccd308b5dfc6e",
+    "drizzle/0007_s5_negotiation_triggers.sql": "d843df37d390e7af97c67d5dbfd841e4119c934c1da074b9fedeb7423246123c",
+    "drizzle/0006_s5_negotiations.sql": "201f653ab4d6cc5a75e971654e48489887d9829d6096b08975a19125ad272803",
+    "drizzle/0011_s6b_whatsapp_triggers.sql": "e6c2fde41981eab12f4dc1841b735437fe81de820a7e339234687d0ae5ef5548",
+    "drizzle/0003_s3_min_pool_within_capacity.sql": "b7123d2080883f7035690a0c01ce299cb3ced2026da5f3b0d57f35f5bd5008f9",
+    "drizzle/0012_s6_review_owner_change_rule.sql": "d2f126aaf839f4e07c631e95ef1a2c73186bc0bd4d21a62c6479524ce78a6fbe",
+    "drizzle/0001_s2_merchants_rules_commitments_ledger.sql": "0c298243bf47b0e9c8fc1db174e16fac03fd222d625731892dcfcce1ff479314",
+    "drizzle/0009_s6_onboarding_triggers.sql": "3c96675b190dd6ba6a50295e36a4237e8e7d3f706dc12c588bd6f909f9ef4709",
+    "drizzle/0010_s6b_whatsapp.sql": "2a74961c29caf90a4b117763606f1236f5231a6eb9dc6e8d5df8de5a4d8f91c9"
+  },
+  "proofHarnessCommits": [
+    "40a53a6",
+    "2dda7bc"
+  ]
+}

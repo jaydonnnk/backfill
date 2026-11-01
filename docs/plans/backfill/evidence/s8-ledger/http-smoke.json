@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-01T09:40:55.245Z",
+  "kind": "local production build, disposable PostgreSQL, runtime role",
+  "http": {
+    "unauthorized": 401,
+    "create": 201,
+    "complete": 200,
+    "retrieve": 200,
+    "unsupportedMethod": 405
+  },
+  "acceptedTotalCents": 1876,
+  "buyerSavingsCents": 624,
+  "agentShareCents": 0,
+  "networkShareCents": 0,
+  "simulated": true,
+  "moneyMoved": false,
+  "counts": {
+    "ledger": 1,
+    "receipts": 1,
+    "model_attempts": 0
+  },
+  "merchantServerHtmlVerified": true,
+  "browserInteractionVerified": false,
+  "cliIsolation": {
+    "emptyCwd": true,
+    "minimalEnvironment": true,
+    "refusedWithoutDisposableUrl": true
+  }
+}
