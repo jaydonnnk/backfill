@@ -91,6 +91,7 @@ it("keeps all existing commitments fee-free even for direct database writes", as
 it("refuses a cancelled fill, locked clearing, excess covers and price above the buyer maximum", async () => {
   const f = await seed(); await t.admin`update commitments set cancelled_at = now() where id = ${f.commitmentId}`;
   expect((await rawSettlement(f)).error).toBe("ledger_source_match");
+  expect((await rawSettlement(await seed(), { fill: { price_per_cover_cents: 930 }, entry: { price_per_cover_cents: 930, savings_cents: 640, buyer_share_cents: 640 } })).error).toBe("ledger_source_match");
   expect((await rawSettlement(await seed(), { clearing: { unlocked: false } })).error).toBe("ledger_source_match");
   expect((await rawSettlement(await seed(), { fill: { covers: 3 }, entry: { covers: 3, savings_cents: 936, buyer_share_cents: 936 } })).error).toBe("ledger_source_match");
   expect((await rawSettlement(await seed(), { clearing: { price_per_cover_cents: 950 }, fill: { price_per_cover_cents: 950 }, entry: { price_per_cover_cents: 950, savings_cents: 600, buyer_share_cents: 600 } })).error).toBe("ledger_source_match");

@@ -1,8 +1,8 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import type { LedgerEntry } from "@/domain/ledger/schema";
 import { getCommitmentStatus, type Clock } from "@/lib/commitments/service";
 import type { Db } from "@/lib/db/client";
-import { checkoutReceipts, ledger } from "@/lib/db/schema";
+import { checkoutReceipts, commitments, ledger } from "@/lib/db/schema";
 
 type Base = { id: string; currency: "sgd"; simulated: true; money_moved: false; messages: string[] };
 type Economics = {
@@ -27,15 +27,20 @@ function economics(entry: LedgerEntry): Economics {
 }
 const order = (id: string, completedAt: Date): Order => ({ id: `sim_${id}`, checkout_session_id: id, completed_at: completedAt.toISOString() });
 
-// Ownership is checked by the existing status service before any pool can settle.
+// Ownership precedes every read. Stored economics and receipts survive later rule changes.
 export async function getCheckout(db: Db, agentId: string, id: string, clock: Clock = () => new Date()): Promise<CheckoutSession | null> {
-  const result = await getCommitmentStatus(db, agentId, id, clock);
-  if (!result.ok) return null;
+  const [owned] = await db.select({ id: commitments.id }).from(commitments).where(and(eq(commitments.id, id), eq(commitments.agentId, agentId)));
+  if (!owned) return null;
   const base: Base = { id, currency: "sgd", simulated: true, money_moved: false, messages: ["Simulation only. No money is charged."] };
-  const status = result.commitment.status;
-  if (status !== "filled") return { ...base, status: status === "pending" ? "not_ready_for_payment" : "canceled", reason: status };
-  const [entry] = await db.select().from(ledger).where(eq(ledger.commitmentId, id));
-  if (!entry) return { ...base, status: "not_ready_for_payment", reason: "ledger_reconciliation_pending" };
+  let [entry] = await db.select().from(ledger).where(eq(ledger.commitmentId, id));
+  if (!entry) {
+    const result = await getCommitmentStatus(db, agentId, id, clock);
+    if (!result.ok) return null;
+    const status = result.commitment.status;
+    if (status !== "filled") return { ...base, status: status === "pending" ? "not_ready_for_payment" : "canceled", reason: status };
+    [entry] = await db.select().from(ledger).where(eq(ledger.commitmentId, id));
+    if (!entry) return { ...base, status: "not_ready_for_payment", reason: "ledger_reconciliation_pending" };
+  }
   const [receipt] = await db.select().from(checkoutReceipts).where(eq(checkoutReceipts.commitmentId, id));
   if (receipt) return { ...base, ...economics(entry), status: "completed", order: order(id, receipt.completedAt) };
   return { ...base, ...economics(entry), status: "ready_for_payment" };

@@ -68,6 +68,9 @@ it("returns exact accepted economics, completes once concurrently, and never mov
   for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) await expect(t.admin.unsafe(statement)).rejects.toThrow(/append-only/);
   await t.admin`update rules set list_price_cents = 1500 where id = ${f.ruleId}`;
   expect(await (await read(req(f.agent.token), f.id)).json()).toEqual(bodies[0]);
+  await t.admin`update rules set commit_by_minute = 810 where id = ${f.ruleId}`;
+  expect(await (await read(req(f.agent.token), f.id)).json()).toEqual(bodies[0]);
+  expect(await (await complete(req(f.agent.token, { simulate: true }), f.id)).json()).toEqual(bodies[0]);
 });
 it("cannot complete pending, cancelled or unfilled commitments", async () => {
   const f = await fixture(); expect((await complete(req(f.agent.token, { simulate: true }), f.id)).status).toBe(422);

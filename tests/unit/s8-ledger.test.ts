@@ -20,3 +20,8 @@ it("reconciles literal merchant totals using persisted prices and keeps merchant
   ]);
   expect(merchantTotals([])).toEqual([]);
 });
+
+it("refuses totals that exceed safe integer cents", () => {
+  const huge = ledgerEntry({ ...fill, covers: 2, listPriceCents: Number.MAX_SAFE_INTEGER, pricePerCoverCents: Number.MAX_SAFE_INTEGER });
+  expect(() => merchantTotals([huge])).toThrow();
+});
