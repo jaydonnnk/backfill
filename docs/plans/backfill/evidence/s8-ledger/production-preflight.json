@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-11-01T09:29:01.822Z",
+  "project": "curly-scene-39671304",
+  "branch": "br-noisy-dawn-b4eegvd6",
+  "counts": {
+    "migrations": 13,
+    "merchants": 3,
+    "rules": 5,
+    "commitments": 25,
+    "clearings": 3,
+    "fills": 14,
+    "ledger": 0,
+    "plans": 2,
+    "llm_calls": 4,
+    "read_only": "on"
+  },
+  "scenes": [
+    {
+      "rule_id": "b80547e2-08d8-44f6-94f5-ffa395be9546",
+      "merchant_id": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "merchant_name": "Backfill Demo Cafe",
+      "terms_version": 1,
+      "list_price_cents": 680,
+      "visit_date": "2026-11-01",
+      "clearing_terms_version": 1,
+      "fills": 7,
+      "covers": 16,
+      "min_price_cents": 544,
+      "max_price_cents": 544,
+      "only_sim_buyers": true
+    },
+    {
+      "rule_id": "b99be92a-53a6-499a-9b44-c838c2789cc4",
+      "merchant_id": "6cfe7cc5-f2e7-4ea5-9f7e-55728daee462",
+      "merchant_name": "Backfill Demo Cafe",
+      "terms_version": 1,
+      "list_price_cents": 680,
+      "visit_date": "2026-11-01",
+      "clearing_terms_version": 1,
+      "fills": 7,
+      "covers": 16,
+      "min_price_cents": 544,
+      "max_price_cents": 544,
+      "only_sim_buyers": true
+    }
+  ],
+  "protectedFingerprints": {
+    "protected_commitments": "0ed733562156cae14750a7e17668972a",
+    "protected_rules": "52063b955351aaab8030271fd5889ff0",
+    "protected_merchants": "9b5a8237cf0667870c66b31e32050c84",
+    "agents": "5b6128b308128268493bfbba09cf8f13"
+  }
+}

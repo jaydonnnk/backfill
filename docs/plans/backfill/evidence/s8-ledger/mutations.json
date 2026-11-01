@@ -1,0 +1,633 @@
+[
+  {
+    "id": "split-savings",
+    "guard": "all covers contribute exact savings",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "fill.covers * (fill.listPriceCents - fill.pricePerCoverCents)",
+    "to": "1 * (fill.listPriceCents - fill.pricePerCoverCents)"
+  },
+  {
+    "id": "split-buyer",
+    "guard": "all savings belong to buyer",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "buyerShareCents: savingsCents,",
+    "to": "buyerShareCents: 0,"
+  },
+  {
+    "id": "split-agent",
+    "guard": "agent fee stays zero",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "agentShareCents: 0, networkShareCents: 0 });",
+    "to": "agentShareCents: 1, networkShareCents: 0 });"
+  },
+  {
+    "id": "split-network",
+    "guard": "network fee stays zero",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "agentShareCents: 0, networkShareCents: 0 });",
+    "to": "agentShareCents: 0, networkShareCents: 1 });"
+  },
+  {
+    "id": "split-boundary",
+    "guard": "constructor validates filled economics",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "return LedgerEntry.parse({",
+    "to": "return ({"
+  },
+  {
+    "id": "total-entries",
+    "guard": "merchant total entries",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.entries += 1;",
+    "to": "total.entries += 0;"
+  },
+  {
+    "id": "total-covers",
+    "guard": "merchant total covers",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.covers += entry.covers;",
+    "to": "total.covers += 0;"
+  },
+  {
+    "id": "total-listValueCents",
+    "guard": "merchant total listValueCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.listValueCents += entry.covers * entry.listPriceCents;",
+    "to": "total.listValueCents += 0;"
+  },
+  {
+    "id": "total-chargedCents",
+    "guard": "merchant total chargedCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.chargedCents += entry.covers * entry.pricePerCoverCents;",
+    "to": "total.chargedCents += 0;"
+  },
+  {
+    "id": "total-savingsCents",
+    "guard": "merchant total savingsCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.savingsCents += entry.savingsCents;",
+    "to": "total.savingsCents += 0;"
+  },
+  {
+    "id": "total-buyerShareCents",
+    "guard": "merchant total buyerShareCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.buyerShareCents += entry.buyerShareCents;",
+    "to": "total.buyerShareCents += 0;"
+  },
+  {
+    "id": "total-agentShareCents",
+    "guard": "merchant total agentShareCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.agentShareCents += entry.agentShareCents;",
+    "to": "total.agentShareCents += 0;"
+  },
+  {
+    "id": "total-networkShareCents",
+    "guard": "merchant total networkShareCents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "total.networkShareCents += entry.networkShareCents;",
+    "to": "total.networkShareCents += 0;"
+  },
+  {
+    "id": "total-merchant",
+    "guard": "different merchants stay separate",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "totals.get(entry.merchantId)",
+    "to": "totals.get(\"wrong\")"
+  },
+  {
+    "id": "total-safe",
+    "guard": "totals remain safe integer cents",
+    "file": "src/domain/ledger/calculate.ts",
+    "from": "Cents.parse(value);",
+    "to": "void value;"
+  },
+  {
+    "id": "source-commitment",
+    "guard": "stored ledger source commitment",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "WHERE f.commitment_id = NEW.commitment_id",
+    "to": "WHERE true"
+  },
+  {
+    "id": "source-rule",
+    "guard": "stored ledger source rule",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND NEW.rule_id = f.rule_id",
+    "to": ""
+  },
+  {
+    "id": "source-merchant",
+    "guard": "stored ledger source merchant",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND NEW.merchant_id = r.merchant_id",
+    "to": ""
+  },
+  {
+    "id": "source-covers",
+    "guard": "stored ledger source covers",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND NEW.covers = f.covers",
+    "to": ""
+  },
+  {
+    "id": "source-price",
+    "guard": "stored ledger source price",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND NEW.price_per_cover_cents = f.price_per_cover_cents",
+    "to": ""
+  },
+  {
+    "id": "source-list",
+    "guard": "stored ledger source list",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND NEW.list_price_cents = r.list_price_cents",
+    "to": ""
+  },
+  {
+    "id": "source-current-terms",
+    "guard": "stored ledger source current-terms",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND r.terms_version = k.terms_version",
+    "to": ""
+  },
+  {
+    "id": "source-accepted-terms",
+    "guard": "stored ledger source accepted-terms",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND c.terms_version = k.terms_version",
+    "to": ""
+  },
+  {
+    "id": "source-accepted-rule",
+    "guard": "stored ledger source accepted-rule",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND c.rule_id = f.rule_id",
+    "to": ""
+  },
+  {
+    "id": "source-accepted-date",
+    "guard": "stored ledger source accepted-date",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND (c.visit_at AT TIME ZONE 'Asia/Singapore')::date = f.visit_date",
+    "to": ""
+  },
+  {
+    "id": "source-unlocked",
+    "guard": "stored ledger source unlocked",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND k.unlocked",
+    "to": ""
+  },
+  {
+    "id": "source-cancelled",
+    "guard": "stored ledger source cancelled",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND c.cancelled_at IS NULL",
+    "to": ""
+  },
+  {
+    "id": "source-cover-bound",
+    "guard": "stored ledger source cover-bound",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND f.covers <= c.covers",
+    "to": ""
+  },
+  {
+    "id": "source-max-price",
+    "guard": "stored ledger source max-price",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND f.price_per_cover_cents <= c.max_price_per_cover_cents",
+    "to": ""
+  },
+  {
+    "id": "source-agreed-price",
+    "guard": "stored ledger source agreed-price",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "AND f.price_per_cover_cents = COALESCE(c.negotiated_price_cents, k.price_per_cover_cents)",
+    "to": ""
+  },
+  {
+    "id": "source-no-agent-fee",
+    "guard": "database refuses agent fees",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "NEW.agent_share_cents <> 0 OR ",
+    "to": ""
+  },
+  {
+    "id": "source-no-network-fee",
+    "guard": "database refuses network fees",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": " OR NEW.network_share_cents <> 0",
+    "to": ""
+  },
+  {
+    "id": "source-always",
+    "guard": "source checks run in replica mode",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "ALTER TABLE ledger ENABLE ALWAYS TRIGGER zz_s8_ledger_source",
+    "to": "ALTER TABLE ledger ENABLE TRIGGER zz_s8_ledger_source"
+  },
+  {
+    "id": "fill-completeness",
+    "guard": "fill cannot commit without ledger",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "IF NOT EXISTS (SELECT 1 FROM public.ledger WHERE commitment_id = NEW.commitment_id) THEN",
+    "to": "IF false THEN"
+  },
+  {
+    "id": "fill-always",
+    "guard": "completeness runs in replica mode",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "ALTER TABLE clearing_fills ENABLE ALWAYS TRIGGER s8_fill_has_ledger",
+    "to": "ALTER TABLE clearing_fills ENABLE TRIGGER s8_fill_has_ledger"
+  },
+  {
+    "id": "receipt-ledger-fk",
+    "guard": "only filled ledger commitments receive receipts",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "CONSTRAINT checkout_receipts_ledger_fk FOREIGN KEY (commitment_id) REFERENCES ledger(commitment_id)",
+    "to": "CONSTRAINT checkout_receipts_ledger_fk CHECK (true)"
+  },
+  {
+    "id": "receipt-unique",
+    "guard": "one receipt per commitment",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "commitment_id uuid PRIMARY KEY,",
+    "to": "commitment_id uuid,"
+  },
+  {
+    "id": "receipt-update",
+    "guard": "receipt refuses update",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "BEFORE UPDATE OR DELETE ON checkout_receipts",
+    "to": "BEFORE DELETE ON checkout_receipts"
+  },
+  {
+    "id": "receipt-delete",
+    "guard": "receipt refuses delete",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "BEFORE UPDATE OR DELETE ON checkout_receipts",
+    "to": "BEFORE UPDATE ON checkout_receipts"
+  },
+  {
+    "id": "receipt-truncate",
+    "guard": "receipt refuses truncate",
+    "edits": [
+      {
+        "file": "drizzle/0013_s8_ledger_checkout.sql",
+        "from": "CREATE TRIGGER checkout_receipts_no_truncate BEFORE TRUNCATE ON checkout_receipts FOR EACH STATEMENT EXECUTE FUNCTION refuse_change();",
+        "to": ""
+      },
+      {
+        "file": "drizzle/0013_s8_ledger_checkout.sql",
+        "from": "ALTER TABLE checkout_receipts ENABLE ALWAYS TRIGGER checkout_receipts_no_truncate;",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "checkout_receipts_append_only-always",
+    "guard": "receipt guard in replica mode",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "ALTER TABLE checkout_receipts ENABLE ALWAYS TRIGGER checkout_receipts_append_only",
+    "to": "ALTER TABLE checkout_receipts ENABLE TRIGGER checkout_receipts_append_only"
+  },
+  {
+    "id": "checkout_receipts_no_truncate-always",
+    "guard": "receipt guard in replica mode",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "ALTER TABLE checkout_receipts ENABLE ALWAYS TRIGGER checkout_receipts_no_truncate",
+    "to": "ALTER TABLE checkout_receipts ENABLE TRIGGER checkout_receipts_no_truncate"
+  },
+  {
+    "id": "runtime-grants",
+    "guard": "runtime privileges stay narrow",
+    "file": "drizzle/0013_s8_ledger_checkout.sql",
+    "from": "GRANT SELECT, INSERT ON ledger, checkout_receipts",
+    "to": "GRANT ALL ON ledger, checkout_receipts"
+  },
+  {
+    "id": "clearing-ledger-write",
+    "guard": "clearing writes ledger in transaction",
+    "file": "src/lib/commitments/service.ts",
+    "from": "if (result.fills.length > 0) await tx.insert(ledger).values",
+    "to": "if (false) await tx.insert(ledger).values"
+  },
+  {
+    "id": "clearing-own-price",
+    "guard": "negotiated fill keeps own price",
+    "file": "src/lib/commitments/service.ts",
+    "from": "listPriceCents: ruleRow.listPriceCents, pricePerCoverCents: fill.pricePerCoverCents,",
+    "to": "listPriceCents: ruleRow.listPriceCents, pricePerCoverCents: result.pricePerCoverCents,"
+  },
+  {
+    "id": "checkout-owned",
+    "guard": "checkout fast path verifies ownership",
+    "file": "src/lib/checkout/service.ts",
+    "from": "eq(commitments.agentId, agentId)",
+    "to": "eq(commitments.agentId, commitments.agentId)"
+  },
+  {
+    "id": "checkout-owned-refusal",
+    "guard": "foreign ready ledger stays inaccessible",
+    "file": "src/lib/checkout/service.ts",
+    "from": "if (!owned) return null;",
+    "to": "if (false) return null;"
+  },
+  {
+    "id": "checkout-frozen",
+    "guard": "saved checkout precedes mutable timing",
+    "file": "src/lib/checkout/service.ts",
+    "from": "  if (!entry) {",
+    "to": "  if (true) {"
+  },
+  {
+    "id": "checkout-first-ledger-id",
+    "guard": "first ledger lookup names commitment",
+    "file": "src/lib/checkout/service.ts",
+    "from": "let [entry] = await db.select().from(ledger).where(eq(ledger.commitmentId, id));",
+    "to": "let [entry] = await db.select().from(ledger);"
+  },
+  {
+    "id": "checkout-settled-ledger-id",
+    "guard": "settled ledger lookup names commitment",
+    "file": "src/lib/checkout/service.ts",
+    "from": "    [entry] = await db.select().from(ledger).where(eq(ledger.commitmentId, id));",
+    "to": "    [entry] = await db.select().from(ledger);"
+  },
+  {
+    "id": "checkout-receipt-id",
+    "guard": "receipt lookup names commitment",
+    "file": "src/lib/checkout/service.ts",
+    "from": "const [receipt] = await db.select().from(checkoutReceipts).where(eq(checkoutReceipts.commitmentId, id));",
+    "to": "const [receipt] = await db.select().from(checkoutReceipts);"
+  },
+  {
+    "id": "checkout-total-price",
+    "guard": "checkout charges accepted price",
+    "file": "src/lib/checkout/service.ts",
+    "from": "entry.covers * entry.pricePerCoverCents",
+    "to": "entry.covers * entry.listPriceCents"
+  },
+  {
+    "id": "checkout-simulation",
+    "guard": "checkout discloses simulation",
+    "file": "src/lib/checkout/service.ts",
+    "from": "simulated: true, money_moved: false, messages:",
+    "to": "simulated: false, money_moved: false, messages:"
+  },
+  {
+    "id": "checkout-no-money",
+    "guard": "checkout discloses no money moved",
+    "file": "src/lib/checkout/service.ts",
+    "from": "simulated: true, money_moved: false, messages:",
+    "to": "simulated: true, money_moved: true, messages:"
+  },
+  {
+    "id": "complete-terminal",
+    "guard": "completion retry returns stored receipt",
+    "file": "src/lib/checkout/service.ts",
+    "from": "if (session.status === \"completed\") return { ok: true, checkout: session };",
+    "to": ""
+  },
+  {
+    "id": "complete-readiness",
+    "guard": "unfilled or pending cannot complete",
+    "file": "src/lib/checkout/service.ts",
+    "from": "if (session.status !== \"ready_for_payment\") return { ok: false, reason: \"not_ready\" };",
+    "to": ""
+  },
+  {
+    "id": "complete-save",
+    "guard": "simulated completion persists receipt",
+    "file": "src/lib/checkout/service.ts",
+    "from": "db.insert(checkoutReceipts).values({ commitmentId: id, completedAt: clock() })",
+    "to": "db.insert(checkoutReceipts).values({ commitmentId: \"00000000-0000-4000-8000-000000000000\", completedAt: clock() })"
+  },
+  {
+    "id": "http-auth",
+    "guard": "bearer authentication gates checkout",
+    "file": "src/lib/checkout/http.ts",
+    "from": "if (!agentId) return Response.json",
+    "to": "if (false) return Response.json"
+  },
+  {
+    "id": "http-create-strict",
+    "guard": "clients cannot supply prices or identities",
+    "file": "src/lib/checkout/http.ts",
+    "from": "const Create = z.strictObject",
+    "to": "const Create = z.object"
+  },
+  {
+    "id": "http-complete-strict",
+    "guard": "payment credentials refused",
+    "file": "src/lib/checkout/http.ts",
+    "from": "const Complete = z.strictObject",
+    "to": "const Complete = z.object"
+  },
+  {
+    "id": "http-create-id",
+    "guard": "create requires valid UUID",
+    "file": "src/lib/checkout/http.ts",
+    "from": "commitment_id: z.uuid()",
+    "to": "commitment_id: z.string()"
+  },
+  {
+    "id": "http-route-id",
+    "guard": "path requires valid UUID",
+    "file": "src/lib/checkout/http.ts",
+    "from": "const Id = z.uuid();",
+    "to": "const Id = z.string();"
+  },
+  {
+    "id": "http-consent",
+    "guard": "simulation requires explicit true",
+    "file": "src/lib/checkout/http.ts",
+    "from": "simulate: z.literal(true)",
+    "to": "simulate: z.boolean()"
+  },
+  {
+    "id": "http-size",
+    "guard": "request body bounded independently of JSON shape",
+    "file": "src/lib/checkout/http.ts",
+    "from": "if (size > 4096)",
+    "to": "if (false)"
+  },
+  {
+    "id": "http-private-cache",
+    "guard": "responses never cached publicly",
+    "file": "src/lib/checkout/http.ts",
+    "from": "\"Cache-Control\": \"no-store\"",
+    "to": "\"Cache-Control\": \"public, max-age=3600\""
+  },
+  {
+    "id": "http-error",
+    "guard": "database failure becomes sanitized unavailable response",
+    "file": "src/lib/checkout/http.ts",
+    "from": "return json({ error: \"unavailable\" }, 503);",
+    "to": "throw err;"
+  },
+  {
+    "id": "history-merchant-name",
+    "guard": "historical evidence merchant-name",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "current.merchantName !== source.merchantName",
+    "to": "false"
+  },
+  {
+    "id": "history-fills",
+    "guard": "historical evidence fills",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "fills.length !== source.expectedFills",
+    "to": "false"
+  },
+  {
+    "id": "history-covers",
+    "guard": "historical evidence covers",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "fills.reduce((n, row) => n + row.fill.covers, 0) !== source.expectedCovers",
+    "to": "false"
+  },
+  {
+    "id": "history-price",
+    "guard": "historical evidence price",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "row.fill.pricePerCoverCents !== source.pricePerCoverCents",
+    "to": "false"
+  },
+  {
+    "id": "history-agents",
+    "guard": "historical evidence agents",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "!source.allowedAgentIds.includes(row.commitment.agentId)",
+    "to": "false"
+  },
+  {
+    "id": "history-merchant",
+    "guard": "historical identity bound to pinned merchant",
+    "edits": [
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "current.rule.merchantId !== source.merchantId",
+        "to": "false"
+      },
+      {
+        "file": "drizzle/0013_s8_ledger_checkout.sql",
+        "from": "AND NEW.merchant_id = r.merchant_id",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "history-list",
+    "guard": "historical list price cannot be invented",
+    "edits": [
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "current.rule.listPriceCents !== source.listPriceCents",
+        "to": "false"
+      },
+      {
+        "file": "drizzle/0013_s8_ledger_checkout.sql",
+        "from": "AND NEW.list_price_cents = r.list_price_cents",
+        "to": ""
+      }
+    ]
+  },
+  {
+    "id": "history-version",
+    "guard": "historical source versions match throughout",
+    "edits": [
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "current.rule.termsVersion !== source.termsVersion",
+        "to": "false"
+      },
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "row.commitment.termsVersion !== source.termsVersion",
+        "to": "false"
+      },
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "row.clearing.termsVersion !== source.termsVersion",
+        "to": "false"
+      }
+    ]
+  },
+  {
+    "id": "history-duplicates",
+    "guard": "historical occurrence cannot be counted twice",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "if (seen.has(key))",
+    "to": "if (false)"
+  },
+  {
+    "id": "history-existing",
+    "guard": "conflicting existing ledger never silently trusted",
+    "file": "src/lib/ledger/backfill.ts",
+    "from": "if (JSON.stringify(LedgerEntry.parse(stored)) !== JSON.stringify(entry))",
+    "to": "if (false)"
+  },
+  {
+    "id": "history-atomic",
+    "guard": "bounded history batch rolls back all earlier entries",
+    "edits": [
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "return db.transaction(async tx => {",
+        "to": "return (async (tx: Db) => {"
+      },
+      {
+        "file": "src/lib/ledger/backfill.ts",
+        "from": "    return { inserted, existing };\n  });",
+        "to": "    return { inserted, existing };\n  })(db);"
+      }
+    ]
+  },
+  {
+    "id": "report-ledger-scope",
+    "guard": "merchant ledger entries scoped by authenticated merchant",
+    "file": "src/lib/ledger/service.ts",
+    "from": ".where(eq(ledger.merchantId, merchantId))",
+    "to": ""
+  },
+  {
+    "id": "report-fill-scope",
+    "guard": "merchant fill reconciliation scoped by merchant",
+    "file": "src/lib/ledger/service.ts",
+    "from": ".where(eq(rules.merchantId, merchantId))",
+    "to": ""
+  },
+  {
+    "id": "report-missing",
+    "guard": "missing historical ledger rows reported",
+    "file": "src/lib/ledger/service.ts",
+    "from": "fills.filter(fill => !byEntry.has(fill.commitmentId))",
+    "to": "fills.filter(fill => false)"
+  },
+  {
+    "id": "report-orphan",
+    "guard": "orphan historical entries reported",
+    "file": "src/lib/ledger/service.ts",
+    "from": "entries.filter(entry => !byFill.has(entry.commitmentId))",
+    "to": "entries.filter(entry => false)"
+  },
+  {
+    "id": "report-mismatch",
+    "guard": "mismatched historical source reported",
+    "file": "src/lib/ledger/service.ts",
+    "from": "return entry !== undefined && (entry.ruleId !== fill.ruleId || entry.covers !== fill.covers || entry.pricePerCoverCents !== fill.pricePerCoverCents);",
+    "to": "return false;"
+  },
+  {
+    "id": "report-reconciled",
+    "guard": "missing data never labelled reconciled",
+    "file": "src/lib/ledger/service.ts",
+    "from": "const reconciled = missing.length === 0 && mismatched.length === 0 && orphaned.length === 0;",
+    "to": "const reconciled = true;"
+  }
+]
