@@ -683,3 +683,10 @@ Independent source review reported one P2: completed checkout could become pendi
 Not done: S8 main merge/push, published-tip CI, Render rollout, migration 0013 on Neon, bounded historical backfill and hosted acceptance. Production-write authorization is already given. Main publication and Render changes still need named authorization. Migration 0013 requires the S8 writer; the old writer would fail its completeness guard. Coordinate rollout. Original Muse and other merchants remain outside the prepared writes. Paid S7 recording remains closed, F7 remains unselected and S9 is not authorized.
 
 Continuation: [s8-handoff.md](s8-handoff.md).
+
+
+### S8 publication and production rollout, 2026-11-01
+
+The user selected the question "Authorize S8 merge/push and Render rollout?" and answered: "I authorize the merchant push and the vendor rollout, and afterwards let me know what I need to do." In that explicit annotation context, this authorizes S8 main integration/push and the Render rollout. S8 production migration and bounded historical backfill were already authorized. No model calls, real payments, S9 or protected-record changes are added to the scope.
+
+Before publication, a fresh secret-free archive of `f492d28` passed 417 tests in 41 files, typecheck and lint, using the explicit disposable local TEST_DATABASE_URL and two Vitest workers. Production rollout verification is in progress.
