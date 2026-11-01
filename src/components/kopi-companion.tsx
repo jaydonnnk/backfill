@@ -20,7 +20,7 @@ export function KopiMessage({ pose, text }: KopiCue) {
 
 function guidance(path: string): string {
   if (path === '/demo') return 'Let’s look at the stored scene together.';
-  if (path === '/evals') return 'No evaluation results yet. Nothing to compare.';
+  if (path === '/evals') return 'Why Muse Spark runs our counters.';
   if (path === '/system') return 'Diagnostics live here. Model calls can cost money.';
   if (path.includes('/drafts/')) return 'Check the menu, then choose your terms.';
   if (path.startsWith('/merchant')) return 'Your menu. Your terms. I’ll come along.';

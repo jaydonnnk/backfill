@@ -268,3 +268,43 @@ body { padding-bottom: 125px; }
   .muse-panel h2 { font-size: 17px; }
 }
 .entry-kopi { width: 170px; height: 190px; }
+
+/* S9 shares the approved Kopi typography, palette and square structural rules. */
+.eval-page { display: flex; flex-direction: column; gap: 40px; padding-top: 56px; }
+.eval-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 48px; align-items: end; }
+.eval-heading .eyebrow { grid-column: 1 / -1; }
+.eval-heading h1 { font-size: clamp(32px,4vw,54px); }
+.eval-heading .lede { font-size: 18px; }
+.eval-notice { border-block: 1px solid var(--border); padding: 20px 0; display: grid; gap: 6px; }
+.eval-notice strong { font-size: 12px; letter-spacing: .05em; }
+.steps.steps-4 { grid-template-columns: repeat(4, 1fr); gap: 30px; }
+@media (max-width: 950px) { .steps.steps-4 { grid-template-columns: repeat(2, 1fr); } }
+.spark-proof, .spark-rival { display: grid; gap: 24px; }
+.spark-proof .eval-episodes { margin-top: -24px; }
+.spark-proof .eval-episodes details:first-child { border-top: 0; }
+.spark-kpis dd small { font-size: 14px; color: var(--muted); font-weight: 400; }
+.rival-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.rival-table th, .rival-table td { text-align: left; padding: 14px 12px 14px 0; border-top: 1px solid var(--border); vertical-align: top; }
+.rival-table thead th { border-top: 0; font-size: 12px; }
+.rival-table tbody th { font-weight: 400; color: var(--muted); width: 40%; }
+.rival-table td:nth-child(2) { color: var(--spark); font-weight: 600; }
+.spark-verdict { max-width: 760px; font-size: 15px; line-height: 1.7; border-left: 2px solid var(--spark); padding-left: 16px; }
+.eval-placeholder { padding: 40px 0; color: var(--muted); }
+.eval-episodes { margin-top: 24px; }
+.eval-episodes details { border-top: 1px solid var(--border); }
+.eval-episodes summary { padding: 18px 4px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 12px; font-size: 13px; }
+.eval-episodes summary::before { content: '+ Inspect'; color: var(--accent); grid-column: 1 / -1; font-size: 11px; }
+.eval-episodes details[open] summary::before { content: '− Close'; }
+.eval-rounds { padding: 8px 12px 24px; display: grid; gap: 14px; background: var(--panel); }
+.eval-method { display: grid; gap: 20px; max-width: 850px; }
+.eval-method .button { justify-self: start; }
+.eval-method a:not(.button) { text-decoration: underline; }
+@media (max-width: 650px) {
+  .eval-heading { grid-template-columns: 1fr; }
+  .eval-page { gap: 28px; }
+  .steps.steps-4 { grid-template-columns: 1fr; }
+  .rival-table { font-size: 12px; }
+  .rival-table tbody th { width: 34%; }
+  .eval-episodes summary { grid-template-columns: 1fr 1fr; }
+  .eval-page .section-heading { align-items: start; flex-direction: column; gap: 10px; }
+}

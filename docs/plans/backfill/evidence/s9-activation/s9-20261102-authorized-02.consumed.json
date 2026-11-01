@@ -1,0 +1,35 @@
+{
+  "runId": "s9-20261102-authorized-02",
+  "models": [
+    "meta/muse-spark-1.3",
+    "deepseek/deepseek-v4.1-flash-1017"
+  ],
+  "revision": "943e00aafe3181cc67b9978ef8f60abe7a05481d604e61803afaeb2db417f90c",
+  "hashes": {
+    "evals/agenticpay/activation.ts": "687c1cab01b72dba35cebb38d5bfdb17b676ec164f6d1b16f84fa3b3b3d60020",
+    "evals/agenticpay/cli.ts": "85a7200e2f5ccdbae4fddc24758ed28096818ae6fc64f675d9a83da92dcaf8e9",
+    "evals/agenticpay/contract.ts": "ad742912604f7e200e9e9aef46e68f519f398f6ca4f5ec28f81b8069399ada05",
+    "evals/agenticpay/files.ts": "133a3da179cd2c111af5098d075c958bfe97adc08652f0689629b2d59033ac3a",
+    "evals/agenticpay/live.ts": "dd7264f3112797c872dc24a2cf8dcb69a0a922756e8e2e8969c49e90691391d2",
+    "evals/agenticpay/models.ts": "647724c1955979a2f8372e9cca9d150bb1b62b850756a739053b63bbcb3ed8b8",
+    "evals/agenticpay/openrouter.ts": "21a5a19d442ed727f49bd498c1a1050d2e04d4b5fa0af0dccd0788138b3e596c",
+    "evals/agenticpay/pipeline.ts": "1cc456094b0a4546f806568621c828bd1539885f1dba913e18a9cb9983e6c2c7",
+    "evals/agenticpay/probe.ts": "1df7d2aa5f7fa6eaa8b7d5b9916c3053f0aa90dfe0d2ba3c35a327767bed500f",
+    "evals/agenticpay/runner.ts": "d27ee858d9bbcd02d40918a24d8d11163350fe974249c46b6eb66fd9a290f880",
+    "evals/agenticpay/scenarios.ts": "ebd49ccbfb974ec95b1461da9008ecd98bd3076ee63604de847932e73f9a1f77",
+    "evals/agenticpay/store.ts": "1f406a3528259b3d82ddb5c7a589521a2de486da197771bdc34b337781740f51",
+    "src/domain/negotiation/rules.ts": "e488e192af57fc29b16444cf0e8f0a288ca1324ea8e0d7d4cc9b40d185ab0b11",
+    "src/domain/offers/evaluate.ts": "a2ab2092f985fdc75aafbc19e85e11bfdbe590e6af1aee599f395a45bd475363",
+    "src/domain/offers/schema.ts": "f673bbe457b1632f2f1760cf0522f8d5ffe8c600b77bc6a13f829c2ae31a7b84",
+    "src/lib/negotiation/merchant-agent.ts": "c39d9306347c2d5ed2d876fd60fa512fa52e17231779e0988379ffbeb87ea799"
+  },
+  "approvedEpisodes": 6,
+  "maxCalls": 18,
+  "retries": 0,
+  "providerSeed": null,
+  "reasoningEffort": "low",
+  "spendingTargetUsd": 1,
+  "providerKeyCapUsd": 3,
+  "startingUsageUsd": 0.044393334,
+  "createdAt": "2026-11-01T16:14:55.101Z"
+}

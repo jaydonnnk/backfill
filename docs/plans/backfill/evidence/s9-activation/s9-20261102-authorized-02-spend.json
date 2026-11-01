@@ -1,0 +1,17 @@
+{
+  "startingUsageUsd": 0.044393334,
+  "endingUsageUsd": 0.051878954,
+  "accountUsageDeltaUsd": 0.007485619999999998,
+  "remainingKeyAllowanceUsd": 2.948121046,
+  "providerKeyCapUsd": 3,
+  "runCostsNanoUsd": [
+    {
+      "model": "meta/muse-spark-1.3",
+      "costNanoUsd": 21383050
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "costNanoUsd": 1862830
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "runId": "s9-20261101-authorized-01",
+  "kind": "measured",
+  "createdAt": "2026-11-01T15:57:59.781Z",
+  "revision": "992fa832922d12b4577b33c205438abf2c6cb26ba9d83c424afe04cf646797e5",
+  "config": {
+    "protocol": "backfill-v1",
+    "providerSeed": null,
+    "models": [
+      "meta/muse-spark-1.3",
+      "deepseek/deepseek-v4.1-flash-1017"
+    ],
+    "maxRounds": 3,
+    "maxAttempts": 1,
+    "maxTokens": 1024,
+    "temperature": 0,
+    "maxCalls": 18
+  },
+  "status": "failed",
+  "episodes": [
+    {
+      "id": "0-flexible",
+      "model": "meta/muse-spark-1.3",
+      "scenarioId": "flexible",
+      "seed": 17,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 780,
+          "proposalCents": null,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            1
+          ]
+        }
+      ],
+      "outcome": "failed",
+      "savingsCents": 0,
+      "costNanoUsd": 4879500
+    },
+    {
+      "id": "1-flexible",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "scenarioId": "flexible",
+      "seed": 17,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 780,
+          "proposalCents": 800,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            2
+          ]
+        },
+        {
+          "round": 2,
+          "bidCents": 780,
+          "proposalCents": 795,
+          "counterCents": 795,
+          "refusal": null,
+          "callIds": [
+            3
+          ]
+        },
+        {
+          "round": 3,
+          "bidCents": 780,
+          "proposalCents": 780,
+          "counterCents": 780,
+          "refusal": null,
+          "callIds": [
+            4
+          ]
+        }
+      ],
+      "outcome": "deal",
+      "savingsCents": 220,
+      "costNanoUsd": 611610
+    },
+    {
+      "id": "0-tight-floor",
+      "model": "meta/muse-spark-1.3",
+      "scenarioId": "tight-floor",
+      "seed": 29,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 780,
+          "proposalCents": 800,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            5
+          ]
+        },
+        {
+          "round": 2,
+          "bidCents": 780,
+          "proposalCents": null,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            6
+          ]
+        }
+      ],
+      "outcome": "failed",
+      "savingsCents": 0,
+      "costNanoUsd": 8945650
+    },
+    {
+      "id": "1-tight-floor",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "scenarioId": "tight-floor",
+      "seed": 29,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 780,
+          "proposalCents": 800,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            7
+          ]
+        },
+        {
+          "round": 2,
+          "bidCents": 780,
+          "proposalCents": 795,
+          "counterCents": 795,
+          "refusal": null,
+          "callIds": [
+            8
+          ]
+        },
+        {
+          "round": 3,
+          "bidCents": 780,
+          "proposalCents": 780,
+          "counterCents": 795,
+          "refusal": "below_floor",
+          "callIds": [
+            9
+          ]
+        }
+      ],
+      "outcome": "no_deal",
+      "savingsCents": 0,
+      "costNanoUsd": 1239610
+    },
+    {
+      "id": "0-low-budget",
+      "model": "meta/muse-spark-1.3",
+      "scenarioId": "low-budget",
+      "seed": 43,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 700,
+          "proposalCents": 800,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            10
+          ]
+        },
+        {
+          "round": 2,
+          "bidCents": 700,
+          "proposalCents": null,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            11
+          ]
+        }
+      ],
+      "outcome": "failed",
+      "savingsCents": 0,
+      "costNanoUsd": 6897700
+    },
+    {
+      "id": "1-low-budget",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "scenarioId": "low-budget",
+      "seed": 43,
+      "rounds": [
+        {
+          "round": 1,
+          "bidCents": 700,
+          "proposalCents": 800,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            12
+          ]
+        },
+        {
+          "round": 2,
+          "bidCents": 700,
+          "proposalCents": null,
+          "counterCents": 800,
+          "refusal": null,
+          "callIds": [
+            13
+          ]
+        }
+      ],
+      "outcome": "failed",
+      "savingsCents": 0,
+      "costNanoUsd": 629240
+    }
+  ],
+  "calls": [
+    {
+      "id": 1,
+      "purpose": "eval:s9-20261101-authorized-01:0-flexible:1",
+      "model": "meta/muse-spark-1.3",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": false,
+      "costNanoUsd": 4879500,
+      "proposalCents": null
+    },
+    {
+      "id": 2,
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:1",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 242370,
+      "proposalCents": 800
+    },
+    {
+      "id": 3,
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:2",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 180870,
+      "proposalCents": 795
+    },
+    {
+      "id": 4,
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:3",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 188370,
+      "proposalCents": 780
+    },
+    {
+      "id": 5,
+      "purpose": "eval:s9-20261101-authorized-01:0-tight-floor:1",
+      "model": "meta/muse-spark-1.3",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 4061900,
+      "proposalCents": 800
+    },
+    {
+      "id": 6,
+      "purpose": "eval:s9-20261101-authorized-01:0-tight-floor:2",
+      "model": "meta/muse-spark-1.3",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": false,
+      "costNanoUsd": 4883750,
+      "proposalCents": null
+    },
+    {
+      "id": 7,
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:1",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 485870,
+      "proposalCents": 800
+    },
+    {
+      "id": 8,
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:2",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 470370,
+      "proposalCents": 795
+    },
+    {
+      "id": 9,
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:3",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 283370,
+      "proposalCents": 780
+    },
+    {
+      "id": 10,
+      "purpose": "eval:s9-20261101-authorized-01:0-low-budget:1",
+      "model": "meta/muse-spark-1.3",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 2056450,
+      "proposalCents": 800
+    },
+    {
+      "id": 11,
+      "purpose": "eval:s9-20261101-authorized-01:0-low-budget:2",
+      "model": "meta/muse-spark-1.3",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": false,
+      "costNanoUsd": 4841250,
+      "proposalCents": null
+    },
+    {
+      "id": 12,
+      "purpose": "eval:s9-20261101-authorized-01:1-low-budget:1",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": true,
+      "costNanoUsd": 110870,
+      "proposalCents": 800
+    },
+    {
+      "id": 13,
+      "purpose": "eval:s9-20261101-authorized-01:1-low-budget:2",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "openrouter",
+      "attempt": 1,
+      "ok": false,
+      "costNanoUsd": 518370,
+      "proposalCents": null
+    }
+  ],
+  "summary": [
+    {
+      "model": "meta/muse-spark-1.3",
+      "scheduled": 3,
+      "finished": 3,
+      "failed": 3,
+      "deals": 0,
+      "dealRate": 0,
+      "savingsCents": 0,
+      "refusals": 0,
+      "costNanoUsd": 20722850,
+      "costPerDealNanoUsd": null
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "scheduled": 3,
+      "finished": 3,
+      "failed": 1,
+      "deals": 1,
+      "dealRate": 0.3333333333333333,
+      "savingsCents": 220,
+      "refusals": 1,
+      "costNanoUsd": 2480460,
+      "costPerDealNanoUsd": 2480460
+    }
+  ]
+}

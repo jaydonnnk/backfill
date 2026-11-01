@@ -1,0 +1,33 @@
+{
+  "runId": "s9-20261101-authorized-01",
+  "models": [
+    "meta/muse-spark-1.3",
+    "deepseek/deepseek-v4.1-flash-1017"
+  ],
+  "revision": "992fa832922d12b4577b33c205438abf2c6cb26ba9d83c424afe04cf646797e5",
+  "hashes": {
+    "evals/agenticpay/activation.ts": "687c1cab01b72dba35cebb38d5bfdb17b676ec164f6d1b16f84fa3b3b3d60020",
+    "evals/agenticpay/cli.ts": "85a7200e2f5ccdbae4fddc24758ed28096818ae6fc64f675d9a83da92dcaf8e9",
+    "evals/agenticpay/contract.ts": "b028bb8e14b581bf5c7cfe05ae16de89332a2f8cd1cd277930c5286c6b8934be",
+    "evals/agenticpay/files.ts": "133a3da179cd2c111af5098d075c958bfe97adc08652f0689629b2d59033ac3a",
+    "evals/agenticpay/live.ts": "b500f758c1f62ba1bac295507f943c9d01f33a6a1d8091d9d7313875a3c9fff2",
+    "evals/agenticpay/models.ts": "647724c1955979a2f8372e9cca9d150bb1b62b850756a739053b63bbcb3ed8b8",
+    "evals/agenticpay/openrouter.ts": "2d082019c0f5232db06ceeb772f0763e1ed7781c4c04f1212936e621b76379aa",
+    "evals/agenticpay/pipeline.ts": "6ea18825435564b1f6f2d871e00f305d1b92392e3cd78483c0495af1413b9007",
+    "evals/agenticpay/runner.ts": "a2bae871f56746fb8b1764ef4618d93143802d0e7502d58b6f2407de5c363e77",
+    "evals/agenticpay/scenarios.ts": "ebd49ccbfb974ec95b1461da9008ecd98bd3076ee63604de847932e73f9a1f77",
+    "evals/agenticpay/store.ts": "1f406a3528259b3d82ddb5c7a589521a2de486da197771bdc34b337781740f51",
+    "src/domain/negotiation/rules.ts": "e488e192af57fc29b16444cf0e8f0a288ca1324ea8e0d7d4cc9b40d185ab0b11",
+    "src/domain/offers/evaluate.ts": "a2ab2092f985fdc75aafbc19e85e11bfdbe590e6af1aee599f395a45bd475363",
+    "src/domain/offers/schema.ts": "f673bbe457b1632f2f1760cf0522f8d5ffe8c600b77bc6a13f829c2ae31a7b84",
+    "src/lib/negotiation/merchant-agent.ts": "c39d9306347c2d5ed2d876fd60fa512fa52e17231779e0988379ffbeb87ea799"
+  },
+  "approvedEpisodes": 6,
+  "maxCalls": 18,
+  "retries": 0,
+  "providerSeed": null,
+  "spendingTargetUsd": 1,
+  "providerKeyCapUsd": 3,
+  "startingUsageUsd": 0.002324334,
+  "createdAt": "2026-11-01T15:57:59.608Z"
+}

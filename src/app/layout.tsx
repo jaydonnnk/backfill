@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <header className="site-header">
           <Link href="/" className="wordmark" aria-label="Backfill home"><KopiMark /> Backfill</Link>
           <nav aria-label="Main navigation">
-            <Link href="/demo">Live</Link><Link href="/evals">Evals</Link><Link href="/merchant">Merchants</Link><Link href="/#how-it-works">How it works</Link>
+            <Link href="/demo">Live</Link><Link href="/evals">Why Spark</Link><Link href="/merchant">Merchants</Link><Link href="/#how-it-works">How it works</Link>
           </nav>
         </header>
         <div id="content">{children}</div>

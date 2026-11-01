@@ -1,0 +1,168 @@
+{
+  "checkedAt": "2026-11-01T15:59:44.567Z",
+  "counts": [
+    {
+      "calls": 13,
+      "merchants": 0,
+      "commitments": 0
+    }
+  ],
+  "rows": [
+    {
+      "id": "1",
+      "model": "meta/muse-spark-1.3",
+      "purpose": "eval:s9-20261101-authorized-01:0-flexible:1",
+      "tokens_in": 286,
+      "tokens_out": 1064,
+      "cost_nano_usd": "4879500",
+      "latency_ms": 6319,
+      "ok": false,
+      "http_status": 200,
+      "error": "eval_response_failed"
+    },
+    {
+      "id": "2",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:1",
+      "tokens_in": 182,
+      "tokens_out": 472,
+      "cost_nano_usd": "242370",
+      "latency_ms": 2867,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "3",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:2",
+      "tokens_in": 182,
+      "tokens_out": 349,
+      "cost_nano_usd": "180870",
+      "latency_ms": 1744,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "4",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-flexible:3",
+      "tokens_in": 182,
+      "tokens_out": 364,
+      "cost_nano_usd": "188370",
+      "latency_ms": 3145,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "5",
+      "model": "meta/muse-spark-1.3",
+      "purpose": "eval:s9-20261101-authorized-01:0-tight-floor:1",
+      "tokens_in": 286,
+      "tokens_out": 934,
+      "cost_nano_usd": "4061900",
+      "latency_ms": 5097,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "6",
+      "model": "meta/muse-spark-1.3",
+      "purpose": "eval:s9-20261101-authorized-01:0-tight-floor:2",
+      "tokens_in": 286,
+      "tokens_out": 1065,
+      "cost_nano_usd": "4883750",
+      "latency_ms": 5405,
+      "ok": false,
+      "http_status": 200,
+      "error": "eval_response_failed"
+    },
+    {
+      "id": "7",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:1",
+      "tokens_in": 182,
+      "tokens_out": 959,
+      "cost_nano_usd": "485870",
+      "latency_ms": 5231,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "8",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:2",
+      "tokens_in": 182,
+      "tokens_out": 928,
+      "cost_nano_usd": "470370",
+      "latency_ms": 4651,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "9",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-tight-floor:3",
+      "tokens_in": 182,
+      "tokens_out": 554,
+      "cost_nano_usd": "283370",
+      "latency_ms": 3821,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "10",
+      "model": "meta/muse-spark-1.3",
+      "purpose": "eval:s9-20261101-authorized-01:0-low-budget:1",
+      "tokens_in": 286,
+      "tokens_out": 429,
+      "cost_nano_usd": "2056450",
+      "latency_ms": 3327,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "11",
+      "model": "meta/muse-spark-1.3",
+      "purpose": "eval:s9-20261101-authorized-01:0-low-budget:2",
+      "tokens_in": 286,
+      "tokens_out": 1055,
+      "cost_nano_usd": "4841250",
+      "latency_ms": 5309,
+      "ok": false,
+      "http_status": 200,
+      "error": "eval_response_failed"
+    },
+    {
+      "id": "12",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-low-budget:1",
+      "tokens_in": 182,
+      "tokens_out": 209,
+      "cost_nano_usd": "110870",
+      "latency_ms": 1743,
+      "ok": true,
+      "http_status": 200,
+      "error": null
+    },
+    {
+      "id": "13",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "purpose": "eval:s9-20261101-authorized-01:1-low-budget:2",
+      "tokens_in": 182,
+      "tokens_out": 1024,
+      "cost_nano_usd": "518370",
+      "latency_ms": 5955,
+      "ok": false,
+      "http_status": 200,
+      "error": "eval_response_failed"
+    }
+  ]
+}

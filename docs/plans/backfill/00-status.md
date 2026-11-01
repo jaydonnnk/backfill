@@ -769,3 +769,54 @@ Review at http://127.0.0.1:3190/; HTML screenshot gallery at http://127.0.0.1:31
 The user accepted the local site: "Alright looks good" and explicitly requested committing the working tree, pushing it to main, and a copy-paste S9 continuation prompt preserving the design. This authorizes the main push and its existing Render auto-deploy side effect. No migration, production data write or model call is needed.
 
 The S9 handoff is [s9-handoff.md](s9-handoff.md). Build-plan and redesign-proposal now explicitly point to the accepted pixel typography, original palette and shared scanline Kopi implementation; historical typography/pet deferral is superseded. S9 implementation has not started in this session, and model-call/spending policy remains a separate decision. Application and handoff committed at `f3553421125fa9cc9146de7daecde9dfa3ade3dc`, fast-forwarded into main and pushed. A remote ref read confirmed that exact main tip. Fresh pre-publication checks passed 425 tests in 42 files, typecheck, lint and diffcheck. The working tree was clean after publication. Push-triggered CI and Render auto-deployment are checked separately; no model call, migration or production data mutation occurred.
+
+### S9 offline implementation, 2026-11-01
+
+User authorized offline S9 implementation and local design review, preserving the approved Kopi design. Branch `backfill/slice-9-evaluations` starts from current main `745184b`. Model spending, production writes, push/deployment and payments remain separately gated.
+
+Implemented a six-episode, eighteen-call maximum AgenticPay-style comparison with identical scenarios/seeds, deterministic buyers and existing three-round domain guards. OpenRouter adapter stores each attempt and uses reported charges, not price estimates. Strict JSON validation replays proposals and summaries; stored verification requires the complete exact run-scoped `llm_calls` set. Durable exclusive journals and final result files retain partial failure evidence. Paid CLI remains disabled; no environment file is loaded.
+
+`/evals` now has empty/invalid/partial/failed/completed handling, paired metrics, call-cost chart and keyboard-inspectable episodes. Shared Kopi, pixel/mono fonts, palette and square controls are preserved. Development-only fixture is explicitly synthetic and production cannot load it through the preview query. No published manifest or measured result exists.
+
+Verified locally: 442 tests in 45 files, typecheck, lint, secret-free webpack production build, desktop/mobile browser inspection and keyboard episode expansion. Independent review's four findings were fixed and the suite rerun. [HTML visual review](evidence/s9-ui/index.html); [verification notes](evidence/s9-ui/README.md). Dark/reduced-motion runtime emulation remains unverified.
+
+Offline implementation is ready for local review. Full S9 exit remains pending the exact paid-run policy, activation/preflight, actual run and validated stored evidence. OpenRouter's read-only catalog lists seed support for Spark Open but not proprietary Spark 1.3; model selection was requested rather than silently substituted. No paid call, production write, payment, commit, push or deployment occurred. Protected records, frozen evidence, old migrations and savings policy were not changed.
+
+### S9 model selection correction, 2026-11-01
+
+The user selected exactly `meta/muse-spark-1.3` versus `deepseek/deepseek-v4.1-flash-1017` and prohibited rolling aliases. This selects models only; it does not authorize spending. Both models retain identical scenario seeds, but neither receives a provider `seed` parameter. `require_parameters` remains enabled symmetrically. The README and `/evals` methodology now distinguish scenario seeds from provider seeds.
+
+The measured-run contract enforces the exact ordered model pair and records `providerSeed: null`. Tests inspect both serialized HTTP bodies for symmetry and absence of `seed`, and reject aliases before any attempt. Recheck exact catalog IDs and required capabilities at activation; availability of the selected DeepSeek snapshot has not yet been verified. Paid CLI remains disabled.
+
+### S9 paid-run authorization and preflight stop, 2026-11-01
+
+The user approved the explicitly annotated bounded run: `meta/muse-spark-1.3` versus `deepseek/deepseek-v4.1-flash-1017`, six episodes, at most eighteen calls, zero retries, identical scenario seeds with no provider seed, provider-enforced US$1 total cap and isolated evaluation storage. This approval does not authorize production writes, publication, push/deployment or real payments. Do not request this same spending approval again unless scope changes.
+
+Read-only catalog preflight at 2026-11-01T15:43:34Z found both exact IDs and the required max_tokens, temperature and structured-output parameters. [Sanitized preflight evidence](evidence/s9-activation/catalog-preflight.json). No OpenRouter API credential is available in the process environment. `.env.local` was not read. Therefore the provider-enforced allowance cannot yet be verified and execution stopped before any paid call or evaluation-database creation. Zero paid attempts; the authorized run remains unused. A dedicated capped credential must be supplied through a local secret source before activation can continue.
+
+S9 credential preflight update, 2026-11-01: the user explicitly authorized using credentials from `.env.local`, superseding the earlier prohibition for this scoped activation. Read only to obtain the OpenRouter credential; no key values were printed. Authenticated read-only `/api/v1/key` returned a US$3 non-resetting cap with US$2.997675666 remaining, no tighter budget, BYOK excluded, and `is_management_key=false`. This does not enforce the approved US$1 run cap. [Sanitized key preflight](evidence/s9-activation/key-preflight.json). No key settings changed and zero paid calls occurred. Execution remains stopped pending a provider-enforced allowance no greater than US$1. Spending authorization remains valid and unused.
+
+### S9 authorized live attempt finished, 2026-11-02 Singapore time
+
+After being told that the existing OpenRouter key had a US$3 non-resetting limit, the user instructed: "Bruh im teelling u its fine just go through with it". Execution proceeded with that existing key cap, retaining US$1 as an operational run target with per-attempt checks and US$0.05 headroom. This supersedes requiring a provider-enforced US$1 cap; it is not evidence that the provider enforced US$1. No scope for production writes, push/deployment or real payments was added.
+
+Activation rechecked exact model availability/capabilities and key limits before creating isolated local database `backfill_s9_authorized_20261101_01`. The fixed run `s9-20261101-authorized-01` exclusively consumed its marker. Its source SHA256 and input policy are pinned in [activation evidence](evidence/s9-activation/s9-20261101-authorized-01.consumed.json). Calls never sent provider seeds. Test verification passed 447 tests in 46 files, typecheck and lint; the secret-free result preview build passed.
+
+The run made thirteen paid calls, zero retries, completing all six episode records. Final status is **failed**. Muse Spark: all three episodes failed response validation, zero deals. DeepSeek: one deal, one no-deal, one failed episode; S$2.20 synthetic-scenario buyer savings. These are actual model attempts on isolated synthetic scenarios, not production savings. No winner is justified.
+
+Stored costs: Spark US$0.02072285; DeepSeek US$0.00248046; total **US$0.02320331**. The immediate account read lagged; later usage US$0.025527644 minus baseline US$0.002324334 reconciles exactly. [Stored call audit](evidence/s9-activation/stored-call-audit.json), [later account reading](evidence/s9-activation/key-followup.json), and `evals/results/s9-20261101-authorized-01.json` retain evidence. The isolated database has thirteen llm_calls, zero merchants and zero commitments; no production data was accessed or written.
+
+All four failed replies had HTTP 200 and 1024–1065 reported output tokens. The adapter did not preserve finish reasons or malformed payloads, so truncation/output-budget exhaustion is only a hypothesis. Do not claim a diagnosed model-quality failure. Results, journal, call records and consumed marker are frozen. No retry or new live diagnostic is authorized by the original run.
+
+Local measured review at http://127.0.0.1:3194/evals verifies against the isolated stored rows, clearly marks the failed run, withholds the chart, and preserves Kopi. Keyboard disclosure and 375px layout checked. Only the local preview copy selects this result; repository publication manifest remains absent. [Screenshot gallery](evidence/s9-ui/index.html). Offline implementation and the authorized attempt are complete; successful head-to-head evaluation/full S9 acceptance remain open. No commit, push, deployment or real payment occurred.
+
+### S9 diagnosis and run 02, 2026-11-02
+
+The user asked for an evidence-based diagnosis of run 01 and authorized up to US$10 for Muse and US$1 for DeepSeek.
+**[verified]** Cause: reasoning exhausted the shared 1024-token output budget. This is a harness configuration issue, not a Spark capability failure.
+Run 01 sent no reasoning effort, so Spark used its catalog default `medium` and DeepSeek its default `high`; production `sparkMerchant` sends `low`.
+**[verified]** Probe `s9-20261102-diagnostic-01`, 8 calls, US$0.01886569: replaying the failed prompts unchanged gave 2 of 3 Spark replies with `finish_reason: "length"`, 1022 reasoning tokens and no content; with effort `low`, 4 of 4 were valid. [Probe evidence](evidence/s9-diagnosis/s9-20261102-diagnostic-01.json).
+The adapter now journals generation ID, finish reason, reasoning tokens and failure class per attempt; validation is unchanged and run 01 artifacts are untouched.
+**[verified]** Run `s9-20261102-authorized-02`, effort `low` for both: 18 of 18 calls valid, status complete. Outcomes identical per scenario (1 deal, S$2.20, 1 floor refusal each). Cost: Spark US$0.02138305, DeepSeek US$0.00186283.
+Unit tests 276 passed, typecheck and lint clean. Not published to `/evals`; no commit, push, deployment or production write.
+**[verified]** 2026-11-02, on the user's "Copy calls to Neon": run 02's 18 `llm_calls` rows were inserted into Neon in one transaction, as IDs 6-23, after a full in-transaction verification; nothing else in Neon was written. The published result file is re-keyed to the Neon IDs; the local-ID original and mapping are in [s9-neon-import](evidence/s9-neon-import/). A local server reading Neon showed `/evals` verified (9 of 9, S$2.20, calls #6-#23). `/evals` now tells the "Why Muse Spark" story with DeepSeek as a cost aside. Not committed, pushed or deployed.

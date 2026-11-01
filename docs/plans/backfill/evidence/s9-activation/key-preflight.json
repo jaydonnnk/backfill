@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-01T15:54:36.481Z",
+  "source": "https://openrouter.ai/api/v1/key",
+  "limit": 3,
+  "limitRemaining": 2.997675666,
+  "limitReset": null,
+  "includeByokInLimit": false,
+  "usage": 0.002324334,
+  "isManagementKey": false,
+  "budgets": [
+    {
+      "scope": "key_limit",
+      "limitUsd": 3,
+      "remainingUsd": 2.997675666,
+      "resetInterval": null,
+      "includeByok": false
+    }
+  ],
+  "paidCalls": 0
+}
