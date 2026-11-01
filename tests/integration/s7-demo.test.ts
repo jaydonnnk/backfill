@@ -2,8 +2,9 @@ import { randomBytes } from "node:crypto";
 import postgres from "postgres";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { mintAgent } from "@/lib/agents/tokens";
-import { listOffers } from "@/lib/commitments/service";
+import { listOffers, submitCommitment, settleDue } from "@/lib/commitments/service";
 import { connectDb, type Db } from "@/lib/db/client";
+import { publicDemoLedger } from "@/lib/demo/ledger";
 import { demoSnapshot, DEMO_MERCHANT_NAME, MUSE_AGENT_ID } from "@/lib/demo/snapshot";
 import { methodNotAllowed, mcpPostHandler } from "@/lib/mcp/http";
 import { floorHidden } from "@/lib/onboarding/live";
@@ -89,6 +90,20 @@ afterAll(async () => {
 });
 
 describe("the S7 demo scene", () => {
+  it("does not expose another merchant's ledger or private terms through the public demo read", async () => {
+    const [privateMerchant] = await t.admin`insert into merchants (name) values ('Private ledger fixture') returning id`;
+    const [privateRule] = await t.admin`insert into rules ${t.admin({ merchant_id: privateMerchant!.id, list_price_cents: 1250, capacity_covers: 2, weekday: 2, start_minute: 840, end_minute: 1020, commit_by_minute: 720, discount_bps: 2500, min_pool_covers: 2, per_agent_cap_covers: 2, floor_price_cents: 900 })} returning id`;
+    const privateAgent = await mintAgent(t.db, "private-ledger-buyer", "Private buyer");
+    const submitted = await submitCommitment(app.db, privateAgent.id, { ruleId: privateRule!.id, termsVersion: 1, visitDate: "2026-11-03", covers: 2, maxPricePerCoverCents: 938, idempotencyKey: "private-ledger" }, () => new Date("2026-11-03T10:00:00+08:00"));
+    expect(submitted.ok).toBe(true);
+    await settleDue(app.db, privateMerchant!.id, () => new Date("2026-11-03T12:00:00+08:00"));
+    expect(Number((await t.admin`select sum(buyer_share_cents) as savings from ledger where merchant_id = ${privateMerchant!.id}`)[0]?.savings)).toBe(624);
+    expect(await publicDemoLedger(app.db, "No such demo merchant")).toBeNull();
+    const snapshot = await demoSnapshot(app.db, now);
+    expect(snapshot.ledger).toBeNull();
+    expect(JSON.stringify(snapshot)).not.toMatch(/floorPrice|floor_price|tokenHash|token_hash|receipt/);
+  });
+
   it("replays a recorded run through MCP: nobody unlocks alone, the pool clears and sells out, and Wonder's recorded plan is stored", async () => {
     now = new Date("2026-11-03T14:00:10+08:00");
     const result = await scene({ mode: "replay", recording: recording() });
@@ -104,6 +119,9 @@ describe("the S7 demo scene", () => {
 
     const s = result.snapshot.scene!;
     expect(s.merchantName).toBe(DEMO_MERCHANT_NAME);
+    expect(result.snapshot.ledger).toMatchObject({ covers: 16, buyerShareCents: 2176, agentShareCents: 0, networkShareCents: 0, agentsCommitted: 16, poolsUnlocked: 1, reconciled: true });
+    expect(result.snapshot.ledger?.pools).toHaveLength(1);
+    expect(result.snapshot.ledger?.pools[0]).toMatchObject({ visitDate: "2026-11-03", buyerShareCents: 2176, reconciled: true });
     expect(s.phase).toBe("cleared");
     expect(s.buyers).toHaveLength(16);
     expect(s.buyers.filter((b) => b.soloUnlocks)).toEqual([]);

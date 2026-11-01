@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "route": "/",
+      "width": 375,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/demo",
+      "width": 375,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/evals",
+      "width": 375,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/system",
+      "width": 375,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/merchant",
+      "width": 375,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/",
+      "width": 375,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/demo",
+      "width": 375,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/evals",
+      "width": 375,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/system",
+      "width": 375,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/merchant",
+      "width": 375,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/demo",
+      "width": 1280,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/evals",
+      "width": 1280,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/system",
+      "width": 1280,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/merchant",
+      "width": 1280,
+      "colorScheme": "light",
+      "noOverflow": true
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/demo",
+      "width": 1280,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/evals",
+      "width": 1280,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/system",
+      "width": 1280,
+      "colorScheme": "dark",
+      "noOverflow": true
+    },
+    {
+      "route": "/merchant",
+      "width": 1280,
+      "colorScheme": "dark",
+      "noOverflow": true
+    }
+  ],
+  "failures": [],
+  "mutations": [],
+  "interactions": [
+    "Alone/Pooled",
+    "all buyer popovers within viewport",
+    "replay finishes",
+    "return to live",
+    "reduced-motion immediate replay"
+  ]
+}

@@ -4,7 +4,8 @@ import { soloVsPooled } from "@/domain/demo/scene";
 import { offerPriceCents, toOffer } from "@/domain/offers/evaluate";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
 import { available, deadlineOf, termsSummary, toCommitment, toRule } from "@/lib/commitments/service";
-import type { Executor } from "@/lib/db/client";
+import { publicDemoLedger, type DemoLedger } from "./ledger";
+import type { Db, Executor } from "@/lib/db/client";
 import { agents, clearingFills, clearings, commitments, merchants, planApplications, rules, wonderPlans } from "@/lib/db/schema";
 
 // What the public demo screen shows: the scene merchant's current occurrence, each buyer alone
@@ -29,6 +30,8 @@ export type DemoBuyer = {
 export type DemoPlan = { provenance: "recorded_replay" | "model"; verdict: string; discountBps: number | null; capacityCovers: number | null; minPoolCovers: number | null; perAgentCapCovers: number | null; rationale: string | null; applied: boolean };
 
 export type DemoScene = {
+  id: string;
+  events: { kind: "commitment" | "cleared" | "sold_out" | "plan"; at: string; label: string }[];
   merchantName: string;
   summary: string;
   listPriceCents: number;
@@ -53,7 +56,7 @@ export type DemoMuse = {
   minPoolCovers: number;
 };
 
-export type DemoSnapshot = { scene: DemoScene | null; muse: DemoMuse | null };
+export type DemoSnapshot = { scene: DemoScene | null; muse: DemoMuse | null; ledger: DemoLedger | null };
 
 async function liveCommitments(db: Executor, ruleId: string, visitDate: string) {
   return db
@@ -75,7 +78,7 @@ async function storedClearing(db: Executor, ruleId: string, visitDate: string) {
   const [stored] = await db.select().from(clearings).where(and(eq(clearings.ruleId, ruleId), eq(clearings.visitDate, visitDate)));
   if (!stored) return null;
   const fills = await db.select().from(clearingFills).where(and(eq(clearingFills.ruleId, ruleId), eq(clearingFills.visitDate, visitDate)));
-  return { unlocked: stored.unlocked, fills: new Map(fills.map((f) => [f.commitmentId, f.covers])) };
+  return { clearedAt: stored.clearedAt, unlocked: stored.unlocked, fills: new Map(fills.map((f) => [f.commitmentId, f.covers])) };
 }
 
 async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
@@ -98,6 +101,13 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
   const filledCovers = cleared ? [...cleared.fills.values()].reduce((a, b) => a + b, 0) : 0;
   const offer = toOffer(rule);
   return {
+    id: `${rule.id}:${visitDate}`,
+    events: [
+      ...rows.map(r => ({ kind: "commitment" as const, at: r.c.committedAt.toISOString(), label: `+${r.c.covers} covers committed` })),
+      ...(cleared ? [{ kind: "cleared" as const, at: cleared.clearedAt.toISOString(), label: cleared.unlocked ? `Pool unlocked: ${filledCovers} covers filled` : "Cleared: minimum not met" }] : []),
+      ...(cleared?.unlocked && filledCovers >= rule.capacityCovers ? [{ kind: "sold_out" as const, at: cleared.clearedAt.toISOString(), label: "Sold out" }] : []),
+      ...(plan ? [{ kind: "plan" as const, at: plan.p.createdAt.toISOString(), label: plan.p.verdict === "ok" ? "Wonder plan ready" : "Wonder plan refused" }] : []),
+    ].sort((a, b) => a.at.localeCompare(b.at)),
     merchantName: merchant.name,
     summary: termsSummary(merchant.name, offer),
     listPriceCents: rule.listPriceCents,
@@ -159,6 +169,6 @@ async function museOf(db: Executor): Promise<DemoMuse | null> {
   };
 }
 
-export async function demoSnapshot(db: Executor, now: Date = new Date()): Promise<DemoSnapshot> {
-  return { scene: await sceneOf(db, now), muse: await museOf(db) };
+export async function demoSnapshot(db: Db, now: Date = new Date()): Promise<DemoSnapshot> {
+  return db.transaction(async tx => ({ scene: await sceneOf(tx, now), muse: await museOf(tx), ledger: await publicDemoLedger(tx, DEMO_MERCHANT_NAME) }), { isolationLevel: "repeatable read", accessMode: "read only" });
 }

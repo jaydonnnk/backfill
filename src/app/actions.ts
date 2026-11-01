@@ -12,5 +12,5 @@ export async function askSpark(): Promise<never> {
   const env = webEnv();
   const db = webDb();
   const provider = createMetaProvider({ baseUrl: env.META_BASE_URL, apiKey: env.META_API_KEY, record: llmCallRecorder(db) });
-  redirect(`/?status=${await pressTracer(db, provider, env.META_MODEL_SPARK)}`);
+  redirect(`/system?status=${await pressTracer(db, provider, env.META_MODEL_SPARK)}`);
 }

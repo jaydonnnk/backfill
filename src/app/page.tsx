@@ -1,90 +1,38 @@
-import { formatUsd } from "@/integrations/meta/pricing";
+import Link from "next/link";
 import { webDb } from "@/lib/db/client";
-import { latestOkCall, type LlmCallRow } from "@/lib/llm-calls";
+import { DEMO_MERCHANT_NAME } from "@/lib/demo/snapshot";
+import { publicDemoLedger } from "@/lib/demo/ledger";
 import { errorFields, log } from "@/lib/log";
-import { TRACER_COOLDOWN_MS, TRACER_DAILY_CAP, TRACER_PURPOSE, tracerReplySchema } from "@/lib/tracer";
-import { askSpark } from "./actions";
 
 export const dynamic = "force-dynamic";
 
-const STATUS_TEXT: Record<string, string> = {
-  ok: "Muse Spark replied. The call is logged below.",
-  busy: "Another call is in progress. Try again shortly.",
-  cooldown: `One call per ${TRACER_COOLDOWN_MS / 1000} seconds. Try again shortly.`,
-  daily_cap: `The daily limit of ${TRACER_DAILY_CAP} calls is reached.`,
-  failed: "The call failed. Each attempt is still logged with its cost.",
-};
-
-function replyText(row: LlmCallRow): string {
-  try {
-    return tracerReplySchema.parse(JSON.parse(row.output ?? "")).reply;
-  } catch {
-    return row.output ?? "";
-  }
-}
-
-async function loadLatest(): Promise<{ row: LlmCallRow | null; error: boolean }> {
-  try {
-    return { row: await latestOkCall(webDb(), TRACER_PURPOSE), error: false };
-  } catch (err) {
-    log("error", "page.latest_failed", errorFields(err));
-    return { row: null, error: true };
-  }
-}
-
-export default async function Home({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
-  const { status } = await searchParams;
-  const notice = status ? STATUS_TEXT[status] : undefined;
-  const { row, error } = await loadLatest();
-
-  return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-12 sm:px-6">
-      <header className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">Backfill</h1>
-        <p className="text-[var(--muted)]">AI agents pool committed spend. Small merchants sell spoiling off-peak capacity to them.</p>
-      </header>
-
-      <section className="flex flex-col gap-4 rounded-lg border border-[var(--border)] p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-lg font-medium">Latest Muse Spark reply</h2>
-          <form action={askSpark}>
-            <button type="submit" className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90">
-              Ask Muse Spark
-            </button>
-          </form>
-        </div>
-
-        {notice && <p role="status" className="text-sm text-[var(--muted)]">{notice}</p>}
-
-        {error ? (
-          <p className="text-sm">The call log could not be read.</p>
-        ) : row ? (
-          <>
-            <blockquote className="border-l-2 border-[var(--accent)] pl-4 text-lg leading-relaxed">{replyText(row)}</blockquote>
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
-              <Stat label="Model" value={row.model} />
-              <Stat label="Cost" value={formatUsd(row.costNanoUsd)} testId="cost" />
-              <Stat label="Latency" value={`${row.latencyMs} ms`} />
-              <Stat label="Tokens in" value={String(row.tokensIn)} />
-              <Stat label="Tokens out" value={String(row.tokensOut)} />
-              <Stat label="Logged (UTC)" value={row.createdAt.toISOString().replace("T", " ").slice(0, 16)} />
-            </dl>
-          </>
-        ) : (
-          <p className="text-sm text-[var(--muted)]">No reply logged yet. Press the button to make one call.</p>
-        )}
-      </section>
-    </main>
-  );
-}
-
-function Stat({ label, value, testId }: { label: string; value: string; testId?: string }) {
-  return (
-    <div className="flex flex-col">
-      <dt className="text-[var(--muted)]">{label}</dt>
-      <dd className="font-mono" data-testid={testId}>
-        {value}
-      </dd>
-    </div>
-  );
+export default async function Home() {
+  const ledger = await (async () => {
+    try { return await webDb().transaction(tx => publicDemoLedger(tx, DEMO_MERCHANT_NAME), { isolationLevel: "repeatable read", accessMode: "read only" }); }
+    catch (error) { log("error", "landing.ledger_failed", errorFields(error)); return null; }
+  })();
+  return <main className="page landing">
+    <section className="landing-hero">
+      <p className="eyebrow">Empty tables. Shared demand.</p>
+      <h1>Your restaurant isn&apos;t on Muse.<br /><em>Now it is.</em></h1>
+      <p className="lede">Give AI agents your off-peak terms. They pool commitments. You fill the quiet hours.</p>
+      <div className="actions"><Link className="button primary" href="/demo">Watch it clear live <span aria-hidden="true">↗</span></Link><Link className="button" href="/evals">Muse Spark vs DeepSeek</Link></div>
+      <p className="small muted">Working demo with a synthetic café and simulated buyers.</p>
+    </section>
+    <section aria-label="Recorded demo totals" className="landing-totals">
+      <div><strong>{ledger ? ledger.covers : "—"}</strong><span>Covers filled</span></div>
+      <div><strong>{ledger ? `S$${(ledger.buyerShareCents / 100).toFixed(2)}` : "—"}</strong><span>Buyer savings</span></div>
+      <div><strong>{ledger ? ledger.agentsCommitted : "—"}</strong><span>Agents committed</span></div>
+      <div><strong>{ledger ? ledger.poolsUnlocked : "—"}</strong><span>Pools unlocked</span></div>
+      <p className="small muted">{ledger ? "Stored Demo Cafe totals · includes rehearsals · no real payments" : "Demo totals unavailable"}</p>
+    </section>
+    <section id="how-it-works" className="how-it-works">
+      <h2>Quiet hours, spoken for.</h2>
+      <div className="steps">
+        <article><span className="step-icon" aria-hidden="true">▤</span><p className="eyebrow">01 / Set the table</p><h3>Photo to offer</h3><p>Muse Spark reads your menu. You confirm the terms.</p></article>
+        <article><span className="step-icon" aria-hidden="true">◎</span><p className="eyebrow">02 / Gather the group</p><h3>Agents commit together</h3><p>Each accepts your price, window and minimum group size.</p></article>
+        <article><span className="step-icon" aria-hidden="true">✓</span><p className="eyebrow">03 / Fill the quiet hours</p><h3>The pool clears</h3><p>Enough demand unlocks the deal. Every saving is recorded.</p></article>
+      </div>
+    </section>
+  </main>;
 }

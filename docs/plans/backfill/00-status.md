@@ -705,3 +705,28 @@ Final global state: 4 merchants, 6 rules, 24 agents, 26 commitments, 4 clearings
 **[verified]** Health and demo HTTP 200. Browser public demo displayed Live, simulated buyers and recorded replay, with no private floor text. No authenticated merchant browser was mounted because its pre-existing auto-replan effect may invoke Wonder. Production evidence and public deployment screenshot: [evidence/s8-ledger/rollout](evidence/s8-ledger/rollout/README.md). Frozen recording/screenshots and migrations 0000 through 0012 remain unchanged.
 
 S8 exit is met. No further deployment or production write is required for S8. The user may review the public demo, then decide whether to authorize S9 and its model-call/spending policy. S9, real payments and restoring paid S7 recording remain unauthorized. Current continuation: [s8-handoff.md](s8-handoff.md).
+
+
+### S8.5 authorized and started, 2026-11-01
+
+The user approved S8.5, S9.5 and the S9 exit change and requested S8.5 on its own slice branch. Branch `codex/slice-8.5-design-shell` starts at `95deb4d`. Existing README/pitch edits are preserved. The proposal was already untracked and is retained with the approval annotation.
+
+Ruling: start S8.5 directly, following the explicit final instruction despite the unfilled mockup/start placeholder. Kopi is an original coffee-cup mascot selected under the user's delegated choice, reserved for S9.5.
+Ruling: use the existing checkout with a dedicated branch; preserve dirty documentation. No publication, model call or production write is needed for this UI slice.
+
+Implementation checklist:
+- [x] Shell, semantic tokens, landing and system route.
+- [x] Public demo ledger read, truthful timeline, pool visual, local replay, Wonder diff.
+- [x] Tests, build, responsive/theme/reduced-motion verification and independent review.
+
+### S8.5 local exit, 2026-11-01
+
+Implemented on `codex/slice-8.5-design-shell`: Gloock/Manrope, semantic light/dark tokens, shared navigation, landing with stored Demo Cafe totals, tracer and aggregate model costs at `/system`, and a redesigned `/demo`. The demo includes alone/pooled tokens, bounded buyer details, Singapore event times, current-pool buyer savings, all-demo ledger splits, Wonder term differences and a separate Muse card. Client replay freezes the viewed snapshot and performs no write; reduced motion reveals stored results immediately. Initial database failure shows an unavailable state and reconnects through SSE.
+
+The public ledger read is restricted to the same Demo Cafe selected by the existing scene. Snapshot queries use one read-only repeatable-read transaction. Reconciliation checks ledger rows against stored fills. No domain, clearing, checkout, migration or fee-policy change.
+
+**[verified locally]** 418 tests in 41 files, typecheck, lint, diffcheck, secret-free production build, and 20 browser route/viewport/theme combinations passed. Browser checks include every popover, replay completion/return, reduced motion and no HTTP writes or page errors. One independent P2 popover finding was reproduced and fixed. Screenshots were visually inspected. Evidence: [HTML review](evidence/s85-ui/index.html), [verification details](evidence/s85-ui/README.md).
+
+Ruling: `/evals` is a truthful empty route until S9 supplies results; no invented numbers. Omitted unsourced market/launch claims from the landing. The global feed status is shown on the demo where SSE is actually subscribed. Pet and merchant redesign remain S9.5.
+
+Local exit met; visual acceptance by the user and hosted deployment are not claimed. No merge, push, deployment, production write or model call was performed. Existing README and pitch edits are unchanged. S9.5 is approved in the plan but not implemented here. S9's result contract is approved; its model-call/spending policy remains unselected.

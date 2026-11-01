@@ -121,11 +121,13 @@ describe("recording source validation", () => {
 
 describe("demo replay labels", () => {
   const scene: DemoScene = {
-    merchantName: "Backfill Demo Cafe", summary: "", ...expected.offer, visitDate: "2026-11-03", commitBy: "2026-11-03T06:03:00.000Z", phase: "cleared", buyers: [], pooled: { covers: 20, unlocked: true, filledCovers: 16, soldOut: true }, plan: null,
+    id: "fixture", events: [], merchantName: "Backfill Demo Cafe", summary: "", ...expected.offer, visitDate: "2026-11-03", commitBy: "2026-11-03T06:03:00.000Z", phase: "cleared", buyers: [], pooled: { covers: 20, unlocked: true, filledCovers: 16, soldOut: true }, plan: null,
   };
 
   it("labels simulated buyers and unknown provenance before a plan exists", () => {
-    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene, muse: null } }));
+    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene, muse: null, ledger: null } }));
+    expect(html).toContain("Replay this scene");
+    expect(html).toContain("aria-label=\"Pool comparison\"");
     expect(html).toContain("Simulated buyers.");
     expect(html).toContain("Buyer decision provenance is unknown");
     expect(html).toContain("No Wonder plan stored yet");
@@ -133,7 +135,7 @@ describe("demo replay labels", () => {
 
   it("labels a stored replay plan and the possible shifted rehearsal window", () => {
     const plan = { provenance: "recorded_replay", verdict: "ok", discountBps: 1500, capacityCovers: 24, minPoolCovers: 12, perAgentCapCovers: 4, rationale: "recorded rationale", applied: false } satisfies NonNullable<DemoScene["plan"]>;
-    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: { ...scene, plan }, muse: null } }));
+    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: { ...scene, plan }, muse: null, ledger: null } }));
     expect(html).toContain("recorded Wonder plan replayed");
     expect(html).toContain("Recorded replay:");
     expect(html).toContain("shifted day and time");

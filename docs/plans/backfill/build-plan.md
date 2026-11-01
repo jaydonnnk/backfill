@@ -117,11 +117,25 @@ The real Muse commitment from S4, if Day 0 passed, appears in the pool labelled 
 - ACP-shaped checkout endpoints in `src/app/api`, no real money.
 - Exit: every filled commitment has exactly one ledger entry and the totals reconcile.
 
+### S8.5 - Design shell (approved 2026-11-01)
+
+- Semantic tokens, shared navigation, landing page, tracer moved to `/system`.
+- `/demo`: alone/pooled visual, read-only ledger splits, Wonder diff, event timeline and client-only replay.
+- Preserve provenance, hidden-floor privacy, stale-feed feedback and reduced motion.
+- Exit: local dashboard verified at 375 and 1280 in light/dark; no model calls or production writes.
+
 ### S9 - Evals (Nov 2)
 
 - `evals/agenticpay`: Muse Spark vs DeepSeek (OpenRouter) on deal rate, savings and cost per deal.
 - Cost comes from `llm_calls`, not estimates.
-- Exit: one chart in `evals/results`, also shown on the demo screen.
+- Same scenarios and seeds for both models; write `evals/results/<run-id>.json` with per-episode proposals, refusals, rounds, outcomes, savings, call IDs and costs, plus summary.
+- Exit (approved 2026-11-01): `/evals` renders the run JSON and every displayed number traces to `llm_calls` rows. PNG is optional.
+- Model-call/spending policy remains a separate decision.
+
+### S9.5 - Pet and merchant dashboard (approved 2026-11-01)
+
+- Kopi, an original coffee-cup mascot: idle, nod, unlock, sold out, shield.
+- Merchant KPI tiles, offer chips and onboarding stepper; event-driven pet with dismissal, reduced motion and deterministic test flag.
 
 ### S10 - Harden, record, submit (Nov 3-4)
 
