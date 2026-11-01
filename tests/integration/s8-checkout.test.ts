@@ -101,3 +101,19 @@ it("keeps different buyers' ledger rows and receipts separate", async () => {
   expect(done.status).toBe(200);
   expect(await done.json()).toMatchObject({ id: f.id, order: { id: `sim_${f.id}`, checkout_session_id: f.id } });
 });
+
+it("returns an unavailable response without exposing database error values", async () => {
+  const broken = checkoutHandler(() => { throw new Error("postgres://dummy:do-not-display@db.invalid/test"); }, "read");
+  const response = await broken(req("dummy"), randomUUID()).then(async r => ({ status: r.status, body: await r.json() }), () => null);
+  expect(response).toEqual({ status: 503, body: { error: "unavailable" } });
+});
+it("requires a filled ledger source for receipts and keeps receipts immutable in replica mode", async () => {
+  const f = await fixture();
+  await expect(t.admin`insert into checkout_receipts (commitment_id) values (${f.id})`).rejects.toThrow(/foreign key/);
+  now = new Date("2026-11-03T12:00:00+08:00");
+  expect((await complete(req(f.agent.token, { simulate: true }), f.id)).status).toBe(200);
+  for (const statement of ["update checkout_receipts set completed_at = now()", "delete from checkout_receipts", "truncate checkout_receipts"]) await expect(t.admin.begin(async tx => {
+    await tx.unsafe("SET LOCAL session_replication_role = replica");
+    await tx.unsafe(statement);
+  })).rejects.toThrow(/append-only/);
+});

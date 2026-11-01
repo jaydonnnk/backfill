@@ -25,3 +25,7 @@ it("refuses totals that exceed safe integer cents", () => {
   const huge = ledgerEntry({ ...fill, covers: 2, listPriceCents: Number.MAX_SAFE_INTEGER, pricePerCoverCents: Number.MAX_SAFE_INTEGER });
   expect(() => merchantTotals([huge])).toThrow();
 });
+
+it("totals retain every explicit share field from persisted entries", () => {
+  expect(merchantTotals([{ ...fill, savingsCents: 936, buyerShareCents: 700, agentShareCents: 136, networkShareCents: 100 }])).toMatchObject([{ buyerShareCents: 700, agentShareCents: 136, networkShareCents: 100 }]);
+});

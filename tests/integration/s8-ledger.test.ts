@@ -172,7 +172,7 @@ it("refuses historical drift and rolls back earlier entries in the same bounded 
 
 it("cannot give an unfilled commitment another commitment's ledger source", async () => {
   const f = await seed();
-  const second = await submitCommitment(app.db, f.agent.id, { ruleId: f.ruleId, termsVersion: 1, visitDate: "2026-11-03", covers: 2, maxPricePerCoverCents: 938, idempotencyKey: randomUUID() }, before);
+  const second = await submitCommitment(app.db, f.agent.id, { ruleId: f.ruleId, termsVersion: 1, visitDate: "2026-11-03", covers: 2, maxPricePerCoverCents: 938, idempotencyKey: randomUUID() }, () => new Date("2026-11-03T10:00:01+08:00"));
   expect(second.ok).toBe(true); if (!second.ok) throw new Error("fixture refused");
   expect((await attempt(getCommitmentStatus(app.db, f.agent.id, f.commitmentId, after))).error).toBeNull();
   const result = await attempt(t.admin`insert into ledger (commitment_id, merchant_id, rule_id, covers, list_price_cents, price_per_cover_cents, savings_cents, buyer_share_cents, agent_share_cents, network_share_cents) values (${second.commitment.commitmentId}, ${f.merchantId}, ${f.ruleId}, 2, 1250, 938, 624, 624, 0, 0)`);
