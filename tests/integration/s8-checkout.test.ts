@@ -91,6 +91,8 @@ it("refuses malformed input, client prices, payment credentials and bodies above
   for (const body of [{ commitment_id: "bad" }, { commitment_id: f.id, price: 1 }, { commitment_id: f.id, agent_id: f.agent.id }, { commitment_id: f.id, padding: "x".repeat(5000) }]) expect((await create(req(f.agent.token, body))).status).toBe(400);
   for (const body of [{}, { simulate: false }, { simulate: true, payment_data: { token: "fake" } }]) expect((await complete(req(f.agent.token, body), f.id)).status).toBe(400);
   expect((await create(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "application/json" }, body: " ".repeat(5000) + JSON.stringify({ commitment_id: f.id }) }))).status).toBe(400);
+  for (const body of ["{", undefined]) expect((await create(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "application/json" }, ...(body === undefined ? {} : { body }) }))).status).toBe(400);
+  expect((await complete(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "text/plain" }, body: '{"simulate":true}' }), f.id)).status).toBe(415);
   expect((await read(req(f.agent.token), "bad")).status).toBe(400);
   expect((await create(new Request("http://backfill.test", { method: "POST", headers: { authorization: `Bearer ${f.agent.token}`, "content-type": "text/plain" }, body: "{}" }))).status).toBe(415);
 });
@@ -123,4 +125,17 @@ it("requires a filled ledger source for receipts and keeps receipts immutable in
     }).then(() => null, (err: Error) => err.message);
     expect(failure).toMatch(/append-only/);
   }
+});
+
+it("waits for historical ledger reconciliation before simulating checkout completion", async () => {
+  const f = await fixture(); now = new Date("2026-11-03T12:00:00+08:00");
+  await t.admin.begin(async tx => {
+    await tx.unsafe("ALTER TABLE clearing_fills DISABLE TRIGGER s8_fill_has_ledger");
+    await tx`insert into clearings (rule_id, visit_date, terms_version, unlocked, price_per_cover_cents) values (${f.ruleId}, '2026-11-03', 1, true, 938)`;
+    await tx`insert into clearing_fills (commitment_id, rule_id, visit_date, covers, price_per_cover_cents) values (${f.id}, ${f.ruleId}, '2026-11-03', 2, 938)`;
+    await tx.unsafe("ALTER TABLE clearing_fills ENABLE ALWAYS TRIGGER s8_fill_has_ledger");
+  });
+  expect(await (await read(req(f.agent.token), f.id)).json()).toMatchObject({ status: "not_ready_for_payment", reason: "ledger_reconciliation_pending" });
+  expect((await complete(req(f.agent.token, { simulate: true }), f.id)).status).toBe(422);
+  expect(Number((await t.admin`select count(*)::int as n from checkout_receipts where commitment_id = ${f.id}`)[0]?.n)).toBe(0);
 });

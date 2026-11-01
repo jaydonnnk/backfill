@@ -629,5 +629,40 @@
     "file": "src/lib/ledger/service.ts",
     "from": "const reconciled = missing.length === 0 && mismatched.length === 0 && orphaned.length === 0;",
     "to": "const reconciled = true;"
+  },
+  {
+    "id": "http-json-syntax",
+    "guard": "malformed JSON is a client refusal",
+    "file": "src/lib/checkout/http.ts",
+    "from": "catch { return null; }",
+    "to": "catch { throw new Error(\"invalid json\"); }"
+  },
+  {
+    "id": "http-empty-body",
+    "guard": "empty body is a client refusal",
+    "file": "src/lib/checkout/http.ts",
+    "from": "if (!reader) return null;",
+    "to": "if (false) return null;"
+  },
+  {
+    "id": "checkout-historical-gap",
+    "guard": "historical fill cannot complete without ledger",
+    "file": "src/lib/checkout/service.ts",
+    "from": "if (!entry) return { ...base, status: \"not_ready_for_payment\", reason: \"ledger_reconciliation_pending\" };",
+    "to": ""
+  },
+  {
+    "id": "http-json-type-create",
+    "guard": "JSON content type for create",
+    "file": "src/lib/checkout/http.ts",
+    "from": "if (req.headers.get(\"content-type\")?.split(\";\")[0]?.trim().toLowerCase() !== \"application/json\") return json({ error: \"json_required\" }, 415);\n        const parsed = Create.safeParse(await body(req));",
+    "to": "if (false) return json({ error: \"json_required\" }, 415);\n        const parsed = Create.safeParse(await body(req));"
+  },
+  {
+    "id": "http-json-type-complete",
+    "guard": "JSON content type for complete",
+    "file": "src/lib/checkout/http.ts",
+    "from": "if (req.headers.get(\"content-type\")?.split(\";\")[0]?.trim().toLowerCase() !== \"application/json\") return json({ error: \"json_required\" }, 415);\n        if (!Complete.safeParse(await body(req)).success)",
+    "to": "if (false) return json({ error: \"json_required\" }, 415);\n        if (!Complete.safeParse(await body(req)).success)"
   }
 ]
