@@ -850,3 +850,7 @@ Fresh final checks: typecheck, lint, 318 unit tests, 182 disposable-local integr
 [Evidence and limits](evidence/s95/README.md), [HTML gallery](evidence/s95/index.html), [submission draft](submission-draft.md), [three-minute storyboard](video-storyboard.md), [handoff](s95-handoff.md). Final review preview is http://127.0.0.1:3196/demo. No migration of production data, model call, merge, push, deploy or Render change. Protected evidence has no diff.
 
 Full slice is not accepted: user visual approval, exhaustive defensive DOM guard mutation proof, hosted write E2E, fresh live-run allowance/authorization, video recording/upload and submission remain open. Broader receipt-stamp/richer idle behavior is not implemented. S9.5 local implementation is marked complete separately from these remaining gates; no blanket full-slice completion is claimed.
+
+### S9.5 publication authorized, 2026-11-02
+
+The user authorized: "Publish and push to main, then give me a to do list of things to do thanks". This covers fast-forwarding main to the locally reviewed S9.5 changes and pushing, including the existing Render auto-deploy. It does not authorize paid model calls or production data writes. Local application checkpoint is 22da7e7. Remaining hosted/live/video/submission gates stay open as recorded in the S9.5 evidence.
