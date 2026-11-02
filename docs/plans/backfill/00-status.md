@@ -820,3 +820,33 @@ The adapter now journals generation ID, finish reason, reasoning tokens and fail
 **[verified]** Run `s9-20261102-authorized-02`, effort `low` for both: 18 of 18 calls valid, status complete. Outcomes identical per scenario (1 deal, S$2.20, 1 floor refusal each). Cost: Spark US$0.02138305, DeepSeek US$0.00186283.
 Unit tests 276 passed, typecheck and lint clean. Not published to `/evals`; no commit, push, deployment or production write.
 **[verified]** 2026-11-02, on the user's "Copy calls to Neon": run 02's 18 `llm_calls` rows were inserted into Neon in one transaction, as IDs 6-23, after a full in-transaction verification; nothing else in Neon was written. The published result file is re-keyed to the Neon IDs; the local-ID original and mapping are in [s9-neon-import](evidence/s9-neon-import/). A local server reading Neon showed `/evals` verified (9 of 9, S$2.20, calls #6-#23). `/evals` now tells the "Why Muse Spark" story with DeepSeek as a cost aside. Not committed, pushed or deployed.
+
+### S9.5 final slice authorized, 2026-11-02
+
+User authorization: "1. Start 9.5. 2. Absorb it" in response to starting S9.5 and absorbing S10. S9.5 now includes S10 hardening, five replay rehearsals, video preparation and submission text. Named authorization remains required for paid calls with a cap, production writes, Render changes, publication and live recording. The user retains visual acceptance, video approval/upload and submission.
+
+Branch: `backfill/slice-9.5-pet-dashboard`, created from `origin/main` at `988ba592529818eeb38475e9e39f9f64a34c43a7`. Remote main was verified with `git ls-remote`. This supersedes the preceding S9 publication status: remote main includes `b2d98c4` and its collation fix. Render revision is [unknown] in this session.
+
+Fresh baseline: typecheck, lint, 276 unit tests and 182 integration tests passed. Integration used the explicit disposable local PostgreSQL server. Production build and browser checks remain open. No model calls, production writes, push or deploy performed.
+
+S9.5 checkpoint, still incomplete: demo event observation, a three-event animation queue, finite SVG props, `?kopi=off`, reduced-motion behavior and pointer/keyboard dragging with control avoidance are implemented locally. Merchant refinements and the absorbed S10 full workflow remain open.
+
+Fresh checkpoint verification: typecheck/lint passed; 308 unit and 182 disposable-local integration tests passed; isolated webpack production build passed; all 8 Playwright tests passed on the final preview. Browser coverage includes demo/evals/signed-out merchant at 375/1280 in light/dark, no horizontal overflow or console errors on those routes, hiding preference, SSE buyer cue with normal/reduced motion, replay cancellation and mobile dragging/scroll/resize. Five client-only replay cycles per viewport/theme passed. These are NOT the five full S10 MCP/clearing replay rehearsals. The local fixture has zero llm_calls.
+
+26 event/queue mutations and 10 placement mutations were killed by assertions, with byte-identical restoration and passing reruns. Remaining UI/handler guards are not all mutation-proven, so the every-guard condition stays open. No independent review or user visual acceptance is claimed. [Evidence and limitations](evidence/s95/README.md), [HTML gallery](evidence/s95/index.html), [continuation handoff](s95-handoff.md).
+
+Preview: http://127.0.0.1:3195/demo from `/tmp/backfill-s95-preview`, with a disposable local database and dummy provider credentials. The generated merchant token exists only in that copy's .env.local. It has not been used for authenticated browser checks. Current changes remain uncommitted; no merge, push, deploy, model call, Neon write or Render change.
+
+Deadline math re-derived with IANA `America/New_York` and `Asia/Singapore`: Nov 4 18:00 ET is Nov 5 07:00 SGT; Nov 4 21:00 ET is Nov 5 10:00 SGT. This verifies the conversion of the plan's deadline, not the hackathon site's current deadline.
+
+### S9.5 local implementation and S10 preparation, 2026-11-02
+
+Continuation authorization: the user said "Just continue with this" and supplied the S9.5 checkpoint context. The earlier "1. Start 9.5. 2. Absorb it" still defines the combined scope. No additional external authority was granted.
+
+Local changes: finite Kopi event queue/props, context invalidation, replay/stale suppression, query hiding, reduced motion, pointer/keyboard dragging and collision avoidance; merchant offer chips, stored-record guidance, publication marker verification and draft-aware onboarding steps. Publication/refusal query strings alone no longer drive Kopi's claims. Independent review findings were fixed with regressions; final static re-review found no further concrete code blockers.
+
+Fresh final checks: typecheck, lint, 318 unit tests, 182 disposable-local integration tests, isolated webpack production build, 18 Playwright tests and diffcheck passed. 54 targeted mutations failed under assertions with byte-identical restoration and passing reruns. Five full local HTTP MCP replay rehearsals passed with actual clocks; each filled 16 covers and reconciled S$21.76 buyer savings. Authenticated merchant Playwright flow uses an explicitly offline menu extraction, real publication/MCP/clearing, and reconciles four covers/S$6.00. Final local llm_calls count is zero.
+
+[Evidence and limits](evidence/s95/README.md), [HTML gallery](evidence/s95/index.html), [submission draft](submission-draft.md), [three-minute storyboard](video-storyboard.md), [handoff](s95-handoff.md). Final review preview is http://127.0.0.1:3196/demo. No migration of production data, model call, merge, push, deploy or Render change. Protected evidence has no diff.
+
+Full slice is not accepted: user visual approval, exhaustive defensive DOM guard mutation proof, hosted write E2E, fresh live-run allowance/authorization, video recording/upload and submission remain open. Broader receipt-stamp/richer idle behavior is not implemented. S9.5 local implementation is marked complete separately from these remaining gates; no blanket full-slice completion is claimed.

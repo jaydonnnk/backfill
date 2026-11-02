@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { DemoMuse, DemoScene, DemoSnapshot } from "@/lib/demo/snapshot";
 import type { DemoLedger } from "@/lib/demo/ledger";
 import { followFeedHealth, type FeedState } from "./live-feed";
 
-import { KopiMessage } from "@/components/kopi-companion";
+import { KopiMessage, useKopiMotion } from "@/components/kopi-companion";
 import { demoKopiCue } from "@/components/kopi-state";
+
+import { advanceKopi, initialKopiObservation } from '@/components/kopi-events';
 
 const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
 const percent = (bps: number) => `${bps / 100}%`;
@@ -89,15 +91,30 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
   const [feedState, setFeedState] = useState<FeedState>(unavailable ? "stale" : "connecting");
   const [replay, setReplay] = useState<{ snapshot: DemoSnapshot; shown: number } | null>(null);
   const now = useNow();
+  const animate = useKopiMotion();
+  const observation = useRef(initialKopiObservation(initial, unavailable ? 'stale' : 'connecting'));
+  const replaying = useRef(false);
   useEffect(() => {
     const source = new EventSource("/api/demo/stream");
-    followFeedHealth(source, setFeedState);
+    followFeedHealth(source, state => {
+      setFeedState(state);
+      if (state !== 'live') {
+        observation.current = { ...observation.current, feed: state };
+        animate?.({ kind: 'clear' });
+      }
+    });
     source.onmessage = (event: MessageEvent<string>) => {
-      try { setSnapshot(JSON.parse(event.data) as DemoSnapshot); }
-      catch { setFeedState("stale"); }
+      try {
+        const next = JSON.parse(event.data) as DemoSnapshot;
+        const result = advanceKopi(observation.current, next, 'live', replaying.current, Date.now());
+        observation.current = result.state;
+        animate?.(result.queueAction);
+        setSnapshot(next);
+      }
+      catch { setFeedState("stale"); observation.current = { ...observation.current, feed: "stale" }; animate?.({ kind: "clear" }); }
     };
     return () => source.close();
-  }, []);
+  }, [animate]);
   const replayLength = replay?.snapshot.scene?.buyers.length ?? 0;
   const shown = replay?.shown;
   useEffect(() => {
@@ -108,11 +125,13 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
   const view = replay?.snapshot ?? snapshot;
   const playing = replay !== null && replay.shown < replayLength;
   function startReplay() {
+    replaying.current = true;
+    animate?.({ kind: 'clear' });
     setReplay({ snapshot, shown: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? snapshot.scene?.buyers.length ?? 0 : 0 });
   }
   return <main className="page demo-page">
     <KopiMessage {...demoKopiCue(view.scene, feedState, replay !== null)} />
-    <div className="demo-toolbar"><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{feedState === "live" ? "Live" : feedState === "stale" ? "Stale" : "Reconnecting"} feed{replay ? " · Viewing local replay" : " · Stored scene"}</p><div className="actions"><button className="button" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>Replay this scene</button>{replay && <button className="button" onClick={() => setReplay(null)}>Return to live</button>}</div></div>
+    <div className="demo-toolbar"><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{feedState === "live" ? "Live" : feedState === "stale" ? "Stale" : "Reconnecting"} feed{replay ? " · Viewing local replay" : " · Stored scene"}</p><div className="actions"><button className="button" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>Replay this scene</button>{replay && <button className="button" onClick={() => { replaying.current = false; observation.current = { ...observation.current, replay: true }; setReplay(null); }}>Return to live</button>}</div></div>
     {view.scene ? <Scene key={view.scene.id} scene={view.scene} now={now} savings={view.ledger?.pools.find(p => `${p.ruleId}:${p.visitDate}` === view.scene?.id)?.buyerShareCents ?? null} shown={replay?.shown ?? view.scene.buyers.length} /> : <section className="panel"><h1>{feedState === "stale" ? "Feed unavailable" : "No scene yet"}</h1><p>{feedState === "stale" ? "Reconnecting to the stored scene. No results are available yet." : "The dashboard will update when a demo scene is recorded."}</p></section>}
     {playing ? <p className="small muted">Local animation only. Stored results appear when replay finishes.</p> : <div className="results-grid"><Ledger ledger={view.ledger} />{view.muse && <Muse muse={view.muse} />}</div>}
   </main>;

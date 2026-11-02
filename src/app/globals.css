@@ -308,3 +308,18 @@ body { padding-bottom: 125px; }
   .eval-episodes summary { grid-template-columns: 1fr 1fr; }
   .eval-page .section-heading { align-items: start; flex-direction: column; gap: 10px; }
 }
+
+/* Event motions are finite; stored page guidance never starts a celebration. */
+.kopi-companion .kopi-art * { animation: none; }
+.kopi-companion:not([data-motion]) .cup-body { animation: kopi-breathe 4s ease-in-out infinite; }
+.kopi-companion[data-motion="nod"] .cup-body { animation: kopi-nod .6s ease-in-out 2; }
+.kopi-companion[data-motion="unlock"] .cup-body { animation: kopi-hop .6s ease-in-out 2; }
+.kopi-companion[data-motion="sold-out"] .kopi-prop,
+.kopi-companion[data-motion="shield"] .kopi-prop,
+.kopi-companion[data-motion="plan"] .kopi-prop { animation: kopi-prop-in .4s ease-out 1; }
+@keyframes kopi-nod { 50% { transform: rotate(8deg); } }
+@keyframes kopi-prop-in { from { opacity: 0; } to { opacity: 1; } }
+
+.kopi-drag { pointer-events: auto; touch-action: none; cursor: grab; padding: 0; border: 0; background: transparent; flex: none; }
+.kopi-drag:active { cursor: grabbing; }
+.kopi-drag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-export function Kopi({ className = "", label }: { className?: string; label?: string }) {
+export function Kopi({ className = "", label, motion }: { className?: string; label?: string; motion?: "nod" | "unlock" | "sold-out" | "shield" | "plan" }) {
   const id = useId();
   const scan = `${id}-scan`, dense = `${id}-dense`;
   return <svg viewBox="75 50 470 530" className={`kopi-art ${className}`} role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : true}>
@@ -27,6 +27,9 @@ export function Kopi({ className = "", label }: { className?: string; label?: st
 <path d="M178 353l-36 25-17-9-12 10 24 25 45-24" fill="var(--background)" stroke="currentColor" strokeWidth="8"/>
 <g className="hand"><path d="M414 363l37-31 2-33 16-8 8 13-2 39-49 44" fill="var(--background)" stroke="currentColor" strokeWidth="8"/><path d="M455 299v-20h12v16m8 10 12-13" fill="none" stroke="currentColor" strokeWidth="7"/></g>
 <path d="M251 414h79v28h-79z" fill="var(--accent)"/><text x="290" y="434" textAnchor="middle" fill="white" fontFamily="var(--font-display), monospace" fontSize="18">KOPI</text>
+{motion === 'shield' && <g className="kopi-prop"><path d="M115 340h90v70l-45 35-45-35z" fill="var(--panel)" stroke="var(--bad)" strokeWidth="8"/><path d="m140 387 15 15 28-35" fill="none" stroke="var(--bad)" strokeWidth="8"/></g>}
+{motion === 'sold-out' && <g className="kopi-prop"><path d="M155 415h275v65H155z" fill="var(--panel)" stroke="currentColor" strokeWidth="5"/><text x="292" y="455" textAnchor="middle" fontSize="27" fill="currentColor" fontFamily="var(--font-display), monospace">SOLD OUT</text></g>}
+{motion === 'plan' && <g className="kopi-prop" fill="none" stroke="var(--accent)" strokeWidth="8"><path d="M215 305h50v47h-50zM312 305h50v47h-50zM265 325h47"/></g>}
 </g></g>
 </svg>;
 }

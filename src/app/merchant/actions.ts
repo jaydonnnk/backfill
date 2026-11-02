@@ -91,7 +91,7 @@ export async function publish(form: FormData): Promise<never> {
     },
   };
   const result = await publishDraft(webDb(), merchant.id, draftId, settings);
-  if (result.status === "published") redirect("/merchant?status=published");
+  if (result.status === "published") redirect(`/merchant?published=${encodeURIComponent(draftId)}`);
   redirect(`/merchant/drafts/${encodeURIComponent(draftId)}?status=${result.status}`);
 }
 

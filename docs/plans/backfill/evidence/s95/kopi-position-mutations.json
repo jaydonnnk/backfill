@@ -1,0 +1,47 @@
+{
+  "source_sha256": "0d3f265871237344480ac7749f9600e48113cb53f8d2c2d697d67bfe20a52a4e",
+  "restored_byte_identical": true,
+  "rerun_passed": true,
+  "results": [
+    {
+      "mutation": "viewport too narrow",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "viewport too short",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "left clamp",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "right clamp",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "top clamp",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "bottom clamp",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "control right edge",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "control left edge",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "control bottom edge",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "control top edge",
+      "killed_by_assertion": true
+    }
+  ]
+}

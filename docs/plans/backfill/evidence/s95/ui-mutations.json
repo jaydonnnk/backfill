@@ -1,0 +1,42 @@
+{
+  "files": {
+    "src/components/kopi-companion.tsx": "ffaa4ddf8338204076ffda88cd3c836b599906b5a6636b2114e09fe56d98dedf",
+    "src/app/demo/live-board.tsx": "8e9d1d9c3ea1701e4cdaedeb23a010fcba3f73396e96ff930f5ab960575c29e3"
+  },
+  "checkout_and_preview_byte_identical": true,
+  "restored_rerun_passed": true,
+  "results": [
+    {
+      "guard": "animation restarts",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "navigation resets queue",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "query flag",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "queue follows scene",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "stale cancels queue",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "malformed cancels queue",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "replay cancels queue",
+      "killed_by_browser_assertion": true
+    },
+    {
+      "guard": "queue progresses",
+      "killed_by_browser_assertion": true
+    }
+  ]
+}

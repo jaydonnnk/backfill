@@ -1,0 +1,43 @@
+{
+  "source_sha256": "f2fd38deb4baf2238528a6ea2f454c3f8eb9528d755739cdba23cde9a240e257",
+  "restored_byte_identical": true,
+  "rerun_passed": true,
+  "results": [
+    {
+      "mutation": "unpublished draft",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "usable menu",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "offers step",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "draft identity",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "published record required",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "publication cue",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "latest plan",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "plan application",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "plan verdict",
+      "killed_by_assertion": true
+    }
+  ]
+}

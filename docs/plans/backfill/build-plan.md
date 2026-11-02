@@ -141,7 +141,14 @@ The user subsequently advanced the visual companion and merchant overview/steps 
 - Kopi, an original coffee-cup mascot: idle, nod, unlock, sold out, shield.
 - Merchant KPI tiles, offer chips and onboarding stepper; event-driven pet with dismissal, reduced motion and deterministic test flag.
 
+Local checkpoint, 2026-11-02:
+- [x] Core pet/dashboard implementation and local verification. See [S9.5 evidence](evidence/s95/README.md).
+- [x] Five full local MCP replay rehearsals and submission/video drafts.
+- [ ] Visual acceptance, remaining defensive-guard proof, hosted E2E, fresh live run, recording/upload and submission. Full final slice is not complete.
+
 ### S10 - Harden, record, submit (Nov 3-4)
+
+Absorbed into S9.5 on 2026-11-02 by the user: "1. Start 9.5. 2. Absorb it". The tasks below remain required; paid runs, production writes and publication retain their separate authorization gates.
 
 - Playwright E2E: onboard, commit, clear, ledger, on the Render URL.
 - Rehearse the path 5 times in replay mode; fix every visual flaw seen.

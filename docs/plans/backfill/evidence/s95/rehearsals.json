@@ -1,0 +1,70 @@
+{
+  "environment": "disposable local database and HTTP server; actual clock; recorded decisions; no provider calls",
+  "runs": [
+    {
+      "run": 1,
+      "ruleId": "69988472-ddca-4d8d-8ab4-3da1cae70af8",
+      "visitDate": "2026-11-02",
+      "commitBy": "2026-11-02T00:31:00.000Z",
+      "filledCovers": 16,
+      "buyerSavingsCents": 2176,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "provenance": "recorded_replay",
+      "reconciled": true,
+      "browserErrors": []
+    },
+    {
+      "run": 2,
+      "ruleId": "c256e6d5-33f1-49b1-83dc-04dc2ed3d5c5",
+      "visitDate": "2026-11-02",
+      "commitBy": "2026-11-02T00:33:00.000Z",
+      "filledCovers": 16,
+      "buyerSavingsCents": 2176,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "provenance": "recorded_replay",
+      "reconciled": true,
+      "browserErrors": []
+    },
+    {
+      "run": 3,
+      "ruleId": "cef3be58-b904-4868-8f49-51c8e45ea00d",
+      "visitDate": "2026-11-02",
+      "commitBy": "2026-11-02T00:35:00.000Z",
+      "filledCovers": 16,
+      "buyerSavingsCents": 2176,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "provenance": "recorded_replay",
+      "reconciled": true,
+      "browserErrors": []
+    },
+    {
+      "run": 4,
+      "ruleId": "8e7966a6-1f94-4a03-afd6-523fbcf3c07a",
+      "visitDate": "2026-11-02",
+      "commitBy": "2026-11-02T00:37:00.000Z",
+      "filledCovers": 16,
+      "buyerSavingsCents": 2176,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "provenance": "recorded_replay",
+      "reconciled": true,
+      "browserErrors": []
+    },
+    {
+      "run": 5,
+      "ruleId": "3e39f09b-1c85-4550-8177-cd006ea287f5",
+      "visitDate": "2026-11-02",
+      "commitBy": "2026-11-02T00:39:00.000Z",
+      "filledCovers": 16,
+      "buyerSavingsCents": 2176,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "provenance": "recorded_replay",
+      "reconciled": true,
+      "browserErrors": []
+    }
+  ]
+}

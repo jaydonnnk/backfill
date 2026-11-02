@@ -1,7 +1,8 @@
+import { merchantKopiCue, merchantStep } from "@/components/merchant-kopi";
 import { KopiMessage } from "@/components/kopi-companion";
 import { Kopi } from "@/components/kopi";
 import { percent } from "@/domain/onboarding/replan";
-import { dollars } from "@/lib/commitments/service";
+import { available, dollars } from "@/lib/commitments/service";
 import { merchantLedger } from "@/lib/ledger/service";
 import { webDb } from "@/lib/db/client";
 import { MAX_PHOTO_BYTES } from "@/domain/onboarding/menu";
@@ -17,7 +18,6 @@ import { SubmitButton } from "./submit-button";
 export const dynamic = "force-dynamic";
 
 const STATUS_TEXT: Record<string, string> = {
-  published: "Your offer is published. Buyer agents can see it now.",
   empty: "Choose a photo of your menu first.",
   too_large: `That photo is over ${MAX_PHOTO_BYTES / 1024 / 1024} MB. Try a smaller one.`,
   not_an_image: "That file is not a JPEG, PNG or WebP photo.",
@@ -58,12 +58,14 @@ function SignedOut() {
   );
 }
 
-export default async function MerchantHome({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
+export default async function MerchantHome({ searchParams }: { searchParams: Promise<{ status?: string; published?: string }> }) {
   const merchant = await currentMerchant();
   if (!merchant) return <SignedOut />;
-  const { status } = await searchParams;
+  const { status, published } = await searchParams;
   const notice = status ? STATUS_TEXT[status] : undefined;
   const board = await dashboard(webDb(), merchant.id);
+  const cue = merchantKopiCue(board.drafts, board.plans, published);
+  const step = merchantStep(board.drafts, board.rules.length);
   const savingsLedger = await merchantLedger(webDb(), merchant.id);
   const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   const needsPlan = board.occurrences.some((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`));
@@ -84,8 +86,8 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
         </form>
       </header>
 
-      <KopiMessage pose={status === "plan_refused" ? "shield" : "idle"} text={notice ?? "Start with your menu. You check everything before publishing."} />
-      <ol className="onboarding-steps" aria-label="Merchant journey"><li aria-current={board.rules.length === 0 ? "step" : undefined}>01 / Read your menu</li><li>02 / Confirm your terms</li><li aria-current={board.rules.length > 0 ? "step" : undefined}>03 / Follow your offers</li></ol>
+      <KopiMessage {...cue} />
+      <ol className="onboarding-steps" aria-label="Merchant journey"><li aria-current={step === 1 ? "step" : undefined}>01 / Read your menu</li><li aria-current={step === 2 ? "step" : undefined}>02 / Confirm your terms</li><li aria-current={step === 3 ? "step" : undefined}>03 / Follow your offers</li></ol>
       <dl className="merchant-summary"><div><dt>Your offers</dt><dd>{board.rules.length}</dd></div><div><dt>Covers filled</dt><dd>{savingsLedger.totals.covers}</dd></div><div><dt>Buyer savings</dt><dd>{dollars(savingsLedger.totals.buyerShareCents)}</dd></div></dl>
       {notice && (
         <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">
@@ -130,8 +132,9 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           <p className="text-sm text-[var(--muted)]">No offers yet.</p>
         ) : (
           <ul className="flex flex-col divide-y divide-[var(--border)]">
-            {board.rules.map(({ rule, offerPriceCents }) => (
+            {board.rules.map(({ rule, offerPriceCents, published }) => (
               <li key={rule.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0">
+                <div className="chips"><span className={`chip ${available(rule) ? "good" : "wait"}`}>{available(rule) ? "Open to commitments" : "Unavailable"}</span><span className="chip">{published ? "Menu confirmed" : "Configured offer"}</span><span className="chip">Terms v{rule.termsVersion}</span></div>
                 <p className="font-medium">
                   {percent(rule.terms.discountBps)} off: {dollars(rule.listPriceCents)} becomes {dollars(offerPriceCents)} per cover
                 </p>

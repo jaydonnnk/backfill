@@ -1,3 +1,4 @@
+import { merchantStep } from "@/components/merchant-kopi";
 import { KopiMessage } from "@/components/kopi-companion";
 import { notFound } from "next/navigation";
 import { dollars, WEEKDAY_NAMES } from "@/lib/commitments/service";
@@ -35,6 +36,7 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
   const cover = new Set(view.draft.cover.itemIndexes);
   const notice = status ? STATUS_TEXT[status] : undefined;
   const listPrice = view.listPriceCents;
+  const step = merchantStep([view], view.ruleId === null ? 0 : 1);
 
   return (
     <main className="workspace-page">
@@ -45,8 +47,8 @@ export default async function DraftReview({ params, searchParams }: { params: Pr
         <h1 className="text-2xl font-semibold tracking-tight">Check your menu</h1>
       </header>
 
-      <KopiMessage pose={notice || view.verdict !== "ok" ? "shield" : "watching"} text={notice ?? (view.ruleId ? "This offer is published." : view.verdict === "ok" ? "Check the prices. You choose the terms." : "This menu needs another look.")} />
-      <ol className="onboarding-steps" aria-label="Merchant journey"><li>01 / Read your menu</li><li aria-current="step">02 / Confirm your terms</li><li>03 / Follow your offers</li></ol>
+      <KopiMessage pose={view.ruleId ? "happy" : view.verdict !== "ok" ? "shield" : "watching"} text={view.ruleId ? "This menu has a published offer." : view.verdict === "ok" ? "Check the prices. You choose the terms." : "This menu needs another look."} />
+      <ol className="onboarding-steps" aria-label="Merchant journey"><li aria-current={step === 1 ? "step" : undefined}>01 / Read your menu</li><li aria-current={step === 2 ? "step" : undefined}>02 / Confirm your terms</li><li aria-current={step === 3 ? "step" : undefined}>03 / Follow your offers</li></ol>
       {notice && (
         <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">
           {notice}

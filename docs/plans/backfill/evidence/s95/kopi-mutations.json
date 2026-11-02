@@ -1,0 +1,115 @@
+{
+  "source_sha256": "b57866ba2b7ca695f644132a6bdcca4b958401d1c412963357e214478bb4bcaa",
+  "restored_byte_identical": true,
+  "rerun_passed": true,
+  "results": [
+    {
+      "mutation": "queued state invalidation",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "initial buyers remembered",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "initial minimum remembered",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "initial clearing remembered",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "initial sellout remembered",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "pool identity",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "new pool baseline",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "current feed live",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "previous feed live",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "current replay",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "previous replay",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "recorded provenance",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "event deduplication",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "no future events",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "fresh events",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "minimum is pending",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "clearing is a transition",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "pool reconciliation",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "ledger reconciliation",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "clearing freshness",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "clearing unlocked",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "sellout fact",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "new plan only",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "plan freshness",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "queue limit",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "queue advance",
+      "killed_by_assertion": true
+    },
+    {
+      "mutation": "queue cancellation",
+      "killed_by_assertion": true
+    }
+  ]
+}
