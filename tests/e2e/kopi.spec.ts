@@ -21,11 +21,11 @@ for (const width of [375, 1280]) {
       }
       await page.goto('/demo');
       { // Full five-run MCP rehearsals have their own verification script.
-        await page.getByRole('button', { name: 'Replay this scene' }).click();
+        await page.getByRole('button', { name: /Watch how it works|^Replay/ }).click();
         await expect(page.locator('.kopi-bubble')).toContainText('Replaying stored commitments');
         await expect(page.locator('.kopi-companion')).not.toHaveAttribute('data-motion', { timeout: 900 });
-        await expect(page.getByText('Local animation only.', { exact: false })).toBeHidden({ timeout: 10000 });
-        await page.getByRole('button', { name: 'Return to live' }).click();
+        await expect(page.getByText('Recorded playback. No new bookings or payments.', { exact: false })).toBeHidden({ timeout: 10000 });
+        await page.getByRole('button', { name: 'Back to latest' }).click();
         await expect(page.locator('.kopi-bubble')).toContainText('Stored result:');
       }
       expect(errors).toEqual([]);
@@ -71,7 +71,7 @@ for (const reducedMotion of ['reduce', 'no-preference'] as const) {
     await expect(page.locator('.kopi-bubble')).toContainText('+2 covers committed');
     await expect(page.locator('.kopi-bubble [role="status"]')).toHaveAttribute('aria-live', 'polite');
     expect(await page.locator('.kopi-companion .cup-body').evaluate(el => getComputedStyle(el).animationName)).toBe(reducedMotion === 'reduce' ? 'none' : 'kopi-nod');
-    await page.getByRole('button', { name: 'Replay this scene' }).click();
+    await page.getByRole('button', { name: /Watch how it works|^Replay/ }).click();
     await expect(page.locator('.kopi-companion')).not.toHaveAttribute('data-motion', { timeout: 900 });
     await expect(page.locator('.kopi-bubble')).toContainText('Replaying stored commitments');
     } finally { server.closeAllConnections(); await new Promise<void>(resolve => server.close(() => resolve())); }

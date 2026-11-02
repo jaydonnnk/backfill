@@ -34,44 +34,44 @@ function Ring({ value, minimum, good }: { value: number; minimum: number; good: 
 }
 
 function Scene({ scene, now, shown, savings }: { scene: DemoScene; now: number | null; shown: number; savings: number | null }) {
-  const [mode, setMode] = useState<"alone" | "pooled">("pooled");
   const buyers = [...scene.buyers].sort((a, b) => a.committedAt.localeCompare(b.committedAt)).slice(0, shown);
   const playing = shown < scene.buyers.length;
-  const covers = buyers.reduce((sum, b) => sum + b.covers, 0);
-  const soloCount = buyers.filter(b => b.soloUnlocks).length;
-  const seconds = now === null ? null : Math.max(0, Math.ceil((Date.parse(scene.commitBy) - now) / 1000));
-  const deadline = scene.phase === "cleared" ? "Closed" : seconds === null ? "…" : seconds === 0 ? "Awaiting clearing" : `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+  const covers = buyers.reduce((sum, buyer) => sum + buyer.covers, 0);
+  const complete = !playing && scene.phase === "cleared";
+  const reached = covers >= scene.minPoolCovers;
+  const deadlinePassed = now !== null && now >= Date.parse(scene.commitBy);
+  const result = complete ? scene.pooled.unlocked ? "The group unlocked the offer." : "This group didn’t unlock the offer." : reached ? "Minimum reached. Waiting for confirmation." : "A few more diners. A better price.";
   const events = playing ? scene.events.filter(e => e.kind === "commitment" && e.at <= (buyers.at(-1)?.committedAt ?? "")) : scene.events;
   return <>
-    <div className="scene-heading"><div><p className="eyebrow">{scene.merchantName}</p><h1>Small groups. <em>One full table.</em></h1></div><div className="chips"><span className="chip">Simulated buyers</span><details className="disclosure"><summary className="chip">{scene.plan?.provenance === "recorded_replay" ? "Recorded replay" : "Provenance unknown"}</summary><p>Simulated buyers. {scene.plan?.provenance === "recorded_replay" ? "Recorded replay: these buyer decisions came from an earlier recording. This rehearsal may use a shifted day and time; the decisions were not made afresh for this window." : "Buyer decision provenance is unknown on this board. A live feed does not establish a fresh model run."}</p></details></div></div>
-    <dl className="kpi-strip">
-      <div><dt>Commit-by countdown</dt><dd className="compact-number">{deadline}</dd><small>{sgTime(scene.commitBy)} SGT</small></div>
-      <div><dt>Covers committed</dt><dd>{covers}<small> / {scene.minPoolCovers} minimum</small></dd></div>
-      <div><dt>Price per cover</dt><dd>{dollars(scene.offerPriceCents)}</dd><small><s>{dollars(scene.listPriceCents)}</s> · {percent(scene.discountBps)} off</small></div>
-      <div><dt>Buyer savings</dt><dd>{playing || savings === null ? "—" : dollars(savings)}</dd><small>{playing ? "Replaying commitments" : scene.phase === "open" ? "Not cleared yet" : "This pool · stored ledger"}</small></div>
-    </dl>
-    <div className="dashboard-grid">
-      <section className="panel pool-panel" aria-label="Pool comparison">
-        <div className="panel-heading"><div><h2>{mode === "alone" ? "Each agent alone" : "Pooled"}</h2><p className="small muted">{mode === "alone" ? `${soloCount} of ${buyers.length} unlock` : `${covers} covers · unlocks at ${scene.minPoolCovers}`}</p></div><div className="segmented" aria-label="Comparison mode"><button aria-pressed={mode === "alone"} onClick={() => setMode("alone")}>Alone</button><button aria-pressed={mode === "pooled"} onClick={() => setMode("pooled")}>Pooled</button></div></div>
-        <div className={`pool-stage ${mode}`} style={{ height: mode === "alone" ? Math.max(330, Math.ceil(buyers.length / 4) * 90) : 380 }}>
-          {mode === "pooled" && <Ring value={covers} minimum={scene.minPoolCovers} good={!playing && scene.pooled.unlocked} />}
-          {buyers.map((buyer, i) => {
-            const angle = (i / Math.max(1, buyers.length)) * 2 * Math.PI - Math.PI / 2;
-            const left = mode === "pooled" ? 50 + 41 * Math.cos(angle) : 12.5 + (i % 4) * 25;
-            const top = mode === "pooled" ? 50 + 41 * Math.sin(angle) : 15 + Math.floor(i / 4) * (75 / Math.max(1, Math.ceil(buyers.length / 4)));
-            return <details key={buyer.agentId} className="buyer-token" style={{ left: `${left}%`, top: `${top}%` }}>
-              <summary title={`${buyer.label} · ${playing ? "Commitment replay" : buyer.outcome.replaceAll("_", " ")}`} aria-label={`${buyer.label}, ${buyer.covers} covers`}><span className={`avatar ${mode === "alone" ? buyer.soloUnlocks ? "good" : "bad" : "spark"}`}>{String(i + 1).padStart(2, "0")}</span><span className="small">{buyer.covers} covers</span>{mode === "alone" && <meter min={0} max={scene.minPoolCovers} value={Math.min(buyer.covers, scene.minPoolCovers)} aria-label="Solo covers against minimum" />}</summary>
-              <div className="buyer-popover" style={{ left: left < 30 ? 0 : left > 70 ? "auto" : "50%", right: left > 70 ? 0 : "auto", transform: left < 30 || left > 70 ? "none" : "translateX(-50%)" }}><strong>{buyer.label}</strong><p>{playing ? "Commitment replay" : buyer.outcome.replaceAll("_", " ")}</p></div>
-            </details>;
-          })}
-          {buyers.length === 0 && mode === "alone" && <p className="stage-empty">Waiting for buyer agents…</p>}
-        </div>
-        <p className={`pool-verdict ${playing || scene.phase === "open" ? "wait" : scene.pooled.unlocked ? "good" : "bad"}`} aria-live="polite">{playing ? "Replaying stored commitments" : scene.phase === "open" ? scene.pooled.unlocked ? "Minimum reached. Waiting for the deadline." : "Waiting for enough covers." : scene.pooled.unlocked ? `Unlocked: ${scene.pooled.filledCovers} covers filled${scene.pooled.soldOut ? ", sold out" : ""}.` : "Minimum not met. Nothing charged."}</p>
-        <details className="buyer-table"><summary>Buyer details ({buyers.length})</summary><div className="table-scroll"><table><thead><tr><th>Intent</th><th>Covers</th><th>Alone</th><th>Pooled</th></tr></thead><tbody>{buyers.map(b => <tr key={b.agentId}><td>{b.label}<small>{b.agentId}</small></td><td>{b.covers}</td><td>{b.soloUnlocks ? "Unlocks" : "Below minimum"}</td><td>{playing ? "Replaying" : b.outcome.replaceAll("_", " ")}</td></tr>)}</tbody></table></div></details>
-      </section>
-      <aside className="panel timeline"><h2>What happened</h2><p className="small muted">Stored events · Singapore time</p><ol>{events.map((event, i) => <li key={`${event.at}:${i}`}><span className="timeline-dot" /><p>{event.label}</p><time dateTime={event.at}>{sgTime(event.at)}</time></li>)}</ol>{events.length === 0 && <p className="muted">Waiting for commitments.</p>}</aside>
-    </div>
-    {!playing && scene.pooled.soldOut && <section className="panel wonder-panel"><div><p className="eyebrow">Muse Wonder</p><h2>{scene.plan?.provenance === "recorded_replay" ? "Sold out: recorded Wonder plan replayed" : "A plan for next time"}</h2></div>{!scene.plan ? <p>No Wonder plan stored yet. Its model or replay provenance is unknown.</p> : scene.plan.verdict === "ok" ? <><div className="plan-diff"><div><span>Discount</span><strong>{percent(scene.discountBps)} → {scene.plan.discountBps === null ? "Unknown" : percent(scene.plan.discountBps)}</strong></div><div><span>Capacity</span><strong>{scene.pooled.filledCovers} → {scene.plan.capacityCovers}</strong></div><div><span>Minimum pool</span><strong>{scene.minPoolCovers} → {scene.plan.minPoolCovers}</strong></div></div><div className="chips"><span className="chip good">Checked against merchant limits</span><span className="chip">{scene.plan.applied ? "Applied by merchant" : "Awaiting merchant"}</span><details className="disclosure"><summary className="chip">Why this plan?</summary><p>{scene.plan.rationale ?? "No rationale stored."} Up to {scene.plan.perAgentCapCovers} covers per agent.</p></details></div></> : <p className="bad">Plan refused by merchant limits ({scene.plan.verdict}). The offer stays unchanged.</p>}</section>}
+    <section className="booking-stage" aria-label="Group booking progress">
+      <div className="booking-offer">
+        <p className="eyebrow">{scene.merchantName}</p>
+        <h2>A better price,<br/>together.</h2>
+        <p className="booking-price">{dollars(scene.offerPriceCents)} <span>per person</span></p>
+        <p className="booking-discount"><s>{dollars(scene.listPriceCents)}</s><span>{percent(scene.discountBps)} off</span></p>
+        <dl className="booking-terms"><div><dt>Visit</dt><dd>{scene.visitDate}{scene.visitWindow && <span>{scene.visitWindow} SGT</span>}</dd></div><div><dt>The group needs</dt><dd>{scene.minPoolCovers} diners</dd></div></dl>
+        <p className="small">Each buyer approves their own booking.</p>
+      </div>
+      <div className="booking-table" id="booking-progress">
+        <p className="eyebrow">{playing ? "Replaying the bookings" : complete ? "Recorded group" : "The group so far"}</p>
+        <p className="booking-count"><strong>{covers}</strong> diners joined <span>· {scene.minPoolCovers} needed</span></p>
+        <div className="booking-seats" aria-hidden="true">{Array.from({length: Math.min(scene.minPoolCovers,24)}, (_,i)=><span key={i} className={`booking-seat ${i<covers?'occupied':''}`}><svg viewBox="0 0 48 48"><path d="M12 9h24v19H12zM8 29h32v7H8zM12 36v8m24-8v8"/></svg></span>)}</div>
+        {scene.minPoolCovers>24 && <p className="small">First 24 seats shown. The counter includes everyone.</p>}
+        <progress max={scene.minPoolCovers} value={Math.min(covers,scene.minPoolCovers)} aria-label={`${covers} diners joined; ${scene.minPoolCovers} needed`}/>
+        <p className="booking-cue" aria-live="polite">{playing ? buyers.length ? `A booking for ${buyers.at(-1)?.covers} joins the group.` : "Start with an empty table." : complete ? scene.pooled.soldOut ? "All available seats filled." : "This round has finished." : deadlinePassed ? "Booking closed. Waiting for the result." : `${Math.max(0,scene.minPoolCovers-covers)} more needed before ${sgTime(scene.commitBy)} SGT.`}</p>
+      </div>
+      <div className={`booking-outcome ${complete ? scene.pooled.unlocked ? 'good' : 'wait' : ''}`} role="status">
+        <h3>{result}</h3>
+        {complete ? <p>{scene.pooled.unlocked ? <><strong>{scene.pooled.filledCovers} diners confirmed</strong><span className="outcome-divider"> / </span>{savings === null ? 'Savings unavailable' : `${dollars(savings)} saved by this group`}</> : 'No bookings were confirmed for this group.'}</p> : <p>{reached ? 'Backfill checks the deadline and available seats before confirming bookings.' : 'Separate bookings count together toward the café’s minimum.'}</p>}
+        {complete && scene.pooled.unlocked && covers>scene.pooled.filledCovers && <p className="small">{covers} diners requested seats; {scene.pooled.filledCovers} could be confirmed.</p>}
+      </div>
+    </section>
+    <details className="demo-details"><summary>See booking details</summary><div className="demo-detail-content">
+      <p>{scene.summary}</p><p className="small">Simulated buyers. {scene.plan?.provenance === "recorded_replay" ? "Recorded replay: these decisions came from an earlier recording, with a possible shifted day and time. They were not made afresh for this window." : "Buyer decision provenance is unknown on this board."} No real payments.</p>
+      <div className="table-scroll"><table><caption>Individual bookings</caption><thead><tr><th>Buyer</th><th>Diners</th><th>On their own</th><th>With the group</th></tr></thead><tbody>{buyers.map(b=><tr key={b.agentId}><td>{b.label}<small>{b.agentId}</small></td><td>{b.covers}</td><td>{b.soloUnlocks ? 'Meets minimum' : 'Below minimum'}</td><td>{playing?'Replaying':b.outcome.replaceAll('_',' ')}</td></tr>)}</tbody></table></div>
+      <details><summary>Booking history</summary><ol className="booking-history">{events.map((event,i)=><li key={`${event.at}:${i}`}><span>{event.label}</span><time dateTime={event.at}>{sgTime(event.at)} SGT</time></li>)}</ol></details>
+    </div></details>
+    {!playing && scene.pooled.soldOut && <details className="demo-details wonder-panel"><summary>What could the café offer next?</summary><div className="demo-detail-content"><p className="eyebrow">Muse Wonder · {scene.plan?.provenance==='recorded_replay'?'recorded Wonder plan replayed':'saved suggestion'}</p>{!scene.plan ? <p>No Wonder plan stored yet.</p> : scene.plan.verdict==='ok' ? <><div className="plan-diff"><div><span>Discount</span><strong>{percent(scene.discountBps)} → {scene.plan.discountBps===null?'Unknown':percent(scene.plan.discountBps)}</strong></div><div><span>Seats</span><strong>{scene.pooled.filledCovers} → {scene.plan.capacityCovers}</strong></div><div><span>Minimum diners</span><strong>{scene.minPoolCovers} → {scene.plan.minPoolCovers}</strong></div></div><p>{scene.plan.rationale}</p><p>{scene.plan.applied?'Approved by the café.':'The café must approve these terms before they go live.'}</p></> : <p>The suggestion didn’t meet the café’s rules. Its offer stays unchanged.</p>}</div></details>}
   </>;
 }
 
@@ -127,12 +127,15 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
   function startReplay() {
     replaying.current = true;
     animate?.({ kind: 'clear' });
-    setReplay({ snapshot, shown: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? snapshot.scene?.buyers.length ?? 0 : 0 });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setReplay({ snapshot, shown: reducedMotion ? snapshot.scene?.buyers.length ?? 0 : 0 });
+    document.getElementById("booking-progress")?.scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth", block: "center" });
   }
-  return <main className="page demo-page">
+  return <main className="page demo-page demo-simple">
     <KopiMessage {...demoKopiCue(view.scene, feedState, replay !== null)} />
-    <div className="demo-toolbar"><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{feedState === "live" ? "Live" : feedState === "stale" ? "Stale" : "Reconnecting"} feed{replay ? " · Viewing local replay" : " · Stored scene"}</p><div className="actions"><button className="button" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>Replay this scene</button>{replay && <button className="button" onClick={() => { replaying.current = false; observation.current = { ...observation.current, replay: true }; setReplay(null); }}>Return to live</button>}</div></div>
+    <header className="demo-intro"><p className="eyebrow">Backfill in action · Simulated buyers</p><h1>Quiet café.<br/><em>Full table.</em></h1><p>Watch separate bookings come together to unlock an off-peak discount.</p></header>
+    <div className="demo-toolbar"><div className="actions"><button className="button primary" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>{replay ? 'Replay' : 'Watch how it works'} <span aria-hidden="true">↗</span></button>{replay && <button className="button" onClick={() => { replaying.current = false; observation.current = { ...observation.current, replay: true }; setReplay(null); }}>Back to latest</button>}</div><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{replay ? 'Recorded playback' : feedState === 'live' ? 'Latest saved bookings' : feedState === 'stale' ? 'Updates paused · last saved view' : 'Connecting to updates'}</p></div>
     {view.scene ? <Scene key={view.scene.id} scene={view.scene} now={now} savings={view.ledger?.pools.find(p => `${p.ruleId}:${p.visitDate}` === view.scene?.id)?.buyerShareCents ?? null} shown={replay?.shown ?? view.scene.buyers.length} /> : <section className="panel"><h1>{feedState === "stale" ? "Feed unavailable" : "No scene yet"}</h1><p>{feedState === "stale" ? "Reconnecting to the stored scene. No results are available yet." : "The dashboard will update when a demo scene is recorded."}</p></section>}
-    {playing ? <p className="small muted">Local animation only. Stored results appear when replay finishes.</p> : <div className="results-grid"><Ledger ledger={view.ledger} />{view.muse && <Muse muse={view.muse} />}</div>}
+    {playing ? <p className="small muted">Recorded playback. No new bookings or payments.</p> : <details className="demo-details"><summary>More about this demo</summary><div className="demo-detail-content results-grid"><Ledger ledger={view.ledger} />{view.muse && <Muse muse={view.muse} />}</div></details>}
   </main>;
 }

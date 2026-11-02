@@ -3,7 +3,7 @@ import { nextOccurrence, singaporeInstant } from "@/domain/commitments/occurrenc
 import { soloVsPooled } from "@/domain/demo/scene";
 import { offerPriceCents, toOffer } from "@/domain/offers/evaluate";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
-import { available, deadlineOf, termsSummary, toCommitment, toRule } from "@/lib/commitments/service";
+import { available, clockTime, deadlineOf, termsSummary, toCommitment, toRule } from "@/lib/commitments/service";
 import { publicDemoLedger, type DemoLedger } from "./ledger";
 import type { Db, Executor } from "@/lib/db/client";
 import { agents, clearingFills, clearings, commitments, merchants, planApplications, rules, wonderPlans } from "@/lib/db/schema";
@@ -39,6 +39,7 @@ export type DemoScene = {
   discountBps: number;
   minPoolCovers: number;
   visitDate: string;
+  visitWindow?: string;
   commitBy: string;
   phase: "open" | "cleared";
   buyers: DemoBuyer[];
@@ -115,6 +116,7 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
     discountBps: rule.terms.discountBps,
     minPoolCovers: rule.terms.minPoolCovers,
     visitDate,
+    visitWindow: `${clockTime(rule.terms.window.startMinute)}–${clockTime(rule.terms.window.endMinute)}`,
     commitBy: deadlineOf(rule, visitDate).toISOString(),
     phase: cleared ? "cleared" : "open",
     buyers: rows.map((r) => ({

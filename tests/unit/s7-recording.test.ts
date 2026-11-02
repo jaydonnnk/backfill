@@ -124,10 +124,33 @@ describe("demo replay labels", () => {
     id: "fixture", events: [], merchantName: "Backfill Demo Cafe", summary: "", ...expected.offer, visitDate: "2026-11-03", commitBy: "2026-11-03T06:03:00.000Z", phase: "cleared", buyers: [], pooled: { covers: 20, unlocked: true, filledCovers: 16, soldOut: true }, plan: null,
   };
 
+  it("keeps requested diners separate from confirmed seats and missing savings", () => {
+    const crowded: DemoScene = { ...scene, buyers: [{ agentId: "group", label: "Group", covers: 20, committedAt: "2026-11-03T05:00:00Z", soloUnlocks: true, outcome: "filled" }] };
+    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: crowded, muse: null, ledger: null } }));
+    expect(html).toContain("20 diners requested seats; 16 could be confirmed.");
+    expect(html).toContain("16 diners confirmed");
+    expect(html).toContain("Savings unavailable");
+  });
+
+  it("does not call an open group confirmed even when the minimum is reached", () => {
+    const open: DemoScene = { ...scene, phase: "open", buyers: [{ agentId: "group", label: "Group", covers: 8, committedAt: "2026-11-03T05:00:00Z", soloUnlocks: true, outcome: "pending" }] };
+    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: open, muse: null, ledger: null } }));
+    expect(html).toContain("Minimum reached. Waiting for confirmation.");
+    expect(html).not.toContain("diners confirmed");
+    expect(html).not.toContain("The group unlocked the offer.");
+  });
+
+  it("shows the failed group outcome without claiming a discount", () => {
+    const failed: DemoScene = { ...scene, pooled: { covers: 2, unlocked: false, filledCovers: 0, soldOut: false } };
+    const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: failed, muse: null, ledger: null } }));
+    expect(html).toContain("No bookings were confirmed for this group.");
+    expect(html).not.toContain("The group unlocked the offer.");
+  });
+
   it("labels simulated buyers and unknown provenance before a plan exists", () => {
     const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene, muse: null, ledger: null } }));
-    expect(html).toContain("Replay this scene");
-    expect(html).toContain("aria-label=\"Pool comparison\"");
+    expect(html).toContain("Watch how it works");
+    expect(html).toContain("aria-label=\"Group booking progress\"");
     expect(html).toContain("Simulated buyers.");
     expect(html).toContain("Buyer decision provenance is unknown");
     expect(html).toContain("No Wonder plan stored yet");
