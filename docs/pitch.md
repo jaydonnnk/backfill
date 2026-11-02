@@ -54,7 +54,6 @@ Backfill gives merchants a better answer: publish terms, and let only agents who
 The demo shows a real Singapore merchant on one side and real Muse plus 20 Muse Spark buyer agents on the other.
 Solo, no agent unlocks the deal.
 Pooled, the off-peak slot fills.
-An eval chart compares Muse Spark with DeepSeek on deal rate, savings and cost per deal.
 
 ## Stretch: merchant agent on WhatsApp
 

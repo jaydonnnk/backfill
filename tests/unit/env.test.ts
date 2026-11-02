@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { ENV_NAMES, evalEnv, webEnv } from "@/env";
+import { ENV_NAMES, webEnv } from "@/env";
 
 const base = {
   DATABASE_URL: "postgres://user:pw@host.example/db",
@@ -61,12 +61,6 @@ describe("webEnv", () => {
     expect(typeof env === "string" ? env : env.APP_BASE_URL).toBe("https://backfill.onrender.com");
     expect(typeof env === "string" ? env : env.NEGOTIATION_SIGNING_SECRET).toBeUndefined();
     expect(() => webEnv({ ...base, META_API_KEY: "" })).toThrow(/META_API_KEY: Invalid input/);
-  });
-});
-
-describe("evalEnv", () => {
-  it("treats every OpenRouter key as optional", () => {
-    expect(evalEnv({})).toEqual({});
   });
 });
 

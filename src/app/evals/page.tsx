@@ -1,20 +1,5 @@
 import Link from 'next/link';
 import { KopiMessage } from '@/components/kopi-companion';
-import { loadEvaluation } from '@/lib/evals/load';
-import type { Run } from '../../../evals/agenticpay/contract';
-
-export const dynamic = 'force-dynamic';
-const money = (cents: number) => `S$${(cents/100).toFixed(2)}`;
-const usd = (nano: number, digits = 4) => `US$${(nano/1e9).toFixed(digits)}`;
-const isSpark = (model: string) => model.includes('muse-spark');
-
-// What each model did in the stored run. Every figure derives from validated episodes and llm_calls.
-function measure(run: Run, model: string) {
-  const summary = run.summary.find(s => s.model === model)!;
-  const calls = run.calls.filter(c => c.model === model), episodes = run.episodes.filter(e => e.model === model);
-  const cost = summary.costNanoUsd;
-  return { summary, calls, episodes, valid: calls.filter(c => c.ok).length, perCall: cost === null || !calls.length ? null : cost / calls.length, worstEpisode: episodes.some(e => e.costNanoUsd === null) ? null : Math.max(0, ...episodes.map(e => e.costNanoUsd ?? 0)) };
-}
 
 const links = [
   ['Menu in', 'A photo becomes an offer.', 'Upload your menu. Spark picks out the dishes and prices for you to review.', ['Menu photo', 'Spark reads', 'Your offer']],
@@ -33,44 +18,23 @@ function ProcessVisual({ step, labels }: { step: number; labels: readonly string
   </div>;
 }
 
-function Measured({ run }: { run: Run }) {
-  const spark = run.config.models.find(isSpark);
-  if (!spark) return null;
-  const s = measure(run, spark);
-  return <>
-    <section className="spark-proof" aria-labelledby="proof-heading">
-      <div className="section-heading"><h2 id="proof-heading">Spark on the job</h2><p>{run.kind === 'synthetic' ? `Illustrative preview · ${s.episodes.length} café examples.` : `${s.episodes.length} simulated café negotiations. Here’s how Spark did.`}</p></div>
-      <dl className="kpi-strip spark-kpis">
-        <div><dt>Valid replies</dt><dd>{s.valid} / {s.calls.length}</dd><meter min="0" max={Math.max(1,s.calls.length)} value={s.valid} aria-label="Valid replies"/></div>
-        <div><dt>Deals closed</dt><dd>{s.summary.deals} <small>of {s.summary.scheduled}</small></dd><meter min="0" max={Math.max(1,s.summary.scheduled)} value={s.summary.deals} aria-label="Deals closed"/></div>
-        <div><dt>Buyer savings</dt><dd>{money(s.summary.savingsCents)}</dd></div>
-        <div><dt>Costliest negotiation</dt><dd>{s.worstEpisode === null ? 'Unavailable' : usd(s.worstEpisode)}</dd></div>
-      </dl>
-      <div className="spark-stories">{s.episodes.map((e, index) => <article key={e.id}>
-        <p className="eyebrow">Café test {String(index+1).padStart(2,'0')}</p>
-        <h3 className={e.outcome==='deal'?'good':e.outcome==='failed'?'bad':'muted'}>{e.outcome==='deal'?'Deal agreed':e.outcome==='failed'?'Test failed':'No deal'}</h3>
-        <div className="story-saving"><span aria-hidden="true">{e.outcome==='deal'?'✓':'—'}</span><strong>{money(e.savingsCents)}</strong><span>buyer savings</span></div>
-        <details><summary>See the negotiation</summary><div className="eval-rounds"><p className="small">Scenario: {e.scenarioId} · Cost: {e.costNanoUsd === null ? 'unavailable' : usd(e.costNanoUsd)}</p>{e.rounds.map(x=><p key={x.round}>Round {x.round}: the buyer offered {money(x.bidCents)}. Spark proposed {x.proposalCents===null?'no usable price':money(x.proposalCents)}. {x.refusal ? 'Backfill blocked a price below the merchant’s minimum.' : 'The price passed the merchant’s rules.'} The counter-offer was {money(x.counterCents)}.</p>)}</div></details>
-      </article>)}</div>
-      <details className="run-record"><summary>About this test run</summary><p className="small">Run {run.runId} · {run.createdAt.slice(0,10)} UTC · {s.calls.length} recorded replies. Costs are checked against the provider’s records.</p></details>
-    </section>
-  </>;
-}
+const roles = [
+  ['Muse Spark', 'Reads the menu photo, proposes every merchant counter-offer, and decides for each simulated buyer.'],
+  ['Muse Wonder', 'Proposes revised terms after a slot sells out. Nothing changes until the owner approves it.'],
+] as const;
 
-export default async function Evals({ searchParams }: { searchParams: Promise<{ preview?: string }> }) {
-  const state = await loadEvaluation((await searchParams).preview === 'synthetic');
-  const run = state.kind === 'ready' ? state.run : null;
-  const synthetic = run?.kind === 'synthetic';
-  const text = synthetic ? 'Follow the journey from menu to full table.' : state.kind === 'invalid' ? 'The stored run could not be verified, so its numbers are hidden.' : run ? 'Muse Spark prices every counter. Here are the receipts.' : 'Why Muse Spark runs our counters. Measured run coming.';
-  return <main className="page eval-page"><KopiMessage pose={state.kind==='invalid'?'shield':'watching'} text={text}/>
+export default function Evals() {
+  return <main className="page eval-page"><KopiMessage pose="watching" text="Why Muse Spark runs our counters."/>
     <header className="eval-heading"><p className="eyebrow">BACKFILL / WHY MUSE SPARK</p><h1>Muse Spark<br/><span className="spark">runs the counter.</span></h1></header>
-    {state.kind === 'invalid' && <div className="eval-notice" role="status"><strong>RESULTS UNAVAILABLE</strong><p>{text}</p></div>}
     <section className="eval-process" aria-labelledby="links-heading">
       <div className="process-index"><p className="eyebrow">From menu to full table</p><h2 id="links-heading">How it comes together.</h2><nav aria-label="How Backfill works">{links.map(([label], i)=><a key={label} href={`#process-${i+1}`}><span>0{i+1}</span>{label}</a>)}</nav></div>
       <div className="process-chapters">{links.map(([label,title,body,labels], i)=><article id={`process-${i+1}`} key={label}><p className="eyebrow">0{i+1} / {label}</p><h3>{title}</h3><p>{body}</p><ProcessVisual step={i} labels={labels}/></article>)}</div>
     </section>
-    {run && !synthetic ? <Measured run={run}/> : !synthetic && <section><h2>Spark on the job</h2><p className="eval-placeholder">{state.kind === 'invalid' ? 'Measured results are hidden until the stored run verifies.' : 'No verified run is published yet.'}</p></section>}
-    {synthetic && run && <Measured run={run}/>}
-    <section className="eval-method"><h2>Where the numbers come from</h2><p>We tested Spark in three made-up café situations, with a simulated buyer and up to three rounds of offers. It used the same instructions and settings as the app. Backfill checked every price against the merchant’s private minimum.</p><p>The savings and costs come from saved test results, checked against the actual AI usage records. This is a small demonstration of how Spark handles the job, not proof that it will perform the same way in every café.</p><Link className="button" href="/demo">See Spark in the recorded demo ↗</Link></section>
+    <section className="eval-method" aria-labelledby="models-heading">
+      <h2 id="models-heading">What each model does</h2>
+      <dl className="model-roles">{roles.map(([model, role])=><div key={model}><dt>{model}</dt><dd>{role}</dd></div>)}</dl>
+      <p>Both are called through the Meta Model API. Every call is stored with its model, token counts, latency and cost, and the diagnostics page lists them. A price is never taken on the model&rsquo;s word: each proposal is checked in code against the merchant&rsquo;s private minimum, and one that breaches it is refused and never signed.</p>
+      <div className="eval-cta"><Link className="button" href="/system">See every logged model call ↗</Link><Link href="/demo">See Spark in the recorded demo ↗</Link></div>
+    </section>
   </main>;
 }

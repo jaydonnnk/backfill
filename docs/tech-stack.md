@@ -9,7 +9,7 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 
 | Layer | Choice | Why |
 |---|---|---|
-| Language | TypeScript (product), Python (evals only) | MCP SDK and ACP are most mature in TS |
+| Language | TypeScript | MCP SDK and ACP are most mature in TS |
 | Node | 24.x (`.node-version`) | Same as envoi |
 | App | Next.js 16 (App Router), React 19, Tailwind 4 | One deployable for UI, API and MCP |
 | Schema | Zod 4: merchant rule, agent terms, commitment, offer, clearing result | One source of truth, also validates model output |
@@ -25,25 +25,23 @@ Layout follows `~/Desktop/envoi`: one Next.js app with an MCP route, a pure `src
 | Role | Model | Access |
 |---|---|---|
 | Real buyer agent | Muse (Meta's consumer agent) | A Muse user adds Backfill as a custom MCP connector; **[unknown]** until the Day 0 check |
-| Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API, Responses format |
+| Merchant agent (memory of rules and fill history, re-plans on sellout) | Muse Wonder | Meta Model API |
 | Vision onboarding (menu photo to offer schema) | Muse Spark | Meta Model API |
 | Live negotiation | Muse Spark | Meta Model API |
 | Simulated buyer agents (20) | Muse Spark | Meta Model API |
-| Eval baseline only | DeepSeek | OpenRouter, paid by the user |
 
-- Base URL `https://api.meta.ai/v1` is OpenAI-compatible; so is OpenRouter.
-- No non-Meta model runs in the live product; DeepSeek appears only in the S9 eval.
+- Base URL `https://api.meta.ai/v1` is OpenAI-compatible.
+- Every model call in the product goes to the Meta Model API; no non-Meta model runs anywhere.
 - One `LLMProvider` interface in `src/integrations`, JSON-schema structured output, Zod validation, retry on invalid output.
 - Model IDs come from Meta's pricing page (https://dev.meta.ai/docs/pricing-rate-limits, read 2026-10-27): `muse-spark-1.3` and `muse-wonder-1.0`.
 `muse-spark-1.3` is **[verified]** by the S1 live call on 2026-10-27; `muse-wonder-1.0` stays **[vendor claim]** until S6 calls it.
 - Never a `-contributor` model: Meta trains on those prompts. `src/env.ts` refuses one at boot.
 - Cost per call comes from the per-model price table in `src/integrations/meta/pricing.ts`, copied from that pricing page (**[vendor claim]**, not yet reconciled against a Meta invoice).
 
-## Evals, sim, tests
+## Sim, tests
 
 | Area | Choice |
 |---|---|
-| Evals (`evals/`) | Python with `uv`, AgenticPay harness or a port; Muse Spark vs DeepSeek on deal rate, savings, cost per deal |
 | Buyer sim (`sim/`) | Script driving 20 Muse Spark agents with varied intents, concurrency-limited; records each live run and replays it with no model calls |
 | Tests | Vitest (unit, integration), Playwright E2E: onboard, commit, clear, ledger |
 | CI | GitHub Actions: lint, typecheck, test |

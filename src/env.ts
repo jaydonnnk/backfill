@@ -47,13 +47,6 @@ const webSchema = z
     APP_BASE_URL: APP_BASE_URL ?? RENDER_EXTERNAL_URL ?? LOCAL_BASE_URL,
   }));
 
-// The S9 eval baseline only. Never set on Render, and the live product never reads it.
-const evalSchema = z.object({
-  OPENROUTER_API_KEY: z.string().min(1).optional(),
-  OPENROUTER_BASE_URL: httpsUrl.optional(),
-  OPENROUTER_MODEL_DEEPSEEK: z.string().min(1).optional(),
-});
-
 const migrationSchema = z.object({ DATABASE_URL: postgresUrl });
 const testSchema = z.object({ TEST_DATABASE_URL: postgresUrl });
 
@@ -67,7 +60,6 @@ export function whatsappEnv(env: WebEnv): WhatsappEnv | null {
   if (appSecret === undefined || verifyToken === undefined || accessToken === undefined || phoneNumberId === undefined) return null;
   return { appSecret, verifyToken, accessToken, phoneNumberId, baseUrl: env.WHATSAPP_GRAPH_BASE_URL };
 }
-export type EvalEnv = z.infer<typeof evalSchema>;
 export type MigrationEnv = z.infer<typeof migrationSchema>;
 export type TestEnv = z.infer<typeof testSchema>;
 
@@ -79,7 +71,6 @@ const PLATFORM_NAMES = new Set(["RENDER_EXTERNAL_URL"]);
 export const ENV_NAMES = [
   ...new Set([
     ...Object.keys(webSchema.in.shape),
-    ...Object.keys(evalSchema.shape),
     ...Object.keys(migrationSchema.shape),
     ...Object.keys(testSchema.shape),
   ]),
@@ -106,10 +97,6 @@ export function webEnv(source: EnvSource = process.env): WebEnv {
   if (source !== process.env) return parse(webSchema, source, "web");
   webCache ??= parse(webSchema, source, "web");
   return webCache;
-}
-
-export function evalEnv(source: EnvSource = process.env): EvalEnv {
-  return parse(evalSchema, source, "eval");
 }
 
 export function migrationEnv(source: EnvSource = process.env): MigrationEnv {

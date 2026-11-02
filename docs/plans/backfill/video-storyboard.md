@@ -28,9 +28,9 @@ Narration: "The ledger reconciles the accepted fills. Buyers receive all the sav
 
 ## 2:10 to 2:40: why Spark
 
-Screen: the published, verified Why Spark page, if it still verifies at recording time. If unavailable, explain that verification is unavailable rather than substituting local fixture numbers.
+Screen: the Why Spark page for the four model roles, then the diagnostics page at `/system` showing the stored call log. Both read live from the database, so nothing on screen can drift from what actually ran.
 
-Narration: "Spark connects menu understanding, merchant negotiation and the simulated buyer workflow. Our stored evaluation uses three synthetic café scenarios. It produced one deal and two dollars twenty in buyer savings, with a below-floor proposal refused by the guard. DeepSeek matched those outcomes at lower cost. This is a small workflow check, not a claim that one model wins overall."
+Narration: "Spark reads the menu, proposes every merchant counter-offer, and decides for each simulated buyer. Wonder re-plans after a sellout. Every call goes to the Meta Model API and is stored with its model, token counts, latency and cost — here they are. And a price is never taken on the model's word. Each proposal is checked in code against the merchant's private minimum. One below it is refused and never signed, and that refusal looks exactly like a merchant choosing to hold, so a buyer cannot probe the floor."
 
 ## 2:40 to 3:00: close
 

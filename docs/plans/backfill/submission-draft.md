@@ -27,20 +27,22 @@ A real Muse account previously submitted a commitment through the custom connect
 
 Typed agent terms, integer SGD cents, Singapore-local deadline handling, per-agent limits, idempotent commitments, bounded negotiation with signed counter-offers, transactional clearing and an append-only savings ledger. The dashboard distinguishes stored results, local replay and interrupted feeds. Kopi's guidance follows observed state and does not turn a pending minimum into a cleared deal.
 
-## Evaluation
+## Model evidence
 
-The stored S9 run evaluated three synthetic café scenarios with scripted buyers. Muse Spark completed those scenarios with one deal, S$2.20 in buyer savings and one proposal refused by the domain floor guard. DeepSeek produced the same scenario outcomes at lower reported cost. This small evaluation demonstrates the guarded workflow; it does not establish model superiority or real merchant demand. The Why Spark page explains Spark's role and links the displayed numbers to the stored call records.
+Every model call the product makes goes to the Meta Model API and is stored in `llm_calls` with its model, token counts, latency and cost. The diagnostics page at `/system` lists those calls, so a judge can see the real Spark and Wonder traffic rather than a summary of it. Prices are checked in code, not in the prompt: a Spark proposal below the merchant's private floor is refused and never signed, and the refusal is indistinguishable from a voluntary hold.
 
 ## Links and completion state
 
 - Hosted app: [Backfill](https://backfill-9d0x.onrender.com/)
 - Recorded-demo dashboard: [Demo](https://backfill-9d0x.onrender.com/demo)
-- Evaluation explanation: [Why Muse Spark](https://backfill-9d0x.onrender.com/evals)
+- Model roles and live call log: [Why Muse Spark](https://backfill-9d0x.onrender.com/evals) and [System](https://backfill-9d0x.onrender.com/system)
 - Video: not recorded or uploaded for this final slice.
 - S9.5 publication: not authorized or performed in this session. Hosted behavior may differ from the local preview.
 
 ## Evidence notes, not for the form
 
-The real Muse connector result is recorded under the S4 Day 0 subsection in 00-status.md. S9 figures come from evals/results/s9-20261102-authorized-02.json, not from the local fixture. Rehearsal evidence is in evidence/s95/rehearsals.json. No new production verification or paid model run is implied by this draft.
+The real Muse connector result is recorded under the S4 Day 0 subsection in 00-status.md. Rehearsal evidence is in evidence/s95/rehearsals.json. No new production verification or paid model run is implied by this draft.
+
+The S9 comparison run and the `/evals` numbers that displayed it were removed on 2026-11-02: that run was served through OpenRouter, which is neither the Meta Model API nor an eligible open-weight inference partner, so presenting its figures as Muse Spark evidence misstated compliance with the required technology. The run's own artifacts are kept under evidence/s9-* as the spend audit trail. `/evals` now describes what each model does and links to the Meta-API call log.
 
 Before submission, the user still owns final video approval/upload and the actual form submission. The plan's internal target converts to November 5 at 07:00 SGT; its deadline converts to November 5 at 10:00 SGT. The current hackathon form deadline remains independently unverified.
