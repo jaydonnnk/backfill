@@ -1,10 +1,10 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
-import { and, asc, gte, lt } from 'drizzle-orm';
+import { asc } from 'drizzle-orm';
 import { connectDb, type Db } from '../../src/lib/db/client';
 import { llmCalls } from '../../src/lib/db/schema';
 import { validateRun } from './contract';
-import { verifyStoredRun } from './store';
+import { inRun, verifyStoredRun } from './store';
 
 // One-use import, authorized by the user on 2026-11-02 ("Copy calls to Neon"): copy run 02's
 // llm_calls rows from its isolated evaluation database into Neon so the hosted /evals can verify it.
@@ -17,13 +17,12 @@ await mkdir(evidence, { recursive: true });
 // Exclusive copy doubles as the one-use marker: a second run fails here before touching Neon.
 await copyFile(resultPath, `${evidence}/${runId}.local-ids.json`, 1 /* COPYFILE_EXCL */);
 const run = validateRun(JSON.parse(await readFile(resultPath, 'utf8')));
-const prefix = `eval:${runId}:`, inRun = and(gte(llmCalls.purpose, prefix), lt(llmCalls.purpose, `eval:${runId};`));
 
 const local = connectDb((await readFile('/tmp/backfill-s9-evaluation-02-url', 'utf8')).trim(), 1);
 let rows;
 try {
   await verifyStoredRun(local.db, run);
-  rows = await local.db.select().from(llmCalls).where(inRun).orderBy(asc(llmCalls.id));
+  rows = await local.db.select().from(llmCalls).where(inRun(runId)).orderBy(asc(llmCalls.id));
 } finally { await local.close(); }
 
 const neon = connectDb(parseEnv(await readFile('.env.local', 'utf8')).DATABASE_URL!, 1);
@@ -31,7 +30,7 @@ const mapping = new Map<number, number>();
 let published;
 try {
   published = await neon.db.transaction(async tx => {
-    if ((await tx.select({ id: llmCalls.id }).from(llmCalls).where(inRun)).length) throw new Error('Run calls already present in Neon');
+    if ((await tx.select({ id: llmCalls.id }).from(llmCalls).where(inRun(runId))).length) throw new Error('Run calls already present in Neon');
     for (const { id, ...row } of rows) {
       const [saved] = await tx.insert(llmCalls).values(row).returning({ id: llmCalls.id });
       mapping.set(id, saved!.id);

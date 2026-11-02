@@ -10,7 +10,11 @@ import { join } from 'node:path';
 import { runStoredEvaluation } from '../../evals/agenticpay/pipeline';
 import { verifyStoredRun } from '../../evals/agenticpay/store';
 let database: TestDatabase;
-beforeAll(async () => { database = await createTestDatabase('s9'); });
+beforeAll(async () => {
+  database = await createTestDatabase('s9');
+  // CI's Postgres uses a linguistic collation; reproduce it so collation-sensitive run selection fails here too.
+  await database.admin`ALTER TABLE llm_calls ALTER COLUMN purpose TYPE text COLLATE "und-x-icu"`;
+});
 afterAll(async () => { await database?.drop(); });
 it('joins only this run, includes failed charges, and rejects missing or changed persisted evidence', async () => {
   const attempt = openRouterAttempt({ apiKey: 'synthetic', journal: async () => {}, fetch: async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"priceCents":780,"rationale":"synthetic fixture"}' } }], usage: { prompt_tokens: 20, completion_tokens: 10, cost: .0001 } })), persist: async row => { const [stored] = await database.db.insert(llmCalls).values(row).returning({ id: llmCalls.id }); if (!stored) throw new Error('Insert failed'); return stored.id; } });
