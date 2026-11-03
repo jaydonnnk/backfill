@@ -1,0 +1,1 @@
+One approved CPU-only Glimmer attempt finished. Inspect pass/failure receipts; no restart or paid inference.

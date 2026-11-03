@@ -1,0 +1,190 @@
+{
+  "provenance": "1-second generated silence WAV; authored Voice/Wonder boundary fixtures; scripted UI owner review and separate approval",
+  "ownerId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+  "ruleId": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+  "before": {
+    "id": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+    "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "unapproved": {
+    "edits": [
+      {
+        "id": "0b58007f-7e0b-46fe-a1da-372cd3996c32",
+        "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+        "ruleId": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+        "termsVersion": 1,
+        "revision": 1,
+        "proposalAttempts": 1,
+        "phase": "proposed",
+        "audioSha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+        "audioDurationMs": 1000,
+        "sampleRate": 16000,
+        "source": "fixture",
+        "voiceModel": "fixture:s3-voice",
+        "wonderModel": "fixture:s3-wonder",
+        "rawTranscript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "transcript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "providerSessionId": "fixture-s3-asr",
+        "providerDurationMs": 1000,
+        "audioCostNanoUsd": null,
+        "reviewedAt": "2026-11-03T08:34:03.720Z",
+        "proposalId": "f72381c5-a534-45be-90ec-e171702cc9bf",
+        "proposalOutput": {
+          "reply": "Fixture Wonder proposal: use these four requested values.",
+          "understood": true,
+          "discountBps": 2500,
+          "minPoolCovers": 6,
+          "capacityCovers": 10,
+          "perAgentCapCovers": 3
+        },
+        "before": {
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "capacityCovers": 8,
+          "perAgentCapCovers": 2
+        },
+        "reason": null,
+        "createdAt": "2026-11-03T08:34:03.559Z",
+        "expiresAt": "2026-11-03T08:49:03.565Z",
+        "approvedAt": null,
+        "approvedVersion": null
+      }
+    ],
+    "changes": [
+      {
+        "id": "f72381c5-a534-45be-90ec-e171702cc9bf",
+        "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+        "ruleId": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+        "termsVersion": 1,
+        "wamid": null,
+        "voiceEditId": "0b58007f-7e0b-46fe-a1da-372cd3996c32",
+        "transcriptRevision": 1,
+        "messageText": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "model": "fixture:s3-wonder",
+        "discountBps": 2500,
+        "capacityCovers": 10,
+        "minPoolCovers": 6,
+        "perAgentCapCovers": 3,
+        "verdict": "ok",
+        "createdAt": "2026-11-03T08:34:03.791Z",
+        "expiresAt": "2026-11-03T08:49:03.565Z"
+      }
+    ],
+    "outcomes": [],
+    "rule": {
+      "id": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+      "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+      "termsVersion": 1,
+      "listPriceCents": 680,
+      "capacityCovers": 8,
+      "weekday": 2,
+      "startMinute": 840,
+      "endMinute": 1020,
+      "commitByMinute": 720,
+      "discountBps": 2000,
+      "minPoolCovers": 8,
+      "perAgentCapCovers": 2,
+      "floorPriceCents": 503
+    }
+  },
+  "applied": {
+    "edits": [
+      {
+        "id": "0b58007f-7e0b-46fe-a1da-372cd3996c32",
+        "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+        "ruleId": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+        "termsVersion": 1,
+        "revision": 1,
+        "proposalAttempts": 1,
+        "phase": "applied",
+        "audioSha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+        "audioDurationMs": 1000,
+        "sampleRate": 16000,
+        "source": "fixture",
+        "voiceModel": "fixture:s3-voice",
+        "wonderModel": "fixture:s3-wonder",
+        "rawTranscript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "transcript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "providerSessionId": "fixture-s3-asr",
+        "providerDurationMs": 1000,
+        "audioCostNanoUsd": null,
+        "reviewedAt": "2026-11-03T08:34:03.720Z",
+        "proposalId": "f72381c5-a534-45be-90ec-e171702cc9bf",
+        "proposalOutput": {
+          "reply": "Fixture Wonder proposal: use these four requested values.",
+          "understood": true,
+          "discountBps": 2500,
+          "minPoolCovers": 6,
+          "capacityCovers": 10,
+          "perAgentCapCovers": 3
+        },
+        "before": {
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "capacityCovers": 8,
+          "perAgentCapCovers": 2
+        },
+        "reason": null,
+        "createdAt": "2026-11-03T08:34:03.559Z",
+        "expiresAt": "2026-11-03T08:49:03.565Z",
+        "approvedAt": "2026-11-03T08:34:03.856Z",
+        "approvedVersion": 2
+      }
+    ],
+    "changes": [
+      {
+        "id": "f72381c5-a534-45be-90ec-e171702cc9bf",
+        "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+        "ruleId": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+        "termsVersion": 1,
+        "wamid": null,
+        "voiceEditId": "0b58007f-7e0b-46fe-a1da-372cd3996c32",
+        "transcriptRevision": 1,
+        "messageText": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "model": "fixture:s3-wonder",
+        "discountBps": 2500,
+        "capacityCovers": 10,
+        "minPoolCovers": 6,
+        "perAgentCapCovers": 3,
+        "verdict": "ok",
+        "createdAt": "2026-11-03T08:34:03.791Z",
+        "expiresAt": "2026-11-03T08:49:03.565Z"
+      }
+    ],
+    "outcomes": [
+      {
+        "changeId": "f72381c5-a534-45be-90ec-e171702cc9bf",
+        "outcome": "applied",
+        "decidedAt": "2026-11-03T08:34:03.856Z"
+      }
+    ],
+    "rule": {
+      "id": "5c094172-a4d8-48ab-89d6-f3e83052875a",
+      "merchantId": "8231dfdb-8af3-4698-9904-aa44888fdc71",
+      "termsVersion": 2,
+      "listPriceCents": 680,
+      "capacityCovers": 10,
+      "weekday": 2,
+      "startMinute": 840,
+      "endMinute": 1020,
+      "commitByMinute": 720,
+      "discountBps": 2500,
+      "minPoolCovers": 6,
+      "perAgentCapCovers": 3,
+      "floorPriceCents": 503
+    }
+  },
+  "browserErrors": [],
+  "genuineModelCalls": 0
+}

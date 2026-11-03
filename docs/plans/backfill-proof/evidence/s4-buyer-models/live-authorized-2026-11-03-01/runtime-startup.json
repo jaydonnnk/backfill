@@ -1,0 +1,28 @@
+{
+  "executable": "/Users/jayd0/Desktop/meta-hack/archive/proof-s4-models/runtime-b10353/llama-b10353/llama-server",
+  "executableSha256": "d3bce60d45758268a90e0fca82ce5a22d5c35ecb92a06d1c544ed68ec2efa769",
+  "model": "/Users/jayd0/Desktop/meta-hack/archive/proof-s4-models/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+  "modelSha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+  "arguments": [
+    "-m",
+    "/Users/jayd0/Desktop/meta-hack/archive/proof-s4-models/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+    "--alias",
+    "muse-glimmer-s4",
+    "-c",
+    "2048",
+    "-np",
+    "1",
+    "-ngl",
+    "99",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8088",
+    "--chat-template-kwargs",
+    "{\"reasoning_strength\":\"low\"}"
+  ],
+  "beforePressure": 1,
+  "baselineSwapMb": 3248.38,
+  "contextLimit": 2048,
+  "slots": 1
+}

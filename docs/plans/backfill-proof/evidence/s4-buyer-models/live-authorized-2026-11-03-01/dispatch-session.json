@@ -1,0 +1,11 @@
+{
+  "authority": "User All is granted after exact A/B/C plan",
+  "at": "2026-11-03T09:09:59.458Z",
+  "maximumGatewayCalls": 5,
+  "maximumLocalParserCalls": 6,
+  "maximumUsd": 6.57,
+  "retries": 0,
+  "modelSha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+  "executableSha256": "d3bce60d45758268a90e0fca82ce5a22d5c35ecb92a06d1c544ed68ec2efa769",
+  "production": "no access or writes"
+}

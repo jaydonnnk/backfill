@@ -1,0 +1,40 @@
+{
+  "status": "ok",
+  "session": {
+    "id": "f86a119d-a969-43d6-b8c5-fe72af7b9899",
+    "partyId": "3ec1366d-cb77-4753-88aa-21acc39f6f57",
+    "runId": "f86a119d-a969-43d6-b8c5-fe72af7b9899",
+    "revision": 0,
+    "request": "Two people on 2026-11-05. Arrival time, departure time, budget and currency are undecided.",
+    "referenceClock": "2026-11-03T12:00:00.000Z",
+    "expiresAt": "2026-11-03T12:20:00.000Z",
+    "attempts": 1,
+    "phase": "clarification",
+    "proposal": {
+      "partySize": 2,
+      "visitDate": "2026-11-05",
+      "earliest": null,
+      "latest": null,
+      "budgetPerCoverCents": null,
+      "currency": null,
+      "requirements": []
+    },
+    "constraints": null,
+    "decision": null,
+    "terms": null,
+    "offer": null,
+    "parseReceipt": {
+      "source": "provider",
+      "route": "nvidia_nim",
+      "model": "meta/muse-glimmer-30b",
+      "servedModel": "meta/muse-glimmer-30b",
+      "upstream": null,
+      "inputTokens": 262,
+      "outputTokens": 240,
+      "costUsd": null
+    },
+    "decisionReceipt": null,
+    "approval": null,
+    "result": null
+  }
+}

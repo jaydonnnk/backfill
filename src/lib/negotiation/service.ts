@@ -4,7 +4,7 @@ import { signCounterOffer } from "@/domain/negotiation/counter-offer";
 import { MAX_ROUNDS, maxConcessionCents, type RoundContext, type RoundStatus, settleRound, startRound } from "@/domain/negotiation/rules";
 import { offerPriceCents } from "@/domain/offers/evaluate";
 import { available, type Clock, constraintOf, deadlineOf, toRule } from "@/lib/commitments/service";
-import type { Db } from "@/lib/db/client";
+import type { Executor } from "@/lib/db/client";
 import { commitments, merchants, negotiationRounds, negotiations, rules } from "@/lib/db/schema";
 import type { ProposeCounter } from "./merchant-agent";
 
@@ -55,7 +55,7 @@ class Refused extends Error {
 // One round. The model is asked outside any transaction, since a call can take seconds; the round is
 // then stored under its primary key, so of two simultaneous bids for one round only the first counts
 // and the other is answered negotiation_busy.
-export async function negotiate(db: Db, deps: NegotiationDeps, agentId: string, input: NegotiateInput): Promise<NegotiateResult> {
+export async function negotiate(db: Executor, deps: NegotiationDeps, agentId: string, input: NegotiateInput): Promise<NegotiateResult> {
   const now = (deps.clock ?? (() => new Date()))();
   try {
     const [row] = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, eq(rules.merchantId, merchants.id)).where(eq(rules.id, input.ruleId));

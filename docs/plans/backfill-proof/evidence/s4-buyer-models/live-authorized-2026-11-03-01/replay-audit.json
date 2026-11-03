@@ -1,0 +1,250 @@
+{
+  "networkCalls": 0,
+  "cases": [
+    {
+      "case": "eligible-1",
+      "recording": {
+        "version": "s4-buyer-1",
+        "sessionId": "63e9cacb-cbc8-45c3-8c35-0a8945a2ff44",
+        "partyId": "69e72f2b-9c46-487c-954a-ec39f5d0c7a2",
+        "revision": 1,
+        "request": "Two for kopi on 2026-11-05 from 14:00 to 17:00, maximum SGD6 per person.",
+        "referenceClock": "2026-11-03T09:10:24.671Z",
+        "parsed": null,
+        "constraints": {
+          "partySize": 2,
+          "visitDate": "2026-11-05",
+          "earliest": "14:00",
+          "latest": "17:00",
+          "budgetPerCoverCents": 600,
+          "currency": "SGD",
+          "requirements": []
+        },
+        "offer": {
+          "merchantName": "Backfill Demo Cafe",
+          "about": "the public offer summary; no additional dietary or location guarantees",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z",
+          "perAgentCapCovers": 2
+        },
+        "decision": {
+          "covers": 2,
+          "reason": "Price $5.44 within $6 budget, time 14:00-17:00 matches 2pax request on 2026-11-05. Pool needs 8 covers, limit 2 per agent so committing 2 fits intent."
+        },
+        "parseReceipt": null,
+        "decisionReceipt": {
+          "source": "provider",
+          "route": "vercel_gateway",
+          "model": "meta/muse-spark-open",
+          "servedModel": "meta/muse-spark-open",
+          "upstream": "baseten",
+          "inputTokens": 487,
+          "outputTokens": 341,
+          "costUsd": null
+        }
+      },
+      "source": "recorded_replay",
+      "parserEvidence": "missing; not fabricated",
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-2",
+      "recording": {
+        "version": "s4-buyer-1",
+        "sessionId": "bb19a814-199c-4718-a914-d83d6ba27079",
+        "partyId": "b958804c-b57f-4130-bdc8-0f02b95380a3",
+        "revision": 1,
+        "request": "My mum and I want kopi on 2026-11-05, 14:00 until 17:00. Our total budget is SGD12.",
+        "referenceClock": "2026-11-03T09:10:28.527Z",
+        "parsed": null,
+        "constraints": {
+          "partySize": 2,
+          "visitDate": "2026-11-05",
+          "earliest": "14:00",
+          "latest": "17:00",
+          "budgetPerCoverCents": 600,
+          "currency": "SGD",
+          "requirements": []
+        },
+        "offer": {
+          "merchantName": "Backfill Demo Cafe",
+          "about": "the public offer summary; no additional dietary or location guarantees",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z",
+          "perAgentCapCovers": 2
+        },
+        "decision": {
+          "covers": 2,
+          "reason": "Fits date/time 5 Nov 14:00-17:00, S$5.44/cover within S$6.00 budget. Total S$10.88 within S$12 budget for 2. Committing 2 covers."
+        },
+        "parseReceipt": null,
+        "decisionReceipt": {
+          "source": "provider",
+          "route": "vercel_gateway",
+          "model": "meta/muse-spark-open",
+          "servedModel": "meta/muse-spark-open",
+          "upstream": "baseten",
+          "inputTokens": 491,
+          "outputTokens": 238,
+          "costUsd": null
+        }
+      },
+      "source": "recorded_replay",
+      "parserEvidence": "missing; not fabricated",
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-3",
+      "recording": {
+        "version": "s4-buyer-1",
+        "sessionId": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+        "partyId": "86e2ecb2-393b-4403-ba32-707c1e27ff2d",
+        "revision": 1,
+        "request": "Kopi for two colleagues, 2026-11-05 between 14:00 and 17:00, at most SGD6 each.",
+        "referenceClock": "2026-11-03T09:10:31.246Z",
+        "parsed": null,
+        "constraints": {
+          "partySize": 2,
+          "visitDate": "2026-11-05",
+          "earliest": "14:00",
+          "latest": "17:00",
+          "budgetPerCoverCents": 600,
+          "currency": "SGD",
+          "requirements": []
+        },
+        "offer": {
+          "merchantName": "Backfill Demo Cafe",
+          "about": "the public offer summary; no additional dietary or location guarantees",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z",
+          "perAgentCapCovers": 2
+        },
+        "decision": {
+          "covers": 2,
+          "reason": "Fits request: Nov 5 Thu 14:00-17:00 within window, S$5.44 <= S$6 budget, party of 2."
+        },
+        "parseReceipt": null,
+        "decisionReceipt": {
+          "source": "provider",
+          "route": "vercel_gateway",
+          "model": "meta/muse-spark-open",
+          "servedModel": "meta/muse-spark-open",
+          "upstream": "baseten",
+          "inputTokens": 489,
+          "outputTokens": 503,
+          "costUsd": null
+        }
+      },
+      "source": "recorded_replay",
+      "parserEvidence": "missing; not fabricated",
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-4",
+      "recording": {
+        "version": "s4-buyer-1",
+        "sessionId": "37eed960-dd03-4e0c-ac3f-ce7043b05314",
+        "partyId": "0514c439-a829-454d-8109-93a4efc07b47",
+        "revision": 1,
+        "request": "Two friends looking for kopi on 2026-11-05 from 14:00 to 17:00. Budget SGD6 per cover.",
+        "referenceClock": "2026-11-03T09:10:34.313Z",
+        "parsed": null,
+        "constraints": {
+          "partySize": 2,
+          "visitDate": "2026-11-05",
+          "earliest": "14:00",
+          "latest": "17:00",
+          "budgetPerCoverCents": 600,
+          "currency": "SGD",
+          "requirements": []
+        },
+        "offer": {
+          "merchantName": "Backfill Demo Cafe",
+          "about": "the public offer summary; no additional dietary or location guarantees",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z",
+          "perAgentCapCovers": 2
+        },
+        "decision": {
+          "covers": 2,
+          "reason": "Offer matches date/time 2026-11-05 14:00-17:00 and price S$5.44 is under S$6 budget per cover for 2 pax."
+        },
+        "parseReceipt": null,
+        "decisionReceipt": {
+          "source": "provider",
+          "route": "vercel_gateway",
+          "model": "meta/muse-spark-open",
+          "servedModel": "meta/muse-spark-open",
+          "upstream": "baseten",
+          "inputTokens": 489,
+          "outputTokens": 230,
+          "costUsd": null
+        }
+      },
+      "source": "recorded_replay",
+      "parserEvidence": "missing; not fabricated",
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "refusal-1",
+      "recording": {
+        "version": "s4-buyer-1",
+        "sessionId": "19b85ee7-6774-45b2-b51e-bebe23bee56c",
+        "partyId": "1489fd93-ac80-437f-81fb-988decbc46dc",
+        "revision": 1,
+        "request": "Two for kopi on 2026-11-05 from 14:00 to 17:00, maximum SGD1 per person.",
+        "referenceClock": "2026-11-03T09:10:36.781Z",
+        "parsed": null,
+        "constraints": {
+          "partySize": 2,
+          "visitDate": "2026-11-05",
+          "earliest": "14:00",
+          "latest": "17:00",
+          "budgetPerCoverCents": 100,
+          "currency": "SGD",
+          "requirements": []
+        },
+        "offer": {
+          "merchantName": "Synthetic S4 separate refusal cafe",
+          "about": "the public offer summary; no additional dietary or location guarantees",
+          "summary": "Synthetic S4 separate refusal cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z",
+          "perAgentCapCovers": 2
+        },
+        "decision": {
+          "covers": 0,
+          "reason": "Offer price S$5.44 per person exceeds maximum SGD1.00 budget per cover."
+        },
+        "parseReceipt": null,
+        "decisionReceipt": {
+          "source": "provider",
+          "route": "vercel_gateway",
+          "model": "meta/muse-spark-open",
+          "servedModel": "meta/muse-spark-open",
+          "upstream": "baseten",
+          "inputTokens": 491,
+          "outputTokens": 246,
+          "costUsd": null
+        }
+      },
+      "source": "recorded_replay",
+      "parserEvidence": "missing; not fabricated",
+      "wrongPartyAndOccurrenceRejected": true
+    }
+  ]
+}

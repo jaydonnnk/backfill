@@ -1,0 +1,17 @@
+{
+  "priorProductManifestFiles": 101,
+  "unchangedProductFiles": 97,
+  "intentionallyChangedProductFiles": [
+    "src/app/buyer/review.tsx",
+    "src/lib/buyer/deps.ts",
+    "src/lib/buyer/models.ts",
+    "src/lib/buyer/service.ts"
+  ],
+  "gitRefs": [
+    "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+    "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+    "b1df9ad08dbbcd526c12d42ca3d12090598a797c"
+  ],
+  "branch": "backfill/proof-s4-buyer-models",
+  "stagedPaths": []
+}

@@ -1,0 +1,11 @@
+✔ reserves all five cases once across independent guard instances; never stores auth headers (17.856459ms)
+✔ failure consumes its durable slot; modified settings, unknown cases and remote paths dispatch nothing (4.868292ms)
+✔ preload blocks direct Meta, allows exactly one pinned local request and refuses altered bodies before upstream (39.5405ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70.158041

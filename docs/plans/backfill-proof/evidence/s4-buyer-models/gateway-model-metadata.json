@@ -1,0 +1,80 @@
+{
+  "source": "https://ai-gateway.vercel.sh/v1/models",
+  "model": {
+    "id": "meta/muse-spark-open",
+    "object": "model",
+    "created": 1755815280,
+    "released": 1792022400,
+    "owned_by": "meta",
+    "name": "Muse Spark Open",
+    "description": "Muse Spark Open is Meta\u2019s open-weight reasoning model for coding and agentic workflows. Its sparse mixture-of-experts architecture has 816 billion total parameters with approximately 42 billion active per token, combining code generation, tool use, and image understanding. A one-million-token context window supports repository analysis, multi-file changes, debugging, and long-running agent tasks. This provider also documents audio and video input with text output.",
+    "context_window": 1048576,
+    "max_tokens": 1048576,
+    "type": "language",
+    "zdr": "all",
+    "no_training": "all",
+    "tags": [
+      "audio-input",
+      "implicit-caching",
+      "reasoning",
+      "structured-output",
+      "tool-use",
+      "video-input",
+      "vision"
+    ],
+    "regions": [
+      "us"
+    ],
+    "supported_specifications": [
+      "v2",
+      "v3",
+      "v4"
+    ],
+    "modalities": {
+      "input": [
+        "text",
+        "audio",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "supported_parameters": [
+      "max_tokens",
+      "temperature",
+      "stop",
+      "tools",
+      "tool_choice",
+      "reasoning",
+      "include_reasoning",
+      "response_format",
+      "structured_outputs"
+    ],
+    "temperature": true,
+    "reasoning_options": [
+      {
+        "type": "effort",
+        "values": [
+          "low",
+          "medium",
+          "high",
+          "xhigh"
+        ]
+      }
+    ],
+    "pricing": {
+      "input": "0.00000125",
+      "output": "0.00000425",
+      "input_cache_read": "0.00000015",
+      "regional": {
+        "us": {
+          "input": "0.00000125",
+          "output": "0.00000425",
+          "input_cache_read": "0.00000015"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-11-03T14:15:30.625Z",
+  "completedAt": "2026-11-03T14:18:12.182Z",
+  "appUrl": "http://127.0.0.1:64044",
+  "attemptId": "2026-11-03T14-15-30-584Z",
+  "testScope": "all combined regressions",
+  "sourceAllowlist": [
+    "src",
+    "public",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "postcss.config.mjs",
+    "tests/support/proof-s3.ts",
+    "tests/support/proof-s4.ts",
+    "sim/buyers/buyer.ts",
+    "sim/buyers/intents.ts"
+  ],
+  "fixtureInjection": "Only src/lib/owner-voice/deps.ts and src/lib/buyer/deps.ts replaced in disposable snapshot; actual actions/service/database run unchanged",
+  "realOwnerDepsSha256": "4d163661f20355593de4a88ac3e67c16dcc86372b10b47d91e543227b063bae4",
+  "realBuyerDepsSha256": "a807fccf113e0109a9448a16632fa7518e0c1ce10e66ac98829056d6c455ba4b",
+  "modelConfiguration": "offline-dummy at model.invalid; Voice/Wonder/Glimmer/Spark Open fixtures only",
+  "audio": "generated 1 second silence WAV, not speech; fixture transcript is authored independently",
+  "runtimeRole": "disposable member of backfill_app",
+  "retries": 0,
+  "genuineModelCalls": 0
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "path": "src/lib/buyer/models.ts",
+    "sha256": "5c0111d7a7773fb3b732ea0667b5c78e4dbfe3efa065fbce84e4d7f8e457a6ed"
+  },
+  {
+    "path": "src/lib/buyer/service.ts",
+    "sha256": "ecc8b4a2524150370c8a13e45ad2ffc5a828c79c83ede6d06150f59f2a49865d"
+  },
+  {
+    "path": "src/lib/buyer/http.ts",
+    "sha256": "d997a8252b65230995fe345a21ea5c55b74299ca9284f65701d686d5d0231e91"
+  },
+  {
+    "path": "scripts/verification/proof-s4-nvidia-acceptance.ts",
+    "sha256": "b3a0d07dd194699e2430bdecc272e013f7888ce4d720ce09f0bdd79ced514ad6"
+  },
+  {
+    "path": "scripts/verification/proof-s4-nvidia-guard.mjs",
+    "sha256": "96fcf58e78fb1c966cf105c5b8c44146bce90a619c6c6d41cfafd64b0e6168e8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/explicit-result.json",
+    "sha256": "0a8dbbe038ff4654c49b5065f952e728fe95e78bf3cc30c574497ce714c582e7"
+  }
+]

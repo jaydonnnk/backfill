@@ -511,3 +511,10 @@ export const demoTrails = pgTable('demo_trails', {
   record: jsonb('record').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
+
+// Private S4 buyer workspace. Never projected into public snapshots.
+export const buyerSessions = pgTable('buyer_sessions', {
+  id: uuid('id').primaryKey(), partyId: text('party_id').notNull().references(() => agents.id),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  record: jsonb('record').notNull(),
+});

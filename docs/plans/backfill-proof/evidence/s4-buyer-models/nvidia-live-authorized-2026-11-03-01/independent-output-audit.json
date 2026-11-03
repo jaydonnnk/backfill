@@ -1,0 +1,18 @@
+{
+  "networkCalls": 0,
+  "explicitExtractionSemanticallyValid": true,
+  "actualProviderRequests": 1,
+  "requestHttpStatus": 200,
+  "model": "meta/muse-glimmer-30b",
+  "inputTokens": 270,
+  "outputTokens": 275,
+  "actualInvoicedCostUsd": null,
+  "testOracleMismatch": "Expected requirements [] omitted the explicit kopi request; actual [kopi] satisfies the prompt",
+  "frozenRunPassed": false,
+  "clarificationExecuted": false,
+  "postParseLiveGuardsExecuted": false,
+  "fullS4aComplete": false,
+  "allowanceClosed": true,
+  "bookingsCreated": 0,
+  "reviewer": "Independent read-only reviewer agreed this is an overly narrow test oracle, not an established parser defect"
+}

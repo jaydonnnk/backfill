@@ -1,0 +1,11 @@
+{
+  "case": "eligible-2",
+  "endpoint": "https://ai-gateway.vercel.sh/v4/ai/language-model",
+  "model": "meta/muse-spark-open",
+  "maxOutputTokens": 512,
+  "reasoning": "low",
+  "onlyUpstream": "baseten",
+  "startedAt": "2026-11-03T09:10:29.567Z",
+  "bodySha256": "96378a7fdc736c85bb97667402cd86a46f9cfa0c1f775b0f75b2376477e2cc31",
+  "ceilingUsd": 1.312896
+}

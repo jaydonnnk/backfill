@@ -1,0 +1,29 @@
+ M docs/plans/backfill-proof/00-status.md
+ M drizzle/meta/_journal.json
+ M src/lib/commitments/service.ts
+ M src/lib/db/schema.ts
+ M src/lib/mcp/server.ts
+ M src/lib/negotiation/service.ts
+?? config/playwright.proof-s4.config.ts
+?? docs/plans/backfill-proof/evidence/s4-buyer-models/
+?? docs/plans/backfill-proof/s4a-gateway-migration-handoff-2026-11-03.md
+?? drizzle/0016_proof_s4_buyer_sessions.sql
+?? scripts/verification/proof-s4-browser.ts
+?? scripts/verification/proof-s4-glimmer-cpu.ts
+?? scripts/verification/proof-s4-live-audit.ts
+?? scripts/verification/proof-s4-live-guard.mjs
+?? scripts/verification/proof-s4-live-guard.test.mjs
+?? scripts/verification/proof-s4-live-preload.mjs
+?? scripts/verification/proof-s4-live-preload.test.mjs
+?? scripts/verification/proof-s4-live-ui.ts
+?? scripts/verification/proof-s4-live.ts
+?? scripts/verification/proof-s4-memory-census.py
+?? src/app/api/buyer/
+?? src/app/buyer/
+?? src/lib/buyer/
+?? tests/e2e/proof-s4.spec.ts
+?? tests/integration/proof-s4-buyer.test.ts
+?? tests/integration/proof-s4-guards.test.ts
+?? tests/support/proof-s4.ts
+?? tests/unit/proof-s4-models.test.ts
+?? tests/unit/proof-s4-providers.test.ts

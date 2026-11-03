@@ -1,0 +1,16 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  57 passed (57)
+      Tests  550 passed (550)
+   Start at  22:26:11
+   Duration  5.14s (tests 64%, import 22%, transform 9%, setup 4%)
+
+    Isolate  57 workers spawned · ~70ms startup each (spawn + environment, per file)
+             at least ~293ms faster with isolate: false — reuses workers across files instead of one per file
+

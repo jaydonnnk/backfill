@@ -1,0 +1,155 @@
+{
+  "session": {
+    "id": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+    "partyId": "86e2ecb2-393b-4403-ba32-707c1e27ff2d",
+    "runId": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+    "revision": 1,
+    "request": "Kopi for two colleagues, 2026-11-05 between 14:00 and 17:00, at most SGD6 each.",
+    "referenceClock": "2026-11-03T09:10:31.246Z",
+    "expiresAt": "2026-11-03T09:30:31.246Z",
+    "attempts": 1,
+    "phase": "submitted",
+    "proposal": null,
+    "constraints": {
+      "partySize": 2,
+      "visitDate": "2026-11-05",
+      "earliest": "14:00",
+      "latest": "17:00",
+      "budgetPerCoverCents": 600,
+      "currency": "SGD",
+      "requirements": []
+    },
+    "decision": {
+      "covers": 2,
+      "reason": "Fits request: Nov 5 Thu 14:00-17:00 within window, S$5.44 <= S$6 budget, party of 2."
+    },
+    "terms": {
+      "runId": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+      "partyId": "86e2ecb2-393b-4403-ba32-707c1e27ff2d",
+      "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+      "termsVersion": 1,
+      "visitDate": "2026-11-05",
+      "covers": 2,
+      "pricePerCoverCents": 544,
+      "totalCents": 1088
+    },
+    "offer": {
+      "ok": true,
+      "terms": {
+        "merchantName": "Backfill Demo Cafe",
+        "offer": {
+          "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+          "merchantId": "19fba2ee-f322-4f11-84ff-b05de5681037",
+          "termsVersion": 1,
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "discountBps": 2000,
+          "window": {
+            "weekday": 4,
+            "startMinute": 840,
+            "endMinute": 1020,
+            "commitByMinute": 720
+          },
+          "minPoolCovers": 8,
+          "perAgentCapCovers": 2
+        },
+        "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+        "nextOccurrence": {
+          "visitDate": "2026-11-05",
+          "commitBy": "2026-11-05T04:00:00.000Z",
+          "startsAt": "2026-11-05T06:00:00.000Z",
+          "endsAt": "2026-11-05T09:00:00.000Z"
+        }
+      },
+      "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+    },
+    "parseReceipt": null,
+    "decisionReceipt": {
+      "source": "provider",
+      "route": "vercel_gateway",
+      "model": "meta/muse-spark-open",
+      "servedModel": "meta/muse-spark-open",
+      "upstream": "baseten",
+      "inputTokens": 489,
+      "outputTokens": 503,
+      "costUsd": null
+    },
+    "approval": {
+      "terms": {
+        "runId": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+        "partyId": "86e2ecb2-393b-4403-ba32-707c1e27ff2d",
+        "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+        "termsVersion": 1,
+        "visitDate": "2026-11-05",
+        "covers": 2,
+        "pricePerCoverCents": 544,
+        "totalCents": 1088
+      },
+      "source": "agent_action",
+      "approvedAt": "2026-11-03T09:10:34.186Z"
+    },
+    "result": {
+      "ok": true,
+      "replayed": false,
+      "commitment": {
+        "commitmentId": "f37ffa49-ecde-4a08-9dd9-875d59bc0af9",
+        "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+        "termsVersion": 1,
+        "visitDate": "2026-11-05",
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "committedAt": "2026-11-03T09:10:34.235Z",
+        "commitBy": "2026-11-05T04:00:00.000Z",
+        "status": "pending",
+        "pooledCovers": 6,
+        "minPoolCovers": 8
+      },
+      "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+    }
+  },
+  "recording": {
+    "version": "s4-buyer-1",
+    "sessionId": "8825da00-85f9-4b1c-a3e4-67a527b99efb",
+    "partyId": "86e2ecb2-393b-4403-ba32-707c1e27ff2d",
+    "revision": 1,
+    "request": "Kopi for two colleagues, 2026-11-05 between 14:00 and 17:00, at most SGD6 each.",
+    "referenceClock": "2026-11-03T09:10:31.246Z",
+    "parsed": null,
+    "constraints": {
+      "partySize": 2,
+      "visitDate": "2026-11-05",
+      "earliest": "14:00",
+      "latest": "17:00",
+      "budgetPerCoverCents": 600,
+      "currency": "SGD",
+      "requirements": []
+    },
+    "offer": {
+      "merchantName": "Backfill Demo Cafe",
+      "about": "the public offer summary; no additional dietary or location guarantees",
+      "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+      "visitDate": "2026-11-05",
+      "commitBy": "2026-11-05T04:00:00.000Z",
+      "startsAt": "2026-11-05T06:00:00.000Z",
+      "endsAt": "2026-11-05T09:00:00.000Z",
+      "perAgentCapCovers": 2
+    },
+    "decision": {
+      "covers": 2,
+      "reason": "Fits request: Nov 5 Thu 14:00-17:00 within window, S$5.44 <= S$6 budget, party of 2."
+    },
+    "parseReceipt": null,
+    "decisionReceipt": {
+      "source": "provider",
+      "route": "vercel_gateway",
+      "model": "meta/muse-spark-open",
+      "servedModel": "meta/muse-spark-open",
+      "upstream": "baseten",
+      "inputTokens": 489,
+      "outputTokens": 503,
+      "costUsd": null
+    }
+  },
+  "offlineReplayVerified": true,
+  "approvals": "scripted authenticated UI actions, not real-person consent"
+}

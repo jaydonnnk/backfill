@@ -113,6 +113,13 @@
       "when": 1793686400000,
       "tag": "0015_proof_s3_owner_voice",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1793690000000,
+      "tag": "0016_proof_s4_buyer_sessions",
+      "breakpoints": true
     }
   ]
 }

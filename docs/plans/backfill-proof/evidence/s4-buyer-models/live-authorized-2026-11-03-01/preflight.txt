@@ -1,0 +1,1 @@
+Pinned weight/product hashes and public rate preflight passed; no inference or credential loading.

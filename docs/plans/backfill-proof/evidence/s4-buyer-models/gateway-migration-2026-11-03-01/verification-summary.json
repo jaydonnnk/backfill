@@ -1,0 +1,21 @@
+{
+  "completedAt": "2026-11-03T13:40:28.342058+00:00",
+  "tests": 546,
+  "testFiles": 57,
+  "typecheck": "passed",
+  "lint": "passed",
+  "productionBuilds": 2,
+  "chromiumChecks": 22,
+  "guardTests": 3,
+  "genuineS4bOfflineReplays": 5,
+  "viewports": [
+    1280,
+    375
+  ],
+  "buyerCapturesVisuallyInspected": 6,
+  "independentReviewFindings": 0,
+  "newInferenceRequests": 0,
+  "billingChanges": false,
+  "fullS4Complete": false,
+  "hostedS4aGenuineProof": "blocked by free-credit eligibility/access and separate exact run authority"
+}

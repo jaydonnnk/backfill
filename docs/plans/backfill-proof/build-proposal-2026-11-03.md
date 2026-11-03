@@ -1,12 +1,9 @@
 # Backfill revised build proposal
 
-Status: Slice 0 audit explicitly authorized and completed on 2026-11-03; S1–S8
-remain unstarted. See [S0 evidence](evidence/s0-preflight-2026-11-03.md).
-Spark Open access was subsequently verified through Vercel AI Gateway and the
-AI SDK; use the updated S4 route below. No direct Baseten account is required
-for that route. Bonus-prize partner verification remains separate and unresolved.
-This is a scope and acceptance proposal, not approved architecture or executable
-program design. No further implementation is authorized by this document.
+Current status is in [00-status](00-status.md). Glimmer uses the
+[NVIDIA S4a contract](s4a-nvidia.md); Spark Open retains its separate Gateway
+route. The user approved one bounded NVIDIA parser test. Other slice, billing,
+production and publication boundaries remain unchanged.
 
 ## Goal and scoring honesty
 
@@ -76,9 +73,9 @@ order, not working integrations or measured results. The existing
    is optional transport work, not a new critical dependency.
    Initial voice edits cover only discount, capacity, minimum pool and per-agent
    cap. Offer window and private floor remain manual, as in the existing service.
-4. **Muse Glimmer, local:** turn one buyer's natural-language request into
-   proposed constraints for that buyer to review. Demonstrate useful local
-   inference without claiming the hosted shared pool works offline. Do not
+4. **Muse Glimmer through NVIDIA:** turn one buyer's natural-language request into
+   proposed constraints for that buyer to review. Use hosted `meta/muse-glimmer-30b`
+   through NVIDIA. The request leaves the device. Do not
    create a fallback orchestration system or promise twenty concurrent agents.
 5. **Muse Spark Open through Vercel AI Gateway:** assess offers for independent buyer
    agents using the existing simulation/MCP path. Four distinct test identities
@@ -129,27 +126,25 @@ chat interface into a general provider framework as a prerequisite.
 ## Proposed work packages and timeboxes
 
 The target is 23 productive hours plus 2 hours contingency. These are allocation
-limits, not established estimates. They assume usable access, a fitting local
-model, supported media formats and reusable local test infrastructure. Missing
+limits, not established estimates. They assume usable hosted access, supported media formats and reusable local test infrastructure. Missing
 those prerequisites makes the schedule incomplete; it does not relax proof.
 Downloads, partner responses and approvals add wall-clock time.
 This is a stretch build allocation after feasibility is established, not a total
 project estimate. S0 can identify missing prerequisites but cannot prove unknown
-media contracts or Glimmer memory fit from documentation alone. Establishing
+media contracts or hosted Glimmer access from documentation alone. Establishing
 those empirically may require additional time or actions outside current scope.
 If they remain unresolved, there is no credible all-eight 25-hour commitment.
 
 ### S0: availability and baseline, 1 hour
 
 - Read existing access evidence, exact model identifiers, non-chat contracts,
-  artifact format requirements and eligible partner status. Identify the local
-  model's runtime/context requirements; downloaded weight size is not total RAM.
+  artifact format requirements and eligible partner status. Identify Glimmer's hosted route, provider eligibility and bounded request requirements.
 - Mark every tool separately: access unknown / offline contract verified /
   integration verified / genuine usage evidenced. One does not imply the next.
 - Confirm a disposable local database and hermetic test path. Inventory existing
   recordings and their source scenario before using them as evidence.
 - Acceptance: a truthful dependency sheet. Unknown endpoints, missing access or
-  unproven memory fit remain visible blockers. No paid probes, applications,
+  unproven hosted access remain visible blockers. No paid probes, applications,
   installations or downloads are authorized by this planning step.
 
 ### S1: one complete transaction journey, 3 hours
@@ -196,11 +191,11 @@ If they remain unresolved, there is no credible all-eight 25-hour commitment.
 
 ### S4: two open-weight roles, 4 hours
 
-- Add the smallest local intent-parsing path for Glimmer and partner-backed
+- Add the smallest hosted intent-parsing path for Glimmer and partner-backed
   buyer decision path for Spark Open. Reuse buyer validators and MCP execution.
-- Split this package into S4a, local Glimmer setup/intent parsing, and S4b,
+- Split this package into S4a, hosted Glimmer intent parsing, and S4b,
   Spark Open buyer integration through the verified Vercel AI SDK path. Keep
-  the combined four-hour allocation conditional; Glimmer feasibility is open.
+  the combined four-hour allocation conditional; genuine NVIDIA parser access/output needs verification.
 - S4b reuses installed `ai` 7.0.162 and the SDK configuration proven in
   `index.ts`: `meta/muse-spark-open`, explicit low reasoning and bounded
   output/timeout, with automatic client retries disabled. Adapt it to the
@@ -211,7 +206,11 @@ If they remain unresolved, there is no credible all-eight 25-hour commitment.
   identifier on Gateway, or claim bonus eligibility without supporting proof.
 - A successful holiday-generation smoke test is access evidence only. S4b must
   still prove valid buyer decisions, refusals, recording/replay and cost receipts.
-- Acceptance: the local output captures the stated party/time/budget or asks
+- S4a uses native server-side HTTP and runtime-loaded `NVIDIA_API_KEY` for
+  `meta/muse-glimmer-30b` at NVIDIA's hosted chat-completions endpoint. Use low
+  template reasoning, 1024 total output tokens, 45 seconds, temperature 1/top_p
+  0.95, no retries/polling. Strictly validate final JSON. No new SDK is needed.
+- Acceptance: the hosted output captures the stated party/time/budget or asks
   for clarification; Spark Open's parties retain distinct credentials and
   records; an unsuitable request declines; invalid output submits nothing.
 - Keep the refusal in a separate test occurrence. The main eight-cover success
@@ -219,9 +218,15 @@ If they remain unresolved, there is no credible all-eight 25-hour commitment.
   that declines in the separate case.
 - Any approval uses the final valid terms and belongs to the same party. An
   earlier parser result is not itself permission to spend or commit.
-- Demonstrate local inference with the Meta API unavailable only if the database
-  remains reachable; label that condition exactly. No offline shared-state claim.
-- Runtime identity receipts and genuine outputs must exist for both models.
+- The parser records the reference clock, unknown fields and corrections. Edits
+  invalidate older decisions and exact approvals. Parsing/review never commits.
+- Actual route/model, supplied upstream metadata, usage and genuine final outputs
+  must exist for both model roles. Unknown invoiced cost remains null. Never
+  store hidden reasoning. The hosted route provides no offline/on-Mac inference.
+- NVIDIA advertises free prototype access. This does not establish permanent
+  production hosting or this account's quota/access. Genuine outputs require a
+  separately scoped run approval. Vercel credit eligibility does not apply to
+  this separate NVIDIA route.
   Offline stubs and replay alone cannot pass this acceptance.
 
 ### S5: optional owner-approved creative asset, 3 hours
@@ -274,7 +279,7 @@ If they remain unresolved, there is no credible all-eight 25-hour commitment.
 
 - Prepare the compact story and evidence links for the user's video/submission.
   Identify event-built work and carryovers; distinguish current runtime, partner
-  inference, local inference, historical evaluation, fixtures and replay.
+  inference, hosted Glimmer parsing, historical evaluation, fixtures and replay.
 - Summarize eight roles with actual evidence status, not eight checkmarks.
   Muse Code uses development evidence. Media receipts use the appropriate
   image/audio units; unknown cost is not recorded as verified zero.
@@ -318,20 +323,16 @@ transport, new dashboards and a failure-panel UI. No safety or proof cuts.
 - Generic provider generalization is not a standalone prerequisite.
 - Voice upload ships before optional WhatsApp audio integration.
 - Four independent parties replace a new twenty-agent batch requirement.
-- Glimmer's useful local role replaces the offline-clearing feature.
+- Glimmer's hosted parsing role replaces local inference and offline clearing.
 - SAM and Image support optional publishing, not a manufactured booking dependency.
 - Existing failure coverage supplies proof instead of a five-hour fault panel.
 - Accurate cohort evidence replaces a new comparison page and broad p95 claims.
 - All-eight scope, access uncertainty and the user's green-light boundary remain.
 
-## Approval and handoff
+## Current authority
 
-Current authorization is to prepare and review this proposal only. Merchant
-validation and video remain the user's work. No code, dependencies, model calls,
-production data, deployment or publication have been changed by this revision.
-
-After scope approval, finalize the architecture and program design against the
-actual baseline and unresolved external contracts. Keep those decisions reviewable;
-this high-level timebox proposal is not permission to invent missing contracts
-during implementation. Obtain the user's implementation green light before
-starting the build.
+S4a cleanup and the documented two-request NVIDIA live test are authorized.
+Merchant validation/video remain user-owned. No S5, installs/downloads, purchased
+credits, production changes, commit, merge, push or deployment. Existing closed
+S3/S4b/local-load allowances remain closed. See the current status and NVIDIA
+contract for actual acceptance results.

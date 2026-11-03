@@ -1,0 +1,213 @@
+# Copy-paste continuation prompt: retire local Glimmer and move S4a to Gateway
+
+Continue Backfill in `/Users/jayd0/Desktop/meta-hack`.
+
+Implement only the local Glimmer removal and S4a migration described here.
+Complete all independent cleanup, documentation, build changes and offline
+verification. Do not stop after proposing a plan. Hosted inference has the
+separate funding and authorization boundary below.
+
+## Authority and current state
+
+When pasted as the next continuation request, this prompt authorizes:
+
+1. Removal of this task's local Glimmer weights and extracted runtime.
+2. Revision of S4a from local inference to hosted Muse Glimmer through Vercel
+   AI Gateway, including the existing buyer UI, service wiring, tests and docs.
+3. Read-only eligibility checks and independent offline verification.
+
+It does not authorize new inference requests, purchased credits, card/account
+changes, a VPS, another install/download, S5, production, publication or Git
+commit/merge/push. No cleanup or implementation was performed while preparing
+this handoff. All preceding model-start and paid-call allowances are closed.
+
+Last verified branch: `backfill/proof-s4-buyer-models`.
+HEAD/main/origin/main: `b1df9ad08dbbcd526c12d42ca3d12090598a797c`.
+S4 code, tests, migration and evidence are uncommitted. Reverify current state,
+retain newer work and preserve the dirty tree. Do not reset or clean the checkout.
+
+Read repository instructions and these sources first. Document names in this
+list are relative to `docs/plans/backfill-proof/` unless fully qualified:
+
+- `docs/plans/backfill-proof/00-status.md`
+- `01-product.md`, `build-proposal-2026-11-03.md`, `s4-handoff-2026-11-03.md`
+- `evidence/s4-buyer-models/README.md`
+- `evidence/s4-buyer-models/live-authorized-2026-11-03-01/README.md`
+- `evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/README.md`
+
+This new scope supersedes the local-only S4a requirement and plans for further
+local Glimmer attempts. It does not change S4b or expand the remaining slices.
+
+## 1. Remove only the task-owned local installation
+
+Reverify processes and inventory before deletion. Stop only a matching owned S4
+Glimmer process, if one exists. Do not use a blanket `pkill`.
+
+The authorized removal root is exactly:
+
+`/Users/jayd0/Desktop/meta-hack/archive/proof-s4-models/`
+
+Its last verified contents were:
+
+- `Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf`, 16,756,683,904 bytes.
+- `downloads/llama-b10353-bin-macos-arm64.tar.gz`, 11,039,814 bytes.
+- `runtime-b10353/`, containing the extracted `llama-b10353` runtime and libraries.
+- `runtime-help.txt`, a text help capture.
+
+Confirm these are the owned artifacts, resolve paths safely, preserve any
+unexpected/unrelated material, then remove the owned installation. Preserve
+useful text provenance in evidence before removing the help capture. Record the
+inventory, removed bytes and final process/path checks. Do not restart a model
+to verify removal.
+
+Do not remove other model caches, Ollama/LM Studio installations, Homebrew,
+Python, Node, application dependencies or any other archive directory. This
+installation did not use global package managers or change PATH. Do not invent
+additional global uninstall work.
+
+Keep all S0/S1/S2/S3/S4 receipts, screenshots, source hashes and memory traces.
+Retire active local launch paths so they cannot start or download Glimmer again.
+Keep historical source snapshots where receipts reference removed scripts.
+Do not leave broken TypeScript imports or tests requiring the deleted weights.
+
+## 2. Revise the S4a contract and documentation
+
+The new role is **hosted Muse Glimmer buyer-intent parsing through Vercel AI
+Gateway**. It is neither on-device/local inference nor self-hosting on our VPS.
+Remove current offline/on-Mac claims and local runtime prerequisites. Keep
+historical failed-attempt records accurate; add a clear superseding current
+status instead of rewriting those attempts as successful.
+
+Preserve the actual S4a behavior: one buyer's request proposes party size,
+Singapore date/time window and budget, or asks for clarification. Retain the
+reference clock, unknown values, correction/discard/review and revision guards.
+Parsing or reviewing a request never approves a commitment. Edits invalidate
+older decisions and exact approvals.
+
+Update current product/build documents, status, manual-input guidance and buyer
+copy. Preserve Kopi and the four-independent-party pooling rules. All eight Meta
+roles remain required; merchant validation and video remain separate.
+
+## 3. Integrate the existing Gateway SDK
+
+Reuse installed `ai` 7.0.162 and the existing runtime-loaded
+`AI_GATEWAY_API_KEY`. Do not inspect, print, copy or commit real env files or
+credentials. No replacement key or direct Together AI account is required merely
+to implement the Gateway route.
+
+Current public model ID: `meta/muse-glimmer-30b`.
+Current public provider endpoint lists `togetherai`; recheck before pinning it.
+Keep hosted Glimmer parsing separate from the already verified
+`meta/muse-spark-open` buyer decision role.
+
+Inspect and narrowly adapt:
+
+- `src/lib/buyer/models.ts`, `deps.ts`, `service.ts`, `recording.ts`, `http.ts`
+- `src/app/buyer/`, `src/app/api/buyer/route.ts`
+- `tests/unit/proof-s4-*.test.ts`, `tests/integration/proof-s4-*.test.ts`
+- `tests/support/proof-s4.ts`, `tests/e2e/proof-s4.spec.ts`
+- `scripts/verification/proof-s4-browser.ts` and the historical live guards/runners.
+
+Replace the production local parser/runtime configuration with a bounded
+Gateway parser. Start with low reasoning, 512 output tokens, 45-second timeout
+and `maxRetries: 0`. Recheck Glimmer-specific sampling requirements; do not
+blindly copy the retired local adapter's `temperature: 0`. Official Glimmer
+hosting guidance warns about greedy-decoding loops.
+
+Request an explicit JSON field contract and strictly revalidate actual final
+output. Do not assume native structured-output support from catalog tags.
+Retain actual model, route, upstream metadata when supplied and usage. Keep
+unknown invoiced cost null; never store hidden reasoning. Preserve provider
+failure, invalid-output and no-auto-retry behavior, ownership, idempotency,
+exact approval and privacy. No private floor or merchant/voice data enters buyer
+prompts. Do not replace direct Meta adapters or add a general provider framework.
+
+Recording/replay must distinguish fixture, genuine provider output and replay.
+Retained Glimmer-free S4b recordings have null parser evidence; never invent it.
+A hosted parser output does not become genuine merely because a fixture used
+its model name.
+
+## 4. Free-credit restriction: complete offline work despite this blocker
+
+The user confirmed their approximately US$5 is the **free monthly Gateway
+allowance**, not purchased credits. Do not treat it as purchased balance or
+claim the current balance was freshly verified.
+
+Read-only checks on 2026-11-03 found:
+
+- Gateway lists `meta/muse-glimmer-30b`.
+- Its Together AI provider row is marked **Free AI Gateway Credit: No**.
+- Public prices are US$0.35 per million input tokens and US$1.50 per million
+  output tokens. Availability and prices are not successful access proof.
+- Vercel's monthly free allowance covers only an eligible subset of models.
+
+Sources to recheck:
+
+- https://vercel.com/ai-gateway/models/muse-glimmer-30b
+- https://ai-gateway.vercel.sh/v1/models/meta/muse-glimmer-30b/endpoints
+- https://vercel.com/docs/ai-gateway/pricing
+
+The model page's generic "$5 free credits" banner does not prove Glimmer is
+eligible. Check the actual provider-row eligibility, including its accessible
+label if the text extractor omits the icon.
+
+Do not perform a chargeable smoke test to discover eligibility, buy credit,
+change billing, auto-top-up, create another account or substitute another model.
+If no eligible free route exists, finish all independent integration work and
+report genuine hosted S4a proof as blocked by funding/access. A separate exact
+run approval is needed before any new inference, even if credits would pay.
+Prepare its model, inputs, maximum attempts, no-retry guard and cost ceiling
+only after eligibility/funding is resolved. No new inference is authorized here.
+
+## 5. Preserve verified work and verify the revised build
+
+S4b genuine proof is complete: five HTTP-200 Gateway decisions with supplied
+Baseten routing metadata, four two-person commitments filling eight at simulated
+settlement and a separate fifth-party refusal. Five offline replays passed.
+The allowance is fully consumed. Do not rerun `proof-s4-live.ts --execute`,
+`gateway:example` or record mode. Keep actual outputs and durable slots intact.
+
+Both local Glimmer loads stopped at memory-pressure warning before readiness;
+zero local parser HTTP requests occurred. Do not claim the kernel crashed the
+model or that every 24 GiB setup is impossible. The CPU load authorization is
+also consumed. Keep this provenance after removing the binaries.
+
+Last product verification passed 543 tests in 56 files, typecheck, lint,
+original/fixture production builds and 22 combined Chromium checks. Treat these
+as the starting checkpoint, then verify the changed tree afresh. Use meaningful
+parser/clarification, correction, ownership, stale approval, failure, timeout,
+usage, replay, privacy and duplicate-call tests. Model substitutions belong only
+at the model boundary; actual services, MCP and disposable PostgreSQL must run.
+
+Use explicit loopback configuration before any env loading:
+
+```sh
+npm run typecheck
+npm run lint
+env -u DATABASE_URL -u META_API_KEY -u AI_GATEWAY_API_KEY \
+  TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npm test
+```
+
+The admin URL is local test-only. PostgreSQL binaries are under
+`/Applications/Postgres.app/Contents/Versions/18/bin`.
+Use a fresh S4-owned verification directory. The browser launcher now requires
+`S4_OUTPUT_DIR` once genuine receipts exist. Never target a genuine-run directory;
+redirect all combined S1/S2/S3/S4 outputs below the new verification root. Build
+with dummy credentials in an allowlisted copy excluding env files, Git and
+archive. Verify desktop/mobile behavior, current hashes and owned-resource cleanup.
+
+Migrations 0015/0016 have only local proof. No production rollout is authorized.
+S3's four-call allowance also remains consumed. Preserve all inherited evidence
+and unrelated dirty work. Existing captured requests use November 5, 2026; check
+expiry before any future genuine run. Do not relabel replay for new dates/parties.
+
+## Deliver and stop
+
+Return a concise removal receipt, changed contract/build summary, exact fresh
+checks, evidence/captures and the precise hosted-inference funding/access status.
+Do not call revised S4a or full S4 complete until genuine hosted Glimmer outputs
+meet the revised acceptance conditions. Catalog access and fixtures are not enough.
+Stop after the authorized cleanup and S4a work. No S5, production, publication,
+new dependencies, new model downloads, paid calls or credit purchases. Any later
+separately authorized push still requires `[skip render]` while schema rollout
+remains unapproved.

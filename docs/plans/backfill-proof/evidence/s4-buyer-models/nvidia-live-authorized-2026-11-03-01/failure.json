@@ -1,0 +1,1 @@
+{"errorName":"AssertionError","assertion":"Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    budgetPerCoverCents: 600,\n    currency: 'SGD',\n    earliest: '14:00',\n    latest: '17:00',\n    partySize: 2,\n+   requirements: [\n+     'kopi'\n+   ],\n-   requirements: [],\n    visitDate: '2026-11-05'\n  }\n","noRetry":true,"allowanceClosed":true}

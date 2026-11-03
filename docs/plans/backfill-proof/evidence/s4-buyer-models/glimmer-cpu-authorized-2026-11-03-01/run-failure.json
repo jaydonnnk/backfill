@@ -1,0 +1,8 @@
+{
+  "stage": "one-cpu-load",
+  "errorName": "Error",
+  "assertion": "Inspect bounded model/session receipts; no raw reasoning is retained",
+  "stopReason": "memory_pressure_warning_or_critical",
+  "restarts": 0,
+  "retry": false
+}

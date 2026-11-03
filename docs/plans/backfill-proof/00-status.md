@@ -1,386 +1,52 @@
 # Status: Backfill proof build
 
-## S3 published; S4 handoff ready, 2026-11-03
-
-The user explicitly requested commit/push of S3 to main, then a copy-paste S4
-handoff. S3 source/evidence commit
-`875a08ce62d2695d2c3d0b7e31bfd325e79e578a` is on local main, origin/main and
-remote main, independently verified after push. The following handoff/status
-documentation commit may advance main; do not reset back to the S3 source SHA.
-
-Fresh typecheck, lint, 522 tests in 52 files and three offline call-guard tests
-passed. All 90 product source files match the verified production/browser/live
-proof. The publication fix makes S3 test evidence output opt-in; ordinary tests
-now preserve retained proof. See [publication gate](evidence/s3-owner-voice/publication-2026-11-03/README.md).
-
-Both publication commits use `[skip render]`. Migration `0015` is still local
-only; no production migration/access or manual deployment was authorized or
-performed. Do not deploy S3-dependent code before a separately approved schema
-rollout. The S3 four-call allowance remains fully consumed.
-
-The user requested an S4 handoff, not implementation in this publishing chat.
-[S4 continuation prompt](s4-handoff-2026-11-03.md) authorizes independent local
-S4 work when pasted into the next chat. [Manual inputs](s4-manual-inputs.md)
-separate resource/spend decisions from optional real buyer examples. No install,
-model download, new paid call or later slice is authorized by Git publication.
-
-S4 local implementation is safe to start with disposable databases and labeled
-fixtures. Full S4 remains blocked until genuine Glimmer and Gateway buyer
-outputs exist. No Ollama, llama-server or lms CLI is on PATH; 24 GiB RAM and
-229 GiB free storage were observed. Official Glimmer's roughly 17 GB text GGUF
-is a candidate, not verified total memory fit. Existing installed AI SDK and
-Gateway route are reusable; no direct Baseten key is required for that route.
-
-## S3 genuine integration verified, 2026-11-03
-
-- [x] Revised S3 local implementation and genuine integration acceptance are
-  complete for the prepared synthetic speech and scripted owner workflow.
-  The user separately approved the four-call, no-retry, US$8.44 local test.
-- Exactly two `muse-voice-transcribe-1.0` and two `muse-wonder-1.0` requests
-  returned HTTP 200. Both actual transcripts were reviewed unchanged in the
-  authenticated UI. Wonder proposed exactly 25% discount, capacity 10,
-  minimum pool 6 and per-agent cap 3. Terms remained 20%/8/8/2 at v1 until
-  a separate scripted owner action applied that exact proposal at v2.
-- The ambiguous input produced a genuine clarification refusal. Its separate
-  offer remained at v1 with no approval or terms change. Audio, ASR session,
-  reviewed revision, Wonder proposal and approval IDs remain linked.
-- [Genuine run, actual outputs, captures and audit](evidence/s3-owner-voice/live-authorized-2026-11-03-01/README.md).
-  Published-rate estimate US$0.017798 from returned token usage and whole-second
-  audio duration. Actual invoiced cost is unknown. The four-call allowance is
-  consumed; no retries or further provider requests are authorized.
-- Original production code passed an isolated webpack build and both actual
-  browser cases. All 90 product source hashes still match the prior verified
-  S3 snapshot, whose 522 tests and 17 Chromium regressions remain applicable.
-  The additional guard passed three offline tests, typecheck and scoped lint.
-- No production access/write, persistent migration, commit, merge, push,
-  deployment or later slice. All owned local resources were removed. S3 is
-  uncommitted on `backfill/proof-s3-owner-voice`. Merchant demand, real-person
-  consent, payment, attendance and recovered revenue remain unproven.
-  Synthetic speech and scripted approvals are not merchant validation.
-
-## Offline checkpoint, publication and migration facts, 2026-11-03
-
-The following S3 checkpoint predates the separately approved genuine run above.
-Its blocked/no-inference statements describe that earlier verification only.
-
-S1/S2 were committed and pushed to `main` at
-`96a3cb76ba757fc252e398757ce55ceebb895a66`. S3 started from that clean
-revision on local branch `backfill/proof-s3-owner-voice`. Earlier descriptions
-of S1/S2 as uncommitted or unpublished below are historical.
-
-The user separately approved and completed production migration
-`0014_proof_s2_trail` on Neon project `curly-scene-39671304`, production branch
-`br-noisy-dawn-b4eegvd6`, database `neondb`. The local applied receipt records
-15 migrations, unchanged existing-table fingerprints, historical accepted
-prices left null, and SELECT-only `demo_trails` access for `backfill_app` and
-`backfill_web`. Migration SHA-256:
-`c03e3e0e9648c813acbeb6e0df5ded6bc2c290137f1b828dfeedcd4d70687bd4`.
-Ignored receipts are under `archive/proof-s2-production-migration-2026-11-03/`;
-they are local evidence, unavailable from GitHub. S3 has not accessed production.
-That completed approval does not authorize any S3 production migration.
-
-The user now authorizes local implementation and verification of revised S3
-only, overriding historical pending-approval/stop-after-S2 notes for this local
-scope. S3 local implementation is verified: **522 tests in 52 files**, typecheck,
-lint, original/fixture isolated production webpack builds and **17 Chromium
-checks** passed. Two fresh owner journeys exercised WAV upload, saved transcript
-review, exact proposal diff and separate approval through real actions/services
-and disposable PostgreSQL. Changed text, cross-owner requests, expiry, stale
-capacity/version, pending commitments, cancellation, invalid output and lost
-responses preserve the required protections. Final desktop/mobile captures
-passed at 1280/375 with no horizontal overflow. Combined S1/S2 still prove
-four two-person commitments fill 8 covers and three fill 0, only at settlement.
-
-**Local implementation verified; genuine integration verification blocked.**
-S3 remains unaccepted in full. Voice/Wonder outputs are explicitly labeled
-fixtures; the silent WAV does not prove speech recognition. No provider call,
-real env-file access, production access/write, commit, merge, push, deployment
-or later slice ran. Local migration `0015` remains unapplied to production.
-All owned test databases, roles and servers were removed. All 238 published S2
-source/evidence hashes match base HEAD; inherited S1/S2 evidence is unchanged.
-
-[S3 evidence, actual screenshots and limits](evidence/s3-owner-voice/README.md).
-The [unexecuted bounded run proposal](evidence/s3-owner-voice/voice-contract.md)
-pins two synthetic speech inputs, at most two Voice and two Wonder calls,
-no retries and a conservative US$8.44 published-rate ceiling. It requires
-separate approval. Merchant validation/video and all later slices remain
-outside this local S3 result.
-
-## Historical records
-
-The following entries retain their original chronology. Current facts and S3
-authority above supersede their older state and permission descriptions.
-
-## S2 acceptance and main publication authorized, 2026-11-03
-
-The user accepted S2 and explicitly instructed "commit and push to main".
-This authorizes publication of the combined uncommitted S1/S2 tree. It
-supersedes the Git-only restrictions in the historical local-proof records
-below. S3, provider calls, production database migrations and manual deployment
-remain outside this authorization.
-
-The original tree contained 180 changed/untracked files: 26 implementation,
-test/config files, one status file and 153 evidence files. Redundant S2 browser
-screenshots were moved to the ignored local archive before publication;
-original S1 evidence, final S2 captures, failure logs and run receipts remain.
-No artifact was deleted. Product code and tests were not changed for cleanup.
-Publication checks rerun typecheck, lint and the complete local test suite.
-
-## Current authority and result, revised S2, 2026-11-03
-
-The user explicitly authorized local implementation and verification of revised
-proof-build S2 only. This supersedes earlier pending-approval and stop-after-S1
-notes for S2. Historical S1-S10 refer to a different build sequence.
-
-- [x] S2: decision and approval trail complete locally, uncommitted. Existing
-  Kopi `/demo` shows each party's request, bounded fixture output or unavailable
-  state, approval source/assurance, proposed versus submitted terms and stored
-  result. Run/party/rule/version/occurrence and commitment IDs stay linked.
-- Approval matching checks exact party, rule, run, version, date, covers, price
-  and total. Missing/mismatched evidence receives no matching approval label.
-  Only explicit scripted authorization is supported; no human consent claim
-  or production consent service/enforcement was added. Historical unknowns
-  stay unavailable. Accepted prices are captured immutably on new commitments.
-- Final proof: 496 tests in 49 files, typecheck, lint, isolated production
-  webpack and all 11 Chromium checks passed. Complete S1 service proof ran
-  twice from fresh databases. The same final product code passed three browser
-  runs; the last corrected capture labels and asserted actual PNG widths.
-- Four commitments of two remained pending before deadline, then filled 8
-  covers with S$10.88 simulated savings. Three commitments of two remained
-  pending, then filled 0 covers with no discounted booking or savings.
-  Proposal-only evidence added no commitment or confirmed covers.
-- Public snapshot/HTML/SSE filter merchant rationale and private canaries.
-  Database interruption, browser offline/online and malformed feeds retain the
-  last saved view with uncertainty; recovery creates no fresh celebration.
-  Final desktop/mobile captures passed at 1280/375 without horizontal overflow.
-- [S2 evidence, commands, actual captures and limits](evidence/s2-decision-trail/README.md).
-  Earlier failed attempts and mislabeled captures remain explicitly identified.
-  All inherited S1 source/evidence bytes were preserved. Only this authorized
-  status update changes its starting bytes. Index remains empty; HEAD and local
-  origin/main remain `a8c224fa9a9249bb8f850237d1011267c62af7dd` on
-  `backfill/proof-s1-journey`. Disposable databases/roles/servers were removed.
-- No real env-file access, provider request, production access, commit, merge,
-  push or deployment. Fixture attestations do not prove real-person consent,
-  fresh Spark/Wonder inference, payments, attendance or recovered revenue.
-- **Stop after S2.** S3-S8 remain unstarted and unauthorized. All eight Meta
-  tools/models remain required overall. Merchant validation/video belong to
-  the user. Persistent migration/deployment requires separate authorization.
-
-## Current authority and result, revised S1, 2026-11-03
-
-The user explicitly authorized local implementation and verification of revised
-proof-build S1 in the receiving handoff. This supersedes the historical
-pending-approval notes below for S1 only. Those notes describe earlier states.
-
-- [x] Revised S1: complete offline transaction journey. Two fresh disposable
-  database repetitions each proved four parties of two fill exactly 8 covers,
-  and three parties of two fill 0. Authenticated MCP retries/status reads did
-  not duplicate commitments, clearings, fills or ledger entries. One reconciled
-  entry per filled commitment; 100% of S$10.88 simulated savings to buyers.
-- The production Chromium journey proved merchant review/publication, real
-  deadline outcomes, and a separate owner "Apply plan" action. The scripted
-  Wonder proposal left v1 terms unchanged until approval; approval applied v2.
-- Final checks: 471 unit/integration tests in 46 files, typecheck, lint and
-  isolated production webpack build passed. Local browser proof passed both
-  scenarios, with no browser errors and no horizontal overflow at 375/1280.
-- [Evidence, commands, receipts and captures](evidence/s1-journey/README.md).
-  Fixtures and approvals are scripted, not fresh AI decisions or real customers.
-  Payments, attendance, merchant validation and recovered revenue are unproven.
-- Base HEAD remains `a8c224f`, local branch `backfill/proof-s1-journey`;
-  S1 changes are uncommitted. No provider inference, real env-file read,
-  production access, publication or deployment. Kopi/domain policy preserved.
-- **Stop after S1.** S2-S8 remain unstarted and unauthorized. All eight Meta
-  tools/models remain required by the overall revised plan; this offline S1
-  does not complete their integrations. Merchant validation/video belong to
-  the user. No commit, merge, push or deploy is authorized for these changes.
-
-## Historical planning status
-
-- Gate 1 — Product: in progress
-- Gate 2 — Architecture: pending
-- Gate 3 — Program design: pending
-- Gate 4 — Slice plan: pending
-
-## Authorized scope
-
-The user approved making agent decisions visible, proving a complete journey,
-and comparing AI with a deterministic alternative. The submission story must
-be the final build slice, after verification. Video production is outside this
-build and belongs to the user. Market research is complete for planning;
-it does not establish merchant demand or constitute merchant validation.
-
-## Current baseline
-
-2026-11-02: main at 9b6819c. Another agent intentionally removed the
-OpenRouter-served evaluation and its published results. Preserve that change.
-The new evaluation proposal uses the existing Meta integration, not restoration
-of the removed OpenRouter/DeepSeek pipeline. Architecture remains unapproved.
-Existing untracked .DS_Store, design/ and metahackathon.rtfd/ are unrelated.
-
-## Slices
-
-- [x] S0 — availability and focused baseline audit, 2026-11-03; completed with
-  explicit model-runtime blockers. See [evidence](evidence/s0-preflight-2026-11-03.md).
-- [x] S1 — revised offline journey complete; see current result above.
-- [x] S2 — revised decision/approval trail complete locally; see current result above.
-- [ ] S3–S8 — unstarted and unauthorized. Submission documentation remains last.
-
-## Working boundaries
-
-- Current deliverables are planning documents and standalone HTML mockups only.
-- Do not claim mockup values, hypothetical outcomes or offline fixtures are measurements.
-- Fresh paid calls require a concrete budget and run scope; previous consumed
-  evaluation allowances are not reusable. No paid calls or hosted writes here.
-- Publication, deployment and real payments are not part of this planning step.
-- Preserve the existing Kopi visual language; this is not a site redesign.
-- User paused for the other agent and explicitly resumed after it finished.
-
-## Next step
-
-Review 01-product.md, the revised build proposal and the HTML mockups. Gate 1
-remains unapproved. Do not start implementation before the user's green light.
-Architecture and program-design decisions remain pending; this proposal does
-not approve them. Do not reopen the older completed gates.
-
-## Planning revision, 2026-11-03
-
-The user requested a stronger build plan aimed at a 70+ final submission and
-will supply merchant evidence and video independently. They explicitly
-reaffirmed all eight Meta tools/models. See
-[revised build proposal](build-proposal-2026-11-03.md) and
-[workflow mockup](mockups/workflow.html).
-
-The proposal allocates 23 productive hours plus 2 contingency after access and
-technical feasibility are established; unknown prerequisite work is additional.
-It does not promise 70 or all-eight live
-evidence under the current no-paid-inference boundary. No implementation,
-model call, production write, deployment or publication is authorized here.
-
-## Slice 0 authorization and result, 2026-11-03
-
-The user explicitly authorized Slice 0 only: "start with slice 0 first" and
-report required `.env.local` settings. This supersedes the planning-only boundary
-for the audit, not for subsequent product code or inference.
-
-Authenticated read-only Meta catalog: HTTP 200, all five required hosted models
-listed. Existing app env schema valid. Local PostgreSQL 18.6 ready; 41 focused
-unit tests, 26 integration tests and typecheck passed. Existing recording schema
-and source hash verified. No fresh inference, paid calls, production writes,
-installs, weight downloads, publication or deployment. `.env.local` unchanged.
-
-Missing: Baseten credential/access and installed local Glimmer runtime/weights.
-Media generation/transcription/segmentation contracts are documented but not
-empirically verified. S0 audit is complete; all-eight runtime readiness is not.
-
-## Vercel Spark Open access probe, 2026-11-03
-
-The user added `AI_GATEWAY_API_KEY` and explicitly requested a request to check
-whether it works and activates free credits. This authorized one bounded smoke
-request only, superseding the earlier no-inference boundary for that request.
-
-One raw HTTP request to `meta/muse-spark-open` through Vercel AI Gateway, maximum
-512 output tokens, reasoning effort low, no tools and no client retries, returned
-HTTP 403 `customer_verification_required`. The error states that a valid credit
-card must be on file to unlock free credits. No model output or usage was
-returned. Credit activation and successful inference are not verified.
-
-The key value was not printed or stored in the receipt. `.env.local` and product
-code were not changed. No card, credit purchase, top-up, deployment or production
-database operation was performed. Do not repeat inference automatically.
-
-Receipt: [single-request evidence](evidence/s0-vercel-spark-open-smoke-2026-11-03.json).
-
-The user explicitly requested "Try again". A second separately authorized
-single request returned the same HTTP 403 `customer_verification_required`.
-No model output or usage was returned; free-credit activation remains unverified.
-There was no automatic retry, product change or billing-setting change.
-Receipt: [attempt 02](evidence/s0-vercel-spark-open-smoke-2026-11-03-attempt-02.json).
-
-Following the user's screenshot showing a card and US$5 credit, an authenticated
-read-only `GET /v1/credits` returned HTTP 200, balance `5`, total used `0`.
-There is exactly one `AI_GATEWAY_API_KEY` definition in `.env.local`. The key
-can see credit; missing balance is not the blocker. The inference card-verification
-gate remains unexplained. No additional inference was attempted. Do not infer
-a confirmed team mismatch or advise buying credits from this evidence.
-Receipt: [credit read](evidence/s0-vercel-credit-read-2026-11-03.json).
-
-## AI SDK diagnostic setup verified, 2026-11-03
-
-The user explicitly authorized installing `ai`, creating `index.ts`, and running
-a holiday-generation example. Existing npm was used; `ai` is pinned to 7.0.162.
-The runtime loads the existing key via Node's `--env-file`; no key value was
-inspected, printed, logged or committed for this diagnostic. `.env.local` remains
-ignored and unchanged. The example is standalone; Backfill's provider is unchanged.
-
-Two bounded SDK generation attempts with provider-default reasoning timed out
-at 30 and 45 seconds. A read-only SDK model lookup returned HTTP 200 and listed
-Spark Open. The same traced SDK example with explicit `reasoning: "low"` then
-returned HTTP 200 and nonempty text from `meta/muse-spark-open`: a two-sentence
-holiday named Lumenfall. Reported usage: 157 input tokens, 329 output tokens,
-including 260 reasoning tokens, 486 total. Every run used `maxRetries: 0` and
-a 512-output-token bound. The successful source retains the 45-second timeout.
-
-Run the example explicitly with `npm run gateway:example`; it makes inference
-requests and is not part of the ordinary application or test startup.
-
-The successful configuration is verified. A single changed-setting trial does
-not prove reasoning was the sole cause of the timeouts, or establish why the
-earlier card-verification gate occurred. Do not present the SDK as a billing-gate
-bypass. No extra generation was made solely to compare protocols again.
-
-Read-only SDK credits after the runs: balance US$4.993661, total used US$0.006339.
-This is account-wide tracked usage, not the cost of the final successful call.
-No card settings, credit purchases, top-ups, deployments or production data changed.
-
-Evidence:
-- [Initial SDK timeout](evidence/s0-vercel-ai-sdk-2026-11-03.txt)
-- [Traced SDK timeout](evidence/s0-vercel-ai-sdk-trace-2026-11-03.txt)
-- [Successful low-reasoning generation](evidence/s0-vercel-ai-sdk-low-2026-11-03.txt)
-- [SDK credit balance](evidence/s0-vercel-ai-sdk-credits-2026-11-03.json)
-
-Fresh typecheck, targeted ESLint on `index.ts`, and diff whitespace checks passed.
-The complete application suite was not rerun for this standalone diagnostic.
-Spark Open buyer integration, partner bonus verification and S1 remain unstarted.
-
-## Readiness and sequence after Vercel verification, 2026-11-03
-
-Slice 0 is complete as the availability/baseline audit plus the separately
-authorized SDK access diagnostic. Slice 1 can proceed without a new API key,
-Glimmer installation or another access probe; its initial journey uses explicit
-offline fixtures and the existing local database. No new inference is required
-to start that slice. S1 has not been started or authorized by this status query.
-
-The revised proposal now makes S4a local Glimmer and S4b Vercel-backed Spark Open
-buyer integration. The installed AI SDK and working key replace the proposed
-direct Baseten credential requirement. All eight roles remain in scope. Core
-journey, voice, creative assets and verification keep their existing order.
-
-Remaining prerequisites belong to their owning slices: Glimmer runtime/weights
-and memory-fit proof in S4a; real audio/media calls in S3/S5; structured buyer
-decisions, usage recording and replay in S4b. A text smoke test does not complete
-those integrations. Partner verification for the open-weight bonus remains open.
-
-## Main checkpoint publication authorized, 2026-11-03
-
-The user explicitly authorized: "U can commit and push the working tree to main
-first, then the nexr agent can start from head. Once u do that, u can continue
-wtiting the prompt". This supersedes the publication restriction for this
-checkpoint only, including the normal push-triggered CI/hosting behavior.
-
-Pre-publication baseline: local and remote main at `9b6819c`. The checkpoint
-includes existing disclosure/label/query corrections, project HTML mockups,
-proof-build plans/evidence, the participant-guide reference capture, and the
-verified standalone AI SDK example. `.DS_Store` is now ignored. `.env.local`
-remains ignored and was neither printed nor staged. A candidate-file credential
-scan reported no findings. No original OpenRouter evaluation was restored.
-
-Fresh checks: 469 unit/integration tests in 45 files passed with explicit local
-`TEST_DATABASE_URL`; typecheck, lint and diff whitespace checks passed. A separate
-snapshot without `.env.local` passed the production webpack build with dummy
-configuration. No inference, hosted database write or manual hosting action was
-needed for publication checks. No fresh browser/E2E result is claimed here.
-
-This checkpoint does not implement revised S1 or authorize S2. The requested
-handoff will authorize a receiving agent to execute revised S1 only when the
-user sends that prompt. Existing historical S1–S10 records are a different
-sequence and must not be interpreted as completion of the new proof-build S1.
+## Current S4a: NVIDIA-hosted Glimmer
+
+Glimmer uses `meta/muse-glimmer-30b` at NVIDIA's hosted endpoint with the saved
+runtime key. Spark Open remains on its separate Gateway SDK route. There is no
+active local/Gateway Glimmer parser or download path. The local installation is
+removed. [Current contract and exact test limits](s4a-nvidia.md).
+
+**S4a synthetic proof acceptance is complete.** The first run verified explicit
+extraction; the separately approved continuation made exactly one new HTTP-200
+clarification call. Unknown time/budget/currency stayed null. The saved explicit
+output was reused with exact request/reference clock and replay provenance.
+Actual authenticated services and disposable PostgreSQL passed correction/review,
+edit invalidation, discard, wrong-party and duplicate-call guards. Zero commitments
+or approvals were created. New usage is 262 input/240 output tokens; invoiced cost
+is unknown. [Acceptance and audit](evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/README.md).
+
+The prior failed test and its overly narrow requirement expectation remain in
+history; its original guard source is preserved. Both inference allowances are
+consumed/closed. No retries, new Spark calls, paid fallback or billing changes.
+Fresh 550 tests, typecheck, lint and two guard tests passed. All 101 product hashes
+still match the existing builds/22 desktop-mobile browser checks. Owned local
+verification resources are removed. No new live-browser claim is made.
+
+## Preserved proof and remaining scope
+
+S1/S2 offline journey and S3 genuine Voice/Wonder proof remain preserved. S4b has
+five genuine Gateway decisions and five offline replays; its allowance is closed.
+Both prior local Glimmer loads stopped before readiness and sent zero parser
+requests. Their authorizations and S3's four-call allowance remain consumed.
+
+The prior NVIDIA adapter checkpoint passed 550 tests in 57 files, typecheck,
+lint, two isolated builds and 22 combined desktop/mobile Chromium checks.
+[Offline NVIDIA evidence](evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/README.md).
+All four independent parties, exact approvals, simulated settlement and Kopi remain.
+All eight roles remain required overall. Merchant validation and video are separate.
+Payments, attendance and recovered revenue are unproven. No S5 work is authorized.
+
+Migrations 0015/0016 have only local proof; no production rollout is authorized.
+The user authorized S4 cleanup, commit and push to main on 2026-11-03. This
+publication checkpoint includes the completed S4 source, local migration 0016,
+tests, guarded runners and audit evidence, based on parent `b1df9ad`. Publication
+uses `[skip render]`; production migrations/deployment remain unauthorized.
+[Publication checks and archive manifest](evidence/s4-buyer-models/publication-2026-11-03/README.md).
+
+**Ready to start S5 local engineering when requested.** Genuine media proof still
+needs rights-cleared inputs, verified SAM/Image contracts and a separately scoped
+call approval. [S5 readiness](s5-readiness.md). No S5 implementation was performed.
+
+[Complete prior chronological status](evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/historical-docs/00-status.md.txt)
+is retained for provenance. Its local/Gateway Glimmer instructions are retired.

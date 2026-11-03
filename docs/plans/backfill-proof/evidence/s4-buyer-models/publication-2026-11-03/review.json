@@ -1,0 +1,7 @@
+{
+  "reviewer": "independent read-only publication_review subagent",
+  "scope": "whole S4 dirty source, tests, migration, replay, provider/approval boundaries and documentation links",
+  "actionableFindings": [],
+  "documentationFollowup": "refresh prior uncommitted status for publication checkpoint; done",
+  "reviewerExecutedInferenceOrTests": false
+}

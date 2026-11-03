@@ -1,0 +1,78 @@
+{
+  "id": "bb19a814-199c-4718-a914-d83d6ba27079",
+  "partyId": "b958804c-b57f-4130-bdc8-0f02b95380a3",
+  "runId": "bb19a814-199c-4718-a914-d83d6ba27079",
+  "revision": 1,
+  "request": "My mum and I want kopi on 2026-11-05, 14:00 until 17:00. Our total budget is SGD12.",
+  "referenceClock": "2026-11-03T09:10:28.527Z",
+  "expiresAt": "2026-11-03T09:30:28.527Z",
+  "attempts": 1,
+  "phase": "decided",
+  "proposal": null,
+  "constraints": {
+    "partySize": 2,
+    "visitDate": "2026-11-05",
+    "earliest": "14:00",
+    "latest": "17:00",
+    "budgetPerCoverCents": 600,
+    "currency": "SGD",
+    "requirements": []
+  },
+  "decision": {
+    "covers": 2,
+    "reason": "Fits date/time 5 Nov 14:00-17:00, S$5.44/cover within S$6.00 budget. Total S$10.88 within S$12 budget for 2. Committing 2 covers."
+  },
+  "terms": {
+    "runId": "bb19a814-199c-4718-a914-d83d6ba27079",
+    "partyId": "b958804c-b57f-4130-bdc8-0f02b95380a3",
+    "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+    "termsVersion": 1,
+    "visitDate": "2026-11-05",
+    "covers": 2,
+    "pricePerCoverCents": 544,
+    "totalCents": 1088
+  },
+  "offer": {
+    "ok": true,
+    "terms": {
+      "merchantName": "Backfill Demo Cafe",
+      "offer": {
+        "ruleId": "50ce66d6-143d-4e25-9931-5dc5fe161f27",
+        "merchantId": "19fba2ee-f322-4f11-84ff-b05de5681037",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "offerPriceCents": 544,
+        "discountBps": 2000,
+        "window": {
+          "weekday": 4,
+          "startMinute": 840,
+          "endMinute": 1020,
+          "commitByMinute": 720
+        },
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2
+      },
+      "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Thursday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+      "nextOccurrence": {
+        "visitDate": "2026-11-05",
+        "commitBy": "2026-11-05T04:00:00.000Z",
+        "startsAt": "2026-11-05T06:00:00.000Z",
+        "endsAt": "2026-11-05T09:00:00.000Z"
+      }
+    },
+    "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+  },
+  "parseReceipt": null,
+  "decisionReceipt": {
+    "source": "provider",
+    "route": "vercel_gateway",
+    "model": "meta/muse-spark-open",
+    "servedModel": "meta/muse-spark-open",
+    "upstream": "baseten",
+    "inputTokens": 491,
+    "outputTokens": 238,
+    "costUsd": null
+  },
+  "approval": null,
+  "result": null
+}

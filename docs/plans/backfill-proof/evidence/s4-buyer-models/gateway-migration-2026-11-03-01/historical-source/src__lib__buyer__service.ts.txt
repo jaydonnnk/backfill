@@ -1,0 +1,158 @@
+import { z } from 'zod';
+import { and, eq, gte, sql } from 'drizzle-orm';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import type { Db, Executor } from '@/lib/db/client';
+import { buyerSessions } from '@/lib/db/schema';
+import { TrailTerms } from '@/lib/demo/trail';
+import { buildMcpServer, ToolReplies } from '@/lib/mcp/server';
+import { BuyerDecision } from '../../../sim/buyers/buyer';
+import { complete, Intent, ModelOutputError, validateDecision, type Models } from './models';
+
+const Text = z.string().trim().min(1).max(300).refine(s => !/[\u0000\uD800-\uDFFF]/u.test(s));
+const Receipt = z.strictObject({ source: z.enum(['fixture', 'provider', 'recorded_replay']), route: z.enum(['local_glimmer', 'vercel_gateway']), model: z.string().max(200), servedModel: z.string().max(200).nullable(), upstream: z.string().max(100).nullable(), inputTokens: z.int().nonnegative().nullable(), outputTokens: z.int().nonnegative().nullable(), costUsd: z.number().nonnegative().nullable() });
+const TermsReply = ToolReplies.get_agent_terms;
+export const Session = z.strictObject({
+  id: z.uuid(), partyId: z.string(), runId: z.uuid(), revision: z.int().nonnegative(),
+  request: Text, referenceClock: z.iso.datetime(), expiresAt: z.iso.datetime(), attempts: z.int().nonnegative(),
+  phase: z.enum(['draft', 'parsing', 'parsed', 'clarification', 'reviewed', 'deciding', 'decided', 'failed', 'discarded', 'submitted']),
+  proposal: Intent.nullable(), constraints: Intent.nullable(),
+  decision: BuyerDecision.nullable(), terms: TrailTerms.nullable(),
+  offer: TermsReply.nullable(), parseReceipt: Receipt.nullable(), decisionReceipt: Receipt.nullable(),
+  approval: z.strictObject({ terms: TrailTerms, source: z.enum(['agent_action', 'scripted_local_demo']), approvedAt: z.iso.datetime() }).nullable(),
+  result: ToolReplies.submit_commitment.nullable(),
+});
+export type Session = z.infer<typeof Session>;
+const base = { id: z.uuid() };
+const revision = { ...base, revision: z.int().nonnegative() };
+export const Action = z.discriminatedUnion('action', [
+  z.strictObject({ ...base, action: z.literal('start'), request: Text }),
+  z.strictObject({ ...base, action: z.literal('get') }),
+  z.strictObject({ ...revision, action: z.literal('edit'), request: Text }),
+  z.strictObject({ ...revision, action: z.literal('parse') }),
+  z.strictObject({ ...revision, action: z.literal('review'), constraints: Intent }),
+  z.strictObject({ ...revision, action: z.literal('decide'), ruleId: z.uuid() }),
+  z.strictObject({ ...revision, action: z.literal('approve'), terms: TrailTerms }),
+  z.strictObject({ ...revision, action: z.literal('submit') }),
+  z.strictObject({ ...revision, action: z.literal('discard') }),
+]);
+type Reply = { status: string; session: Session | null };
+const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+async function read(db: Executor, party: string, id: string, lock = false) {
+  const query = db.select().from(buyerSessions).where(and(eq(buyerSessions.id, id), eq(buyerSessions.partyId, party)));
+  const [row] = await (lock ? query.for('update') : query);
+  return row ? Session.parse(row.record) : null;
+}
+async function save(db: Executor, s: Session) {
+  const parsed = Session.parse(s);
+  await db.update(buyerSessions).set({ record: parsed }).where(and(eq(buyerSessions.id, s.id), eq(buyerSessions.partyId, s.partyId)));
+}
+function clear(s: Session) { s.decision = null; s.terms = null; s.offer = null; s.approval = null; s.decisionReceipt = null; s.result = null; }
+function mcp(db: Executor, partyId: string, clock: () => Date, name: 'get_agent_terms', args: Record<string, unknown>): Promise<z.infer<typeof ToolReplies.get_agent_terms>>;
+function mcp(db: Executor, partyId: string, clock: () => Date, name: 'submit_commitment', args: Record<string, unknown>): Promise<z.infer<typeof ToolReplies.submit_commitment>>;
+async function mcp(db: Executor, partyId: string, clock: () => Date, name: 'get_agent_terms' | 'submit_commitment', args: Record<string, unknown>) {
+  const server = buildMcpServer(db, partyId, clock);
+  const client = new Client({ name: 'backfill-reviewed-buyer', version: '1.0.0' });
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+  try {
+    await server.connect(serverTransport); await client.connect(clientTransport);
+    return ToolReplies[name].parse((await client.callTool({ name, arguments: args })).structuredContent);
+  } finally { await client.close(); await server.close(); }
+}
+function fits(s: Session, offer: z.infer<typeof TermsReply>) {
+  if (!offer.ok || !s.constraints || !complete(s.constraints)) return false;
+  const c = s.constraints;
+  const at = (iso: string) => new Date(iso).toLocaleTimeString('en-GB', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit' });
+  return offer.terms.nextOccurrence.visitDate === c.visitDate && at(offer.terms.nextOccurrence.startsAt) >= c.earliest! && at(offer.terms.nextOccurrence.endsAt) <= c.latest! && c.partySize! <= offer.terms.offer.perAgentCapCovers;
+}
+export async function buyerAction(db: Db, partyId: string, input: unknown, models: Models, clock: () => Date = () => new Date(), assurance: 'agent_action' | 'scripted_local_demo' = 'agent_action'): Promise<Reply> {
+  const parsed = Action.safeParse(input);
+  if (!parsed.success) return { status: 'invalid_request', session: null };
+  const a = parsed.data;
+  if (a.action === 'start') {
+    return db.transaction(async tx => {
+      await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${partyId}))`);
+      const exists = await read(tx, partyId, a.id);
+      if (exists) return { status: exists.request === a.request ? 'ok' : 'request_collision', session: exists };
+      const recent = await tx.select({ id: buyerSessions.id }).from(buyerSessions).where(and(eq(buyerSessions.partyId, partyId), gte(buyerSessions.createdAt, new Date(clock().getTime() - 86_400_000))));
+      if (recent.length >= 10) return { status: 'daily_cap', session: null };
+      const s: Session = { id: a.id, runId: a.id, partyId, revision: 0, request: a.request, referenceClock: clock().toISOString(), expiresAt: new Date(clock().getTime() + 20 * 60_000).toISOString(), attempts: 0, phase: 'draft', proposal: null, constraints: null, decision: null, terms: null, offer: null, parseReceipt: null, decisionReceipt: null, approval: null, result: null };
+      const inserted = await tx.insert(buyerSessions).values({ id: s.id, partyId, createdAt: clock(), record: s }).onConflictDoNothing().returning({ id: buyerSessions.id });
+      return inserted.length ? { status: 'ok', session: s } : { status: 'not_found', session: null };
+    });
+  }
+  if (a.action === 'get') return { status: 'ok', session: await read(db, partyId, a.id) };
+  const reserved = await db.transaction(async (tx): Promise<Reply> => {
+    const s = await read(tx, partyId, a.id, true);
+    if (!s) return { status: 'not_found', session: null };
+    const reply = (status: string) => ({ status, session: s });
+    if (a.revision !== s.revision) return reply('revision_changed');
+    if (s.phase === 'submitted') return reply(a.action === 'submit' ? 'ok' : 'already_submitted');
+    if (Date.parse(s.expiresAt) <= clock().getTime()) return reply('expired');
+    if (s.phase === 'discarded') return reply('discarded');
+    if (a.action === 'edit' || a.action === 'review' || a.action === 'discard') {
+      clear(s); s.revision++;
+      if (a.action === 'edit') { s.request = a.request; s.proposal = null; s.constraints = null; s.parseReceipt = null; s.phase = 'draft'; }
+      if (a.action === 'review') { s.constraints = a.constraints; s.phase = complete(a.constraints) ? 'reviewed' : 'clarification'; }
+      if (a.action === 'discard') { s.phase = 'discarded'; s.constraints = null; }
+      await save(tx, s); return reply('ok');
+    }
+    if (s.phase === 'parsing' || s.phase === 'deciding') return reply('busy');
+    if (a.action === 'parse' || a.action === 'decide') {
+      if (a.action === 'parse' && s.phase !== 'draft') return reply('already_attempted');
+      if (a.action === 'decide' && s.phase !== 'reviewed') return reply('review_required');
+      if (s.attempts >= 6) return reply('attempt_cap');
+      s.attempts++; s.phase = a.action === 'parse' ? 'parsing' : 'deciding';
+      await save(tx, s); return reply('reserved');
+    }
+    if (!s.decision || s.decision.covers === 0 || !s.terms || !s.offer?.ok) return reply('no_decision');
+    const current = await mcp(tx, partyId, clock, 'get_agent_terms', { ruleId: s.terms.ruleId });
+    if (!same(current, s.offer) || clock().getTime() >= Date.parse(s.offer.terms.nextOccurrence.commitBy)) return reply('stale_terms');
+    if (a.action === 'approve') {
+      if (!same(a.terms, s.terms)) return reply('approval_mismatch');
+      s.approval = { terms: s.terms, source: assurance, approvedAt: clock().toISOString() };
+      await save(tx, s); return reply('ok');
+    }
+    if (!s.approval || !same(s.approval.terms, s.terms)) return reply('approval_required');
+    s.result = await mcp(tx, partyId, clock, 'submit_commitment', {
+      ruleId: s.terms.ruleId, termsVersion: s.terms.termsVersion, visitDate: s.terms.visitDate,
+      covers: s.terms.covers, maxPricePerCoverCents: s.terms.pricePerCoverCents, idempotencyKey: `s4-${s.id}`,
+    });
+    if (s.result.ok) s.phase = 'submitted';
+    await save(tx, s); return reply(s.result.ok ? 'ok' : s.result.reason);
+  });
+  if (reserved.status !== 'reserved' || !reserved.session || (a.action !== 'parse' && a.action !== 'decide')) return reserved;
+  const before = reserved.session;
+  try {
+    let value: Awaited<ReturnType<Models['parse']>> | null = null;
+    let decided: Awaited<ReturnType<Models['decide']>> | null = null;
+    let offer: z.infer<typeof TermsReply> | null = null;
+    if (a.action === 'parse') value = await models.parse(before.request, before.referenceClock);
+    else {
+      offer = await mcp(db, partyId, clock, 'get_agent_terms', { ruleId: a.ruleId });
+      if (!offer.ok || !before.constraints || !fits(before, offer)) throw Error('incompatible_offer');
+      const o = offer.terms;
+      decided = await models.decide(partyId, before.request, before.constraints, { merchantName: o.merchantName, about: 'the public offer summary; no additional dietary or location guarantees', summary: o.summary, ...o.nextOccurrence, perAgentCapCovers: o.offer.perAgentCapCovers });
+      decided.value = validateDecision(decided.value, before.constraints, o.offer.offerPriceCents);
+    }
+    return db.transaction(async tx => {
+      const s = await read(tx, partyId, a.id, true);
+      if (!s || s.revision !== before.revision || s.phase !== before.phase || Date.parse(s.expiresAt) <= clock().getTime()) return { status: 'revision_changed', session: s };
+      if (value) { s.proposal = Intent.parse(value.value); s.parseReceipt = Receipt.parse(value.receipt); s.phase = complete(s.proposal) ? 'parsed' : 'clarification'; }
+      if (decided && offer?.ok) {
+        s.decision = BuyerDecision.parse(decided.value); s.decisionReceipt = Receipt.parse(decided.receipt); s.offer = offer;
+        s.terms = TrailTerms.parse({ runId: s.runId, partyId, ruleId: a.action === 'decide' ? a.ruleId : '', termsVersion: offer.terms.offer.termsVersion, visitDate: offer.terms.nextOccurrence.visitDate, covers: s.constraints!.partySize, pricePerCoverCents: offer.terms.offer.offerPriceCents, totalCents: s.constraints!.partySize! * offer.terms.offer.offerPriceCents }); s.phase = 'decided';
+      }
+      await save(tx, s); return { status: 'ok', session: s };
+    });
+  } catch (error) {
+    return db.transaction(async tx => {
+      const s = await read(tx, partyId, a.id, true);
+      if (!s || s.revision !== before.revision || s.phase !== before.phase) return { status: 'revision_changed', session: s };
+      s.phase = 'failed'; clear(s);
+      if (error instanceof ModelOutputError) s.decisionReceipt = Receipt.parse(error.receipt);
+      await save(tx, s);
+      return { status: 'model_failed', session: s };
+    });
+  }
+}

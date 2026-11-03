@@ -1,0 +1,13 @@
+{
+  "userApproval": "Alright please proceed! after one new clarification call plus saved explicit-output checks",
+  "newNvidiaRequestsMaximum": 1,
+  "case": "clarification",
+  "maxOutputTokens": 1024,
+  "timeoutMs": 45000,
+  "retries": 0,
+  "polling": false,
+  "paidFallback": false,
+  "oldRunReopened": false,
+  "explicitOutput": "read-only reuse; labeled replay",
+  "newSparkCalls": 0
+}

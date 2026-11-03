@@ -1,0 +1,79 @@
+
+Running 22 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.6s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (155ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (116ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (116ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (119ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (179ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (116ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (116ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (118ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.7m)
+  ✓  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.0m)
+  ✓  12 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1 (612ms)
+  ✓  13 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2 (757ms)
+  ✓  14 tests/e2e/proof-s3.spec.ts:127:1 › S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it (840ms)
+  ✓  15 tests/e2e/proof-s3.spec.ts:158:1 › S3 cancellation, invalid bytes, wrong owner, missing session and interrupted proposal preserve terms (912ms)
+  ✓  16 tests/e2e/proof-s3.spec.ts:200:1 › S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE (499ms)
+  ✓  17 tests/e2e/proof-s3.spec.ts:230:1 › S3 upload response interruption retries the same edit without a duplicate transaction (313ms)
+  ✘  18 tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 1 (1.9s)
+  ✘  19 tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 2 (2.4s)
+  ✓  20 tests/e2e/proof-s4.spec.ts:108:1 › S4 ambiguous request, manual clarification, discard and cross-party HTTP protection (465ms)
+  ✓  21 tests/e2e/proof-s4.spec.ts:133:1 › S4 ignores delayed replies after credential changes and preserves text edited during parsing (291ms)
+  ✓  22 tests/e2e/proof-s4.spec.ts:169:1 › S4 offers a new request after expiry (268ms)
+
+
+  1) tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 1 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "covers": 8,
+    +   "covers": 0,
+        "filledCovers": 0,
+      }
+
+       97 |     }
+       98 |     const pending = await demoSnapshot(app.db);
+    >  99 |     expect(pending.scene?.pooled).toMatchObject({ filledCovers: 0, covers: 8 });
+          |                                   ^
+      100 |     await settleDue(app.db, owner.id, () => singaporeInstant(local.date, local.minute + 1));
+      101 |     const settled = await demoSnapshot(app.db, singaporeInstant(local.date, local.minute + 1));
+      102 |     expect(settled.scene?.pooled.filledCovers).toBe(8);
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s4.spec.ts:99:35
+
+    Error Context: test-results/proof-s4/proof-s4-S4-four-independe-f26ee-erms-and-settle-fresh-run-1/error-context.md
+
+  2) tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 2 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "covers": 8,
+    +   "covers": 0,
+        "filledCovers": 0,
+      }
+
+       97 |     }
+       98 |     const pending = await demoSnapshot(app.db);
+    >  99 |     expect(pending.scene?.pooled).toMatchObject({ filledCovers: 0, covers: 8 });
+          |                                   ^
+      100 |     await settleDue(app.db, owner.id, () => singaporeInstant(local.date, local.minute + 1));
+      101 |     const settled = await demoSnapshot(app.db, singaporeInstant(local.date, local.minute + 1));
+      102 |     expect(settled.scene?.pooled.filledCovers).toBe(8);
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s4.spec.ts:99:35
+
+    Error Context: test-results/proof-s4/proof-s4-S4-four-independe-820c4-erms-and-settle-fresh-run-2/error-context.md
+
+  2 failed
+    tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 1 
+    tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 2 
+  20 passed (3.0m)

@@ -1,0 +1,86 @@
+{
+  "data": {
+    "id": "meta/muse-glimmer-30b",
+    "name": "Muse Glimmer 30B",
+    "created": 1755815280,
+    "released": 1786320000,
+    "description": "",
+    "knowledge": "2026-01-04",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image\u2192text",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "none",
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "togetherai | meta/muse-glimmer-30b",
+        "model_name": "Muse Glimmer 30B",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.00000035",
+          "completion": "0.0000015",
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.00000004",
+          "discount": 0
+        },
+        "provider_name": "togetherai",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "vision",
+          "implicit-caching",
+          "reasoning",
+          "tool-use",
+          "structured-output"
+        ],
+        "quantization": "fp8",
+        "max_completion_tokens": 131072,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 100,
+        "latency_last_1h": {
+          "p50": 265,
+          "p95": 431.8999999999999
+        },
+        "throughput_last_1h": {
+          "p50": 104.5,
+          "p95": 107.55
+        },
+        "supports_implicit_caching": true
+      }
+    ]
+  }
+}

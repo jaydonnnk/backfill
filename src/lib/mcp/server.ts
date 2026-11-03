@@ -12,7 +12,7 @@ import {
   submitCommitment,
   type SubmitRefusal,
 } from "@/lib/commitments/service";
-import type { Db } from "@/lib/db/client";
+import type { Executor } from "@/lib/db/client";
 import { errorFields, log } from "@/lib/log";
 import { negotiate, type NegotiateRefusal, type NegotiationDeps } from "@/lib/negotiation/service";
 
@@ -125,7 +125,7 @@ export async function toolReply(tool: ToolName, agentId: string, run: () => Prom
 // One server per request, bound to the agent its bearer token named. The agent id never comes from
 // a tool argument.
 // negotiate_offer is offered only when the server has a signing secret and a merchant model.
-export function buildMcpServer(db: Db, agentId: string, clock: Clock = () => new Date(), negotiation: NegotiationDeps | null = null): McpServer {
+export function buildMcpServer(db: Executor, agentId: string, clock: Clock = () => new Date(), negotiation: NegotiationDeps | null = null): McpServer {
   const server = new McpServer({ name: "backfill", version: "0.5.0" });
 
   server.registerTool(

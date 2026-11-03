@@ -1,0 +1,34 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/unit/proof-s4-providers.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/proof-s4-providers.test.ts (5 tests | 1 failed) 40ms
+   × default production dependencies require separate authorities before either model dispatch 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s4-providers.test.ts > default production dependencies require separate authorities before either model dispatch
+AssertionError: expected [Function] to throw error including 'hosted_glimmer_approval_required' but got 'glimmer_approval_required'
+
+Expected: "hosted_glimmer_approval_required"
+Received: "glimmer_approval_required"
+
+ ❯ tests/unit/proof-s4-providers.test.ts:93:76
+     91| it('default production dependencies require separate authorities befor…
+     92|   const deps = buyerDeps();
+     93|   await expect(deps.parse('Synthetic request', '2026-11-03T01:00:00.00…
+       |                                                                            ^
+     94|   await expect(deps.decide('party', 'Synthetic request', INTENT, offer…
+     95|   process.env.BACKFILL_S4_GLIMMER_APPROVED = '1';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  21:31:46
+   Duration  165ms (tests 36%, transform 28%, setup 19%, import 17%, worker 1%)
+

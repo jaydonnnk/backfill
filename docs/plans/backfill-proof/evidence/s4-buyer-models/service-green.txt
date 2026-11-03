@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s4-buyer.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:16:09
+   Duration  1.28s (tests 68%, import 22%, transform 8%, setup 2%)
+

@@ -8,7 +8,7 @@ import { verifyCounterOffer } from "@/domain/negotiation/counter-offer";
 import { evaluateCommitment, evaluatePool, meetsFloor, offerPriceCents, toOffer } from "@/domain/offers/evaluate";
 import { MerchantRule, type Offer } from "@/domain/offers/schema";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
-import type { Db, Executor } from "@/lib/db/client";
+import type { Executor } from "@/lib/db/client";
 import { clearingFills, clearings, commitments, ledger, merchants, negotiationRounds, rules } from "@/lib/db/schema";
 
 // Everything a buyer agent can do through the MCP server, against the database. Nothing returned
@@ -200,7 +200,7 @@ async function occurrenceCommitments(db: Executor, ruleId: string, visitDate: st
 // latest round, at or above the current floor; every other token is counter_offer_invalid, so the
 // reply never says whether the floor moved.
 export async function submitCommitment(
-  db: Db,
+  db: Executor,
   agentId: string,
   input: SubmitInput,
   clock: Clock = () => new Date(),
@@ -304,7 +304,7 @@ type StoredClearing = { unlocked: boolean; filled: Map<string, { covers: number;
 // held FOR UPDATE, through lock_rule_for_clearing since the runtime role cannot update rules. That
 // waits for any commitment insert holding the rule FOR SHARE, so every commitment made before the
 // clearing is in it, and any insert after it is refused by its trigger.
-async function ensureClearing(db: Db, ruleId: string, visitDate: string): Promise<StoredClearing> {
+async function ensureClearing(db: Executor, ruleId: string, visitDate: string): Promise<StoredClearing> {
   return db.transaction(async (tx) => {
     await tx.execute(sql`select lock_rule_for_clearing(${ruleId})`);
     const ruleRow = one(await tx.select().from(rules).where(eq(rules.id, ruleId)));
@@ -331,7 +331,7 @@ async function ensureClearing(db: Db, ruleId: string, visitDate: string): Promis
 // deadline already passed. Otherwise an occurrence is cleared only when a buyer asks for its status,
 // and one no buyer asks about would stay pending for ever, hiding its sellout and blocking every
 // terms change on its rule.
-export async function settleDue(db: Db, merchantId: string, clock: Clock = () => new Date()): Promise<void> {
+export async function settleDue(db: Executor, merchantId: string, clock: Clock = () => new Date()): Promise<void> {
   const due = await db.execute<{ rule_id: string; visit_date: string }>(sql`
     select distinct c.rule_id, (c.visit_at at time zone 'Asia/Singapore')::date::text as visit_date
     from commitments c join rules r on r.id = c.rule_id
@@ -371,7 +371,7 @@ export type StatusResult = { ok: true; commitment: CommitmentView } | { ok: fals
 // An agent sees only its own commitments; another agent's id answers not_found, like a missing one.
 // Before the deadline the status is pending with the pool so far; from the deadline on, the first
 // read clears the occurrence and stores the result, and every read after returns that result.
-export async function getCommitmentStatus(db: Db, agentId: string, commitmentId: string, clock: Clock = () => new Date()): Promise<StatusResult> {
+export async function getCommitmentStatus(db: Executor, agentId: string, commitmentId: string, clock: Clock = () => new Date()): Promise<StatusResult> {
   const [row] = await db.select().from(commitments).where(and(eq(commitments.id, commitmentId), eq(commitments.agentId, agentId)));
   if (!row) return { ok: false, reason: "not_found" };
   const view = await viewOf(db, row);
@@ -389,7 +389,7 @@ export type CancelResult = { ok: true; commitment: CommitmentView } | { ok: fals
 
 // Cancels an agent's own commitment before its deadline. From the deadline on, or once the
 // occurrence is cleared, the commitment is binding. Cancelling a cancelled commitment returns it.
-export async function cancelCommitment(db: Db, agentId: string, commitmentId: string, clock: Clock = () => new Date()): Promise<CancelResult> {
+export async function cancelCommitment(db: Executor, agentId: string, commitmentId: string, clock: Clock = () => new Date()): Promise<CancelResult> {
   try {
     return await db.transaction(async (tx) => {
       const [row] = await tx

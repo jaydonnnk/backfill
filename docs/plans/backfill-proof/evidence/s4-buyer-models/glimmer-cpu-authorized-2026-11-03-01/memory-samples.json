@@ -1,0 +1,131 @@
+{
+  "stopReason": "memory_pressure_warning_or_critical",
+  "samples": [
+    {
+      "at": "2026-11-03T12:56:34.878Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 969968
+    },
+    {
+      "at": "2026-11-03T12:56:35.878Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 3124128
+    },
+    {
+      "at": "2026-11-03T12:56:36.879Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 5323200
+    },
+    {
+      "at": "2026-11-03T12:56:37.880Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7525376
+    },
+    {
+      "at": "2026-11-03T12:56:38.882Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 10069968
+    },
+    {
+      "at": "2026-11-03T12:56:39.881Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11043056
+    },
+    {
+      "at": "2026-11-03T12:56:40.882Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11078432
+    },
+    {
+      "at": "2026-11-03T12:56:41.883Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11096400
+    },
+    {
+      "at": "2026-11-03T12:56:42.884Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11140096
+    },
+    {
+      "at": "2026-11-03T12:56:43.885Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11540960
+    },
+    {
+      "at": "2026-11-03T12:56:44.889Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 11093680
+    },
+    {
+      "at": "2026-11-03T12:56:45.888Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 9319088
+    },
+    {
+      "at": "2026-11-03T12:56:46.888Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 8118400
+    },
+    {
+      "at": "2026-11-03T12:56:47.889Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 8010560
+    },
+    {
+      "at": "2026-11-03T12:56:48.891Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7852352
+    },
+    {
+      "at": "2026-11-03T12:56:49.891Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7620224
+    },
+    {
+      "at": "2026-11-03T12:56:50.894Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7830768
+    },
+    {
+      "at": "2026-11-03T12:56:51.893Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7994016
+    },
+    {
+      "at": "2026-11-03T12:56:52.895Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7658752
+    },
+    {
+      "at": "2026-11-03T12:56:53.895Z",
+      "pressure": 1,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7247712
+    },
+    {
+      "at": "2026-11-03T12:56:54.896Z",
+      "pressure": 2,
+      "swapUsedMb": 3035.38,
+      "rssKiB": 7124752
+    }
+  ]
+}

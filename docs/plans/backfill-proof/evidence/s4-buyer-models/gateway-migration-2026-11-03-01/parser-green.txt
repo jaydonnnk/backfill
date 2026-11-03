@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/unit/proof-s4-models.test.ts tests/unit/proof-s4-providers.test.ts tests/integration/proof-s4-guards.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  21:33:21
+   Duration  797ms (tests 47%, import 28%, transform 17%, setup 7%, worker 1%)
+

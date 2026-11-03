@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import { readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { guardedGatewayFetch, GATEWAY_CASES } from './proof-s4-live-guard.mjs';
+
+if (process.env.S4_LIVE_RUN_DIR) {
+  assert.equal(process.env.S4_LIVE_AUTHORITY, 'approved-5-calls-usd6.57');
+  assert.equal(new URL(process.env.DATABASE_URL ?? '').hostname, '127.0.0.1');
+  const directory = process.env.S4_LIVE_RUN_DIR;
+  const upstream = globalThis.fetch;
+  const gateway = guardedGatewayFetch({ directory, upstream });
+  globalThis.fetch = async (input, init) => {
+    const url = new URL(typeof input === 'string' || input instanceof URL ? input : input.url);
+    if (url.origin === 'https://ai-gateway.vercel.sh') return gateway(input, init);
+    if (url.href === 'http://127.0.0.1:8088/v1/chat/completions') {
+      const { name } = JSON.parse(await readFile(join(directory, 'current-case.json'), 'utf8'));
+      assert([...GATEWAY_CASES, 'ambiguous-local-only'].includes(name));
+      assert.equal(init?.method, 'POST'); assert.equal(init.redirect, 'error');
+      const body = JSON.parse(init.body);
+      assert.equal(body.model, 'muse-glimmer-s4'); assert.equal(body.max_tokens, 512);
+      assert.deepEqual(body, JSON.parse(await readFile(join(directory, `${name}-approved-glimmer.json`), 'utf8')));
+      await writeFile(join(directory, `glimmer-${name}-dispatch.json`), JSON.stringify({ name, endpoint: url.href, at: new Date().toISOString(), maxOutputTokens: 512, request: body }, null, 2) + '\n', { flag: 'wx' });
+      try {
+        const response = await upstream(input, { ...init, redirect: 'error' });
+        await writeFile(join(directory, `glimmer-${name}-http.json`), JSON.stringify({ status: response.status, attemptConsumed: true }) + '\n', { flag: 'wx' });
+        return response;
+      } catch {
+        await writeFile(join(directory, `glimmer-${name}-failure.json`), JSON.stringify({ status: 'transport_failed', attemptConsumed: true }) + '\n', { flag: 'wx' });
+        throw Error('Local Glimmer attempt failed; no retry');
+      }
+    }
+    if (url.hostname === '127.0.0.1' || url.hostname === '[::1]') return upstream(input, init);
+    // Includes direct Meta API: the database remains reachable, not a full-offline claim.
+    throw Error('Remote endpoint unavailable in this bounded S4 runner');
+  };
+}

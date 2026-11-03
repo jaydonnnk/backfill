@@ -1,0 +1,19 @@
+{
+  "source": "https://api.github.com/repos/ggml-org/llama.cpp/releases/tags/b10353",
+  "tag": "b10353",
+  "target_commitish": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+  "assets": [
+    {
+      "name": "llama-b10353-bin-macos-arm64.tar.gz",
+      "size": 11039814,
+      "digest": "sha256:de1337374968675e57cb3c7782b91775213464c38b054e280f92b1ff2f36bed8",
+      "browser_download_url": "https://github.com/ggml-org/llama.cpp/releases/download/b10353/llama-b10353-bin-macos-arm64.tar.gz"
+    },
+    {
+      "name": "llama-b10353-bin-macos-x64.tar.gz",
+      "size": 11313756,
+      "digest": "sha256:25b91ecec8c6e9e50e6bda367c9f9883a1479ab48381e185931c3105c8f3d07d",
+      "browser_download_url": "https://github.com/ggml-org/llama.cpp/releases/download/b10353/llama-b10353-bin-macos-x64.tar.gz"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "completedAt": "2026-11-03T13:38:42.766501+00:00",
+  "reviewer": "independent read-only review_gateway_migration subagent",
+  "scope": [
+    "hosted SDK parser",
+    "approval switches",
+    "receipt provenance and failure handling",
+    "recording and replay compatibility",
+    "revision/duplicate protections",
+    "retired launchers",
+    "browser output guards",
+    "current docs"
+  ],
+  "findings": [],
+  "reviewerChangedFiles": false,
+  "reviewerInferenceOrTests": false,
+  "limit": "Genuine hosted Glimmer output and provider identity remain unverified"
+}

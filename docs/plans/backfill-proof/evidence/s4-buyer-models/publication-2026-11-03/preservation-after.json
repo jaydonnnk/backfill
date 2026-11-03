@@ -1,0 +1,12 @@
+{
+  "inheritedEvidenceFiles": 481,
+  "archivedExactBytesFiles": 114,
+  "noticeUpdatedDocsWithExactOriginalBackup": [
+    "docs/plans/backfill-proof/evidence/s4-buyer-models/gateway-migration-2026-11-03-01/README.md"
+  ],
+  "allOtherEvidenceBytesUnchanged": true,
+  "genuineS4bNvidiaAndConsumedMarkersUnchanged": true,
+  "productFilesMatchPrior22CheckBrowserManifest": 101,
+  "retainedScreenshots": 14,
+  "localModelInstallationAbsent": true
+}

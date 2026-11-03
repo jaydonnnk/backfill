@@ -1,0 +1,1 @@
+Offline preflight passed: one new NVIDIA clarification case plus exact-input explicit replay, 1024 tokens/45 seconds each, no retries or polling.

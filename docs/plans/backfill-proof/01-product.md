@@ -102,12 +102,15 @@ shown honestly; the comparison publishes outcomes without cherry-picking;
 desktop and mobile views remain readable; final submission claims match proof.
 Offline proof does not substitute for an unperformed live model or Muse session.
 
-## Scope revision, 2026-11-03, pending approval
+## Current scope revision, 2026-11-03
 
 The user explicitly reaffirmed use of all eight Meta tools/models. The
 [revised proposal](build-proposal-2026-11-03.md) adds reviewed owner voice input,
-local buyer-intent parsing, eligible partner buyer decisions and optional
+hosted Muse Glimmer buyer-intent parsing through NVIDIA, partner buyer decisions and optional
 owner-approved promotional assets. The [workflow mockup](mockups/workflow.html)
 shows the proposed experience. Existing approval, evidence and honest-outcome
 requirements above remain. The user's merchant evidence and video are separate
-work. No code or new inference has been authorized by this planning revision.
+work. S4a uses the [current NVIDIA contract](s4a-nvidia.md). The explicit and clarification NVIDIA cases now meet bounded synthetic S4a
+acceptance across the original run and separately approved one-call continuation. That approval does not authorize billing,
+production, publication, S5 or reuse of earlier consumed allowances. Genuine
+hosted output is required; fixtures alone do not complete acceptance.

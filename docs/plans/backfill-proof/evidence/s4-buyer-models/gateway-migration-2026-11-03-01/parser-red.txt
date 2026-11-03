@@ -1,0 +1,71 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/unit/proof-s4-providers.test.ts tests/integration/proof-s4-guards.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/proof-s4-providers.test.ts (5 tests | 2 failed) 31ms
+   × hosted Glimmer uses the SDK, explicit intent contract and supplied usage without retaining reasoning 2ms
+   × hosted Glimmer makes one attempt on provider failure and aborts at 45 seconds without retry 0ms
+ ❯ |integration| tests/integration/proof-s4-guards.test.ts (14 tests | 1 failed) 405ms
+   × keeps rejected hosted parser usage in parser evidence and cannot submit or retry it 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s4-providers.test.ts > hosted Glimmer uses the SDK, explicit intent contract and supplied usage without retaining reasoning
+TypeError: Invalid URL
+ ❯ localEndpoint src/lib/buyer/models.ts:18:15
+
+ ❯ glimmerParser src/lib/buyer/models.ts:37:20
+ ❯ parse tests/unit/proof-s4-providers.test.ts:28:25
+ ❯ tests/unit/proof-s4-providers.test.ts:29:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |unit| tests/unit/proof-s4-providers.test.ts > hosted Glimmer makes one attempt on provider failure and aborts at 45 seconds without retry
+TypeError: Invalid URL
+ ❯ localEndpoint src/lib/buyer/models.ts:18:15
+
+ ❯ glimmerParser src/lib/buyer/models.ts:37:20
+ ❯ tests/unit/proof-s4-providers.test.ts:50:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |integration| tests/integration/proof-s4-guards.test.ts > keeps rejected hosted parser usage in parser evidence and cannot submit or retry it
+AssertionError: expected { …(18) } to match object { phase: 'failed', …(4) }
+(13 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "approval": null,
+-   "decisionReceipt": null,
+-   "parseReceipt": {
++   "decisionReceipt": {
+      "costUsd": null,
+      "inputTokens": 100,
+      "model": "meta/muse-glimmer-30b",
+      "outputTokens": 40,
++     "route": "vercel_gateway",
++     "servedModel": null,
++     "source": "provider",
++     "upstream": "togetherai",
+    },
++   "parseReceipt": null,
+    "phase": "failed",
+    "proposal": null,
+  }
+
+ ❯ tests/integration/proof-s4-guards.test.ts:211:21
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 16 passed (19)
+   Start at  21:30:23
+   Duration  811ms (tests 50%, import 30%, transform 15%, setup 5%)
+

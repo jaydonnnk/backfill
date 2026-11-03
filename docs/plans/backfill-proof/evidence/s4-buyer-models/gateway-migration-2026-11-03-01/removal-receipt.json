@@ -1,0 +1,14 @@
+{
+  "completedAt": "2026-11-03T13:28:29.912302+00:00",
+  "root": "/Users/jayd0/Desktop/meta-hack/archive/proof-s4-models",
+  "removedRegularFileBytes": 16795203551,
+  "removedRegularFiles": 46,
+  "weightSha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+  "runtimeMatchedArchiveMembers": true,
+  "unexpectedMaterial": [],
+  "stoppedProcesses": [],
+  "rootAbsent": true,
+  "otherInstallationsTouched": false,
+  "helpPreserved": "retired-runtime-help.txt",
+  "noModelRestart": true
+}

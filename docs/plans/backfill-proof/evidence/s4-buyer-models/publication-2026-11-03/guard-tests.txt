@@ -1,0 +1,13 @@
+✔ reserves all five cases once across independent guard instances; never stores auth headers (23.770583ms)
+✔ failure consumes its durable slot; modified settings, unknown cases and remote paths dispatch nothing (7.413542ms)
+✔ historical preload refuses consumed authority before any upstream dispatch (27.735083ms)
+✔ NVIDIA guard reserves at most two exact requests across guard instances; failures consume slots (9.737709ms)
+✔ continuation guard forbids explicit inference and permits only one durable clarification slot (12.024875ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 68.556958

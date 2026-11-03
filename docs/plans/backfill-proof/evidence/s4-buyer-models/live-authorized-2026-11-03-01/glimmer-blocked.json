@@ -1,0 +1,6 @@
+{
+  "status": "not_started_or_stopped_before_readiness",
+  "pressureBefore": 1,
+  "reason": "memory_pressure_warning_or_critical",
+  "restart": "none; no automatic retry"
+}

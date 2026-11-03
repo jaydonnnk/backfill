@@ -1,0 +1,15 @@
+{
+  "userApproval": "Then do the glimmer output live inference i approve the test",
+  "provider": "NVIDIA advertised free prototype endpoint only",
+  "model": "meta/muse-glimmer-30b",
+  "maximumAttempts": 2,
+  "maxOutputTokensPerAttempt": 1024,
+  "timeoutMs": 45000,
+  "retries": 0,
+  "polling": false,
+  "paidFallback": false,
+  "purchasedCredits": false,
+  "stopOnFirstFailure": true,
+  "S4bCalls": 0,
+  "production": false
+}

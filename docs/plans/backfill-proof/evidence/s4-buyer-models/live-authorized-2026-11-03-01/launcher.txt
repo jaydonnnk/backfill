@@ -1,0 +1,3 @@
+Building unchanged S4 source with dummy configuration before model startup.
+Running bounded genuine model requests and scripted authenticated buyer UI actions.
+Bounded S4 run finished; inspect actual pass flags. Owned resources removed. No retry.

@@ -1,0 +1,1 @@
+Offline preflight passed: two NVIDIA parser cases, 1024 tokens/45 seconds each, no retries or polling.

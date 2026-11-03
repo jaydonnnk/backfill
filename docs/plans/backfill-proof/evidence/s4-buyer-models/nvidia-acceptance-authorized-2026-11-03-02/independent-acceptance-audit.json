@@ -1,0 +1,16 @@
+{
+  "networkCalls": 0,
+  "newInferenceRequests": 1,
+  "newExplicitRequests": 0,
+  "newSparkRequests": 0,
+  "clarificationHttp200": true,
+  "clarificationFieldsCorrect": true,
+  "explicitExactInputReplay": true,
+  "originalSourceStillProvider": true,
+  "localGuardChecksPassed": true,
+  "commitments": 0,
+  "s4aSyntheticAcceptancePassed": true,
+  "newInputTokens": 262,
+  "newOutputTokens": 240,
+  "actualInvoicedCostUsd": null
+}

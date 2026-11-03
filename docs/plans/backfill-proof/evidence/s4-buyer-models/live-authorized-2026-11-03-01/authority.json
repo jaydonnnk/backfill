@@ -1,0 +1,19 @@
+{
+  "authorization": "User: All is granted",
+  "grantedScopes": [
+    "A pinned runtime download/extraction",
+    "B pinned Glimmer weight download",
+    "C up to five Gateway attempts, max USD6.57, no retries"
+  ],
+  "recordedAtUtc": "2026-11-03T08:55:44.816821+00:00",
+  "excluded": [
+    "S5",
+    "production",
+    "publication",
+    "account/card changes",
+    "credit purchases",
+    "extra inference/retries"
+  ],
+  "planSha256": "d7edc60b8b29b1279fc3d6334734df7e98991f1ed5faad6fca1886447cb6d5f3",
+  "inputsSha256": "20324cb978a8038efc1d073e204fb5a8bd49d956c0c420a805bd75c6c1c714b7"
+}

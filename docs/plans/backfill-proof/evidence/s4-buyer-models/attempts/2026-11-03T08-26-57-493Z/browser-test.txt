@@ -1,0 +1,53 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 tests/e2e/proof-s4.spec.ts:133:1 › S4 ignores delayed replies after credential changes and preserves text edited during parsing (10.3s)
+  ✘  2 tests/e2e/proof-s4.spec.ts:169:1 › S4 offers a new request after expiry (5.3s)
+
+
+  1) tests/e2e/proof-s4.spec.ts:133:1 › S4 ignores delayed replies after credential changes and preserves text edited during parsing 
+
+    TimeoutError: locator.fill: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Your request', { exact: true })
+
+
+      148 |     await started;
+      149 |     await page.getByLabel('Buyer credential', { exact: true }).fill(b.token);
+    > 150 |     await page.getByLabel('Your request', { exact: true }).fill('New buyer request B');
+          |                                                            ^
+      151 |     release();
+      152 |     await expect(page.getByRole('button', { name: 'Save request', exact: true })).toBeEnabled();
+      153 |     await expect(page.getByLabel('Your request', { exact: true })).toHaveValue('New buyer request B');
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s4.spec.ts:150:60
+
+    Error Context: test-results/proof-s4/proof-s4-S4-ignores-delaye-e7e2d--text-edited-during-parsing/error-context.md
+
+  2) tests/e2e/proof-s4.spec.ts:169:1 › S4 offers a new request after expiry ───────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Start a new request', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Start a new request', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Start a new request', exact: true })
+
+
+      179 |     await app.db.update(buyerSessions).set({ record: { ...s, expiresAt: new Date(Date.now() - 1000).toISOString() } }).where(eq(buyerSessions.id, s.id));
+      180 |     await page.getByRole('button', { name: 'Check saved state', exact: true }).click();
+    > 181 |     await expect(page.getByRole('button', { name: 'Start a new request', exact: true })).toBeVisible();
+          |                                                                                          ^
+      182 |     await page.getByRole('button', { name: 'Start a new request', exact: true }).click();
+      183 |     await expect(page.getByRole('button', { name: 'Save request', exact: true })).toBeVisible();
+      184 |   } finally { await app.close(); }
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s4.spec.ts:181:90
+
+    Error Context: test-results/proof-s4/proof-s4-S4-offers-a-new-request-after-expiry/error-context.md
+
+  2 failed
+    tests/e2e/proof-s4.spec.ts:133:1 › S4 ignores delayed replies after credential changes and preserves text edited during parsing 
+    tests/e2e/proof-s4.spec.ts:169:1 › S4 offers a new request after expiry ────────────────────────

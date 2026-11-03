@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-11-03T13:34:35.405Z",
+  "networkCalls": 0,
+  "originalEvidence": "read-only; no relabeling or date changes",
+  "allowance": "all five slots remain consumed",
+  "cases": [
+    {
+      "case": "eligible-1",
+      "replayed": true,
+      "parserEvidence": null,
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-2",
+      "replayed": true,
+      "parserEvidence": null,
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-3",
+      "replayed": true,
+      "parserEvidence": null,
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "eligible-4",
+      "replayed": true,
+      "parserEvidence": null,
+      "wrongPartyAndOccurrenceRejected": true
+    },
+    {
+      "case": "refusal-1",
+      "replayed": true,
+      "parserEvidence": null,
+      "wrongPartyAndOccurrenceRejected": true
+    }
+  ]
+}

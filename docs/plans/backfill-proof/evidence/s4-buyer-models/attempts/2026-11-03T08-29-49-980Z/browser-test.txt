@@ -1,0 +1,10 @@
+
+Running 5 tests using 1 worker
+
+  ✓  1 tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 1 (2.2s)
+  ✓  2 tests/e2e/proof-s4.spec.ts:32:30 › S4 four independent reviewed buyers approve exact terms and settle, fresh run 2 (2.4s)
+  ✓  3 tests/e2e/proof-s4.spec.ts:108:1 › S4 ambiguous request, manual clarification, discard and cross-party HTTP protection (417ms)
+  ✓  4 tests/e2e/proof-s4.spec.ts:133:1 › S4 ignores delayed replies after credential changes and preserves text edited during parsing (289ms)
+  ✓  5 tests/e2e/proof-s4.spec.ts:169:1 › S4 offers a new request after expiry (256ms)
+
+  5 passed (6.6s)

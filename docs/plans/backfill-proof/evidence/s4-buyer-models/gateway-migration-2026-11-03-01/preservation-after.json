@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-11-03T13:40:28.341588+00:00",
+  "baselineEvidenceFiles": 513,
+  "byteIdenticalFiles": 512,
+  "missing": [],
+  "intentionalChanges": [
+    {
+      "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/README.md",
+      "change": "current-status prepend only",
+      "originalBodySha256Verified": true
+    }
+  ],
+  "historicalSourceSnapshotsVerified": 10,
+  "genuineS4bAndCpuEvidenceUnchanged": true,
+  "allConsumedMarkersUnchanged": true,
+  "localInstallationAbsent": true,
+  "matchingModelProcesses": 0
+}

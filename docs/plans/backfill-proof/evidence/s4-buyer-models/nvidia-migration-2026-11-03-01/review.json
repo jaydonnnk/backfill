@@ -1,0 +1,15 @@
+{
+  "reviewer": "independent read-only subagent",
+  "findings": [
+    {
+      "priority": "P2",
+      "issue": "valid text-only response with null tool_calls rejected",
+      "resolution": "fixed with nullish empty-array schema; nonempty calls still rejected",
+      "red": "null-tools-red.txt",
+      "green": "null-tools-green.txt"
+    }
+  ],
+  "remainingFindings": [],
+  "reviewerMadeChanges": false,
+  "reviewerInference": false
+}

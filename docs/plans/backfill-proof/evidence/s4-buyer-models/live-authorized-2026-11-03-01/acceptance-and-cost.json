@@ -1,0 +1,19 @@
+{
+  "genuineGatewayAttempts": 5,
+  "genuineLocalParserAttempts": 0,
+  "gatewayHttp200": 5,
+  "s4aPassed": false,
+  "s4bPassed": true,
+  "fullS4Passed": false,
+  "inputTokens": 2447,
+  "outputTokens": 1558,
+  "uncachedPublishedRateEstimateUsd": 0.00968025,
+  "cacheTokenBreakdown": "not retained by this adapter; estimate charges all input at uncached rate",
+  "actualInvoicedCostUsd": null,
+  "approvedCeilingUsd": 6.57,
+  "allowance": "five Gateway slots consumed; no retries or additional calls authorized",
+  "glimmer": "one load attempt stopped by memory-pressure watchdog before inference; no restart",
+  "genuineReplayCases": 5,
+  "productSourceHashesVerified": 101,
+  "privacyChecksPassed": true
+}

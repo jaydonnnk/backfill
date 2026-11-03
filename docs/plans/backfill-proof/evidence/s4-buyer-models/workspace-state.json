@@ -1,0 +1,15 @@
+{
+  "baseHead": "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+  "branch": "backfill/proof-s4-buyer-models",
+  "main": "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+  "originMain": "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+  "startingWorktree": "clean, verified before branch creation",
+  "startingRemoteMain": "b1df9ad08dbbcd526c12d42ca3d12090598a797c",
+  "authority": "revised S4a/S4b independent local implementation only",
+  "productionAccess": false,
+  "installs": 0,
+  "modelDownloads": 0,
+  "paidInferenceAttempts": 0,
+  "S3Allowance": "fully consumed; not reused",
+  "publication": false
+}

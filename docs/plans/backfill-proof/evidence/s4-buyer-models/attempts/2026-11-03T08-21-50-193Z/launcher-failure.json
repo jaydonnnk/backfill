@@ -1,0 +1,5 @@
+{
+  "stage": "chromium",
+  "errorName": "AssertionError",
+  "assertion": "browser-test.txt failed; inspect the retained log\n\n1 !== 0\n"
+}

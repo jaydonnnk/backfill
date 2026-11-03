@@ -1,0 +1,6 @@
+{
+  "metaApi": "deliberately unavailable: inference transport accepts only literal loopback Glimmer endpoint",
+  "gateway": "disabled; replay reads retained genuine decisions only",
+  "database": "SELECT 1 succeeded on owned local disposable PostgreSQL",
+  "sharedPoolFullyOffline": false
+}
