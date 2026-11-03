@@ -380,3 +380,10 @@ body { padding-bottom: 125px; }
   .booking-outcome h3 { font-size: 18px; }
   .outcome-divider { display: block; font-size: 0; }
 }
+
+.trail-party { border-top: 1px solid var(--line, #ddd); padding: 1rem 0; }
+.trail-party summary { cursor: pointer; overflow-wrap: anywhere; }
+.trail-fields { display: grid; gap: 1rem; }
+.trail-fields dt { font-weight: 600; }
+.trail-fields dd { margin: .25rem 0 0; overflow-wrap: anywhere; }
+.trail-fields small { display: block; margin-top: .25rem; }

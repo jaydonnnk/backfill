@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { DemoMuse, DemoScene, DemoSnapshot } from "@/lib/demo/snapshot";
 import type { DemoLedger } from "@/lib/demo/ledger";
+import { parseDemoSnapshot } from "@/lib/demo/protocol";
 import { followFeedHealth, type FeedState } from "./live-feed";
 
 import { KopiMessage, useKopiMotion } from "@/components/kopi-companion";
@@ -50,7 +51,7 @@ function Scene({ scene, now, shown, savings }: { scene: DemoScene; now: number |
         <p className="booking-price">{dollars(scene.offerPriceCents)} <span>per person</span></p>
         <p className="booking-discount"><s>{dollars(scene.listPriceCents)}</s><span>{percent(scene.discountBps)} off</span></p>
         <dl className="booking-terms"><div><dt>Visit</dt><dd>{scene.visitDate}{scene.visitWindow && <span>{scene.visitWindow} SGT</span>}</dd></div><div><dt>The group needs</dt><dd>{scene.minPoolCovers} diners</dd></div></dl>
-        <p className="small">Each buyer approves their own booking.</p>
+        <p className="small">Separate parties commit to their own terms. See approval evidence below.</p>
       </div>
       <div className="booking-table" id="booking-progress">
         <p className="eyebrow">{playing ? "Replaying the bookings" : complete ? "Recorded group" : "The group so far"}</p>
@@ -67,12 +68,31 @@ function Scene({ scene, now, shown, savings }: { scene: DemoScene; now: number |
       </div>
     </section>
     <details className="demo-details"><summary>See booking details</summary><div className="demo-detail-content">
-      <p>{scene.summary}</p><p className="small">Simulated buyers. {scene.plan?.provenance === "recorded_replay" ? "Recorded replay: these decisions came from an earlier recording, with a possible shifted day and time. They were not made afresh for this window." : "Buyer decision provenance is unknown on this board."} No real payments.</p>
+      <p>{scene.summary}</p><p className="small">Simulated buyers. Per-party decision provenance and approval evidence appear below when stored. Missing records remain unavailable. No real payments.</p>
       <div className="table-scroll"><table><caption>Individual bookings</caption><thead><tr><th>Buyer</th><th>Diners</th><th>On their own</th><th>With the group</th></tr></thead><tbody>{buyers.map(b=><tr key={b.agentId}><td>{b.label}<small>{b.agentId}</small></td><td>{b.covers}</td><td>{b.soloUnlocks ? 'Meets minimum' : 'Below minimum'}</td><td>{playing?'Replaying':b.outcome.replaceAll('_',' ')}</td></tr>)}</tbody></table></div>
       <details><summary>Booking history</summary><ol className="booking-history">{events.map((event,i)=><li key={`${event.at}:${i}`}><span>{event.label}</span><time dateTime={event.at}>{sgTime(event.at)} SGT</time></li>)}</ol></details>
     </div></details>
-    {!playing && scene.pooled.soldOut && <details className="demo-details wonder-panel"><summary>What could the café offer next?</summary><div className="demo-detail-content"><p className="eyebrow">Muse Wonder · {scene.plan?.provenance==='recorded_replay'?'recorded Wonder plan replayed':'saved suggestion'}</p>{!scene.plan ? <p>No Wonder plan stored yet.</p> : scene.plan.verdict==='ok' ? <><div className="plan-diff"><div><span>Discount</span><strong>{percent(scene.discountBps)} → {scene.plan.discountBps===null?'Unknown':percent(scene.plan.discountBps)}</strong></div><div><span>Seats</span><strong>{scene.pooled.filledCovers} → {scene.plan.capacityCovers}</strong></div><div><span>Minimum diners</span><strong>{scene.minPoolCovers} → {scene.plan.minPoolCovers}</strong></div></div><p>{scene.plan.rationale}</p><p>{scene.plan.applied?'Approved by the café.':'The café must approve these terms before they go live.'}</p></> : <p>The suggestion didn’t meet the café’s rules. Its offer stays unchanged.</p>}</div></details>}
+    {!playing && <DecisionTrail scene={scene} />}
+    {!playing && scene.pooled.soldOut && <details className="demo-details wonder-panel"><summary>What could the café offer next?</summary><div className="demo-detail-content"><p className="eyebrow">Muse Wonder · {scene.plan?.provenance==='recorded_replay'?'recorded Wonder plan replayed':scene.plan?.provenance==='fixture'?'scripted fixture':'stored provenance unavailable'}</p>{!scene.plan ? <p>No Wonder plan stored yet.</p> : scene.plan.verdict==='ok' ? <><div className="plan-diff"><div><span>Discount</span><strong>{percent(scene.discountBps)} → {scene.plan.discountBps===null?'Unknown':percent(scene.plan.discountBps)}</strong></div><div><span>Seats</span><strong>{scene.pooled.filledCovers} → {scene.plan.capacityCovers}</strong></div><div><span>Minimum diners</span><strong>{scene.minPoolCovers} → {scene.plan.minPoolCovers}</strong></div></div><p>{scene.plan.applied?'Approved by the café.':'The café must approve these terms before they go live.'}</p></> : <p>The suggestion didn’t meet the café’s rules. Its offer stays unchanged.</p>}</div></details>}
   </>;
+}
+
+function DecisionTrail({ scene }: { scene: DemoScene }) {
+  return <details className="demo-details" open><summary>Decision and approval trail</summary><div className="demo-detail-content">
+    <p className="small">Each party acts separately. A proposal reserves no seats. Submitted commitments stay pending until settlement. Checkout is simulated.</p>
+    <p className="small">Scripted authorization records a local script accepting exact terms. It does not establish a real person&apos;s approval. Missing evidence stays unavailable.</p>
+    {scene.trail?.length ? scene.trail.map(t => <details className="trail-party" key={t.id}><summary>{t.final?.partyId ?? t.terms?.partyId} · {t.result.replaceAll('_', ' ')}</summary><div className="demo-detail-content">
+      <dl className="trail-fields">
+        <div><dt>Request</dt><dd>{t.request ?? 'Unavailable for this commitment'}</dd></div>
+        <div><dt>Bounded output</dt><dd>{t.output ? `${t.output.covers} covers. ${t.output.reason}` : 'Unavailable for this commitment'}<small>{t.provenance === 'fixture' ? 'Authored synthetic fixture, no model call' : t.provenance === 'recorded_replay' ? 'Historical recorded output replayed' : 'Decision provenance unavailable'}</small></dd></div>
+        <div><dt>Proposed terms</dt><dd>{t.terms ? `v${t.terms.termsVersion} · ${t.terms.visitDate} · ${t.terms.covers} covers · ${dollars(t.terms.pricePerCoverCents)} each · ${dollars(t.terms.totalCents)} total` : 'Unavailable'}</dd></div>
+        <div><dt>Approval evidence</dt><dd>{t.approval === 'scripted' ? 'Scripted authorization matches exact terms' : t.approval === 'mismatch' ? 'Approval mismatch. No matching authorization' : 'Unavailable. No approval established'}</dd></div>
+        <div><dt>Submitted commitment</dt><dd>{t.commitmentId ?? 'None. Proposal only'}{t.final && <small>{`v${t.final.termsVersion} · ${t.final.visitDate} · ${t.final.covers} covers · ${t.final.pricePerCoverCents === null ? 'Accepted price unavailable' : `${dollars(t.final.pricePerCoverCents)} each · ${dollars(t.final.pricePerCoverCents * t.final.covers)} total`}`}</small>}</dd></div>
+        <div><dt>Result</dt><dd>{t.result === 'not_filled' ? 'Not filled. No discounted booking or savings' : t.result === 'proposal_only' ? 'Proposal only. No commitment or confirmed booking' : t.result === 'pending' ? 'Pending. No confirmed booking yet' : 'Filled at settlement. Simulated checkout'}</dd></div>
+        <div><dt>Record links</dt><dd>Run {t.terms?.runId ?? 'unavailable'}<small>Rule {t.final?.ruleId ?? t.terms?.ruleId} · occurrence {t.final?.visitDate ?? t.terms?.visitDate}</small><small>Trail {t.id}</small></dd></div>
+      </dl>
+    </div></details>) : <p>Decision and approval evidence unavailable for this saved scene.</p>}
+  </div></details>;
 }
 
 function Ledger({ ledger }: { ledger: DemoLedger | null }) {
@@ -95,25 +115,37 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
   const observation = useRef(initialKopiObservation(initial, unavailable ? 'stale' : 'connecting'));
   const replaying = useRef(false);
   useEffect(() => {
-    const source = new EventSource("/api/demo/stream");
-    followFeedHealth(source, state => {
+    let source: EventSource | null = null;
+    function health(state: FeedState) {
       setFeedState(state);
       if (state !== 'live') {
         observation.current = { ...observation.current, feed: state };
         animate?.({ kind: 'clear' });
       }
-    });
-    source.onmessage = (event: MessageEvent<string>) => {
-      try {
-        const next = JSON.parse(event.data) as DemoSnapshot;
+    }
+    function connect() {
+      source?.close();
+      health('connecting');
+      source = new EventSource("/api/demo/stream");
+      followFeedHealth(source, health);
+      source.onmessage = (event: MessageEvent<string>) => {
+        const next = parseDemoSnapshot(event.data);
+        if (!next) { health('stale'); return; }
         const result = advanceKopi(observation.current, next, 'live', replaying.current, Date.now());
         observation.current = result.state;
         animate?.(result.queueAction);
         setSnapshot(next);
-      }
-      catch { setFeedState("stale"); observation.current = { ...observation.current, feed: "stale" }; animate?.({ kind: "clear" }); }
+      };
+    }
+    function offline() { source?.close(); health('stale'); }
+    window.addEventListener('offline', offline);
+    window.addEventListener('online', connect);
+    if (navigator.onLine) connect(); else offline();
+    return () => {
+      source?.close();
+      window.removeEventListener('offline', offline);
+      window.removeEventListener('online', connect);
     };
-    return () => source.close();
   }, [animate]);
   const replayLength = replay?.snapshot.scene?.buyers.length ?? 0;
   const shown = replay?.shown;

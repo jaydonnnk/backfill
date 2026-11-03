@@ -152,16 +152,17 @@ describe("demo replay labels", () => {
     expect(html).toContain("Watch how it works");
     expect(html).toContain("aria-label=\"Group booking progress\"");
     expect(html).toContain("Simulated buyers.");
-    expect(html).toContain("Buyer decision provenance is unknown");
+    expect(html).toContain("Missing records remain unavailable");
     expect(html).toContain("No Wonder plan stored yet");
   });
 
-  it("labels a stored replay plan and the possible shifted rehearsal window", () => {
+  it("labels a stored replay plan without attributing buyer decisions to it", () => {
     const plan = { provenance: "recorded_replay", verdict: "ok", discountBps: 1500, capacityCovers: 24, minPoolCovers: 12, perAgentCapCovers: 4, rationale: "recorded rationale", applied: false } satisfies NonNullable<DemoScene["plan"]>;
     const html = renderToStaticMarkup(createElement(LiveBoard, { initial: { scene: { ...scene, plan }, muse: null, ledger: null } }));
     expect(html).toContain("recorded Wonder plan replayed");
-    expect(html).toContain("Recorded replay:");
-    expect(html).toContain("shifted day and time");
-    expect(html).toContain("not made afresh");
+    expect(html).toContain("Per-party decision provenance and approval evidence");
+    expect(html).toContain("Missing records remain unavailable");
+    expect(html).not.toContain("these decisions came from an earlier recording");
+    expect(html).not.toContain("recorded rationale");
   });
 });

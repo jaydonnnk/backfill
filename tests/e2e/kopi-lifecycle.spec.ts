@@ -51,7 +51,7 @@ for (const change of ['pool', 'null', 'stale', 'malformed', 'navigation', 'clear
     const stream = await feed(page);
     try {
       if (change === 'plan_applied') {
-        stream.snapshot.scene!.plan = { provenance: 'model', verdict: 'ok', discountBps: 1000, capacityCovers: 16, minPoolCovers: 8, perAgentCapCovers: 4, rationale: 'Fixture', applied: false };
+        stream.snapshot.scene!.plan = { provenance: 'model', verdict: 'ok', discountBps: 1000, capacityCovers: 16, minPoolCovers: 8, perAgentCapCovers: 4, rationale: null, applied: false };
         stream.snapshot.scene!.events.push({ kind: 'plan', at: new Date().toISOString(), label: 'Fixture plan' });
         stream.send(stream.snapshot);
         await expect(page.locator('.kopi-bubble')).toContainText('Awaiting approval.');

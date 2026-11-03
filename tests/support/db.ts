@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import postgres from "postgres";
-import { loadLocalEnvFile, testEnv } from "@/env";
+import { testEnv } from "@/env";
 import { connectDb, type Db } from "@/lib/db/client";
 import { runMigrations } from "@/lib/db/migrate";
 
@@ -22,9 +22,10 @@ function withDatabase(url: string, database: string): string {
 }
 
 export async function createTestDatabase(label: string): Promise<TestDatabase> {
-  if (!process.env.TEST_DATABASE_URL) loadLocalEnvFile();
+  const configured = new URL(process.env.TEST_DATABASE_URL ?? 'http://missing.invalid');
+  if (/neon\.tech/i.test(configured.hostname)) throw new Error("TEST_DATABASE_URL must not point at Neon");
+  if (!/^postgres(ql)?:$/.test(configured.protocol) || !['127.0.0.1', 'localhost', '[::1]'].includes(configured.hostname)) throw new Error('Explicit local TEST_DATABASE_URL required; env-file fallback is disabled');
   const baseUrl = testEnv().TEST_DATABASE_URL;
-  if (/neon\.tech/i.test(new URL(baseUrl).hostname)) throw new Error("TEST_DATABASE_URL must not point at Neon");
   const name = `backfill_t_${label}_${randomBytes(4).toString("hex")}`;
 
   const root = postgres(baseUrl, { max: 1, onnotice: () => {} });

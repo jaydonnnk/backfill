@@ -1,8 +1,12 @@
+import { parseDemoSnapshot } from "@/lib/demo/protocol";
+
 export type FeedState = "connecting" | "live" | "stale";
 
 export function followFeedHealth(source: Pick<EventTarget, "addEventListener">, onState: (state: FeedState) => void): void {
-  source.addEventListener("message", () => onState("live"));
-  source.addEventListener("error", () => onState("connecting"));
-  source.addEventListener("stale", () => onState("stale"));
-  source.addEventListener("recovered", () => onState("live"));
+  let state: FeedState = 'connecting';
+  const update = (next: FeedState) => { state = next; onState(next); };
+  source.addEventListener("message", event => update(event instanceof MessageEvent && typeof event.data === "string" && parseDemoSnapshot(event.data) ? "live" : "stale"));
+  source.addEventListener("error", () => update(state === "stale" ? "stale" : "connecting"));
+  source.addEventListener("stale", () => update("stale"));
+  source.addEventListener("recovered", () => update("live"));
 }

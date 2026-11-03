@@ -6,7 +6,8 @@ import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
 import { available, clockTime, deadlineOf, termsSummary, toCommitment, toRule } from "@/lib/commitments/service";
 import { publicDemoLedger, type DemoLedger } from "./ledger";
 import type { Db, Executor } from "@/lib/db/client";
-import { agents, clearingFills, clearings, commitments, merchants, planApplications, rules, wonderPlans } from "@/lib/db/schema";
+import { TrailRecord, approvalStatus, type FinalTerms, type PublicTrail } from "./trail";
+import { demoTrails, agents, clearingFills, clearings, commitments, merchants, planApplications, rules, wonderPlans } from "@/lib/db/schema";
 
 // What the public demo screen shows: the scene merchant's current occurrence, each buyer alone
 // against the pool, the stored clearing once there is one, Wonder's plan for a sellout, and the
@@ -27,7 +28,7 @@ export type DemoBuyer = {
   outcome: "pending" | "filled" | "not_filled";
 };
 
-export type DemoPlan = { provenance: "recorded_replay" | "model"; verdict: string; discountBps: number | null; capacityCovers: number | null; minPoolCovers: number | null; perAgentCapCovers: number | null; rationale: string | null; applied: boolean };
+export type DemoPlan = { provenance: "recorded_replay" | "model" | "fixture" | "unavailable"; verdict: string; discountBps: number | null; capacityCovers: number | null; minPoolCovers: number | null; perAgentCapCovers: number | null; rationale: string | null; applied: boolean };
 
 export type DemoScene = {
   id: string;
@@ -43,6 +44,7 @@ export type DemoScene = {
   commitBy: string;
   phase: "open" | "cleared";
   buyers: DemoBuyer[];
+  trail?: PublicTrail[];
   pooled: { covers: number; unlocked: boolean; filledCovers: number; soldOut: boolean };
   plan: DemoPlan | null;
 };
@@ -98,6 +100,22 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
     .from(wonderPlans)
     .leftJoin(planApplications, eq(planApplications.planId, wonderPlans.id))
     .where(and(eq(wonderPlans.ruleId, rule.id), eq(wonderPlans.visitDate, visitDate)));
+  const evidence = await db.select().from(demoTrails).where(and(eq(demoTrails.ruleId, rule.id), eq(demoTrails.visitDate, visitDate))).orderBy(asc(demoTrails.createdAt), asc(demoTrails.id));
+  const finalOf = (c: typeof commitments.$inferSelect): FinalTerms => ({ partyId: c.agentId, ruleId: c.ruleId, termsVersion: c.termsVersion, visitDate: singaporeLocal(c.visitAt).date, covers: c.covers, pricePerCoverCents: c.acceptedPricePerCoverCents, totalCents: c.acceptedPricePerCoverCents === null ? null : c.covers * c.acceptedPricePerCoverCents });
+  const resultOf = (id: string) => !cleared ? "pending" as const : cleared.fills.has(id) ? "filled" as const : "not_filled" as const;
+  const trail: PublicTrail[] = [];
+  const linked = new Set<string>();
+  for (const e of evidence) {
+    const parsed = TrailRecord.safeParse(e.record);
+    const c = rows.find(r => r.c.id === e.commitmentId)?.c;
+    // A disconnected or malformed record cannot provide request/output/approval for this party.
+    if (!parsed.success || parsed.data.terms.ruleId !== e.ruleId || parsed.data.terms.partyId !== e.partyId || parsed.data.terms.visitDate !== e.visitDate || (e.commitmentId !== null && (!c || c.agentId !== e.partyId))) continue;
+    const record = parsed.data;
+    const final = c ? finalOf(c) : null;
+    if (c) linked.add(c.id);
+    trail.push({ id: e.id, terms: record.terms, request: record.request, output: record.output, provenance: record.provenance, approval: approvalStatus(record, final, c?.committedAt.toISOString() ?? null), commitmentId: c?.id ?? null, final, result: c ? resultOf(c.id) : "proposal_only" });
+  }
+  for (const { c } of rows) if (!linked.has(c.id)) trail.push({ id: c.id, terms: null, request: null, output: null, provenance: "unavailable", approval: "unavailable", commitmentId: c.id, final: finalOf(c), result: resultOf(c.id) });
   const covers = rows.reduce((sum, r) => sum + r.c.covers, 0);
   const filledCovers = cleared ? [...cleared.fills.values()].reduce((a, b) => a + b, 0) : 0;
   const offer = toOffer(rule);
@@ -119,6 +137,7 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
     visitWindow: `${clockTime(rule.terms.window.startMinute)}–${clockTime(rule.terms.window.endMinute)}`,
     commitBy: deadlineOf(rule, visitDate).toISOString(),
     phase: cleared ? "cleared" : "open",
+    trail,
     buyers: rows.map((r) => ({
       agentId: r.c.agentId,
       label: r.label,
@@ -132,13 +151,13 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
     pooled: { covers, unlocked: cleared ? cleared.unlocked : pooled.unlocked, filledCovers, soldOut: cleared !== null && cleared.unlocked && filledCovers >= rule.capacityCovers },
     plan: plan
       ? {
-          provenance: plan.p.model.startsWith("replay:") ? "recorded_replay" : "model",
+          provenance: plan.p.model.startsWith("replay:") ? "recorded_replay" : plan.p.model.startsWith("fixture:") ? "fixture" : "unavailable",
           verdict: plan.p.verdict,
           discountBps: plan.p.discountBps,
           capacityCovers: plan.p.capacityCovers,
           minPoolCovers: plan.p.minPoolCovers,
           perAgentCapCovers: plan.p.perAgentCapCovers,
-          rationale: plan.p.rationale,
+          rationale: null,
           applied: plan.appliedAt !== null,
         }
       : null,

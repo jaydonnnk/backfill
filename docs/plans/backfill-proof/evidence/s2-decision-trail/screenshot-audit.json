@@ -1,0 +1,69 @@
+{
+  "captures": [
+    {
+      "file": "demo-3-pending-1280.png",
+      "width": 1280,
+      "height": 4853
+    },
+    {
+      "file": "demo-3-pending-375.png",
+      "width": 375,
+      "height": 6629
+    },
+    {
+      "file": "demo-3-settled-1280.png",
+      "width": 1280,
+      "height": 4853
+    },
+    {
+      "file": "demo-3-settled-375.png",
+      "width": 375,
+      "height": 6682
+    },
+    {
+      "file": "demo-4-pending-1280.png",
+      "width": 1280,
+      "height": 5584
+    },
+    {
+      "file": "demo-4-pending-375.png",
+      "width": 375,
+      "height": 7689
+    },
+    {
+      "file": "demo-4-settled-1280.png",
+      "width": 1280,
+      "height": 5672
+    },
+    {
+      "file": "demo-4-settled-375.png",
+      "width": 375,
+      "height": 7825
+    },
+    {
+      "file": "demo-feed-disconnected.png",
+      "width": 1280,
+      "height": 5672
+    },
+    {
+      "file": "demo-feed-interrupted.png",
+      "width": 1280,
+      "height": 5672
+    },
+    {
+      "file": "demo-feed-recovered.png",
+      "width": 1280,
+      "height": 5672
+    },
+    {
+      "file": "demo-malformed-feed.png",
+      "width": 1280,
+      "height": 2459
+    }
+  ],
+  "visuallyInspected": [
+    "demo-4-settled-1280.png",
+    "demo-3-settled-375.png"
+  ],
+  "allFilenameWidthsVerified": true
+}

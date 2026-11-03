@@ -1,0 +1,44 @@
+
+Running 11 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.3s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (127ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (113ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (114ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (113ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (182ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (115ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (116ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (116ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.1m)
+  ✘  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.2m)
+
+
+  1) tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Connecting to updates', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Connecting to updates', { exact: true }) with timeout 10000ms
+      - waiting for getByText('Connecting to updates', { exact: true })
+
+
+      107 |         await page.screenshot({ path: `${evidence}/demo-feed-recovered.png`, fullPage: true });
+      108 |         await page.context().setOffline(true);
+    > 109 |         await expect(page.getByText('Connecting to updates', { exact: true })).toBeVisible({ timeout: 10_000 });
+          |                                                                                ^
+      110 |         await expect(page.getByText('Filled at settlement. Simulated checkout', { exact: true })).toHaveCount(4);
+      111 |         await page.screenshot({ path: `${evidence}/demo-feed-disconnected.png`, fullPage: true });
+      112 |         await page.context().setOffline(false);
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s2.spec.ts:109:80
+
+    Error Context: test-results/proof-s2/proof-s2-stored-S2-trail-o-eab4b-terrupted-feed-and-recovery/error-context.md
+
+  1 failed
+    tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery 
+  10 passed (2.4m)

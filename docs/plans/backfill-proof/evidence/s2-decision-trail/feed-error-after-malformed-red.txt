@@ -1,0 +1,40 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/unit/proof-s2-feed.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/proof-s2-feed.test.ts (3 tests | 1 failed) 13ms
+   × retains stale uncertainty when a malformed stream then disconnects 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s2-feed.test.ts > retains stale uncertainty when a malformed stream then disconnects
+AssertionError: expected [ 'stale', 'connecting' ] to deeply equal [ 'stale', 'stale' ]
+
+- Expected
++ Received
+
+  [
+    "stale",
+-   "stale",
++   "connecting",
+  ]
+
+ ❯ tests/unit/proof-s2-feed.test.ts:30:18
+     28|   source.dispatchEvent(new MessageEvent('message', { data: '{' }));
+     29|   source.dispatchEvent(new Event('error'));
+     30|   expect(states).toEqual(['stale', 'stale']);
+       |                  ^
+     31| });
+     32|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  12:10:46
+   Duration  120ms (setup 40%, transform 32%, tests 19%, import 7%, worker 2%)
+

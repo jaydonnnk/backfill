@@ -1,0 +1,3 @@
+Building an isolated production snapshot without environment files.
+Running Chromium against the owned disposable server.
+Combined S1 and S2 browser proof passed; disposable database, role and server removed.

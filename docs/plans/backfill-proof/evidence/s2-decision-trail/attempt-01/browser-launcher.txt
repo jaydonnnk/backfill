@@ -1,0 +1,21 @@
+Building an isolated production snapshot without environment files.
+Running Chromium against the owned disposable server.
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: browser-test.txt failed; inspect the retained log
+
+1 !== 0
+
+    at run (/Users/jayd0/Desktop/meta-hack/scripts/verification/proof-s2-browser.ts:53:10)
+    at async <anonymous> (/Users/jayd0/Desktop/meta-hack/scripts/verification/proof-s2-browser.ts:80:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

@@ -128,7 +128,7 @@ describe("the S7 demo scene", () => {
     expect(s.buyers.filter((b) => b.outcome === "filled").map((b) => b.agentId).sort()).toEqual(filled);
     expect(s.buyers.filter((b) => b.outcome === "not_filled")).toHaveLength(7);
     expect(s.pooled).toEqual({ covers: 38, unlocked: true, filledCovers: 16, soldOut: true });
-    expect(s.plan).toEqual({ ...PLAN, provenance: "recorded_replay", verdict: "ok", applied: false });
+    expect(s.plan).toEqual({ ...PLAN, rationale: null, provenance: "recorded_replay", verdict: "ok", applied: false });
     const [plan] = await t.admin`select model from wonder_plans where rule_id = ${result.ruleId}`;
     expect(plan?.model).toBe("replay:muse-wonder-1.0");
     expect((await t.admin`select count(*)::int as n from llm_calls`)[0]?.n).toBe(0);

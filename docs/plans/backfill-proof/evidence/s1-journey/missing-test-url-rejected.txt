@@ -1,0 +1,39 @@
+
+> backfill@0.0.0 test:integration
+> vitest run --config config/vitest.config.ts --project integration tests/integration/proof-s1-journey.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |integration| tests/integration/proof-s1-journey.test.ts (2 tests | 2 failed) 4ms
+   × complete revised S1 journey from disposable state, repetition 1 3ms
+   × complete revised S1 journey from disposable state, repetition 2 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |integration| tests/integration/proof-s1-journey.test.ts > complete revised S1 journey from disposable state, repetition 1
+ FAIL  |integration| tests/integration/proof-s1-journey.test.ts > complete revised S1 journey from disposable state, repetition 2
+AssertionError: expected 'http:' to match /^postgres(ql)?:$/
+
+- Expected:
+/^postgres(ql)?:$/
+
++ Received:
+"http:"
+
+ ❯ tests/integration/proof-s1-journey.test.ts:21:26
+     19|   // Fail before the shared helper can fall back to a developer's .env…
+     20|   const local = new URL(process.env.TEST_DATABASE_URL ?? 'http://missi…
+     21|   expect(local.protocol).toMatch(/^postgres(ql)?:$/);
+       |                          ^
+     22|   expect(local.hostname).toBe('127.0.0.1');
+     23|   expect(local.port).toBe('5432');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  11:40:52
+   Duration  386ms (import 61%, transform 32%, setup 6%, tests 1%)
+

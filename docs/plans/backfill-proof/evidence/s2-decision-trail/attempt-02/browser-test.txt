@@ -1,0 +1,44 @@
+
+Running 11 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.7s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (130ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (114ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (112ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (116ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (176ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (117ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (114ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (113ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.9m)
+  ✘  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.1m)
+
+
+  1) tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Updates paused · last saved view', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Updates paused · last saved view', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Updates paused · last saved view', { exact: true })
+
+
+      115 |         await expect(page.getByText('Updates paused · last saved view', { exact: true })).toBeVisible({ timeout: 10_000 });
+      116 |         await expect(page.locator('.kopi-bubble')).toContainText('Results may be stale');
+    > 117 |         await expect(page.getByText('Filled at settlement. Simulated checkout', { exact: true })).toHaveCount(4);
+          |                                                                                           ^
+      118 |         await page.screenshot({ path: `${evidence}/demo-feed-interrupted.png`, fullPage: true });
+      119 |         await admin.db.execute(sql`GRANT SELECT ON demo_trails TO backfill_app`); revoked = false;
+      120 |         await expect(page.getByText('Latest saved bookings', { exact: true })).toBeVisible({ timeout: 10_000 });
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s2.spec.ts:117:91
+
+    Error Context: test-results/proof-s2/proof-s2-stored-S2-trail-o-eab4b-terrupted-feed-and-recovery/error-context.md
+
+  1 failed
+    tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery 
+  10 passed (3.1m)

@@ -1,0 +1,59 @@
+{
+  "slice": "revised proof-build S2",
+  "status": "complete locally, uncommitted",
+  "branch": "backfill/proof-s1-journey",
+  "head": "a8c224fa9a9249bb8f850237d1011267c62af7dd",
+  "indexEmpty": true,
+  "baseline": {
+    "typecheck": 0,
+    "lint": 0,
+    "tests": 471,
+    "files": 46
+  },
+  "final": {
+    "typecheck": 0,
+    "lint": 0,
+    "tests": 496,
+    "files": 49,
+    "productionWebpack": 0,
+    "chromiumUniqueChecks": 11,
+    "passingFinalProductRuns": 3,
+    "correctedCaptureRun": "top-level browser-test.txt",
+    "s1ServiceRepetitions": 2,
+    "runtimeBuildSourceMatches": 137,
+    "captureWidthsVerified": 12,
+    "diffCheck": 0
+  },
+  "approvalAssurance": "script-declared exact-terms authorization only; not authenticated human consent or independently authenticated timestamps",
+  "privacy": "retained public snapshots contain no private floor, merchant rationale canary or credential hashes; real HTML/SSE assertions passed in Chromium",
+  "commands": [
+    "git status --short; git branch --show-current; git log -5 --oneline",
+    "npm run typecheck",
+    "npm run lint",
+    "env -u DATABASE_URL -u META_API_KEY -u AI_GATEWAY_API_KEY TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres S1_EVIDENCE_DIR=docs/plans/backfill-proof/evidence/s2-decision-trail S2_EVIDENCE_DIR=docs/plans/backfill-proof/evidence/s2-decision-trail npm test",
+    "env -u DATABASE_URL -u META_API_KEY -u AI_GATEWAY_API_KEY TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres node --import tsx scripts/verification/proof-s2-browser.ts",
+    "git diff --check"
+  ],
+  "excluded": "S3+, provider requests, real env files, production/persistent migrations, commits, merges, push, deployment, merchant validation and video",
+  "publicationPreparation": {
+    "date": "2026-11-03",
+    "authority": "user accepted S2 and explicitly requested commit and push to main",
+    "initialChangedFiles": 180,
+    "initialEvidenceFiles": 153,
+    "redundantCapturesArchived": 65,
+    "publicationFiles": 115,
+    "archive": "archive/proof-s2-redundant-captures-2026-11-03/",
+    "archiveIgnored": true,
+    "deletedArtifacts": 0,
+    "freshChecks": {
+      "typecheck": 0,
+      "lint": 0,
+      "tests": 496,
+      "files": 49
+    },
+    "candidateCredentialScanFindings": [],
+    "productSourcesMatchRetainedBuild": true,
+    "persistentDatabaseMigrationApplied": false,
+    "historicalRecord": "top-level proof status/head/index describe the local pre-publication verification; this preparation supersedes only Git publication exclusions"
+  }
+}

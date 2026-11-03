@@ -1,0 +1,61 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s2-trail.test.ts tests/unit/proof-s2-feed.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/proof-s2-feed.test.ts (1 test | 1 failed) 12ms
+   × keeps malformed or incomplete messages uncertain instead of marking them live 11ms
+ ❯ |integration| tests/integration/proof-s2-trail.test.ts (1 test | 1 failed) 231ms
+   × filters stored merchant rationale and labels fixture plans without claiming model provenance 230ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s2-feed.test.ts > keeps malformed or incomplete messages uncertain instead of marking them live
+AssertionError: expected [ 'live', 'live', 'live', 'live' ] to deeply equal [ 'stale', 'stale', 'stale', 'stale' ]
+
+- Expected
++ Received
+
+  [
+-   "stale",
+-   "stale",
+-   "stale",
+-   "stale",
++   "live",
++   "live",
++   "live",
++   "live",
+  ]
+
+ ❯ tests/unit/proof-s2-feed.test.ts:9:18
+      7|   followFeedHealth(source, state => states.push(state));
+      8|   for (const data of ['null', '{}', '{', '{"scene":{"phase":"cleared",…
+      9|   expect(states).toEqual(['stale', 'stale', 'stale', 'stale']);
+       |                  ^
+     10| });
+     11|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |integration| tests/integration/proof-s2-trail.test.ts > filters stored merchant rationale and labels fixture plans without claiming model provenance
+AssertionError: expected '{"scene":{"id":"5098279c-dc3e-44bc-8b…' not to match /MERCHANT_ONLY_CANARY|5\.03|credential…/
+
+- Expected:
+/MERCHANT_ONLY_CANARY|5\.03|credential secret/
+
++ Received:
+"{\"scene\":{\"id\":\"5098279c-dc3e-44bc-8b14-77eee3cf4be8:2026-11-03\",\"events\":[{\"kind\":\"commitment\",\"at\":\"2026-11-03T01:00:00.000Z\",\"label\":\"+2 covers committed\"},{\"kind\":\"commitment\",\"at\":\"2026-11-03T01:00:00.000Z\",\"label\":\"+2 covers committed\"},{\"kind\":\"commitment\",\"at\":\"2026-11-03T01:00:00.000Z\",\"label\":\"+2 covers committed\"},{\"kind\":\"commitment\",\"at\":\"2026-11-03T01:00:00.000Z\",\"label\":\"+2 covers committed\"},{\"kind\":\"cleared\",\"at\":\"2026-11-03T03:59:12.766Z\",\"label\":\"Pool unlocked: 8 covers filled\"},{\"kind\":\"sold_out\",\"at\":\"2026-11-03T03:59:12.766Z\",\"label\":\"Sold out\"},{\"kind\":\"plan\",\"at\":\"2026-11-03T03:59:12.771Z\",\"label\":\"Wonder plan ready\"}],\"merchantName\":\"Backfill Demo Cafe\",\"summary\":\"Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.\",\"listPriceCents\":680,\"offerPriceCents\":544,\"discountBps\":2000,\"minPoolCovers\":8,\"visitDate\":\"2026-11-03\",\"visitWindow\":\"14:00–17:00\",\"commitBy\":\"2026-11-03T04:00:00.000Z\",\"phase\":\"cleared\",\"buyers\":[{\"agentId\":\"privacy-0\",\"label\":\"Synthetic party\",\"covers\":2,\"committedAt\":\"2026-11-03T01:00:00.000Z\",\"soloUnlocks\":false,\"outcome\":\"filled\"},{\"agentId\":\"privacy-1\",\"label\":\"Synthetic party\",\"covers\":2,\"committedAt\":\"2026-11-03T01:00:00.000Z\",\"soloUnlocks\":false,\"outcome\":\"filled\"},{\"agentId\":\"privacy-2\",\"label\":\"Synthetic party\",\"covers\":2,\"committedAt\":\"2026-11-03T01:00:00.000Z\",\"soloUnlocks\":false,\"outcome\":\"filled\"},{\"agentId\":\"privacy-3\",\"label\":\"Synthetic party\",\"covers\":2,\"committedAt\":\"2026-11-03T01:00:00.000Z\",\"soloUnlocks\":false,\"outcome\":\"filled\"}],\"pooled\":{\"covers\":8,\"unlocked\":true,\"filledCovers\":8,\"soldOut\":true},\"plan\":{\"provenance\":\"model\",\"verdict\":\"ok\",\"discountBps\":1500,\"capacityCovers\":10,\"minPoolCovers\":8,\"perAgentCapCovers\":2,\"rationale\":\"MERCHANT_ONLY_CANARY private floor S$5.03 credential secret\",\"applied\":false}},\"muse\":null,\"ledger\":{\"covers\":8,\"buyerShareCents\":1088,\"agentShareCents\":0,\"networkShareCents\":0,\"agentsCommitted\":4,\"poolsUnlocked\":1,\"reconciled\":true,\"pools\":[{\"ruleId\":\"5098279c-dc3e-44bc-8b14-77eee3cf4be8\",\"visitDate\":\"2026-11-03\",\"clearedAt\":\"2026-11-03T03:59:12.766Z\",\"unlocked\":true,\"covers\":8,\"buyerShareCents\":1088,\"agentShareCents\":0,\"networkShareCents\":0,\"reconciled\":true}]}}"
+
+ ❯ tests/integration/proof-s2-trail.test.ts:27:42
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed (2)
+   Start at  11:59:12
+   Duration  700ms (import 38%, tests 34%, transform 18%, setup 10%, worker 1%)
+

@@ -1,0 +1,9 @@
+{
+  "version": {
+    "server_version": "18.6 (Postgres.app)"
+  },
+  "databases": [],
+  "roles": [],
+  "ownedServer": "launcher awaited process exit and returned zero",
+  "sourceSnapshots": "retained in OS temporary directory without real env files"
+}

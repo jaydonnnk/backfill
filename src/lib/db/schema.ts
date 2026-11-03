@@ -121,6 +121,7 @@ export const commitments = pgTable(
     termsVersion: integer("terms_version").notNull(),
     covers: integer("covers").notNull(),
     maxPricePerCoverCents: integer("max_price_per_cover_cents").notNull(),
+    acceptedPricePerCoverCents: integer("accepted_price_per_cover_cents"),
     visitAt: timestamp("visit_at", { withTimezone: true }).notNull(),
     committedAt: timestamp("committed_at", { withTimezone: true }).notNull().defaultNow(),
     // Set once when the agent cancels before the deadline; a trigger refuses any other change.
@@ -467,3 +468,14 @@ export const checkoutReceipts = pgTable("checkout_receipts", {
   commitmentId: uuid("commitment_id").primaryKey(),
   completedAt: timestamp("completed_at", { withTimezone: true }).notNull().defaultNow(),
 }, t => [foreignKey({ name: "checkout_receipts_ledger_fk", columns: [t.commitmentId], foreignColumns: [ledger.commitmentId] })]);
+
+// Opt-in public fixture evidence. Only an operator can insert; web runtime has SELECT only.
+export const demoTrails = pgTable('demo_trails', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  ruleId: uuid('rule_id').notNull().references(() => rules.id),
+  partyId: text('party_id').notNull().references(() => agents.id),
+  visitDate: date('visit_date', { mode: 'string' }).notNull(),
+  commitmentId: uuid('commitment_id').unique().references(() => commitments.id),
+  record: jsonb('record').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});

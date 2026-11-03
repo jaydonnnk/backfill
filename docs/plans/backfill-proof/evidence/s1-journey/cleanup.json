@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-11-03T03:47:28.747571+00:00",
+  "target": "127.0.0.1:5432/postgres",
+  "query": "select 'database:' || datname from pg_database where datname like 'backfill_t_proof_s1_%' union all select 'role:' || rolname from pg_roles where rolname like 'backfill_t_proof_s1_%' or rolname like 'backfill_t_s1_browser_%';",
+  "exitCode": 0,
+  "rows": [],
+  "ownedBrowserServer": "terminated by launcher; exit awaited"
+}

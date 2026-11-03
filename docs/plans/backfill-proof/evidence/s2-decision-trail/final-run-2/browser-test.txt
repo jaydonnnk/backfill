@@ -1,0 +1,16 @@
+
+Running 11 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.7s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (127ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (113ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (116ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (116ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (176ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (117ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (117ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (115ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.1m)
+  ✓  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.0m)
+
+  11 passed (2.2m)

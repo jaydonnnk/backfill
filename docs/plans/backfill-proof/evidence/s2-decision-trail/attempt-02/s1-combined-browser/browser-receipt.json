@@ -1,0 +1,153 @@
+{
+  "provenance": "synthetic model fixtures and scripted buyer/owner actions",
+  "appUrl": "http://127.0.0.1:63185",
+  "date": "2026-11-03",
+  "deadline": "2026-11-03T04:09:00.000Z",
+  "visitStart": "12:10",
+  "visitEnd": "13:09",
+  "modelCalls": 0,
+  "browserErrors": [],
+  "receipts": [
+    {
+      "scenario": "success",
+      "ruleId": "892611d2-7cce-49ba-adb0-d9c227d0b99b",
+      "parties": [
+        {
+          "agentId": "browser-s1-success-1",
+          "commitmentId": "f789d976-3b09-409d-aa32-c282ab8e2f28",
+          "approval": "scripted"
+        },
+        {
+          "agentId": "browser-s1-success-2",
+          "commitmentId": "f5bae8da-5de7-481f-8348-32b847c55719",
+          "approval": "scripted"
+        },
+        {
+          "agentId": "browser-s1-success-3",
+          "commitmentId": "e1dac261-685b-45c1-abc1-69571939c6e0",
+          "approval": "scripted"
+        },
+        {
+          "agentId": "browser-s1-success-4",
+          "commitmentId": "a6c09088-93cd-439c-97b0-360fe76140b7",
+          "approval": "scripted"
+        }
+      ],
+      "original": {
+        "id": "892611d2-7cce-49ba-adb0-d9c227d0b99b",
+        "merchantId": "838f3a49-dae8-41c1-90fa-4aed5d52e9b1",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 730,
+        "endMinute": 789,
+        "commitByMinute": 729,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "finalRule": {
+        "id": "892611d2-7cce-49ba-adb0-d9c227d0b99b",
+        "merchantId": "838f3a49-dae8-41c1-90fa-4aed5d52e9b1",
+        "termsVersion": 2,
+        "listPriceCents": 680,
+        "capacityCovers": 10,
+        "weekday": 2,
+        "startMinute": 730,
+        "endMinute": 789,
+        "commitByMinute": 729,
+        "discountBps": 1500,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "ledger": {
+        "totals": {
+          "merchantId": "838f3a49-dae8-41c1-90fa-4aed5d52e9b1",
+          "entries": 4,
+          "covers": 8,
+          "listValueCents": 5440,
+          "chargedCents": 4352,
+          "savingsCents": 1088,
+          "buyerShareCents": 1088,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        "missing": [],
+        "mismatched": [],
+        "orphaned": [],
+        "reconciled": true
+      }
+    },
+    {
+      "scenario": "insufficient",
+      "ruleId": "8d7e1d2e-8acf-49f5-ba5b-7aeef8762652",
+      "parties": [
+        {
+          "agentId": "browser-s1-insufficient-1",
+          "commitmentId": "99a81c60-fc99-456c-9bb4-2c40962dd9eb",
+          "approval": "scripted"
+        },
+        {
+          "agentId": "browser-s1-insufficient-2",
+          "commitmentId": "05d5a87a-8bfb-4a56-8456-c845439396b5",
+          "approval": "scripted"
+        },
+        {
+          "agentId": "browser-s1-insufficient-3",
+          "commitmentId": "accd2b1e-766b-4055-b65b-951d6fd7584b",
+          "approval": "scripted"
+        }
+      ],
+      "original": {
+        "id": "8d7e1d2e-8acf-49f5-ba5b-7aeef8762652",
+        "merchantId": "9058525f-e2c3-4d79-bb25-6e052acfa8db",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 730,
+        "endMinute": 789,
+        "commitByMinute": 729,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "finalRule": {
+        "id": "8d7e1d2e-8acf-49f5-ba5b-7aeef8762652",
+        "merchantId": "9058525f-e2c3-4d79-bb25-6e052acfa8db",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 730,
+        "endMinute": 789,
+        "commitByMinute": 729,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "ledger": {
+        "totals": {
+          "merchantId": "9058525f-e2c3-4d79-bb25-6e052acfa8db",
+          "entries": 0,
+          "covers": 0,
+          "listValueCents": 0,
+          "chargedCents": 0,
+          "savingsCents": 0,
+          "buyerShareCents": 0,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        "missing": [],
+        "mismatched": [],
+        "orphaned": [],
+        "reconciled": true
+      }
+    }
+  ]
+}
