@@ -1,5 +1,36 @@
 # Status: Backfill proof build
 
+## S3 published; S4 handoff ready, 2026-11-03
+
+The user explicitly requested commit/push of S3 to main, then a copy-paste S4
+handoff. S3 source/evidence commit
+`875a08ce62d2695d2c3d0b7e31bfd325e79e578a` is on local main, origin/main and
+remote main, independently verified after push. The following handoff/status
+documentation commit may advance main; do not reset back to the S3 source SHA.
+
+Fresh typecheck, lint, 522 tests in 52 files and three offline call-guard tests
+passed. All 90 product source files match the verified production/browser/live
+proof. The publication fix makes S3 test evidence output opt-in; ordinary tests
+now preserve retained proof. See [publication gate](evidence/s3-owner-voice/publication-2026-11-03/README.md).
+
+Both publication commits use `[skip render]`. Migration `0015` is still local
+only; no production migration/access or manual deployment was authorized or
+performed. Do not deploy S3-dependent code before a separately approved schema
+rollout. The S3 four-call allowance remains fully consumed.
+
+The user requested an S4 handoff, not implementation in this publishing chat.
+[S4 continuation prompt](s4-handoff-2026-11-03.md) authorizes independent local
+S4 work when pasted into the next chat. [Manual inputs](s4-manual-inputs.md)
+separate resource/spend decisions from optional real buyer examples. No install,
+model download, new paid call or later slice is authorized by Git publication.
+
+S4 local implementation is safe to start with disposable databases and labeled
+fixtures. Full S4 remains blocked until genuine Glimmer and Gateway buyer
+outputs exist. No Ollama, llama-server or lms CLI is on PATH; 24 GiB RAM and
+229 GiB free storage were observed. Official Glimmer's roughly 17 GB text GGUF
+is a candidate, not verified total memory fit. Existing installed AI SDK and
+Gateway route are reusable; no direct Baseten key is required for that route.
+
 ## S3 genuine integration verified, 2026-11-03
 
 - [x] Revised S3 local implementation and genuine integration acceptance are

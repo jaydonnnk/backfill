@@ -1,0 +1,15 @@
+{
+  "verifiedAtUtc": "2026-11-03T07:09:01.448900+00:00",
+  "s3SourceCommit": "875a08ce62d2695d2c3d0b7e31bfd325e79e578a",
+  "baseCommit": "96a3cb76ba757fc252e398757ce55ceebb895a66",
+  "branch": "main",
+  "localAndRemoteMainMatched": true,
+  "ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/jaydonnnk/backfill/actions/runs/41593673088"
+  },
+  "renderSkipMarker": "[skip render]",
+  "productionAccessOrMigration": false,
+  "s4": "handoff only; no implementation/install/download/inference"
+}

@@ -1,5 +1,5 @@
 df67a756b7bbc73582daf3bb28c58e8bfaf88aa89d1e05b2a5b034ca6f9fd0e5  config/playwright.proof-s3.config.ts
-c0abadbe763e83e639add5b7a27a6709ee08aab70374754dd53cbfdbf75dcf92  docs/plans/backfill-proof/00-status.md
+fed50c9912057b26db54904460a2cc99c8496f17847901ba2cb431d817e62a40  docs/plans/backfill-proof/00-status.md
 2c4e29ecf619a70cdbd608c141c21131aa3a04d2fd2104ac79bd774e94ec7604  docs/plans/backfill-proof/evidence/s3-owner-voice/README.md
 880dcf91f5abe25181c0ac5d5c54ea786a4b5c32ddedc8803cad39bd43b83645  docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/browser-server.txt
 59aa060d8152620b9216bec7cb706669e3e07c3144e0f477be089e5f89a0b157  docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/browser-test.txt
@@ -122,7 +122,7 @@ be90fdaebd8a3a7829424da18c0cff0fa7a8ee53db98eb958e2253c8fdf2f9ad  docs/plans/bac
 42b8fe7730e7f8e3983b0793ef4940f14b6b635e594c02c888448ecb46ed3af7  docs/plans/backfill-proof/evidence/s3-owner-voice/owner-corrected-375.png
 078a8a92cea9e0c322e21e5c2ac968d2b6459e01cbe09639bdd46bdf430c262a  docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-1280.png
 bf62ab9d92fefcca4ac274fada37e90885cb101754c59bc10e5704ea46bf2185  docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-375.png
-4d53f1983ee1c96abf3bba4d2797b4d46ee1430b100f46d313d019ce7749a3ce  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/README.md
+0e98e1cd56abe0cc897bdacebf498c85dd9a3ade87b1f5434e707b2b9cc628b2  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/README.md
 dba9830cab58426c4c74f1ef1bf7161d0ba89077cd7c487960e11764fe1eb478  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-guard-tests.txt
 8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-lint.txt
 46afb3f94b509103c16cd425cf1770369e0834d3dcb324c7d1bea4478fcc1396  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-tests.txt
@@ -132,6 +132,7 @@ f61ad08ad7d4d9cd1f157a96db9fe955f00c520a88820ef736a080646486c703  docs/plans/bac
 532b6344d09f3c48ba2034bb80b52a9e8dfdfd55c3881050e39cb27f3b2e1e69  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/full-tests.txt
 67db663031bc0c3fc0d9457101c44b418b4547e71615b4539bbe4ab2e6cfbd8e  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/guard-tests.txt
 8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/lint.txt
+2eb75acf9dc531e3bb46820f1667d25bf2c9b398dfd67d4a812d7d88a42e8021  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/published.json
 b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244  docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/typecheck.txt
 c72d1c5b8aa947d57ac3302c303c8beccf1e288e848e0c4a12ee4cd1c86ea947  docs/plans/backfill-proof/evidence/s3-owner-voice/service-capacity-red.txt
 e2ddec99b276c6ebd58464920b437f771e4fa30b7e03e202c0222cde5ea8caa8  docs/plans/backfill-proof/evidence/s3-owner-voice/service-green.txt
@@ -147,6 +148,8 @@ b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244  docs/plans/bac
 12048e09f1436fc0a6e766566b8afbc978352b11ba995abf4a453e0d9ef4c31a  docs/plans/backfill-proof/evidence/s3-owner-voice/voice-provider-green.txt
 b071b4b6224148d44b78e28c36895923e26cf5db418b42692d2544e0fbf0ffac  docs/plans/backfill-proof/evidence/s3-owner-voice/voice-provider-red.txt
 6a60accea06079ba103613b5a5fcade2b01895ec488b3fa59413498308de46ad  docs/plans/backfill-proof/evidence/s3-owner-voice/wav-red.txt
+e9d6989380bf4318d66acbf18e27c875dd9cc465e73706d6e9217a43bbb44df8  docs/plans/backfill-proof/s4-handoff-2026-11-03.md
+a80798c7cce6a4e104de09dc0ef1e281b6ad5b376727c290a8161f06ed64d655  docs/plans/backfill-proof/s4-manual-inputs.md
 0400b2d726bc8dc70be6066d4942dfe7bb278a9c2cbb7621c3e3058e8df0163b  drizzle/0015_proof_s3_owner_voice.sql
 cd2ff3cdc2739e2da13b69a4d9d0eba8ad9f55244e42b69ce445c471fc81adf3  drizzle/meta/_journal.json
 a619e32b85b15968e53726e348f5cabb27881cfc1a237a6fbb97f16d78711a25  scripts/verification/proof-s3-browser.ts

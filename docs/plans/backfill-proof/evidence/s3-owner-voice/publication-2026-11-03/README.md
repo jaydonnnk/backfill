@@ -48,3 +48,11 @@ git diff --check
 
 Publication uses a normal fast-forward merge and push, never force-push.
 The subsequent status/S4 handoff records the actual published S3 commit.
+
+S3 source/evidence commit `875a08ce62d2695d2c3d0b7e31bfd325e79e578a`
+was pushed and independently verified on local main, origin/main and remote
+main. [GitHub CI](https://github.com/jaydonnnk/backfill/actions/runs/41593673088)
+completed successfully. The following documentation commit adds the S4 handoff
+without changing product bytes. Captured raw `.txt` logs retain their original
+terminal whitespace; the source/documentation whitespace check excludes those
+raw logs rather than rewriting evidence to silence formatting warnings.
