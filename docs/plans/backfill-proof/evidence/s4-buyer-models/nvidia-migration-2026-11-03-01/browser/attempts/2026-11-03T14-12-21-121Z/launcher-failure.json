@@ -1,5 +1,0 @@
-{
-  "stage": "source-stability-check",
-  "errorName": "AssertionError",
-  "assertion": "Source changed during verification: src/lib/buyer/models.ts\n+ actual - expected\n\n+ '5c0111d7a7773fb3b732ea0667b5c78e4dbfe3efa065fbce84e4d7f8e457a6ed'\n- '274e4598d85abdb489caca50d2e69f6e80a4728fc9a06839f27697b5178d0b4b'\n"
-}

@@ -1,1 +1,0 @@
-CPU-only preflight passed: pinned artifacts/source, six original inputs and five closed Gateway slots. No startup, inference, env loading or database access.

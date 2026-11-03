@@ -1,17 +1,22 @@
-# S4 buyer models: current evidence index
+# S4 evidence
 
-Glimmer's current route is NVIDIA. Spark Open's separate Gateway route remains.
+S4a's NVIDIA parsing and S4b's independent buyer decisions passed bounded
+synthetic acceptance. Keep actual outputs distinct from recorded replay and
+fixtures. All model-call and local-start allowances are consumed and closed.
 
-- [Completed NVIDIA S4a acceptance](nvidia-acceptance-authorized-2026-11-03-02/README.md).
-- [Current S4a contract](../../s4a-nvidia.md).
-- [Authorized NVIDIA live test, actual output and cleanup](nvidia-live-authorized-2026-11-03-01/README.md).
-- [NVIDIA adapter offline tests, builds and desktop/mobile captures](nvidia-migration-2026-11-03-01/README.md).
-- [Genuine S4b Spark Open decisions, settlement and consumed slots](live-authorized-2026-11-03-01/README.md).
-- [Local installation removal and Gateway migration provenance](gateway-migration-2026-11-03-01/README.md).
-- [Original guarded local load](live-authorized-2026-11-03-01/glimmer-blocked.json).
-- [CPU-only guarded local load](glimmer-cpu-authorized-2026-11-03-01/README.md).
+- [Current NVIDIA contract](../../s4a-nvidia.md).
+- [Final S4a acceptance](nvidia-acceptance-authorized-2026-11-03-02/README.md).
+- [Original genuine explicit output and failed test](nvidia-live-authorized-2026-11-03-01/README.md).
+- [Genuine S4b decisions and settlement](live-authorized-2026-11-03-01/README.md).
+- [Final offline build/browser proof](nvidia-migration-2026-11-03-01/README.md).
+- [Publication checks](publication-2026-11-03/README.md).
+- [Local installation removal](gateway-migration-2026-11-03-01/README.md).
+- [CPU-only load receipt](glimmer-cpu-authorized-2026-11-03-01/README.md).
+- [Evidence retention record](retention.json).
 
-Old receipts, attempts, hashes, captures and consumed markers are preserved.
-Historical local/Gateway Glimmer plans do not authorize another run. The prior
-full index is retained [verbatim](nvidia-live-authorized-2026-11-03-01/historical-docs/evidence__s4-buyer-models__README.md.txt).
-Do not overwrite genuine-run evidence or relabel recordings for new dates/parties.
+Repeated logs, intermediate fixture attempts, superseded plans and historical
+source snapshots are preserved locally in ignored
+`archive/proof-s4-evidence-trim-2026-11-03/`. The full original checkpoint is also
+available in Git commit `cdb292d`. The archive is not part of a fresh checkout.
+Actual model outputs, consumed markers and essential final captures remain here.
+Do not rerun consumed live runners, overwrite receipts or relabel inputs/dates.

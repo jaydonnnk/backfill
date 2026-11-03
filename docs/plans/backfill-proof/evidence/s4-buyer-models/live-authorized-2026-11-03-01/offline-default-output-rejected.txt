@@ -1,8 +1,0 @@
-/Users/jayd0/Desktop/meta-hack/scripts/verification/proof-s4-browser.ts:21
-if (evidence === ownedEvidenceRoot && (await readdir(ownedEvidenceRoot)).some(name => name.startsWith('live-authorized-'))) throw new Error('Genuine receipts exist. Set S4_OUTPUT_DIR to a fresh owned subdirectory; default output is now protected.');
-                                                                                                                                  ^
-
-Error: Genuine receipts exist. Set S4_OUTPUT_DIR to a fresh owned subdirectory; default output is now protected.
-    at <anonymous> (/Users/jayd0/Desktop/meta-hack/scripts/verification/proof-s4-browser.ts:21:131)
-
-Node.js v24.21.0

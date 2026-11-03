@@ -1,6 +1,0 @@
-{
-  "directMetaApi": "Direct Meta API deliberately unavailable; no upstream dispatch.",
-  "postgres": "SELECT 1 succeeded on owned disposable local database",
-  "gateway": "separately authorized allowed route",
-  "fullyOfflineSharedPool": false
-}

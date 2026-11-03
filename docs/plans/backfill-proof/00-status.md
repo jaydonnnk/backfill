@@ -48,5 +48,5 @@ uses `[skip render]`; production migrations/deployment remain unauthorized.
 needs rights-cleared inputs, verified SAM/Image contracts and a separately scoped
 call approval. [S5 readiness](s5-readiness.md). No S5 implementation was performed.
 
-[Complete prior chronological status](evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/historical-docs/00-status.md.txt)
+[Complete prior chronological status](https://github.com/jaydonnnk/backfill/blob/cdb292da8548d6eef9b47bfe6a0f9a3882d6c7e6/docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/historical-docs/00-status.md.txt)
 is retained for provenance. Its local/Gateway Glimmer instructions are retired.

@@ -1,1 +1,0 @@
-S4a acceptance passed: saved explicit output replay and one new genuine clarification; local correction, ownership and duplicate guards passed.
