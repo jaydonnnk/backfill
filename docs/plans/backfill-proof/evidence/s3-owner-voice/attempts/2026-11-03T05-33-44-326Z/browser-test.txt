@@ -1,0 +1,158 @@
+
+Running 16 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.8s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (139ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (127ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (122ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (123ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (204ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (122ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (123ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (125ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.0m)
+  ✓  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.0m)
+  ✘  12 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1 (5.2s)
+  ✘  13 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2 (5.2s)
+  ✘  14 tests/e2e/proof-s3.spec.ts:127:1 › S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it (5.2s)
+  ✘  15 tests/e2e/proof-s3.spec.ts:158:1 › S3 cancellation, invalid bytes, wrong owner, expired session and interrupted proposal preserve terms (5.3s)
+  ✘  16 tests/e2e/proof-s3.spec.ts:200:1 › S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE (5.2s)
+
+
+  1) tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByRole('group', { name: 'Voice edit for offer 762e72d2-ed39-4369-a9d2-28d31308e86a', exact: true }).getByLabel('Review transcript', { exact: true })
+    Expected: "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByRole('group', { name: 'Voice edit for offer 762e72d2-ed39-4369-a9d2-28d31308e86a', exact: true }).getByLabel('Review transcript', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('group', { name: 'Voice edit for offer 762e72d2-ed39-4369-a9d2-28d31308e86a', exact: true }).getByLabel('Review transcript', { exact: true })
+
+
+      41 | async function uploadAndReview(field: Locator) {
+      42 |   await transcribe(field);
+    > 43 |   await expect(field.getByLabel('Review transcript', { exact: true })).toHaveValue(S3_TRANSCRIPT);
+         |                                                                        ^
+      44 |   await expect(field.getByText('Fixture transcript.', { exact: false })).toBeVisible();
+      45 |   await expect(field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true })).toHaveCount(0);
+      46 |   await field.getByRole('button', { name: 'Save reviewed transcript', exact: true }).click();
+        at uploadAndReview (/Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:43:72)
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:86:7
+
+    Error Context: test-results/proof-s3/proof-s3-S3-owner-upload-r-2d78d-rate-approval-fresh-state-1/error-context.md
+
+  2) tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByRole('group', { name: 'Voice edit for offer 701c7264-a6a8-41af-961a-acabb324f882', exact: true }).getByLabel('Review transcript', { exact: true })
+    Expected: "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByRole('group', { name: 'Voice edit for offer 701c7264-a6a8-41af-961a-acabb324f882', exact: true }).getByLabel('Review transcript', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('group', { name: 'Voice edit for offer 701c7264-a6a8-41af-961a-acabb324f882', exact: true }).getByLabel('Review transcript', { exact: true })
+
+
+      41 | async function uploadAndReview(field: Locator) {
+      42 |   await transcribe(field);
+    > 43 |   await expect(field.getByLabel('Review transcript', { exact: true })).toHaveValue(S3_TRANSCRIPT);
+         |                                                                        ^
+      44 |   await expect(field.getByText('Fixture transcript.', { exact: false })).toBeVisible();
+      45 |   await expect(field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true })).toHaveCount(0);
+      46 |   await field.getByRole('button', { name: 'Save reviewed transcript', exact: true }).click();
+        at uploadAndReview (/Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:43:72)
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:86:7
+
+    Error Context: test-results/proof-s3/proof-s3-S3-owner-upload-r-413dc-rate-approval-fresh-state-2/error-context.md
+
+  3) tests/e2e/proof-s3.spec.ts:127:1 › S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByRole('group', { name: 'Voice edit for offer 7ec87980-5f02-410d-b23d-207ed58d47ee', exact: true }).getByLabel('Review transcript', { exact: true })
+    Expected: "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByRole('group', { name: 'Voice edit for offer 7ec87980-5f02-410d-b23d-207ed58d47ee', exact: true }).getByLabel('Review transcript', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('group', { name: 'Voice edit for offer 7ec87980-5f02-410d-b23d-207ed58d47ee', exact: true }).getByLabel('Review transcript', { exact: true })
+
+
+      41 | async function uploadAndReview(field: Locator) {
+      42 |   await transcribe(field);
+    > 43 |   await expect(field.getByLabel('Review transcript', { exact: true })).toHaveValue(S3_TRANSCRIPT);
+         |                                                                        ^
+      44 |   await expect(field.getByText('Fixture transcript.', { exact: false })).toBeVisible();
+      45 |   await expect(field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true })).toHaveCount(0);
+      46 |   await field.getByRole('button', { name: 'Save reviewed transcript', exact: true }).click();
+        at uploadAndReview (/Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:43:72)
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:132:5
+
+    Error Context: test-results/proof-s3/proof-s3-S3-transcript-cor-bad9e-poken-yes-cannot-approve-it/error-context.md
+
+  4) tests/e2e/proof-s3.spec.ts:158:1 › S3 cancellation, invalid bytes, wrong owner, expired session and interrupted proposal preserve terms 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByRole('group', { name: 'Voice edit for offer a408fc72-9d42-40c9-8284-665445ca1f1a', exact: true }).getByLabel('Review transcript', { exact: true })
+    Expected: "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByRole('group', { name: 'Voice edit for offer a408fc72-9d42-40c9-8284-665445ca1f1a', exact: true }).getByLabel('Review transcript', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('group', { name: 'Voice edit for offer a408fc72-9d42-40c9-8284-665445ca1f1a', exact: true }).getByLabel('Review transcript', { exact: true })
+
+
+      41 | async function uploadAndReview(field: Locator) {
+      42 |   await transcribe(field);
+    > 43 |   await expect(field.getByLabel('Review transcript', { exact: true })).toHaveValue(S3_TRANSCRIPT);
+         |                                                                        ^
+      44 |   await expect(field.getByText('Fixture transcript.', { exact: false })).toBeVisible();
+      45 |   await expect(field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true })).toHaveCount(0);
+      46 |   await field.getByRole('button', { name: 'Save reviewed transcript', exact: true }).click();
+        at uploadAndReview (/Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:43:72)
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:167:5
+
+    Error Context: test-results/proof-s3/proof-s3-S3-cancellation-i-81c11-ted-proposal-preserve-terms/error-context.md
+
+  5) tests/e2e/proof-s3.spec.ts:200:1 › S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByRole('group', { name: 'Voice edit for offer cc718d06-d226-4ccd-b2e0-2947884309ce', exact: true }).getByLabel('Review transcript', { exact: true })
+    Expected: "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByRole('group', { name: 'Voice edit for offer cc718d06-d226-4ccd-b2e0-2947884309ce', exact: true }).getByLabel('Review transcript', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('group', { name: 'Voice edit for offer cc718d06-d226-4ccd-b2e0-2947884309ce', exact: true }).getByLabel('Review transcript', { exact: true })
+
+
+      41 | async function uploadAndReview(field: Locator) {
+      42 |   await transcribe(field);
+    > 43 |   await expect(field.getByLabel('Review transcript', { exact: true })).toHaveValue(S3_TRANSCRIPT);
+         |                                                                        ^
+      44 |   await expect(field.getByText('Fixture transcript.', { exact: false })).toBeVisible();
+      45 |   await expect(field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true })).toHaveCount(0);
+      46 |   await field.getByRole('button', { name: 'Save reviewed transcript', exact: true }).click();
+        at uploadAndReview (/Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:43:72)
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:205:5
+
+    Error Context: test-results/proof-s3/proof-s3-S3-mixed-manual-o-82eb5-ublic-HTML-snapshot-and-SSE/error-context.md
+
+  5 failed
+    tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1 
+    tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2 
+    tests/e2e/proof-s3.spec.ts:127:1 › S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it 
+    tests/e2e/proof-s3.spec.ts:158:1 › S3 cancellation, invalid bytes, wrong owner, expired session and interrupted proposal preserve terms 
+    tests/e2e/proof-s3.spec.ts:200:1 › S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE 
+  11 passed (2.6m)

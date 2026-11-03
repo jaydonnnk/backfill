@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s3-voice.test.ts tests/unit/owner-voice.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  13:41:32
+   Duration  913ms (tests 49%, import 30%, transform 14%, setup 7%)
+

@@ -408,6 +408,36 @@ export const whatsappInbound = pgTable(
   (t) => [check("whatsapp_inbound_wamid_length", sql`length(${t.wamid}) between 1 and 200`), check("whatsapp_inbound_phone_shape", sql`${t.phone} ~ '^[1-9][0-9]{6,14}$'`)],
 );
 
+export const ownerVoiceEdits = pgTable('owner_voice_edits', {
+  id: uuid('id').primaryKey(),
+  merchantId: uuid('merchant_id').notNull().references(() => merchants.id),
+  ruleId: uuid('rule_id').notNull().references(() => rules.id),
+  termsVersion: integer('terms_version').notNull(),
+  revision: integer('revision').notNull().default(0),
+  proposalAttempts: integer('proposal_attempts').notNull().default(0),
+  phase: text('phase').notNull(),
+  audioSha256: text('audio_sha256').notNull(),
+  audioDurationMs: integer('audio_duration_ms').notNull(),
+  sampleRate: integer('sample_rate').notNull(),
+  source: text('source').notNull(),
+  voiceModel: text('voice_model').notNull(),
+  wonderModel: text('wonder_model').notNull(),
+  rawTranscript: text('raw_transcript'),
+  transcript: text('transcript'),
+  providerSessionId: text('provider_session_id'),
+  providerDurationMs: integer('provider_duration_ms'),
+  audioCostNanoUsd: bigint('audio_cost_nano_usd', { mode: 'number' }),
+  reviewedAt: timestamp('reviewed_at', { withTimezone: true }),
+  proposalId: uuid('proposal_id'),
+  proposalOutput: jsonb('proposal_output'),
+  before: jsonb('before').notNull(),
+  reason: text('reason'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  approvedAt: timestamp('approved_at', { withTimezone: true }),
+  approvedVersion: integer('approved_version'),
+});
+
 export const ownerChanges = pgTable(
   "owner_changes",
   {
@@ -420,9 +450,9 @@ export const ownerChanges = pgTable(
       .references(() => rules.id),
     // The rule's terms version when proposed; a change applies only to that version.
     termsVersion: integer("terms_version").notNull(),
-    wamid: text("wamid")
-      .notNull()
-      .references(() => whatsappInbound.wamid),
+    wamid: text("wamid").references(() => whatsappInbound.wamid),
+    voiceEditId: uuid('voice_edit_id').references(() => ownerVoiceEdits.id),
+    transcriptRevision: integer('transcript_revision'),
     messageText: text("message_text").notNull(),
     model: text("model").notNull(),
     discountBps: integer("discount_bps"),
@@ -437,6 +467,8 @@ export const ownerChanges = pgTable(
   },
   (t) => [
     unique("owner_changes_wamid_once").on(t.wamid),
+    unique('owner_changes_voice_revision_once').on(t.voiceEditId, t.transcriptRevision),
+    check('owner_changes_source', sql`(${t.wamid} is not null and ${t.voiceEditId} is null and ${t.transcriptRevision} is null) or (${t.wamid} is null and ${t.voiceEditId} is not null and ${t.transcriptRevision} is not null and ${t.transcriptRevision} > 0)`),
     index("owner_changes_merchant_id_idx").on(t.merchantId, t.createdAt),
     check("owner_changes_message_length", sql`length(${t.messageText}) between 1 and 500`),
     check(

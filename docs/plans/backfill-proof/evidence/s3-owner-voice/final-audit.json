@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-11-03T05:56:04.355Z",
+  "localPostgres": {
+    "version": "PostgreSQL 18.6 (Postgres.app) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 15.0.0 (clang-1500.3.9.4), 64-bit"
+  },
+  "remainingDisposableDatabases": [],
+  "remainingDisposableRoles": [],
+  "screenshots": [
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-1280.png",
+      "width": 1280,
+      "height": 2864
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-375.png",
+      "width": 375,
+      "height": 4262
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-applied-1280.png",
+      "width": 1280,
+      "height": 2324
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-applied-375.png",
+      "width": 375,
+      "height": 3443
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-corrected-1280.png",
+      "width": 1280,
+      "height": 2919
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-corrected-375.png",
+      "width": 375,
+      "height": 4262
+    }
+  ],
+  "visualInspection": "Desktop/mobile proposal and mobile applied screenshots inspected; exact diff, fixture labels and separate approval remain readable. Browser asserts no horizontal overflow."
+}

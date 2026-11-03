@@ -1,0 +1,18 @@
+{
+  "branch": "backfill/proof-s3-owner-voice",
+  "head": "96a3cb76ba757fc252e398757ce55ceebb895a66",
+  "originMain": "96a3cb76ba757fc252e398757ce55ceebb895a66",
+  "indexEmpty": true,
+  "sourceManifestCurrent": true,
+  "typecheckExit": 0,
+  "lintExit": 0,
+  "testFiles": 52,
+  "testsPassed": 522,
+  "chromiumPassed": 17,
+  "originalProductionBuild": "passed",
+  "fixtureProductionBuild": "passed",
+  "genuineProviderCalls": 0,
+  "fullS3Accepted": false,
+  "result": "local implementation verified; genuine integration verification blocked",
+  "stop": "No commit, merge, push, deployment, production migration/access or later slice."
+}

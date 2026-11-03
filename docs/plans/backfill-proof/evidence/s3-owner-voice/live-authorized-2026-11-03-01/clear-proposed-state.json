@@ -1,0 +1,96 @@
+{
+  "before": {
+    "id": "45778640-a751-4590-8b3f-1138ad141bef",
+    "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "rule": {
+    "id": "45778640-a751-4590-8b3f-1138ad141bef",
+    "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "edits": [
+    {
+      "id": "b9f793e1-c5e5-492c-838d-9487693a9f71",
+      "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+      "ruleId": "45778640-a751-4590-8b3f-1138ad141bef",
+      "termsVersion": 1,
+      "revision": 1,
+      "proposalAttempts": 1,
+      "phase": "proposed",
+      "audioSha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+      "audioDurationMs": 6447,
+      "sampleRate": 16000,
+      "source": "provider",
+      "voiceModel": "muse-voice-transcribe-1.0",
+      "wonderModel": "muse-wonder-1.0",
+      "rawTranscript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "transcript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "providerSessionId": "voyager/transcribe/B0B82504BBEE4512925FBC995ED50AD4",
+      "providerDurationMs": 6480,
+      "audioCostNanoUsd": null,
+      "reviewedAt": "2026-11-03T06:24:10.104Z",
+      "proposalId": "1211c184-c9cd-4f4d-9b81-5c223a5e9c8f",
+      "proposalOutput": {
+        "reply": "Confirmed: 25% off, capacity 10 covers, minimum pool 6, and per-agent cap 3 for Tuesday 14:00-17:00.",
+        "understood": true,
+        "discountBps": 2500,
+        "minPoolCovers": 6,
+        "capacityCovers": 10,
+        "perAgentCapCovers": 3
+      },
+      "before": {
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "perAgentCapCovers": 2
+      },
+      "reason": null,
+      "createdAt": "2026-11-03T06:24:07.080Z",
+      "expiresAt": "2026-11-03T06:39:07.084Z",
+      "approvedAt": null,
+      "approvedVersion": null
+    }
+  ],
+  "proposals": [
+    {
+      "id": "1211c184-c9cd-4f4d-9b81-5c223a5e9c8f",
+      "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+      "ruleId": "45778640-a751-4590-8b3f-1138ad141bef",
+      "termsVersion": 1,
+      "wamid": null,
+      "voiceEditId": "b9f793e1-c5e5-492c-838d-9487693a9f71",
+      "transcriptRevision": 1,
+      "messageText": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "model": "muse-wonder-1.0",
+      "discountBps": 2500,
+      "capacityCovers": 10,
+      "minPoolCovers": 6,
+      "perAgentCapCovers": 3,
+      "verdict": "ok",
+      "createdAt": "2026-11-03T06:24:13.573Z",
+      "expiresAt": "2026-11-03T06:39:07.084Z"
+    }
+  ],
+  "outcomes": []
+}

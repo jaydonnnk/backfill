@@ -1,0 +1,35 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s3-voice.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |integration| tests/integration/proof-s3-voice.test.ts (8 tests | 1 failed) 401ms
+   ❯ S3 owner voice against real runtime/database paths (8)
+     × refuses stale/superseded proposals including capacity-only drift with no terms-version bump 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > refuses stale/superseded proposals including capacity-only drift with no terms-version bump
+AssertionError: expected 'applied' to be 'stale' // Object.is equality
+
+Expected: "stale"
+Received: "applied"
+
+ ❯ tests/integration/proof-s3-voice.test.ts:162:70
+    160|     const o = await owner(); const u = await proposed(o);
+    161|     await t.admin`update rules set capacity_covers=12 where id=${o.rul…
+    162|     expect((await approveVoice(app.db, o.id, approval(u.e))).status).t…
+       |                                                                      ^
+    163|     expect((await terms(o))?.capacity_covers).toBe(12);
+    164|     const p = await owner(); const old = await proposed(p); await uplo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  13:31:07
+   Duration  833ms (tests 52%, import 32%, transform 11%, setup 5%)
+

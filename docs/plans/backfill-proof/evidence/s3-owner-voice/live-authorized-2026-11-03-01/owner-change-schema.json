@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "understood": {
+      "type": "boolean",
+      "description": "True only if the message asks to change the discount, capacity, minimum pool or per-agent cap."
+    },
+    "discountBps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000,
+      "description": "The next discount in basis points; the current one if unchanged."
+    },
+    "capacityCovers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The next capacity in covers; the current one if unchanged."
+    },
+    "minPoolCovers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The next minimum pool in covers; the current one if unchanged."
+    },
+    "perAgentCapCovers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The next most covers one agent may hold; the current one if unchanged."
+    },
+    "reply": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "description": "One or two short sentences to the owner: what you will change, or what you can change if you did not understand."
+    }
+  },
+  "required": [
+    "understood",
+    "discountBps",
+    "capacityCovers",
+    "minPoolCovers",
+    "perAgentCapCovers",
+    "reply"
+  ],
+  "additionalProperties": false
+}

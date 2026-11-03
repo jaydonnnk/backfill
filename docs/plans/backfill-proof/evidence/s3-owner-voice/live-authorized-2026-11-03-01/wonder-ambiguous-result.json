@@ -1,0 +1,17 @@
+{
+  "id": "wonder-ambiguous",
+  "status": 200,
+  "latencyMs": 4359,
+  "providerRequestId": "700c22d8-b417-4fc2-88e9-4f0f55da810c",
+  "output": {
+    "id": "chatcmpl-01a1a014-8243-7237-9fb9-ee694e891e62",
+    "model": "muse-wonder-1.0",
+    "content": "{\"capacityCovers\": 8, \"discountBps\": 2000, \"minPoolCovers\": 8, \"perAgentCapCovers\": 2, \"reply\": \"I cannot tell exactly what change you want from 'make the offer a bit better', so I have kept the current terms unchanged. Please clarify the exact value(s) you want. I can change only these four terms: the discount (currently 20%, 2000 basis points), the capacity (currently 8 covers), the minimum /\", \"understood\": false}",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 334,
+      "completionTokens": 365,
+      "cachedTokens": 0
+    }
+  }
+}

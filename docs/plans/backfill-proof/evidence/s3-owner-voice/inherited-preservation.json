@@ -1,0 +1,36 @@
+{
+  "baseHead": "96a3cb76ba757fc252e398757ce55ceebb895a66",
+  "manifests": [
+    {
+      "manifest": "docs/plans/backfill-proof/evidence/s1-journey/SHA256SUMS",
+      "entries": 25,
+      "publishedMatches": 24,
+      "currentMatches": 24,
+      "currentDifferences": [
+        "docs/plans/backfill-proof/00-status.md"
+      ],
+      "publishedDifferences": [
+        "docs/plans/backfill-proof/00-status.md"
+      ]
+    },
+    {
+      "manifest": "docs/plans/backfill-proof/evidence/s2-decision-trail/SHA256SUMS",
+      "entries": 238,
+      "publishedMatches": 238,
+      "currentMatches": 232,
+      "currentDifferences": [
+        "docs/plans/backfill-proof/00-status.md",
+        "drizzle/meta/_journal.json",
+        "src/app/merchant/page.tsx",
+        "src/lib/db/schema.ts",
+        "src/lib/whatsapp/owner-model.ts",
+        "src/lib/whatsapp/service.ts"
+      ],
+      "publishedDifferences": []
+    }
+  ],
+  "inheritedEvidenceDiff": [],
+  "allInheritedEvidenceUnchanged": true,
+  "historicalException": "S1 manifest predates S2 status/publication updates: its 00-status.md hash differs in published HEAD too. This is the documented historical status exception, not an inherited evidence edit.",
+  "verificationPassed": true
+}

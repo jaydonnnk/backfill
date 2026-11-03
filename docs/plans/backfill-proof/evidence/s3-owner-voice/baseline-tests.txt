@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  49 passed (49)
+      Tests  496 passed (496)
+   Start at  13:21:07
+   Duration  5.28s (tests 61%, import 25%, transform 9%, setup 4%)
+

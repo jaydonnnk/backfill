@@ -1,0 +1,9 @@
+{
+  "stage": "source-stability-check",
+  "errorName": "AssertionError",
+  "recordedFrom": "actual launcher stderr from this session",
+  "assertion": "Source changed during verification: src/lib/owner-voice/service.ts",
+  "expectedSnapshotSourceSha256": "46dfbee3a29cd2ed078d2a463d09968c12996a06ebc14421e9620c4815d8741c",
+  "actualRootSha256AtRunEnd": "57757540da100637f77df91fc11927b3a96a1b3ab4157589cd871a9308e17013",
+  "chromiumResult": "16 passed; not accepted as verification of final source because source changed during run"
+}

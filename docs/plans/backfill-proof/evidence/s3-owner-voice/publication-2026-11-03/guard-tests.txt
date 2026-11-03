@@ -1,0 +1,11 @@
+✔ durable exclusive slots cap concurrency and all four approved attempts (16.628208ms)
+✔ wrong hosts/endpoints/models/audio never dispatch; failed HTTP attempt is not reusable (3.9395ms)
+✔ receipts omit hidden reasoning and malformed nested metadata (2.2375ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 58.785

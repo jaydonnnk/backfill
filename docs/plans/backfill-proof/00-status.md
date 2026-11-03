@@ -1,5 +1,85 @@
 # Status: Backfill proof build
 
+## S3 genuine integration verified, 2026-11-03
+
+- [x] Revised S3 local implementation and genuine integration acceptance are
+  complete for the prepared synthetic speech and scripted owner workflow.
+  The user separately approved the four-call, no-retry, US$8.44 local test.
+- Exactly two `muse-voice-transcribe-1.0` and two `muse-wonder-1.0` requests
+  returned HTTP 200. Both actual transcripts were reviewed unchanged in the
+  authenticated UI. Wonder proposed exactly 25% discount, capacity 10,
+  minimum pool 6 and per-agent cap 3. Terms remained 20%/8/8/2 at v1 until
+  a separate scripted owner action applied that exact proposal at v2.
+- The ambiguous input produced a genuine clarification refusal. Its separate
+  offer remained at v1 with no approval or terms change. Audio, ASR session,
+  reviewed revision, Wonder proposal and approval IDs remain linked.
+- [Genuine run, actual outputs, captures and audit](evidence/s3-owner-voice/live-authorized-2026-11-03-01/README.md).
+  Published-rate estimate US$0.017798 from returned token usage and whole-second
+  audio duration. Actual invoiced cost is unknown. The four-call allowance is
+  consumed; no retries or further provider requests are authorized.
+- Original production code passed an isolated webpack build and both actual
+  browser cases. All 90 product source hashes still match the prior verified
+  S3 snapshot, whose 522 tests and 17 Chromium regressions remain applicable.
+  The additional guard passed three offline tests, typecheck and scoped lint.
+- No production access/write, persistent migration, commit, merge, push,
+  deployment or later slice. All owned local resources were removed. S3 is
+  uncommitted on `backfill/proof-s3-owner-voice`. Merchant demand, real-person
+  consent, payment, attendance and recovered revenue remain unproven.
+  Synthetic speech and scripted approvals are not merchant validation.
+
+## Offline checkpoint, publication and migration facts, 2026-11-03
+
+The following S3 checkpoint predates the separately approved genuine run above.
+Its blocked/no-inference statements describe that earlier verification only.
+
+S1/S2 were committed and pushed to `main` at
+`96a3cb76ba757fc252e398757ce55ceebb895a66`. S3 started from that clean
+revision on local branch `backfill/proof-s3-owner-voice`. Earlier descriptions
+of S1/S2 as uncommitted or unpublished below are historical.
+
+The user separately approved and completed production migration
+`0014_proof_s2_trail` on Neon project `curly-scene-39671304`, production branch
+`br-noisy-dawn-b4eegvd6`, database `neondb`. The local applied receipt records
+15 migrations, unchanged existing-table fingerprints, historical accepted
+prices left null, and SELECT-only `demo_trails` access for `backfill_app` and
+`backfill_web`. Migration SHA-256:
+`c03e3e0e9648c813acbeb6e0df5ded6bc2c290137f1b828dfeedcd4d70687bd4`.
+Ignored receipts are under `archive/proof-s2-production-migration-2026-11-03/`;
+they are local evidence, unavailable from GitHub. S3 has not accessed production.
+That completed approval does not authorize any S3 production migration.
+
+The user now authorizes local implementation and verification of revised S3
+only, overriding historical pending-approval/stop-after-S2 notes for this local
+scope. S3 local implementation is verified: **522 tests in 52 files**, typecheck,
+lint, original/fixture isolated production webpack builds and **17 Chromium
+checks** passed. Two fresh owner journeys exercised WAV upload, saved transcript
+review, exact proposal diff and separate approval through real actions/services
+and disposable PostgreSQL. Changed text, cross-owner requests, expiry, stale
+capacity/version, pending commitments, cancellation, invalid output and lost
+responses preserve the required protections. Final desktop/mobile captures
+passed at 1280/375 with no horizontal overflow. Combined S1/S2 still prove
+four two-person commitments fill 8 covers and three fill 0, only at settlement.
+
+**Local implementation verified; genuine integration verification blocked.**
+S3 remains unaccepted in full. Voice/Wonder outputs are explicitly labeled
+fixtures; the silent WAV does not prove speech recognition. No provider call,
+real env-file access, production access/write, commit, merge, push, deployment
+or later slice ran. Local migration `0015` remains unapplied to production.
+All owned test databases, roles and servers were removed. All 238 published S2
+source/evidence hashes match base HEAD; inherited S1/S2 evidence is unchanged.
+
+[S3 evidence, actual screenshots and limits](evidence/s3-owner-voice/README.md).
+The [unexecuted bounded run proposal](evidence/s3-owner-voice/voice-contract.md)
+pins two synthetic speech inputs, at most two Voice and two Wonder calls,
+no retries and a conservative US$8.44 published-rate ceiling. It requires
+separate approval. Merchant validation/video and all later slices remain
+outside this local S3 result.
+
+## Historical records
+
+The following entries retain their original chronology. Current facts and S3
+authority above supersede their older state and permission descriptions.
+
 ## S2 acceptance and main publication authorized, 2026-11-03
 
 The user accepted S2 and explicitly instructed "commit and push to main".

@@ -1,0 +1,72 @@
+{
+  "ownerId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+  "ruleId": "45778640-a751-4590-8b3f-1138ad141bef",
+  "before": {
+    "id": "45778640-a751-4590-8b3f-1138ad141bef",
+    "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "rule": {
+    "id": "45778640-a751-4590-8b3f-1138ad141bef",
+    "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "edits": [
+    {
+      "id": "b9f793e1-c5e5-492c-838d-9487693a9f71",
+      "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+      "ruleId": "45778640-a751-4590-8b3f-1138ad141bef",
+      "termsVersion": 1,
+      "revision": 0,
+      "proposalAttempts": 0,
+      "phase": "transcribed",
+      "audioSha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+      "audioDurationMs": 6447,
+      "sampleRate": 16000,
+      "source": "provider",
+      "voiceModel": "muse-voice-transcribe-1.0",
+      "wonderModel": "muse-wonder-1.0",
+      "rawTranscript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "transcript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "providerSessionId": "voyager/transcribe/B0B82504BBEE4512925FBC995ED50AD4",
+      "providerDurationMs": 6480,
+      "audioCostNanoUsd": null,
+      "reviewedAt": null,
+      "proposalId": null,
+      "proposalOutput": null,
+      "before": {
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "perAgentCapCovers": 2
+      },
+      "reason": null,
+      "createdAt": "2026-11-03T06:24:07.080Z",
+      "expiresAt": "2026-11-03T06:39:07.084Z",
+      "approvedAt": null,
+      "approvedVersion": null
+    }
+  ],
+  "proposals": [],
+  "outcomes": []
+}

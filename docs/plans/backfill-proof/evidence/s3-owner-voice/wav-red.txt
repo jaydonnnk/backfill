@@ -1,0 +1,28 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/unit/owner-voice.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/owner-voice.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/owner-voice.test.ts [ tests/unit/owner-voice.test.ts ]
+Error: Cannot find package '@/lib/owner-voice/wav' imported from /Users/jayd0/Desktop/meta-hack/tests/unit/owner-voice.test.ts
+ ❯ tests/unit/owner-voice.test.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import { inspectWav } from '@/lib/owner-voice/wav';
+       | ^
+      3|
+      4| function wav(seconds = 1, sampleRate = 16000) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:23:35
+   Duration  123ms (setup 64%, transform 32%, worker 4%)
+

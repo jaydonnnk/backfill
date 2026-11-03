@@ -1,0 +1,89 @@
+
+> backfill@0.0.0 test:unit
+> vitest run --config config/vitest.config.ts --project unit tests/unit/voice-provider.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/voice-provider.test.ts (11 tests | 6 failed) 5ms
+   ❯ bounded Voice adapter (11)
+     × sends one documented multipart WAV request and returns bounded actual transcript metadata 3ms
+     × never retries provider status 400 1ms
+     × never retries provider status 429 0ms
+     × never retries provider status 500 0ms
+     × never retries provider status 503 0ms
+     × rejects mislabeled containers before HTTP and fails closed on transport interruption 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > sends one documented multipart WAV request and returns bounded actual transcript metadata
+AssertionError: expected null to deeply equal { …(4) }
+
+- Expected:
+{
+  "audioDurationMs": 1000,
+  "costNanoUsd": null,
+  "providerSessionId": "documented-session",
+  "text": "Make it 25 percent off.",
+}
+
++ Received:
+null
+
+ ❯ tests/unit/voice-provider.test.ts:21:37
+     19|       return Response.json(result);
+     20|     } });
+     21|     expect(await transcribe(wav())).toEqual({ text: result.transcript,…
+       |                                     ^
+     22|     expect(requests).toHaveLength(1);
+     23|     expect(requests[0]?.url).toBe("https://model.invalid/v1/asr/transc…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > never retries provider status 400
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > never retries provider status 429
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > never retries provider status 500
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > never retries provider status 503
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/unit/voice-provider.test.ts:40:19
+     38|     const transcribe = createVoiceTranscriber({ baseUrl: "https://mode…
+     39|     expect(await transcribe(wav())).toBeNull();
+     40|     expect(calls).toBe(1);
+       |                   ^
+     41|   });
+     42|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |unit| tests/unit/voice-provider.test.ts > bounded Voice adapter > rejects mislabeled containers before HTTP and fails closed on transport interruption
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/unit/voice-provider.test.ts:58:19
+     56|     expect(calls).toBe(0);
+     57|     expect(await transcribe(wav())).toBeNull();
+     58|     expect(calls).toBe(1);
+       |                   ^
+     59|   });
+     60| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 5 passed (11)
+   Start at  13:24:29
+   Duration  137ms (setup 54%, transform 30%, tests 8%, import 5%, worker 3%)
+

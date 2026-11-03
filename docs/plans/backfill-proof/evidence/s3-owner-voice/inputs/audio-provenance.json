@@ -1,0 +1,31 @@
+{
+  "source": "Offline macOS say, Samantha at190words/minute; converted once by afconvert to supported WAV. Synthetic speech, not a human recording or ASR output. Converter is verification-only, not an app dependency.",
+  "commands": [
+    "say -v Samantha -r 190 -o /tmp/backfill-s3-clear.aiff <clear text>",
+    "afconvert -f WAVE -d LEI16@16000 -c 1 <aiff> <wav>"
+  ],
+  "clearText": "Set the discount to twenty five percent, capacity to ten, minimum pool to six, and per agent cap to three.",
+  "ambiguousText": "Make the offer a bit better.",
+  "receipts": [
+    {
+      "file": "clear.wav",
+      "bytes": 210414,
+      "sha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+      "format": {
+        "ok": true,
+        "durationMs": 6447.4375,
+        "sampleRate": 16000
+      }
+    },
+    {
+      "file": "ambiguous.wav",
+      "bytes": 45890,
+      "sha256": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0",
+      "format": {
+        "ok": true,
+        "durationMs": 1306.0625,
+        "sampleRate": 16000
+      }
+    }
+  ]
+}

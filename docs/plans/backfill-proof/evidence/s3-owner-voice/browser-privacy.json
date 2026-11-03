@@ -1,0 +1,65 @@
+{
+  "ownerId": "c3ac399d-aec5-4e7a-b027-46678b580772",
+  "ruleId": "705e1a26-3791-4605-b12d-d1ca8b155e1d",
+  "unchanged": {
+    "edits": [
+      {
+        "id": "ae0f54e0-a0ea-4036-bd21-2766bd174521",
+        "merchantId": "c3ac399d-aec5-4e7a-b027-46678b580772",
+        "ruleId": "705e1a26-3791-4605-b12d-d1ca8b155e1d",
+        "termsVersion": 1,
+        "revision": 2,
+        "proposalAttempts": 0,
+        "phase": "failed",
+        "audioSha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+        "audioDurationMs": 1000,
+        "sampleRate": 16000,
+        "source": "fixture",
+        "voiceModel": "fixture:s3-voice",
+        "wonderModel": "fixture:s3-wonder",
+        "rawTranscript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.",
+        "transcript": "S3_PRIVATE_TRANSCRIPT_CANARY set discount to 25 percent and private floor to 1 dollar.",
+        "providerSessionId": "fixture-s3-asr",
+        "providerDurationMs": 1000,
+        "audioCostNanoUsd": null,
+        "reviewedAt": "2026-11-03T05:51:06.943Z",
+        "proposalId": null,
+        "proposalOutput": null,
+        "before": {
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "capacityCovers": 8,
+          "perAgentCapCovers": 2
+        },
+        "reason": "manual_route",
+        "createdAt": "2026-11-03T05:51:06.792Z",
+        "expiresAt": "2026-11-03T06:06:06.794Z",
+        "approvedAt": null,
+        "approvedVersion": null
+      }
+    ],
+    "changes": [],
+    "outcomes": [],
+    "rule": {
+      "id": "705e1a26-3791-4605-b12d-d1ca8b155e1d",
+      "merchantId": "c3ac399d-aec5-4e7a-b027-46678b580772",
+      "termsVersion": 1,
+      "listPriceCents": 680,
+      "capacityCovers": 8,
+      "weekday": 2,
+      "startMinute": 840,
+      "endMinute": 1020,
+      "commitByMinute": 720,
+      "discountBps": 2000,
+      "minPoolCovers": 8,
+      "perAgentCapCovers": 2,
+      "floorPriceCents": 503
+    }
+  },
+  "publicChecks": {
+    "snapshot": true,
+    "html": true,
+    "sse": true
+  },
+  "provenance": "actual stored private fixture transcript excluded from public routes"
+}

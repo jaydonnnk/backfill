@@ -1,0 +1,41 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s3-voice.test.ts -t requires clarification
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |integration| tests/integration/proof-s3-voice.test.ts (11 tests | 1 failed | 10 skipped) 336ms
+   ❯ S3 owner voice against real runtime/database paths (11)
+     × requires clarification for ambiguous model output and refuses invalid/below-floor/failing output 68ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > requires clarification for ambiguous model output and refuses invalid/below-floor/failing output
+Error: Failed query: update "owner_voice_edits" set "phase" = $1, "proposal_id" = $2, "proposal_output" = $3, "reason" = $4 where "owner_voice_edits"."id" = $5 returning "id", "merchant_id", "rule_id", "terms_version", "revision", "proposal_attempts", "phase", "audio_sha256", "audio_duration_ms", "sample_rate", "source", "voice_model", "wonder_model", "raw_transcript", "transcript", "provider_session_id", "provider_duration_ms", "audio_cost_nano_usd", "reviewed_at", "proposal_id", "proposal_output", "before", "reason", "created_at", "expires_at", "approved_at", "approved_version"
+params: proposed,024b4eee-e8d6-4209-a3ea-52c78c27b3b5,{"understood":true,"discountBps":2000,"capacityCovers":10,"minPoolCovers":6,"perAgentCapCovers":4,"reply":"bad\u0000reply"},,cfc3092b-52be-4333-a2ce-02117b801352
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:179:21
+
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:59:20
+ ❯ tests/integration/proof-s3-voice.test.ts:139:17
+
+Caused by: PostgresError: unsupported Unicode escape sequence
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '22P05', detail: '\u0000 cannot be converted to text.', where: 'JSON data, line 1: ...overs":6,"perAgentCapCovers":4,"reply":"bad\u0000...
+unnamed portal parameter $3 = '...'', file: 'jsonfuncs.c', routine: 'json_errsave_error', query: 'update "owner_voice_edits" set "phase" = $1, "proposal_id" = $2, "proposal_output" = $3, "reason" = $4 where "owner_voice_edits"."id" = $5 returning "id", "merchant_id", "rule_id", "terms_version", "revision", "proposal_attempts", "phase", "audio_sha256", "audio_duration_ms", "sample_rate", "source", "voice_model", "wonder_model", "raw_transcript", "transcript", "provider_session_id", "provider_duration_ms", "audio_cost_nano_usd", "reviewed_at", "proposal_id", "proposal_output", "before", "reason", "created_at", "expires_at", "approved_at", "approved_version"', parameters: [ 'proposed', '024b4eee-e8d6-4209-a3ea-52c78c27b3b5', '{"understood":true,"discountBps":2000,"capacityCovers":10,"minPoolCovers":6,"perAgentCapCovers":4,"reply":"bad\u0000reply"}', null, 'cfc3092b-52be-4333-a2ce-02117b801352' ], args: [ 'proposed', '024b4eee-e8d6-4209-a3ea-52c78c27b3b5', '{"understood":true,"discountBps":2000,"capacityCovers":10,"minPoolCovers":6,"perAgentCapCovers":4,"reply":"bad\u0000reply"}', null, 'cfc3092b-52be-4333-a2ce-02117b801352' ], types: [ 25, 2950, 3802, 25, 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 skipped (11)
+   Start at  13:39:46
+   Duration  785ms (tests 47%, import 35%, transform 13%, setup 5%)
+

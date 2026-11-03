@@ -1,0 +1,22 @@
+
+Running 17 tests using 1 worker
+
+  ✓   1 tests/e2e/kopi-lifecycle.spec.ts:36:1 › consecutive nods each start an animation (2.7s)
+  ✓   2 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on pool (136ms)
+  ✓   3 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on null (133ms)
+  ✓   4 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on stale (130ms)
+  ✓   5 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on malformed (129ms)
+  ✓   6 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on navigation (205ms)
+  ✓   7 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on clearing (133ms)
+  ✓   8 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on plan_applied (146ms)
+  ✓   9 tests/e2e/kopi-lifecycle.spec.ts:50:3 › queued cue invalidates on minimum_lost (127ms)
+  ✓  10 tests/e2e/proof-s1.spec.ts:14:1 › scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval (1.2m)
+  ✓  11 tests/e2e/proof-s2.spec.ts:16:1 › stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery (1.0m)
+  ✓  12 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1 (634ms)
+  ✓  13 tests/e2e/proof-s3.spec.ts:77:3 › S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2 (755ms)
+  ✓  14 tests/e2e/proof-s3.spec.ts:127:1 › S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it (851ms)
+  ✓  15 tests/e2e/proof-s3.spec.ts:158:1 › S3 cancellation, invalid bytes, wrong owner, missing session and interrupted proposal preserve terms (924ms)
+  ✓  16 tests/e2e/proof-s3.spec.ts:200:1 › S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE (689ms)
+  ✓  17 tests/e2e/proof-s3.spec.ts:230:1 › S3 upload response interruption retries the same edit without a duplicate transaction (401ms)
+
+  17 passed (2.4m)

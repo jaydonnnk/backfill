@@ -1,0 +1,180 @@
+{
+  "checkedAt": "2026-11-03T06:26:38.924Z",
+  "passed": true,
+  "cases": [
+    {
+      "name": "clear",
+      "ownerId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+      "ruleId": "45778640-a751-4590-8b3f-1138ad141bef",
+      "audioSha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+      "editId": "b9f793e1-c5e5-492c-838d-9487693a9f71",
+      "transcriptSource": "provider",
+      "rawTranscript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "reviewedTranscript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+      "revision": 1,
+      "proposalId": "1211c184-c9cd-4f4d-9b81-5c223a5e9c8f",
+      "proposalVerdict": "ok",
+      "before": {
+        "id": "45778640-a751-4590-8b3f-1138ad141bef",
+        "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "after": {
+        "id": "45778640-a751-4590-8b3f-1138ad141bef",
+        "merchantId": "ff6f314b-85e7-4a4e-9146-3b08606e8cc6",
+        "termsVersion": 2,
+        "listPriceCents": 680,
+        "capacityCovers": 10,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 2500,
+        "minPoolCovers": 6,
+        "perAgentCapCovers": 3,
+        "floorPriceCents": 503
+      },
+      "ownOutcomes": [
+        {
+          "changeId": "1211c184-c9cd-4f4d-9b81-5c223a5e9c8f",
+          "outcome": "applied",
+          "decidedAt": "2026-11-03T06:24:14.256Z"
+        }
+      ],
+      "approvedAt": "2026-11-03T06:24:14.256Z",
+      "assurance": "genuine Voice/Wonder; synthetic speech; scripted owner review and separate approval"
+    },
+    {
+      "name": "ambiguous",
+      "ownerId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+      "ruleId": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+      "audioSha256": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0",
+      "editId": "e8d0ab3e-47f2-4da5-acf4-095140487c07",
+      "transcriptSource": "provider",
+      "rawTranscript": "Make the offer a bit better.",
+      "reviewedTranscript": "Make the offer a bit better.",
+      "revision": 1,
+      "proposalId": "06bf25a1-ff58-437b-88fa-f9f2373cf0c6",
+      "proposalVerdict": "not_understood",
+      "before": {
+        "id": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+        "merchantId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "after": {
+        "id": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+        "merchantId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      },
+      "ownOutcomes": [],
+      "approvedAt": null,
+      "assurance": "genuine Voice/Wonder; synthetic speech; scripted owner review; no approval performed; clarification preserved terms"
+    }
+  ],
+  "estimate": {
+    "wonderNanoUsd": 17448000,
+    "voiceWholeSeconds": 7,
+    "voiceUsd": 0.00035,
+    "totalUsd": 0.017798,
+    "basis": "documented rates and returned usage/duration; not an invoice",
+    "actualBilledCostUsd": null
+  },
+  "cleanup": {
+    "databases": [],
+    "roles": [],
+    "ownedServerStopped": true
+  },
+  "captures": [
+    {
+      "file": "ambiguous-clarification-1280.png",
+      "width": 1280,
+      "height": 2328,
+      "sha256": "01d47b583593b36342c485139adf8786b735e9ee3b6c9ab2a2d0c3944d9b8b5f"
+    },
+    {
+      "file": "ambiguous-clarification-375.png",
+      "width": 375,
+      "height": 3380,
+      "sha256": "92cbaa3c73b85239ccf075f547fec03641096256367c76728ed1fc9be574d216"
+    },
+    {
+      "file": "ambiguous-transcript-1280.png",
+      "width": 1280,
+      "height": 2299,
+      "sha256": "b63b39c5be616009e7455d6f5f266b30ab87302a58b5573c5205493dbe68fceb"
+    },
+    {
+      "file": "ambiguous-transcript-375.png",
+      "width": 375,
+      "height": 3352,
+      "sha256": "356f158b834c8053a4998c9a47cbdadfc6ecb9af5215a9c0a9451d1ca5c3e92e"
+    },
+    {
+      "file": "clear-applied-1280.png",
+      "width": 1280,
+      "height": 2228,
+      "sha256": "7f4dcf75213ecfdf1e1e496d3af749fa60c06f0c834af260046f0a9709c65a8a"
+    },
+    {
+      "file": "clear-applied-375.png",
+      "width": 375,
+      "height": 3318,
+      "sha256": "4216f05f0b4e3e7be3ed4f8edb25edd4a8138f037b11778050ef381b25f921aa"
+    },
+    {
+      "file": "clear-transcript-1280.png",
+      "width": 1280,
+      "height": 2299,
+      "sha256": "cebeb3a58df3ac273e16ec682cc15a00934ba3ef0007cfe446bc278552930312"
+    },
+    {
+      "file": "clear-transcript-375.png",
+      "width": 375,
+      "height": 3352,
+      "sha256": "9e8f32f3dc321f0c98f5dc5244a19e4658c52f3daa51fbceadfe5d5d23d385af"
+    },
+    {
+      "file": "clear-unapproved-1280.png",
+      "width": 1280,
+      "height": 2769,
+      "sha256": "73156638766b5658b543789d112d5065e47476cb930f55222939079fcf216a5a"
+    },
+    {
+      "file": "clear-unapproved-375.png",
+      "width": 375,
+      "height": 4195,
+      "sha256": "dd4f05d4dcd70fb40509975dde8c890f0c6b0c891765ec866aae6ca7a36a1aa0"
+    }
+  ],
+  "independentReview": "Passed after correcting the ambiguous assurance label. Four HTTP200 calls, exact transcript/review/proposal binding, separate clear approval, ambiguous own approvals0 and unchanged terms. Rate arithmetic independently checked."
+}

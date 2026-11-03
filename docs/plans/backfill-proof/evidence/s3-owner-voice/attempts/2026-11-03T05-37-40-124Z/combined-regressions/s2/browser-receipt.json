@@ -1,0 +1,968 @@
+{
+  "provenance": "authored synthetic requests/outputs and scripted approvals; actual HTTP MCP and stored settlement",
+  "deadline": "2026-11-03T05:41:00.000Z",
+  "date": "2026-11-03",
+  "modelCalls": 0,
+  "browserErrors": [],
+  "feed": {
+    "interrupted": "real SELECT permission loss",
+    "recovered": "restored SELECT, no fresh animation",
+    "malformed": "supplemental malformed SSE retained SSR view"
+  },
+  "receipts": [
+    {
+      "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+      "count": 4,
+      "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+      "parties": [
+        {
+          "commitmentId": "d5101a3d-03de-4e52-bc9f-a39a055e2587",
+          "agentId": "s2-browser-4-0",
+          "variant": "scripted"
+        },
+        {
+          "commitmentId": "c0a0b6cd-a11f-4b51-bee4-a8b005ea6e46",
+          "agentId": "s2-browser-4-1",
+          "variant": "missing"
+        },
+        {
+          "commitmentId": "4467330d-cf28-4f22-afc7-e5b0b49c81d8",
+          "agentId": "s2-browser-4-2",
+          "variant": "changed_price"
+        },
+        {
+          "commitmentId": "63ed590c-9d6b-4597-8107-ba22b4a99574",
+          "agentId": "s2-browser-4-3",
+          "variant": "changed_version"
+        }
+      ],
+      "pending": {
+        "scene": {
+          "id": "1f985232-e21b-483f-ad8b-2f12f0903cd2:2026-11-03",
+          "events": [
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.876Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.893Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.908Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.920Z",
+              "label": "+2 covers committed"
+            }
+          ],
+          "merchantName": "Backfill Demo Cafe",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 13:42-14:41 Singapore time. It unlocks only if at least 8 covers are committed before 13:41 that day; one agent may hold at most 2 covers.",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "visitDate": "2026-11-03",
+          "visitWindow": "13:42–14:41",
+          "commitBy": "2026-11-03T05:41:00.000Z",
+          "phase": "open",
+          "trail": [
+            {
+              "id": "0b4d53a4-7d1a-464f-b29c-45575bfe95b0",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-0",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "scripted",
+              "commitmentId": "d5101a3d-03de-4e52-bc9f-a39a055e2587",
+              "final": {
+                "partyId": "s2-browser-4-0",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "e15dba97-082e-4dce-b32b-01b294aec6a9",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-1",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": "c0a0b6cd-a11f-4b51-bee4-a8b005ea6e46",
+              "final": {
+                "partyId": "s2-browser-4-1",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "580c9978-4503-47dc-93e3-1cd4fd48ed94",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-2",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "4467330d-cf28-4f22-afc7-e5b0b49c81d8",
+              "final": {
+                "partyId": "s2-browser-4-2",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "abb8e31b-7aff-4fd0-8c82-4150da05873a",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-3",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "63ed590c-9d6b-4597-8107-ba22b4a99574",
+              "final": {
+                "partyId": "s2-browser-4-3",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "eae3d31c-6691-445d-b58b-ee66def3a5cf",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-proposal-4",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": null,
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": null,
+              "final": null,
+              "result": "proposal_only"
+            }
+          ],
+          "buyers": [
+            {
+              "agentId": "s2-browser-4-0",
+              "label": "Synthetic party 1",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.876Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            },
+            {
+              "agentId": "s2-browser-4-1",
+              "label": "Synthetic party 2",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.893Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            },
+            {
+              "agentId": "s2-browser-4-2",
+              "label": "Synthetic party 3",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.908Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            },
+            {
+              "agentId": "s2-browser-4-3",
+              "label": "Synthetic party 4",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.920Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            }
+          ],
+          "pooled": {
+            "covers": 8,
+            "unlocked": true,
+            "filledCovers": 0,
+            "soldOut": false
+          },
+          "plan": null
+        },
+        "muse": null,
+        "ledger": {
+          "covers": 0,
+          "buyerShareCents": 0,
+          "agentShareCents": 0,
+          "networkShareCents": 0,
+          "agentsCommitted": 4,
+          "poolsUnlocked": 0,
+          "reconciled": true,
+          "pools": []
+        }
+      },
+      "settled": {
+        "scene": {
+          "id": "1f985232-e21b-483f-ad8b-2f12f0903cd2:2026-11-03",
+          "events": [
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.876Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.893Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.908Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:00.920Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "cleared",
+              "at": "2026-11-03T05:41:00.132Z",
+              "label": "Pool unlocked: 8 covers filled"
+            },
+            {
+              "kind": "sold_out",
+              "at": "2026-11-03T05:41:00.132Z",
+              "label": "Sold out"
+            },
+            {
+              "kind": "plan",
+              "at": "2026-11-03T05:41:00.185Z",
+              "label": "Wonder plan ready"
+            }
+          ],
+          "merchantName": "Backfill Demo Cafe",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 13:42-14:41 Singapore time. It unlocks only if at least 8 covers are committed before 13:41 that day; one agent may hold at most 2 covers.",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "visitDate": "2026-11-03",
+          "visitWindow": "13:42–14:41",
+          "commitBy": "2026-11-03T05:41:00.000Z",
+          "phase": "cleared",
+          "trail": [
+            {
+              "id": "0b4d53a4-7d1a-464f-b29c-45575bfe95b0",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-0",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "scripted",
+              "commitmentId": "d5101a3d-03de-4e52-bc9f-a39a055e2587",
+              "final": {
+                "partyId": "s2-browser-4-0",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "filled"
+            },
+            {
+              "id": "e15dba97-082e-4dce-b32b-01b294aec6a9",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-1",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": "c0a0b6cd-a11f-4b51-bee4-a8b005ea6e46",
+              "final": {
+                "partyId": "s2-browser-4-1",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "filled"
+            },
+            {
+              "id": "580c9978-4503-47dc-93e3-1cd4fd48ed94",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-2",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "4467330d-cf28-4f22-afc7-e5b0b49c81d8",
+              "final": {
+                "partyId": "s2-browser-4-2",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "filled"
+            },
+            {
+              "id": "abb8e31b-7aff-4fd0-8c82-4150da05873a",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-4-3",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "63ed590c-9d6b-4597-8107-ba22b4a99574",
+              "final": {
+                "partyId": "s2-browser-4-3",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "filled"
+            },
+            {
+              "id": "eae3d31c-6691-445d-b58b-ee66def3a5cf",
+              "terms": {
+                "runId": "c6d5e5b2-751c-4093-857b-36a86db126ab",
+                "partyId": "s2-browser-proposal-4",
+                "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": null,
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": null,
+              "final": null,
+              "result": "proposal_only"
+            }
+          ],
+          "buyers": [
+            {
+              "agentId": "s2-browser-4-0",
+              "label": "Synthetic party 1",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.876Z",
+              "soloUnlocks": false,
+              "outcome": "filled"
+            },
+            {
+              "agentId": "s2-browser-4-1",
+              "label": "Synthetic party 2",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.893Z",
+              "soloUnlocks": false,
+              "outcome": "filled"
+            },
+            {
+              "agentId": "s2-browser-4-2",
+              "label": "Synthetic party 3",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.908Z",
+              "soloUnlocks": false,
+              "outcome": "filled"
+            },
+            {
+              "agentId": "s2-browser-4-3",
+              "label": "Synthetic party 4",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:00.920Z",
+              "soloUnlocks": false,
+              "outcome": "filled"
+            }
+          ],
+          "pooled": {
+            "covers": 8,
+            "unlocked": true,
+            "filledCovers": 8,
+            "soldOut": true
+          },
+          "plan": {
+            "provenance": "fixture",
+            "verdict": "ok",
+            "discountBps": 1500,
+            "capacityCovers": 10,
+            "minPoolCovers": 8,
+            "perAgentCapCovers": 2,
+            "rationale": null,
+            "applied": false
+          }
+        },
+        "muse": null,
+        "ledger": {
+          "covers": 8,
+          "buyerShareCents": 1088,
+          "agentShareCents": 0,
+          "networkShareCents": 0,
+          "agentsCommitted": 4,
+          "poolsUnlocked": 1,
+          "reconciled": true,
+          "pools": [
+            {
+              "ruleId": "1f985232-e21b-483f-ad8b-2f12f0903cd2",
+              "visitDate": "2026-11-03",
+              "clearedAt": "2026-11-03T05:41:00.132Z",
+              "unlocked": true,
+              "covers": 8,
+              "buyerShareCents": 1088,
+              "agentShareCents": 0,
+              "networkShareCents": 0,
+              "reconciled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+      "count": 3,
+      "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+      "parties": [
+        {
+          "commitmentId": "f45af317-c975-41a2-b58a-ada6dc60f624",
+          "agentId": "s2-browser-3-0",
+          "variant": "scripted"
+        },
+        {
+          "commitmentId": "d2eb5584-d9a3-49b9-8f11-3d9cac52322c",
+          "agentId": "s2-browser-3-1",
+          "variant": "missing"
+        },
+        {
+          "commitmentId": "ee0bd4a8-b8ed-4b84-97c6-75930ffeca06",
+          "agentId": "s2-browser-3-2",
+          "variant": "changed_price"
+        }
+      ],
+      "pending": {
+        "scene": {
+          "id": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc:2026-11-03",
+          "events": [
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.496Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.507Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.517Z",
+              "label": "+2 covers committed"
+            }
+          ],
+          "merchantName": "Backfill Demo Cafe",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 13:42-14:41 Singapore time. It unlocks only if at least 8 covers are committed before 13:41 that day; one agent may hold at most 2 covers.",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "visitDate": "2026-11-03",
+          "visitWindow": "13:42–14:41",
+          "commitBy": "2026-11-03T05:41:00.000Z",
+          "phase": "open",
+          "trail": [
+            {
+              "id": "42ddf0b3-0c08-453f-b9e6-e1a79e60065b",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-0",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "scripted",
+              "commitmentId": "f45af317-c975-41a2-b58a-ada6dc60f624",
+              "final": {
+                "partyId": "s2-browser-3-0",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "b5d21573-6dd5-4f46-ac41-175a03c4dd60",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-1",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": "d2eb5584-d9a3-49b9-8f11-3d9cac52322c",
+              "final": {
+                "partyId": "s2-browser-3-1",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "2c000ee7-7ee1-4f92-a1d2-8bf09addc8be",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-2",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "ee0bd4a8-b8ed-4b84-97c6-75930ffeca06",
+              "final": {
+                "partyId": "s2-browser-3-2",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "pending"
+            },
+            {
+              "id": "cf80e550-680c-48bf-94ad-67d425e5a97e",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-proposal-3",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": null,
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": null,
+              "final": null,
+              "result": "proposal_only"
+            }
+          ],
+          "buyers": [
+            {
+              "agentId": "s2-browser-3-0",
+              "label": "Synthetic party 1",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.496Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            },
+            {
+              "agentId": "s2-browser-3-1",
+              "label": "Synthetic party 2",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.507Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            },
+            {
+              "agentId": "s2-browser-3-2",
+              "label": "Synthetic party 3",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.517Z",
+              "soloUnlocks": false,
+              "outcome": "pending"
+            }
+          ],
+          "pooled": {
+            "covers": 6,
+            "unlocked": false,
+            "filledCovers": 0,
+            "soldOut": false
+          },
+          "plan": null
+        },
+        "muse": null,
+        "ledger": {
+          "covers": 0,
+          "buyerShareCents": 0,
+          "agentShareCents": 0,
+          "networkShareCents": 0,
+          "agentsCommitted": 3,
+          "poolsUnlocked": 0,
+          "reconciled": true,
+          "pools": []
+        }
+      },
+      "settled": {
+        "scene": {
+          "id": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc:2026-11-03",
+          "events": [
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.496Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.507Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "commitment",
+              "at": "2026-11-03T05:40:01.517Z",
+              "label": "+2 covers committed"
+            },
+            {
+              "kind": "cleared",
+              "at": "2026-11-03T05:41:03.025Z",
+              "label": "Cleared: minimum not met"
+            }
+          ],
+          "merchantName": "Backfill Demo Cafe",
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 13:42-14:41 Singapore time. It unlocks only if at least 8 covers are committed before 13:41 that day; one agent may hold at most 2 covers.",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "discountBps": 2000,
+          "minPoolCovers": 8,
+          "visitDate": "2026-11-03",
+          "visitWindow": "13:42–14:41",
+          "commitBy": "2026-11-03T05:41:00.000Z",
+          "phase": "cleared",
+          "trail": [
+            {
+              "id": "42ddf0b3-0c08-453f-b9e6-e1a79e60065b",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-0",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "scripted",
+              "commitmentId": "f45af317-c975-41a2-b58a-ada6dc60f624",
+              "final": {
+                "partyId": "s2-browser-3-0",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "not_filled"
+            },
+            {
+              "id": "b5d21573-6dd5-4f46-ac41-175a03c4dd60",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-1",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": "d2eb5584-d9a3-49b9-8f11-3d9cac52322c",
+              "final": {
+                "partyId": "s2-browser-3-1",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "not_filled"
+            },
+            {
+              "id": "2c000ee7-7ee1-4f92-a1d2-8bf09addc8be",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-3-2",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": {
+                "covers": 2,
+                "reason": "Authored fixture selects the requested covers at the stated offer price."
+              },
+              "provenance": "fixture",
+              "approval": "mismatch",
+              "commitmentId": "ee0bd4a8-b8ed-4b84-97c6-75930ffeca06",
+              "final": {
+                "partyId": "s2-browser-3-2",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "result": "not_filled"
+            },
+            {
+              "id": "cf80e550-680c-48bf-94ad-67d425e5a97e",
+              "terms": {
+                "runId": "d7b9ec4f-7376-460d-88fc-4167cfd51235",
+                "partyId": "s2-browser-proposal-3",
+                "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+                "termsVersion": 1,
+                "visitDate": "2026-11-03",
+                "covers": 2,
+                "pricePerCoverCents": 544,
+                "totalCents": 1088
+              },
+              "request": "Synthetic party requests 2 kaya toast and kopi covers on 2026-11-03, at S$5.44 each.",
+              "output": null,
+              "provenance": "fixture",
+              "approval": "unavailable",
+              "commitmentId": null,
+              "final": null,
+              "result": "proposal_only"
+            }
+          ],
+          "buyers": [
+            {
+              "agentId": "s2-browser-3-0",
+              "label": "Synthetic party 1",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.496Z",
+              "soloUnlocks": false,
+              "outcome": "not_filled"
+            },
+            {
+              "agentId": "s2-browser-3-1",
+              "label": "Synthetic party 2",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.507Z",
+              "soloUnlocks": false,
+              "outcome": "not_filled"
+            },
+            {
+              "agentId": "s2-browser-3-2",
+              "label": "Synthetic party 3",
+              "covers": 2,
+              "committedAt": "2026-11-03T05:40:01.517Z",
+              "soloUnlocks": false,
+              "outcome": "not_filled"
+            }
+          ],
+          "pooled": {
+            "covers": 6,
+            "unlocked": false,
+            "filledCovers": 0,
+            "soldOut": false
+          },
+          "plan": null
+        },
+        "muse": null,
+        "ledger": {
+          "covers": 0,
+          "buyerShareCents": 0,
+          "agentShareCents": 0,
+          "networkShareCents": 0,
+          "agentsCommitted": 3,
+          "poolsUnlocked": 0,
+          "reconciled": true,
+          "pools": [
+            {
+              "ruleId": "b2887f5a-ad5f-4cd0-89ef-7ba11616fbfc",
+              "visitDate": "2026-11-03",
+              "clearedAt": "2026-11-03T05:41:03.025Z",
+              "unlocked": false,
+              "covers": 0,
+              "buyerShareCents": 0,
+              "agentShareCents": 0,
+              "networkShareCents": 0,
+              "reconciled": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

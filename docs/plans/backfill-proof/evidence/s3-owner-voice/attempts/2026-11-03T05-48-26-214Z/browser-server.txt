@@ -1,0 +1,6 @@
+▲ Next.js 16.4.3
+- Local:         http://127.0.0.1:52014
+- Network:       http://127.0.0.1:52014
+✓ Ready in 72ms
+✓ Running next.config.ts took 15ms
+{"at":"2026-11-03T05:51:01.356Z","level":"error","event":"demo.snapshot_failed","name":"Error","pgCode":"42501","message":null}

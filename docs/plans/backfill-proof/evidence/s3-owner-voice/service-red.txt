@@ -1,0 +1,269 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s3-voice.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |integration| tests/integration/proof-s3-voice.test.ts (8 tests | 8 failed) 30329ms
+   ❯ S3 owner voice against real runtime/database paths (8)
+     × keeps exact four-term proposal unchanged until explicit approval and deduplicates every stage 17ms
+     × rejects cross-owner access at every service boundary and proposal identity tampering 3ms
+     × invalidates previous proposal on transcript correction and never interprets yes/okay as approval 1ms
+     × refuses mixed window/private-floor requests without partially applying supported terms 1ms
+     × requires clarification for ambiguous model output and refuses invalid/below-floor/failing output 1ms
+     × keeps terms unchanged for failed transcription, malformed audio, cancellation and upload collision 2ms
+     × refuses stale/superseded proposals including capacity-only drift with no terms-version bump 1ms
+     × does not revive a cancelled transcription or corrected in-flight proposal 30011ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > keeps exact four-term proposal unchanged until explicit approval and deduplicates every stage
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 4b18adfa-4e05-4d69-8658-384d36bdcc66
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:56:13
+ ❯ tests/integration/proof-s3-voice.test.ts:66:71
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '4b18adfa-4e05-4d69-8658-384d36bdcc66' ], args: [ '4b18adfa-4e05-4d69-8658-384d36bdcc66' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > rejects cross-owner access at every service boundary and proposal identity tampering
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 6e06a08e-8884-45eb-b921-5e5ecb4634ac
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:56:13
+ ❯ tests/integration/proof-s3-voice.test.ts:86:72
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '6e06a08e-8884-45eb-b921-5e5ecb4634ac' ], args: [ '6e06a08e-8884-45eb-b921-5e5ecb4634ac' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > invalidates previous proposal on transcript correction and never interprets yes/okay as approval
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 813010aa-89d5-46e3-b385-0d3e892ba018
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:56:13
+ ❯ tests/integration/proof-s3-voice.test.ts:100:40
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '813010aa-89d5-46e3-b385-0d3e892ba018' ], args: [ '813010aa-89d5-46e3-b385-0d3e892ba018' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > refuses mixed window/private-floor requests without partially applying supported terms
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 9ae7b394-18fd-49ea-922f-31d95a3f7637
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ tests/integration/proof-s3-voice.test.ts:119:17
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '9ae7b394-18fd-49ea-922f-31d95a3f7637' ], args: [ '9ae7b394-18fd-49ea-922f-31d95a3f7637' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > requires clarification for ambiguous model output and refuses invalid/below-floor/failing output
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: fd2dfef1-fdab-484b-80b1-ab5e3697b624
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:56:13
+ ❯ tests/integration/proof-s3-voice.test.ts:137:17
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ 'fd2dfef1-fdab-484b-80b1-ab5e3697b624' ], args: [ 'fd2dfef1-fdab-484b-80b1-ab5e3697b624' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > keeps terms unchanged for failed transcription, malformed audio, cancellation and upload collision
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: d64c99fb-0bf6-427e-8724-dbdcf9650488
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ tests/integration/proof-s3-voice.test.ts:150:13
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ 'd64c99fb-0bf6-427e-8724-dbdcf9650488' ], args: [ 'd64c99fb-0bf6-427e-8724-dbdcf9650488' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > refuses stale/superseded proposals including capacity-only drift with no terms-version bump
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 5beca422-a5f7-427f-a4e1-90dac5da879e
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/src/pg-core/session.ts:73:11
+ ❯ node_modules/src/postgres-js/session.ts:58:17
+ ❯ src/lib/owner-voice/service.ts:72:5
+     70|   const reservation = await db.transaction(async tx => {
+     71|     // Serialize uploads for an owner without holding an offer lock du…
+     72|     await tx.select({ id: merchants.id }).from(merchants).where(eq(mer…
+       |     ^
+     73|     const [existing] = await tx.select().from(ownerVoiceEdits).where(e…
+     74|     if (existing) {
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+ ❯ uploaded tests/integration/proof-s3-voice.test.ts:50:15
+ ❯ proposed tests/integration/proof-s3-voice.test.ts:56:13
+ ❯ tests/integration/proof-s3-voice.test.ts:160:40
+
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '5beca422-a5f7-427f-a4e1-90dac5da879e' ], args: [ '5beca422-a5f7-427f-a4e1-90dac5da879e' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  |integration| tests/integration/proof-s3-voice.test.ts > S3 owner voice against real runtime/database paths > does not revive a cancelled transcription or corrected in-flight proposal
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/integration/proof-s3-voice.test.ts:171:3
+    169|   });
+    170|
+    171|   it('does not revive a cancelled transcription or corrected in-flight…
+       |   ^
+    172|     const o = await owner(); const before = await terms(o); const inpu…
+    173|     let release: (() => void) | undefined; let entered: (() => void) |…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Failed query: select "id" from "merchants" where "merchants"."id" = $1 for update
+params: 2f165bec-5439-43ea-9c6a-b03a52051ee8
+ ❯ PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:41:15
+ ❯ process.processTicksAndRejections node:internal/process/task_queues:104:5
+ ❯ node_modules/drizzle-orm/postgres-js/session.js:37:20
+ ❯ src/lib/owner-voice/service.ts:72:5
+ ❯ scope node_modules/postgres/src/index.js:260:18
+ ❯ sql.begin node_modules/postgres/src/index.js:243:14
+ ❯ uploadVoice src/lib/owner-voice/service.ts:70:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', params: [ '2f165bec-5439-43ea-9c6a-b03a52051ee8' ] }
+This error originated in "tests/integration/proof-s3-voice.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "does not revive a cancelled transcription or corrected in-flight proposal". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+Caused by: PostgresError: permission denied for table merchants
+ ❯ ErrorResponse node_modules/postgres/src/connection.js:815:30
+ ❯ handle node_modules/postgres/src/connection.js:489:6
+ ❯ Socket.data node_modules/postgres/src/connection.js:324:9
+ ❯ Socket.emit node:events:514:28
+ ❯ addChunk node:internal/streams/readable:568:12
+ ❯ readableAddChunkPushByteMode node:internal/streams/readable:519:3
+ ❯ Readable.push node:internal/streams/readable:399:5
+ ❯ TCP.onStreamRead node:internal/stream_base_commons:189:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { severity_local: 'ERROR', severity: 'ERROR', code: '42501', file: 'aclchk.c', routine: 'aclcheck_error', query: 'select "id" from "merchants" where "merchants"."id" = $1 for update', parameters: [ '2f165bec-5439-43ea-9c6a-b03a52051ee8' ], args: [ '2f165bec-5439-43ea-9c6a-b03a52051ee8' ], types: [ 2950 ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+     Errors  1 error
+   Start at  13:29:51
+   Duration  30.79s (tests 99%, import 1%)
+

@@ -1,0 +1,78 @@
+{
+  "ownerId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+  "ruleId": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+  "before": {
+    "id": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+    "merchantId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "rule": {
+    "id": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+    "merchantId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+    "termsVersion": 1,
+    "listPriceCents": 680,
+    "capacityCovers": 8,
+    "weekday": 2,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "discountBps": 2000,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "floorPriceCents": 503
+  },
+  "edits": [
+    {
+      "id": "e8d0ab3e-47f2-4da5-acf4-095140487c07",
+      "merchantId": "57edc53f-d368-4066-a52f-fb61fc5d4025",
+      "ruleId": "739c30f2-2ff1-4cc1-9b80-e910b42c3419",
+      "termsVersion": 1,
+      "revision": 0,
+      "proposalAttempts": 0,
+      "phase": "transcribed",
+      "audioSha256": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0",
+      "audioDurationMs": 1306,
+      "sampleRate": 16000,
+      "source": "provider",
+      "voiceModel": "muse-voice-transcribe-1.0",
+      "wonderModel": "muse-wonder-1.0",
+      "rawTranscript": "Make the offer a bit better.",
+      "transcript": "Make the offer a bit better.",
+      "providerSessionId": "voyager/transcribe/71C0541814084D3A8E594B7DC2A77B3A",
+      "providerDurationMs": 1360,
+      "audioCostNanoUsd": null,
+      "reviewedAt": null,
+      "proposalId": null,
+      "proposalOutput": null,
+      "before": {
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "perAgentCapCovers": 2
+      },
+      "reason": null,
+      "createdAt": "2026-11-03T06:24:14.600Z",
+      "expiresAt": "2026-11-03T06:39:14.604Z",
+      "approvedAt": null,
+      "approvedVersion": null
+    }
+  ],
+  "proposals": [],
+  "outcomes": [
+    {
+      "changeId": "1211c184-c9cd-4f4d-9b81-5c223a5e9c8f",
+      "outcome": "applied",
+      "decidedAt": "2026-11-03T06:24:14.256Z"
+    }
+  ]
+}

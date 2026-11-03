@@ -1,0 +1,8 @@
+{
+  "observed": "Bare npm test wrote a new synthetic service receipt by default. Production sources and all genuine model receipts remained unchanged. The publication run now supplies the canonical latest offline fixture service receipt.",
+  "previousSha256": "774c3140b2ebf79257136034d35268aee128daf95081c011dfcde31cead4fc8b",
+  "currentSha256": "9f53bac099b3c247a69f75b2d52e554980bf64618afa8c263ac2a19919bb3750",
+  "previousBytesAvailable": false,
+  "fix": "S3_EVIDENCE_DIR is now opt-in, matching S1/S2 evidence writers. Ordinary checks preserve retained proof.",
+  "genuineLiveManifestStillVerified": true
+}

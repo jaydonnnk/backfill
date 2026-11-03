@@ -1,0 +1,17 @@
+{
+  "id": "wonder-clear",
+  "status": 200,
+  "latencyMs": 3382,
+  "providerRequestId": "85917fbd-80d6-423d-9aa1-a1b2aa3e142e",
+  "output": {
+    "id": "chatcmpl-01a1a014-6504-73da-9544-e30493e8f529",
+    "model": "muse-wonder-1.0",
+    "content": "{\"capacityCovers\": 10, \"discountBps\": 2500, \"minPoolCovers\": 6, \"perAgentCapCovers\": 3, \"reply\": \"Confirmed: 25% off, capacity 10 covers, minimum pool 6, and per-agent cap 3 for Tuesday 14:00-17:00.\", \"understood\": true}",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 353,
+      "completionTokens": 370,
+      "cachedTokens": 0
+    }
+  }
+}

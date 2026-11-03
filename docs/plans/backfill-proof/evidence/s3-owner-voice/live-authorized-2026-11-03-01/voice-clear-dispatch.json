@@ -1,0 +1,10 @@
+{
+  "id": "voice-clear",
+  "case": "clear",
+  "endpoint": "https://api.meta.ai/v1/asr/transcribe",
+  "startedAt": "2026-11-03T06:24:07.089Z",
+  "model": "muse-voice-transcribe-1.0",
+  "audioSha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+  "audioBytes": 210414,
+  "reservedCeilingUsd": 0.00075
+}

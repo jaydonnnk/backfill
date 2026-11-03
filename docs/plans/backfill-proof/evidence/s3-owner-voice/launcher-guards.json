@@ -1,0 +1,17 @@
+{
+  "command": "node spawnSync with only PATH/HOME/TMPDIR and missing or explicitly nonlocal TEST_DATABASE_URL; no env-file loader",
+  "outcomes": [
+    {
+      "case": "missing",
+      "exitCode": 1,
+      "earlyAssertion": true,
+      "reachedBuildOrDatabase": false
+    },
+    {
+      "case": "nonlocal",
+      "exitCode": 1,
+      "earlyAssertion": true,
+      "reachedBuildOrDatabase": false
+    }
+  ]
+}

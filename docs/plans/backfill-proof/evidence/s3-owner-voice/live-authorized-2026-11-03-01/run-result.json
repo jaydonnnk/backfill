@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "completedAt": "2026-11-03T06:24:21.892Z",
+  "stage": "source-and-call-audit",
+  "appUrl": "http://127.0.0.1:53109",
+  "attempts": [
+    {
+      "id": "voice-ambiguous",
+      "model": "muse-voice-transcribe-1.0",
+      "reservedCeilingUsd": 0.00075
+    },
+    {
+      "id": "voice-clear",
+      "model": "muse-voice-transcribe-1.0",
+      "reservedCeilingUsd": 0.00075
+    },
+    {
+      "id": "wonder-ambiguous",
+      "model": "muse-wonder-1.0",
+      "reservedCeilingUsd": 4.214784
+    },
+    {
+      "id": "wonder-clear",
+      "model": "muse-wonder-1.0",
+      "reservedCeilingUsd": 4.214784
+    }
+  ],
+  "attemptCount": 4,
+  "reservedCeilingUsd": 8.431068,
+  "spendingCeilingUsd": 8.44,
+  "actualBilledCostUsd": null,
+  "billingNote": "Unknown actual invoice cost. Token/duration receipts permit published-rate estimates only.",
+  "credentialHandling": "Existing configuration loaded only by normal application startup; no env file or credential inspection/output/copy. Explicit local DATABASE_URL overrides file configuration.",
+  "cleanup": "Owned server, disposable database/login and source snapshot removed",
+  "productionAccess": false
+}

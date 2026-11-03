@@ -1,0 +1,27 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 tests/e2e/proof-s3.spec.ts:230:1 › S3 upload response interruption retries the same edit without a duplicate transaction (638ms)
+
+
+  1) tests/e2e/proof-s3.spec.ts:230:1 › S3 upload response interruption retries the same edit without a duplicate transaction 
+
+    Error: expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 2
+    Received array:  [{"approvedAt": null, "approvedVersion": null, "audioCostNanoUsd": null, "audioDurationMs": 1000, "audioSha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc", "before": {"capacityCovers": 8, "discountBps": 2000, "minPoolCovers": 8, "perAgentCapCovers": 2}, "createdAt": 2026-11-03T05:43:08.689Z, "expiresAt": 2026-11-03T05:58:08.695Z, "id": "769e7998-daa2-4a20-9e42-753027955d8a", "merchantId": "1d6d8da3-ac12-4212-99b0-49287f47eb7c", "phase": "superseded", "proposalAttempts": 0, "proposalId": null, "proposalOutput": null, "providerDurationMs": 1000, "providerSessionId": "fixture-s3-asr", "rawTranscript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.", "reason": "replaced_audio", "reviewedAt": null, "revision": 0, "ruleId": "cd385524-6dfb-49e0-8bc8-c8e3ddbf3175", "sampleRate": 16000, "source": "fixture", "termsVersion": 1, "transcript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.", "voiceModel": "fixture:s3-voice", "wonderModel": "fixture:s3-wonder"}, {"approvedAt": null, "approvedVersion": null, "audioCostNanoUsd": null, "audioDurationMs": 1000, "audioSha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc", "before": {"capacityCovers": 8, "discountBps": 2000, "minPoolCovers": 8, "perAgentCapCovers": 2}, "createdAt": 2026-11-03T05:43:08.775Z, "expiresAt": 2026-11-03T05:58:08.779Z, "id": "098437be-909c-439c-800b-8b4a707534d2", "merchantId": "1d6d8da3-ac12-4212-99b0-49287f47eb7c", "phase": "transcribed", "proposalAttempts": 0, "proposalId": null, "proposalOutput": null, "providerDurationMs": 1000, "providerSessionId": "fixture-s3-asr", "rawTranscript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.", "reason": null, "reviewedAt": null, "revision": 0, "ruleId": "cd385524-6dfb-49e0-8bc8-c8e3ddbf3175", "sampleRate": 16000, "source": "fixture", "termsVersion": 1, "transcript": "Set discount to 25 percent, capacity to 10, minimum pool to 6, per-agent cap to 3.", "voiceModel": "fixture:s3-voice", "wonderModel": "fixture:s3-wonder"}]
+
+      255 |       before, interrupted, retried, dropped,
+      256 |     }, null, 2) + '\n');
+    > 257 |     expect(retried.edits).toHaveLength(1);
+          |                           ^
+      258 |     expect(retried.edits[0]?.id).toBe(interrupted.edits[0]?.id);
+      259 |     expect(retried.rule).toEqual(before);
+      260 |   } finally { await page.unroute('**/merchant'); await admin.close(); }
+        at /Users/jayd0/Desktop/meta-hack/tests/e2e/proof-s3.spec.ts:257:27
+
+    Error Context: test-results/proof-s3/proof-s3-S3-upload-respons-eb176-out-a-duplicate-transaction/error-context.md
+
+  1 failed
+    tests/e2e/proof-s3.spec.ts:230:1 › S3 upload response interruption retries the same edit without a duplicate transaction 

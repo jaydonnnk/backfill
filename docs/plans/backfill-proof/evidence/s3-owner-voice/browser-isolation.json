@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-11-03T05:48:26.273Z",
+  "completedAt": "2026-11-03T05:51:07.781Z",
+  "appUrl": "http://127.0.0.1:52014",
+  "attemptId": "2026-11-03T05-48-26-214Z",
+  "testScope": "all combined regressions",
+  "sourceAllowlist": [
+    "src",
+    "public",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "postcss.config.mjs",
+    "tests/support/proof-s3.ts"
+  ],
+  "fixtureInjection": "Only src/lib/owner-voice/deps.ts replaced in disposable snapshot; actual actions/service/database run unchanged",
+  "realDepsSha256": "4d163661f20355593de4a88ac3e67c16dcc86372b10b47d91e543227b063bae4",
+  "modelConfiguration": "offline-dummy at model.invalid; Voice and Wonder fixtures only",
+  "audio": "generated 1 second silence WAV, not speech; fixture transcript is authored independently",
+  "runtimeRole": "disposable member of backfill_app",
+  "retries": 0,
+  "genuineModelCalls": 0
+}

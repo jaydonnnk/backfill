@@ -1,0 +1,12 @@
+{
+  "id": "voice-clear",
+  "status": 200,
+  "latencyMs": 2800,
+  "providerRequestId": null,
+  "output": {
+    "sessionId": "voyager/transcribe/B0B82504BBEE4512925FBC995ED50AD4",
+    "transcript": "Set the discount to 25%. Capacity to 10. Minimum pool to 6. And per agent cap to 3.",
+    "audioDurationMs": 6480,
+    "turnsCount": 0
+  }
+}

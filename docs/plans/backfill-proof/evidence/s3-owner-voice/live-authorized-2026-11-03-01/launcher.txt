@@ -1,0 +1,3 @@
+Building an unchanged isolated production snapshot with dummy credentials.
+Starting the approved genuine Voice/Wonder UI proof. At most four durable attempt slots.
+Genuine S3 integration proof passed; local resources removed.

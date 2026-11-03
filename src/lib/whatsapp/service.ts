@@ -1,5 +1,5 @@
 import { randomInt } from "node:crypto";
-import { desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
 import { changed, judgeOwnerChange, LINK_CODE_ALPHABET, LINK_CODE_LENGTH, type OwnerChange, readIntent } from "@/domain/whatsapp/owner-change";
 import { percent } from "@/domain/onboarding/replan";
 import { offerPriceCents } from "@/domain/offers/evaluate";
@@ -66,7 +66,7 @@ async function pendingChange(db: Db, merchantId: string, now: Date): Promise<Pen
     .select({ id: ownerChanges.id, verdict: ownerChanges.verdict, expiresAt: ownerChanges.expiresAt, outcome: ownerChangeOutcomes.outcome })
     .from(ownerChanges)
     .leftJoin(ownerChangeOutcomes, eq(ownerChangeOutcomes.changeId, ownerChanges.id))
-    .where(eq(ownerChanges.merchantId, merchantId))
+    .where(and(eq(ownerChanges.merchantId, merchantId), isNotNull(ownerChanges.wamid)))
     .orderBy(desc(ownerChanges.createdAt))
     .limit(1);
   return row && row.verdict === "ok" && row.outcome === null && row.expiresAt > now ? { id: row.id } : null;

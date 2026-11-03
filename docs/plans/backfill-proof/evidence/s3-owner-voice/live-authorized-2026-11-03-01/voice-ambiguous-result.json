@@ -1,0 +1,12 @@
+{
+  "id": "voice-ambiguous",
+  "status": 200,
+  "latencyMs": 1163,
+  "providerRequestId": null,
+  "output": {
+    "sessionId": "voyager/transcribe/71C0541814084D3A8E594B7DC2A77B3A",
+    "transcript": "Make the offer a bit better.",
+    "audioDurationMs": 1360,
+    "turnsCount": 0
+  }
+}

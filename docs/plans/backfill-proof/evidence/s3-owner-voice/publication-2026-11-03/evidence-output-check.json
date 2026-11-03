@@ -1,0 +1,7 @@
+{
+  "bareTestsPassed": true,
+  "retainedReceiptUnchanged": true,
+  "explicitOutputPassed": true,
+  "explicitReceiptCases": 11,
+  "retainedReceiptSha256": "9f53bac099b3c247a69f75b2d52e554980bf64618afa8c263ac2a19919bb3750"
+}

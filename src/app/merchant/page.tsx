@@ -14,6 +14,7 @@ import { LinkWhatsapp } from "./link-whatsapp";
 import { ReplanTrigger } from "./replan-trigger";
 import { currentMerchant } from "./session";
 import { SubmitButton } from "./submit-button";
+import { OwnerVoice } from "./owner-voice";
 
 export const dynamic = "force-dynamic";
 
@@ -143,6 +144,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
                   Unlocks at {rule.terms.minPoolCovers} covers · up to {rule.terms.perAgentCapCovers} per agent · {rule.capacityCovers} covers available · your floor{" "}
                   {dollars(rule.terms.floorPriceCents)} (never shown to buyers) · terms v{rule.termsVersion}
                 </p>
+                <OwnerVoice ruleId={rule.id} termsVersion={rule.termsVersion} />
               </li>
             ))}
           </ul>

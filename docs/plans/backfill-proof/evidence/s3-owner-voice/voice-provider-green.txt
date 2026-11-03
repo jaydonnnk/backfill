@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test:unit
+> vitest run --config config/vitest.config.ts --project unit tests/unit/voice-provider.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  13:42:10
+   Duration  187ms (tests 47%, setup 31%, transform 17%, import 3%, worker 2%)
+

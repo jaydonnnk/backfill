@@ -1,0 +1,19 @@
+{
+  "authority": "User Approved after the four-call US$8.44 local live test proposal",
+  "startedAt": "2026-11-03T06:23:58.303Z",
+  "models": [
+    "muse-voice-transcribe-1.0",
+    "muse-wonder-1.0"
+  ],
+  "maximumCalls": 4,
+  "voiceMaximum": 2,
+  "wonderMaximum": 2,
+  "retries": 0,
+  "maximumUsd": 8.44,
+  "audioHashes": {
+    "clear": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c",
+    "ambiguous": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0"
+  },
+  "approval": "scripted authenticated UI actions, not real-person consent",
+  "production": "no access or writes"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "voice-ambiguous",
+  "case": "ambiguous",
+  "endpoint": "https://api.meta.ai/v1/asr/transcribe",
+  "startedAt": "2026-11-03T06:24:14.606Z",
+  "model": "muse-voice-transcribe-1.0",
+  "audioSha256": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0",
+  "audioBytes": 45890,
+  "reservedCeilingUsd": 0.00075
+}

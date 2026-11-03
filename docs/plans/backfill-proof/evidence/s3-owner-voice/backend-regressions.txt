@@ -1,0 +1,13 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts tests/integration/proof-s3-voice.test.ts tests/unit/owner-voice.test.ts tests/integration/s6b-whatsapp.test.ts tests/integration/s6-onboarding.test.ts tests/unit/whatsapp.test.ts tests/unit/onboarding.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+
+ Test Files  6 passed (6)
+      Tests  127 passed (127)
+   Start at  13:40:22
+   Duration  1.30s (tests 58%, import 20%, transform 14%, setup 7%)
+
