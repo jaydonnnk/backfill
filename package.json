@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "gateway:example": "node --env-file=.env.local --import tsx index.ts",
     "test": "vitest run --config config/vitest.config.ts",
     "test:unit": "vitest run --config config/vitest.config.ts --project unit",
     "test:integration": "vitest run --config config/vitest.config.ts --project integration",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",
+    "ai": "7.0.162",
     "drizzle-orm": "0.45.3",
     "next": "16.4.3",
     "postgres": "3.4.9",

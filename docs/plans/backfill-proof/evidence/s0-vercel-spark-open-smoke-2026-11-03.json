@@ -1,0 +1,30 @@
+{
+  "operation": "single_authorized_spark_open_smoke",
+  "startedAt": "2026-11-03T02:41:03.239Z",
+  "authorization": "User requested one request with the newly added Vercel key to check free-tier activation.",
+  "endpoint": "https://ai-gateway.vercel.sh/v1/chat/completions",
+  "request": {
+    "model": "meta/muse-spark-open",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly BACKFILL_OK and nothing else. Do not use tools."
+      }
+    ],
+    "max_tokens": 512,
+    "reasoning_effort": "low",
+    "stream": false
+  },
+  "clientAttempts": 1,
+  "retries": 0,
+  "status": "http_error",
+  "httpStatus": 403,
+  "completedAt": "2026-11-03T02:41:04.357Z",
+  "response": {
+    "error": {
+      "message": "AI Gateway requires a valid credit card on file to service requests. Please visit https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card to add a card and unlock your free credits.",
+      "type": "customer_verification_required"
+    }
+  },
+  "acceptedReply": false
+}

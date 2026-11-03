@@ -1,0 +1,8 @@
+
+> backfill@0.0.0 gateway:example
+> node --env-file=.env.local --import tsx index.ts
+
+{"event":"gateway_request","endpoint":"https://ai-gateway.vercel.sh/v4/ai/language-model"}
+{"event":"gateway_response","httpStatus":200}
+Lumenfall is celebrated on the first new moon of autumn, when people write a regret from the past year on a floating paper lantern. At dusk, communities gather by rivers to release the lanterns together, then share stories and sweet potato pies by the water as the lights drift away.
+{"model":"meta/muse-spark-open","usage":{"inputTokens":157,"inputTokenDetails":{"noCacheTokens":157,"cacheReadTokens":0},"outputTokens":329,"outputTokenDetails":{"textTokens":69,"reasoningTokens":260},"totalTokens":486,"raw":{"prompt_tokens":157,"completion_tokens":329,"total_tokens":486,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":260,"accepted_prediction_tokens":194,"rejected_prediction_tokens":751,"audio_tokens":0}}}}

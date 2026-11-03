@@ -1,0 +1,9 @@
+{
+  "operation": "read_only_vercel_credit_check",
+  "checkedAt": "2026-11-03T02:48:53.019Z",
+  "keyDefinitions": 1,
+  "inferenceRequests": 0,
+  "httpStatus": 200,
+  "balanceUsd": "5",
+  "totalUsedUsd": "0"
+}

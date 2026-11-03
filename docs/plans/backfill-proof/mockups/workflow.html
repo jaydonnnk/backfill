@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backfill proposed workflow</title>
+<style>
+:root{color-scheme:light;--bg:#fbf7ee;--ink:#15142b;--muted:#5f5d72;--blue:#2f55f4;--line:#ddd7cc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:32px 24px}h1{font-size:32px;line-height:1.2;max-width:760px}h2{font-size:23px}h3{font-size:19px;margin:0}p{margin:8px 0 16px}a{color:var(--blue)}.notice{border-left:4px solid var(--blue);padding:10px 18px;background:#e9eeff}.muted,small{color:var(--muted)}.columns{display:grid;grid-template-columns:1fr 1fr;gap:36px}.step{padding:18px 0;border-top:1px solid var(--line)}.model{color:var(--blue);font-size:15px;margin-bottom:4px}.outcomes{margin:30px 0;padding:18px 0;border-top:3px solid var(--ink);border-bottom:1px solid var(--line)}.boundary{font-weight:650}details{margin:20px 0;border-top:1px solid var(--line);padding:16px 0}summary{cursor:pointer}a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}@media(max-width:700px){.columns{grid-template-columns:1fr;gap:12px}main{padding:22px 18px}h1{font-size:28px}}
+</style>
+<main>
+<p class="muted">Backfill · proposed experience · awaiting approval</p>
+<div class="notice">Planning mockup only. No working model integration, live request, measured result or customer validation is represented here.</div>
+<h1>One owner-approved offer.<br>Separate parties decide for themselves.</h1>
+<p>Eight tools have bounded roles. The core booking path stays usable when promotional media is unavailable.</p>
+<div class="columns">
+<section aria-labelledby="owner"><h2 id="owner">The café owner</h2>
+<div class="step"><p class="model">Muse Spark</p><h3>Review the menu extraction</h3><p>The owner checks the cover, price and quiet slot before publishing.</p></div>
+<div class="step"><p class="model">Muse Voice Transcribe + Muse Wonder</p><h3>Speak a change, then approve its exact terms</h3><p>Audio becomes a transcript and a proposed change to discount, capacity or diner limits. The owner may correct or discard it. Time windows and the private floor remain manual.</p><p class="boundary">A transcript cannot authorize a change.</p></div>
+<div class="step"><p class="model">SAM 3.1 + Muse Image · optional</p><h3>Review a real dish cutout and a generated background</h3><p>The cutout keeps the photographed food. Code adds the exact public offer terms. The owner approves the composition.</p><p class="muted">No booking depends on this artwork.</p></div>
+</section>
+<section aria-labelledby="buyers"><h2 id="buyers">Independent buyer parties</h2>
+<div class="step"><p class="model">Muse Glimmer · local</p><h3>Review the interpreted request</h3><p>One buyer checks the proposed party size, time and budget. Ambiguity requires clarification.</p><p class="muted">Local inference does not make the shared pool offline.</p></div>
+<div class="step"><p class="model">Muse Spark Open · Vercel AI Gateway</p><h3>Agents evaluate the same offer separately</h3><p>Each party has its own identity and may join or decline. A model output is shown with its actual provenance. Basic Gateway access is verified; this buyer workflow is still proposed.</p></div>
+<div class="step"><p class="model">Muse Spark + deterministic checks</p><h3>Accept only valid, approved terms</h3><p>Negotiation stays inside the merchant's rules. Each party approves its own final terms before any human-approved label appears.</p><p class="boundary">Changed terms require fresh approval evidence.</p></div>
+</section>
+</div>
+<section class="outcomes"><h2>Show the stored outcome</h2><p>Sufficient eligible commitments can qualify together after settlement. An insufficient group receives no discounted booking. Replay, fixture and genuine model output have distinct labels.</p><p><strong>No money or attendance is implied.</strong> A screen animation is not a new booking.</p></section>
+<section><p class="model">Muse Wonder</p><h2>After sellout, propose the next offer</h2><p>Backfill supplies stored history. Wonder proposes changed terms. The owner must approve before the offer changes.</p></section>
+<details><summary>Development tool and proof requirements</summary><p>Muse Code is used for development and needs development evidence, not an invented runtime call.</p><p>Every model role needs genuine usage evidence before being called integrated. Offline fixtures can prove the workflow and its guards, but cannot prove that an unavailable model ran.</p></details>
+<p><a href="demo.html">Inspect the proposed success, expiry and refusal states</a></p>
+</main>
+</html>

@@ -1,0 +1,2 @@
+# RTF trailing spaces can separate rendered words; preserve the captured document.
+metahackathon.rtfd/*.rtf whitespace=-blank-at-eol

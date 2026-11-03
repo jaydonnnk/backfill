@@ -1,0 +1,6 @@
+
+> backfill@0.0.0 gateway:example
+> node --env-file=.env.local --import tsx index.ts
+
+{"event":"gateway_request","endpoint":"https://ai-gateway.vercel.sh/v4/ai/language-model"}
+{"status":"failed","errorType":"TimeoutError","httpStatus":null,"cardVerificationRequired":false}

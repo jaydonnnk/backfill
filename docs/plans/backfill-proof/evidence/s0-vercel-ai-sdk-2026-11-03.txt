@@ -1,0 +1,5 @@
+
+> backfill@0.0.0 gateway:example
+> node --env-file=.env.local --import tsx index.ts
+
+{"status":"failed","errorType":"TimeoutError","httpStatus":null,"cardVerificationRequired":false}

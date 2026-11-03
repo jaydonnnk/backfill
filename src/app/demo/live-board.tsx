@@ -83,7 +83,7 @@ function Ledger({ ledger }: { ledger: DemoLedger | null }) {
 }
 
 function Muse({ muse }: { muse: DemoMuse }) {
-  return <section className="panel muse-panel"><div><span className="chip spark">Real, not simulated</span><h2>A real Muse user</h2><p>A person&apos;s Muse agent committed {muse.covers} covers at {muse.merchantName} for {muse.visitDate}.</p><p className="small muted">{muse.status.replaceAll("_", " ")} · a separate pool from the scene above</p></div><Ring value={muse.pooledCovers} minimum={muse.minPoolCovers} good={muse.status === "filled"} /></section>;
+  return <section className="panel muse-panel"><div><span className="chip spark">Stored MCP commitment</span><h2>One committed Muse user</h2><p>A person&apos;s agent committed {muse.covers} covers at {muse.merchantName} for {muse.visitDate} through the MCP connector.</p><p className="small muted">{muse.status.replaceAll("_", " ")} · a separate pool from the scene above</p></div><Ring value={muse.pooledCovers} minimum={muse.minPoolCovers} good={muse.status === "filled"} /></section>;
 }
 
 export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnapshot; unavailable?: boolean }) {

@@ -29,7 +29,7 @@ The owner sets terms agents must accept: "25% off Tue 2-5pm, only if 8 people co
 Muse users' agents send binding promises through our MCP connector.
 One agent can't unlock the deal.
 Twenty pooled together can.
-The stall fills its dead hours, buyers save, and the merchant never had to block an agent or publicly cut a price.
+In the recorded demo the slot fills, buyers save, and the merchant never had to block an agent or publicly cut a price.
 
 ## Full pitch (about 250 words)
 
@@ -51,7 +51,7 @@ Backfill gives merchants a better answer: publish terms, and let only agents who
 3. **Clearing:** Backfill pools commitments, negotiates in at most 3 rounds with signed counter-offers, and clears only inside both sides' limits. The limits live in code, not in prompts. Every savings split goes to an append-only ledger.
 4. **Merchant agent:** Muse Wonder remembers each merchant's rules and fill history and re-plans when a slot sells out.
 
-The demo shows a real Singapore merchant on one side and real Muse plus 20 Muse Spark buyer agents on the other.
+The demo runs a synthetic Singapore café against 20 simulated Muse Spark buyer agents on a recorded replay; no real payments move.
 Solo, no agent unlocks the deal.
 Pooled, the off-peak slot fills.
 

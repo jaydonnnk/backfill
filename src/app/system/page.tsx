@@ -1,4 +1,4 @@
-import { count, sql } from "drizzle-orm";
+import { count, eq, sql } from "drizzle-orm";
 import { llmCalls } from "@/lib/db/schema";
 import { formatUsd } from "@/integrations/meta/pricing";
 import { webDb } from "@/lib/db/client";
@@ -28,7 +28,7 @@ function replyText(row: LlmCallRow): string {
 async function loadLatest(): Promise<{ row: LlmCallRow | null; error: boolean; total: { calls: number; cost: number } | null }> {
   try {
     const db = webDb();
-    const [total] = await db.select({ calls: count(), cost: sql<string>`coalesce(sum(${llmCalls.costNanoUsd}), 0)` }).from(llmCalls);
+    const [total] = await db.select({ calls: count(), cost: sql<string>`coalesce(sum(${llmCalls.costNanoUsd}), 0)` }).from(llmCalls).where(eq(llmCalls.provider, "meta"));
     return { row: await latestOkCall(db, TRACER_PURPOSE), error: false, total: { calls: total?.calls ?? 0, cost: Number(total?.cost ?? 0) } };
   } catch (err) {
     log("error", "page.latest_failed", errorFields(err));
@@ -58,7 +58,7 @@ export default async function System({ searchParams }: { searchParams: Promise<{
           </form>
         </div>
 
-        {total && <p className="text-sm">All logged model calls: {total.calls} · recorded cost {formatUsd(total.cost)}</p>}
+        {total && <p className="text-sm">Meta Model API calls: {total.calls} · recorded cost {formatUsd(total.cost)}</p>}
 
         {notice && <p role="status" className="text-sm text-[var(--muted)]">{notice}</p>}
 

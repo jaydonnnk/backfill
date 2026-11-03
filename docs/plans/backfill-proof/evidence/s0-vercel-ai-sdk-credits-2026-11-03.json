@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-11-03T02:56:33.912Z",
+  "operation": "read_only_sdk_credits_after_success",
+  "credits": {
+    "balance": "4.993661",
+    "totalUsed": "0.006339"
+  }
+}
