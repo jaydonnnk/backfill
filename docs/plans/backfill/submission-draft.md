@@ -14,7 +14,7 @@ The merchant uploads a menu, reviews Muse Spark's extraction, and sets the windo
 
 Muse Spark proposes merchant counter-offers. Code checks every proposal against both sides' limits. Muse Wonder proposes revised terms after a sellout, and the merchant must approve before those terms change. The append-only ledger records the outcome and allocates all savings to buyers, with zero agent or network share.
 
-A real Muse account previously submitted a commitment through the custom connector. The demo shows that commitment separately from the simulated buyer pool. Demo merchants are synthetic, and the replay uses previously recorded buyer decisions. No real payments are collected.
+One Oct 29 test by the author's own Muse account submitted a commitment through the custom connector. The demo shows that commitment separately from the simulated buyer pool. Demo merchants are synthetic, and the replay uses previously recorded buyer decisions. No payment, identity or attendance is enforced. The recorded scene had 11 of 20 simulated buyers commit and filled 16 covers.
 
 ## Use of Meta tooling
 
@@ -29,7 +29,7 @@ Typed agent terms, integer SGD cents, Singapore-local deadline handling, per-age
 
 ## Model evidence
 
-Every model call the product makes goes to the Meta Model API and is stored in `llm_calls` with its model, token counts, latency and cost. The diagnostics page at `/system` lists those calls, so a judge can see the real Spark and Wonder traffic rather than a summary of it. Prices are checked in code, not in the prompt: a Spark proposal below the merchant's private floor is refused and never signed, and the refusal is indistinguishable from a voluntary hold.
+Supported Meta menu, negotiation and planning attempts are recorded in `llm_calls`. The diagnostics page lists recent metadata and the tracer reply. Voice, media, NVIDIA Glimmer, Gateway Spark Open and the US$0.0878 recorded scene are excluded from those totals. Costs are price-table estimates, not invoices. Code checks proposed prices against the merchant's private floor before signing a counter-offer.
 
 ## Links and completion state
 
@@ -43,6 +43,6 @@ Every model call the product makes goes to the Meta Model API and is stored in `
 
 The real Muse connector result is recorded under the S4 Day 0 subsection in 00-status.md. Rehearsal evidence is in evidence/s95/rehearsals.json. No new production verification or paid model run is implied by this draft.
 
-The S9 comparison run and the `/evals` numbers that displayed it were removed on 2026-11-02: that run was served through OpenRouter, which is neither the Meta Model API nor an eligible open-weight inference partner, so presenting its figures as Muse Spark evidence misstated compliance with the required technology. The run's own artifacts are kept under evidence/s9-* as the spend audit trail. `/evals` now describes what each model does and links to the Meta-API call log.
+Historical note: the S9 comparison run and the `/evals` numbers that displayed it were removed on 2026-11-02: that run was served through OpenRouter, which is neither the Meta Model API nor an eligible open-weight inference partner, so presenting its figures as Muse Spark evidence misstated compliance with the required technology. The run's own artifacts are kept under evidence/s9-* as the spend audit trail. `/evals` now describes what each model does and links to the Meta-API call log.
 
 Before submission, the user still owns final video approval/upload and the actual form submission. The plan's internal target converts to November 5 at 07:00 SGT; its deadline converts to November 5 at 10:00 SGT. The current hackathon form deadline remains independently unverified.

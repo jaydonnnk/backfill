@@ -1,50 +1,71 @@
 # Backfill
 
-AI agents pool committed spend so small merchants can sell spoiling off-peak capacity at private, commitment-gated discounts.
-Market: Singapore food and drink, the restaurants and cafés left out of Muse's launch partners.
+Singapore cafés publish quiet-hour offers that independent buyer agents can unlock together, within limits the merchant sets.
 
-Built for the Meta Global AI Developer Hackathon (Indie track, Build for Your World).
+[Hosted app](https://backfill-9d0x.onrender.com/) · [Recorded demo](https://backfill-9d0x.onrender.com/demo)
 
-- Pitch: [docs/pitch.md](docs/pitch.md)
-- Stack: [docs/tech-stack.md](docs/tech-stack.md)
-- Plans: [docs/plans/backfill](docs/plans/backfill)
+## Try it in 60 seconds
+
+Open `/buyer`, press **Use example**, save the request, and ask Glimmer to propose constraints. Review them, ask Spark Open for a decision, then separately approve and submit the exact terms. The sandbox merchant is synthetic. Checkout is simulated, with no payment, identity or attendance enforcement.
+
+This branch adds that visitor flow. Production availability remains subject to the final release gate; the hosted deployment may still show the earlier build.
+
+## Models
+
+| Model | Role | Status in this build |
+|---|---|---|
+| Muse Spark | Menu extraction and merchant counter-offers | live in the product |
+| Muse Wonder | Proposed terms after a sellout, subject to owner approval | live in the product |
+| Voice Transcribe | Owner voice edits for review | live in the product |
+| Muse Glimmer | Buyer intent through NVIDIA | live in the buyer sandbox |
+| Muse Spark Open | Buyer recommendation through Vercel AI Gateway | live in the buyer sandbox |
+| SAM 3.1 | Dish segmentation | one recorded run, not enabled in the hosted product |
+| Muse Image | Offer image generation | one recorded run, not enabled in the hosted product |
+
+The recorded scene had 11 of 20 simulated buyers commit and filled 16 covers. It does not prove merchant demand, actual attendance or recovered revenue. The connector evidence is one test by the author's own Muse account on Oct 29. A new real Muse run remains pending.
+
+## Local setup
+
+Use Node 24 and PostgreSQL. Create an empty local development database and an owner connection that can create roles and run migrations.
+
+1. Run `npm ci`.
+2. Copy `.env.example` to `.env.local` and configure `DATABASE_URL`, `META_API_KEY`, `META_BASE_URL`, `META_MODEL_SPARK` and `META_MODEL_WONDER`. Keep secrets private. `APP_BASE_URL` defaults to localhost in development.
+3. Export the owner `DATABASE_URL` and run `npm run db:migrate`. Use a separate login in `backfill_app` for the running app after migration; the app does not need owner privileges.
+4. For the buyer sandbox, export the owner connection and run `npm run sandbox:seed`. Configure `NVIDIA_API_KEY`, `AI_GATEWAY_API_KEY`, `BACKFILL_S4_NVIDIA_GLIMMER_APPROVED=1` and `BACKFILL_S4_GATEWAY_APPROVED=1` only when provider processing and spending are authorized. Buyer requests go to NVIDIA and Vercel AI Gateway.
+5. Run `npm run dev`, then open `http://localhost:3000`.
+
+Optional settings: `NEGOTIATION_SIGNING_SECRET` enables signed counters. The four `WHATSAPP_*` credentials in `.env.example` must all be set together to enable the webhook. Media remains disabled by default.
+
+Automated tests use disposable local databases and fake model responses. Never point their database setting at production.
+
+```sh
+npx tsc --noEmit
+npm run lint
+TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npm test
+npm run build
+TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npx tsx scripts/verification/merchant-access.ts
+TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npx tsx scripts/verification/final-browser.ts
+TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npx tsx scripts/verification/final-browser.ts --truth
+```
+
+The browser runners copy allowlisted sources, use a restricted database login and block external traffic. They need the Chromium browser installed for Playwright.
 
 ## Original contributions
 
-Solo submission. Jaydon Kua is the sole author and the submitting participant.
+Solo submission by Jaydon Kua. Git history starts Oct 26, 2026 at 20:33 ET, with documentation and an empty skeleton. The first application code lands Oct 27 at 10:25 ET. These correspond to Oct 27 at 08:33 and 22:25 SGT.
 
-Backfill's domain and application features were built during the hackathon window (2026-10-27 to 2026-11-04), with pre-existing scaffolding disclosed below. Git history starts 2026-10-27 08:33 SGT with a README only; the first application code lands the same day (S1 tracer bullet: Next.js app, `llm_calls` table, Muse Spark provider).
+Pre-existing scaffolding came from the author's public [envoi repository](https://github.com/jaydonnnk/envoi). `src/lib/entrypoint.ts` and `postcss.config.mjs` were carried over unchanged. `config/vitest.config.ts`, `src/lib/db/migrate.ts`, `src/lib/log.ts`, `tests/support/db.ts`, `src/env.ts` and `package.json` were adapted. Backfill's domain and application features were built during the event.
 
-| Area | Built during the event |
-|---|---|
-| `src/domain` | Offer rules, hidden floors, conditional commitments, pooling and clearing, bounded negotiation with HMAC-signed counter-offers, savings ledger |
-| `src/app` | Merchant onboarding, live demo board, MCP route, checkout and SSE endpoints |
-| `src/integrations/meta` | Meta Model API provider (structured output, Zod re-validation, price-table gating, call logging), Muse Spark and Muse Wonder clients |
-| `src/lib/mcp` | MCP server: offer listing, commitment submission and cancellation, negotiation, strict output filtering so hidden fields cannot leak |
-| `sim/buyers` | 20 simulated buyer agents with record and replay |
-| `tests/` | Unit, integration and e2e suites, hermetic test environment, disposable test databases |
+## Source and evidence
 
-**Pre-existing work, disclosed:** the project layout, build configuration and test scaffolding follow a separate personal project of the author's (`~/Desktop/envoi`), which is not part of this event and shares no domain logic. Two files are carried over unchanged — `src/lib/entrypoint.ts` (a 16-line module-entrypoint check) and `postcss.config.mjs`. Every other file that shares a path with that project was rewritten for Backfill.
+- `src/domain`: deterministic offer, commitment, clearing, negotiation and ledger rules.
+- `src/app/merchant`, `src/app/buyer`, `src/app/demo`: merchant workspace, buyer review and recorded scene.
+- `src/app/api`, `src/app/mcp`: HTTP APIs and authenticated MCP connector.
+- `src/integrations/meta`: structured model provider and price metadata.
+- `sim/buyers`: synthetic buyers and frozen recording replay.
+- `tests`: unit, integration and browser verification.
+- [Pitch](docs/pitch.md), [stack](docs/tech-stack.md), [evidence and limitations](docs/plans/backfill-proof/00-status.md), [final release plan](docs/plans/final-leg/build-plan.md).
 
-**Simulated, not real:** the merchant is synthetic ("Backfill Demo Cafe" / "Singapore Test Restaurant"), the 20 buyer agents are simulated, the demo replay uses previously recorded buyer decisions and makes no model calls, and checkout is simulated — no money moves and no attendance is guaranteed.
+`llm_calls` records supported Meta menu, negotiation and planning attempts. `/system` shows recent metadata and the tracer reply. Voice, media, sandbox models and the US$0.0878 scene recording are excluded from those totals.
 
-## Layout
-
-| Path | Holds |
-|---|---|
-| `src/app/merchant` | Merchant onboarding and rules UI |
-| `src/app/demo` | Solo vs pooled demo screen |
-| `src/app/api` | ACP-shaped checkout and SSE endpoints |
-| `src/app/mcp` | MCP server for buyer agents |
-| `src/domain/offers` | Merchant rules and hidden floors |
-| `src/domain/commitments` | Binding conditional commitments |
-| `src/domain/clearing` | Pooling and hidden-floor matching |
-| `src/domain/negotiation` | Bounded rounds, signed counter-offers |
-| `src/domain/ledger` | Append-only savings split |
-| `src/domain/onboarding` | Menu photo to offer schema |
-| `src/integrations/meta` | Muse Spark, Muse Wonder clients |
-| `src/lib/db` | Drizzle schema and client |
-| `sim/buyers` | 20 simulated buyer agents, record and replay |
-| `tests/` | unit, integration, e2e, support |
-| `config/` | Vitest, Drizzle, tsconfig variants |
-# backfill
+MIT licensed. The locally retained hackathon guide and logos are excluded from this repository going forward; historical commits remain unchanged.

@@ -19,3 +19,6 @@ next-env.d.ts
 # Python evals
 .venv/
 __pycache__/
+
+# Operator-owned hackathon guide and logos.
+metahackathon.rtfd/

@@ -3,3 +3,5 @@ metahackathon.rtfd/*.rtf whitespace=-blank-at-eol
 # Preserve terminal progress output and final blank lines in captured S7 logs.
 docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/**/*.txt whitespace=-blank-at-eol,-blank-at-eof
 docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-0[23]/**/*.txt whitespace=-blank-at-eol,-blank-at-eof
+
+docs/** linguist-documentation
