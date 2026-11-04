@@ -169,7 +169,7 @@ test("registration failure shows a usable error and sets no successful session",
 });
 
 test("full signup capacity keeps the visitor signed out with a retry message", async ({ page, context }) => {
-  await admin`insert into merchants(name) select 'Capacity synthetic fixture' from generate_series(1,30)`;
+  await admin`insert into merchants(name) select 'Capacity synthetic fixture' from generate_series(1,100)`;
   const before = await rowCount("merchants");
   await page.goto("/merchant");
   await page.getByLabel("Café or restaurant name").fill("Capped Synthetic Cafe");
