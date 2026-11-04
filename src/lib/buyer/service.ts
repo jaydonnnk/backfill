@@ -3,6 +3,8 @@ import { and, eq, gte, sql } from 'drizzle-orm';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import type { Db, Executor } from '@/lib/db/client';
+import { agentScope } from '@/lib/commitments/service';
+import { takeRateLimit } from '@/lib/rate-limit';
 import { buyerSessions } from '@/lib/db/schema';
 import { TrailTerms } from '@/lib/demo/trail';
 import { buildMcpServer, ToolReplies } from '@/lib/mcp/server';
@@ -69,6 +71,7 @@ export async function buyerAction(db: Db, partyId: string, input: unknown, model
   const parsed = Action.safeParse(input);
   if (!parsed.success) return { status: 'invalid_request', session: null };
   const a = parsed.data;
+  const sandbox = (await agentScope(db, partyId)) === 'sandbox';
   if (a.action === 'start') {
     return db.transaction(async tx => {
       await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${partyId}))`);
@@ -76,6 +79,7 @@ export async function buyerAction(db: Db, partyId: string, input: unknown, model
       if (exists) return { status: exists.request === a.request ? 'ok' : 'request_collision', session: exists };
       const recent = await tx.select({ id: buyerSessions.id }).from(buyerSessions).where(and(eq(buyerSessions.partyId, partyId), gte(buyerSessions.createdAt, new Date(clock().getTime() - 86_400_000))));
       if (recent.length >= 10) return { status: 'daily_cap', session: null };
+      if (sandbox && !await takeRateLimit(tx, 'sandbox_sessions', 'all', 40, 86400)) return { status: 'daily_cap', session: null };
       const s: Session = { id: a.id, runId: a.id, partyId, revision: 0, request: a.request, referenceClock: clock().toISOString(), expiresAt: new Date(clock().getTime() + 20 * 60_000).toISOString(), attempts: 0, phase: 'draft', proposal: null, constraints: null, decision: null, terms: null, offer: null, parseReceipt: null, decisionReceipt: null, approval: null, result: null };
       const inserted = await tx.insert(buyerSessions).values({ id: s.id, partyId, createdAt: clock(), record: s }).onConflictDoNothing().returning({ id: buyerSessions.id });
       return inserted.length ? { status: 'ok', session: s } : { status: 'not_found', session: null };
@@ -101,7 +105,7 @@ export async function buyerAction(db: Db, partyId: string, input: unknown, model
     if (a.action === 'parse' || a.action === 'decide') {
       if (a.action === 'parse' && s.phase !== 'draft') return reply('already_attempted');
       if (a.action === 'decide' && s.phase !== 'reviewed') return reply('review_required');
-      if (s.attempts >= 6) return reply('attempt_cap');
+      if (s.attempts >= (sandbox ? 2 : 6)) return reply('attempt_cap');
       s.attempts++; s.phase = a.action === 'parse' ? 'parsing' : 'deciding';
       await save(tx, s); return reply('reserved');
     }
