@@ -504,7 +504,7 @@ body { padding-bottom: 125px; }
 .result-row { display: grid; gap: 4px; }
 .result-row > p { font-size: 14px; color: var(--muted); margin-bottom: 2px; }
 .result-row > div { display: flex; align-items: center; gap: 8px; }
-.result-row b { font-size: 14px; font-weight: 600; }
+.result-row b { flex: none; white-space: nowrap; font-size: 14px; font-weight: 600; }
 .bar { display: block; height: 16px; border-radius: 0 4px 4px 0; }
 .eval-more { margin-top: -24px; }
 :root { --chart-spark: #2f55f4; --chart-fixed: #d23bb0; }

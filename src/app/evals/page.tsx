@@ -63,8 +63,8 @@ export default function Evals() {
         <figcaption className="result-legend"><span><i className="swatch spark-mark" />Spark</span><span><i className="swatch fixed-mark" />Fixed policy</span></figcaption>
         {results.map(row => <div className="result-row" key={row.label}>
           <p>{row.label}</p>
-          <div title={`Spark ${row.spark}`}><span className="bar spark-mark" style={{ width: `${row.spark / row.max * 100}%` }} /><b>{row.spark}</b></div>
-          <div title={`Fixed policy ${row.fixed}`}><span className="bar fixed-mark" style={{ width: `${row.fixed / row.max * 100}%` }} /><b>{row.fixed}</b></div>
+          <div title={`Spark ${row.spark}`}><span className="bar spark-mark" style={{ width: `calc((100% - 40px) * ${row.spark / row.max})` }} /><b>{row.spark}</b></div>
+          <div title={`Fixed policy ${row.fixed}`}><span className="bar fixed-mark" style={{ width: `calc((100% - 40px) * ${row.fixed / row.max})` }} /><b>{row.fixed}</b></div>
         </div>)}
       </figure>
     </div></details>
