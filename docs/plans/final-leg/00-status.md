@@ -32,7 +32,7 @@ Replay approval is scripted, never human consent. A trail write occurs after the
 
 Kopi defaults collapsed at every width and retains explicit visibility preferences. Cost if wrong: less unsolicited guidance, and a prior show preference can reopen it. Per-model diagnostic aggregates were omitted; the recent metadata list is implemented.
 
-MIT is assumed pending Gate A. Cost if wrong: replace the licence before release. Existing historical commits are retained. The adapted scaffolding disclosure is explicit. GitHub confirmed envoi public on Nov 4. Source checks used the local git timeline; Meta's Singapore announcement is dated Oct 27 while Singapore launch coverage is dated Oct 28.
+MIT is assumed pending Gate A. Cost if wrong: replace the licence before release. Existing historical commits are retained. The adapted scaffolding disclosure is explicit. Source checks used the local git timeline; Meta's Singapore announcement is dated Oct 27 while Singapore launch coverage is dated Oct 28.
 
 ## Operator steps
 
