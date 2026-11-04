@@ -39,3 +39,13 @@ it('refuses older oversized source bytes at the provider boundary too',async()=>
  const bytes=await sharp({create:{width:2001,height:1000,channels:3,background:'#fff'}}).png().toBuffer();
  expect(await creativeDeps().segment({bytes,mediaType:'image/png',target:'dish',width:2001,height:1000})).toBeNull();expect(calls).toBe(0);
 });
+it('records memory snapshots around a hosted request without source or credential data',async()=>{
+ vi.stubEnv('BACKFILL_CREATIVE_ENABLED','1');vi.stubEnv('META_API_KEY','offline-dummy');vi.stubEnv('META_BASE_URL','https://meta.test/v1');
+ const output=vi.spyOn(console,'log').mockImplementation(()=>{});
+ try{
+  await creativeDeps().segment({bytes:await syntheticDishPhoto(),mediaType:'image/png',target:'synthetic rectangle',width:160,height:120});
+  const events=output.mock.calls.map(args=>JSON.parse(String(args[0])));
+  expect(events).toContainEqual(expect.objectContaining({event:'creative.memory',purpose:'sam',rssBeforeBytes:expect.any(Number),rssAfterBytes:expect.any(Number)}));
+  expect(JSON.stringify(events)).not.toContain('offline-dummy');expect(JSON.stringify(events)).not.toContain('base64');
+ }finally{output.mockRestore();}
+});
