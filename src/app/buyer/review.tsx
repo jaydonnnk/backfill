@@ -18,6 +18,7 @@ const notices: Record<string, string> = {
 };
 export function BuyerReview() {
   const [token, setToken] = useState('');
+  const [sandboxToken, setSandboxToken] = useState('');
   const [request, setRequest] = useState('');
   const [s, setSession] = useState<Session | null>(null);
   const [constraints, setConstraints] = useState<Intent>(empty);
@@ -59,12 +60,13 @@ export function BuyerReview() {
         const response = await fetch('/api/buyer/sandbox', {method:'POST'});
         const result = await response.json();
         if (!response.ok || typeof result.token !== 'string') {setNotice('The sandbox is unavailable or its hourly limit was reached. Try again later.');return;}
-        credential = result.token; setToken(credential);
+        credential = result.token; setToken(credential); setSandboxToken(credential);
       }
       const response = await fetch('/api/buyer', {headers:{Authorization:`Bearer ${credential}`}});
       const data = await response.json();
       if (!response.ok || !Array.isArray(data.offers) || !data.offers.length) {setNotice('The sandbox offer is unavailable.');return;}
       const ordered: Offer[] = [...data.offers].sort((a:Offer,b:Offer)=>a.nextOccurrence.visitDate.localeCompare(b.nextOccurrence.visitDate));
+      generation.current++; setSession(null);setId(null);setConstraints(empty);setExpired(false);setDirty(false);
       setOffers(ordered);setRule(ordered[0]!.offer.ruleId);
       setRequest(`Table for 2 on ${ordered[0]!.nextOccurrence.visitDate}, between 14:00 and 17:00, up to S$6 per person`);
     } catch {setNotice('The sandbox is unavailable. Try again later.');}
@@ -78,8 +80,8 @@ export function BuyerReview() {
     <a href="/demo">Backfill / Kopi</a>
     <h1 className="text-3xl">Review your buyer request</h1>
     <p>Hosted Glimmer through NVIDIA proposes constraints. Your request is sent to NVIDIA and Vercel AI Gateway. Spark Open recommends a decision. You separately approve exact terms and submit. Checkout is simulated.</p>
-    <button className={button} disabled={busy || !!s} onClick={example}>Use example</button>
-    <details><summary>Use an existing buyer credential</summary><label className="block">Buyer credential<input className={field} type="password" autoComplete="off" value={token} onChange={e => { generation.current++; setToken(e.target.value); setSession(null); setId(null); setRequest(''); setConstraints(empty); setExpired(false); setDirty(false); setOffers([]); setRule(''); setNotice(''); }} /></label></details>
+    <button className={button} disabled={busy} onClick={example}>Use example</button>
+    <details><summary>Use an existing buyer credential</summary><label className="block">Buyer credential<input className={field} type="password" autoComplete="off" value={token} onChange={e => { generation.current++; setToken(e.target.value); setSandboxToken(''); setSession(null); setId(null); setRequest(''); setConstraints(empty); setExpired(false); setDirty(false); setOffers([]); setRule(''); setNotice(''); }} /></label></details>
     <p className="text-sm">Credential stays in this page&apos;s memory. Agent actions do not establish real-person consent.</p>
     <label className="block">Your request<textarea aria-label="Your request" className={field} maxLength={300} value={request} disabled={terminal} onChange={e => { generation.current++; setRequest(e.target.value); }} /></label>
     <div className="flex flex-wrap gap-2">
@@ -117,6 +119,6 @@ export function BuyerReview() {
       {s.result?.ok && <p className="break-words">Stored commitment {s.result.commitment.commitmentId}: {s.result.commitment.status}. Pooled covers: {s.result.commitment.pooledCovers ?? 0} / {s.result.commitment.minPoolCovers ?? 4}. Pending commitments fill only if the pool qualifies at settlement. <a href="/demo">View pooled outcome</a></p>}
       {terminal && <button className={button} disabled={busy} onClick={() => { generation.current++; setExpired(false); setSession(null); setId(null); setRequest(''); setConstraints(empty); setDirty(false); }}>Start a new request</button>}
     </>}
-    <SandboxConnect token={token} />
+    <SandboxConnect token={sandboxToken} />
   </main>;
 }

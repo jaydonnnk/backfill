@@ -34,7 +34,22 @@ for(const scenario of ['time','provider'])test(`${scenario} failure leaves no co
   await page.getByRole('button',{name:'Save reviewed constraints',exact:true}).click();
   await page.getByRole('button',{name:'Ask Spark Open for a decision',exact:true}).click();
   await expect(page.locator('main').getByRole('status')).toContainText('This offer runs 14:00-17:00. Widen your time window or use the example.');
+  await expect(page.getByRole('button',{name:'Use example',exact:true})).toBeEnabled();
+  await page.getByRole('button',{name:'Use example',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Save request',exact:true})).toBeEnabled();
  }
  const db=postgres(process.env.MERCHANT_ACCESS_TEST_DATABASE_URL!,{max:1});
  try{const rows=await db`select record from buyer_sessions order by created_at desc limit 1`;const id=rows[0]?.record.partyId;expect(await db`select id from commitments where agent_id=${id}`).toHaveLength(0);}finally{await db.end();}
+});
+test('a manually entered standard credential is never exported as sandbox-only',async({page})=>{
+ const {connectDb}=await import('../../src/lib/db/client');
+ const {mintAgent}=await import('../../src/lib/agents/tokens');
+ const db=connectDb(process.env.MERCHANT_ACCESS_TEST_DATABASE_URL!,1);
+ try{
+  const agent=await mintAgent(db.db,'standard-copy-fixture','Synthetic standard credential');
+  await page.goto('/buyer');await page.getByText('Use an existing buyer credential',{exact:true}).click();await page.getByLabel('Buyer credential',{exact:true}).fill(agent.token);
+  await page.getByText('Use your own agent',{exact:true}).click();
+  await expect(page.getByRole('button',{name:'Copy sandbox token',exact:true})).toBeDisabled();
+  await expect(page.getByText('This credential can access only synthetic sandbox offers.',{exact:false})).not.toBeVisible();
+ }finally{await db.close();}
 });

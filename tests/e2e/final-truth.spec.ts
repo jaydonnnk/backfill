@@ -16,5 +16,6 @@ test('public claims, diagnostics privacy, and pending merchant notice',async({pa
  const owner=postgres(process.env.MERCHANT_ACCESS_TEST_DATABASE_URL!,{max:1});
  try{await owner`insert into rules(merchant_id,list_price_cents,capacity_covers,weekday,start_minute,end_minute,commit_by_minute,discount_bps,min_pool_covers,per_agent_cap_covers,floor_price_cents) select id,680,200,2,840,1020,720,2000,4,4,500 from merchants where name='Pending truth fixture'`;}finally{await owner.end();}
  await page.goto('/merchant');await expect(page.getByText('Your offer is awaiting a quick review before buyer agents can see it.',{exact:true})).toBeVisible();
+ await expect(page.getByText('Open to commitments',{exact:true})).not.toBeVisible();
  for(const width of [375,800]){await page.setViewportSize({width,height:900});await expect(page.locator('.kopi-bubble')).not.toBeVisible();}
 });

@@ -142,7 +142,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           <ul className="flex flex-col divide-y divide-[var(--border)]">
             {board.rules.map(({ rule, offerPriceCents, published }) => (
               <li key={rule.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0">
-                <div className="chips"><span className={`chip ${available(rule) ? "good" : "wait"}`}>{available(rule) ? "Open to commitments" : "Unavailable"}</span><span className="chip">{published ? "Menu confirmed" : "Configured offer"}</span><span className="chip">Terms v{rule.termsVersion}</span></div>
+                <div className="chips"><span className={`chip ${available(rule) && !awaitingReview ? "good" : "wait"}`}>{awaitingReview ? "Awaiting review" : available(rule) ? "Open to commitments" : "Unavailable"}</span><span className="chip">{published ? "Menu confirmed" : "Configured offer"}</span><span className="chip">Terms v{rule.termsVersion}</span></div>
                 <p className="font-medium">
                   {percent(rule.terms.discountBps)} off: {dollars(rule.listPriceCents)} becomes {dollars(offerPriceCents)} per cover
                 </p>

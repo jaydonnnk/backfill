@@ -1,4 +1,5 @@
 import { authenticateAgent } from '@/lib/agents/tokens';
+import { readBounded } from '@/lib/http-body';
 import type { Db } from '@/lib/db/client';
 import { agentScope, listOffers } from '@/lib/commitments/service';
 import { ToolReplies } from '@/lib/mcp/server';
@@ -13,8 +14,9 @@ export function buyerHandler(db: () => Db, models: () => Models, clock: () => Da
       if (!party) return Response.json({ status: 'unauthorized', session: null }, { status: 401, headers });
       if (req.method === 'GET') return Response.json(ToolReplies.list_offers.parse({ ok: true, offers: await listOffers(db(), clock, await agentScope(db(), party)), binding: 'Review exact terms and separately approve before submitting. Checkout is simulated.' }), { headers });
       if (Number(req.headers.get('content-length') ?? 0) > 6000) return Response.json({ status: 'invalid_request', session: null }, { status: 400, headers });
-      const raw = await req.text();
-      if (raw.length > 6000) return Response.json({ status: 'invalid_request', session: null }, { status: 400, headers });
+      const bytes = await readBounded(req,6000);
+      if (bytes === null) return Response.json({ status: 'invalid_request', session: null }, { status: 400, headers });
+      const raw = new TextDecoder().decode(bytes);
       let input: unknown;
       try { input = JSON.parse(raw); } catch { return Response.json({ status: 'invalid_request', session: null }, { status: 400, headers }); }
       return Response.json(await buyerAction(db(), party, input, models(), clock), { headers });

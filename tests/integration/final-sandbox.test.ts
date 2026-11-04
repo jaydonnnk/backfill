@@ -115,3 +115,33 @@ it('runs real model adapters over fake HTTP, records agent approval and prevents
     expect(calls).toBe(4);
   } finally {vi.unstubAllEnvs();}
 });
+it('an incompatible window can be corrected without spending the second model action',async()=>{
+ await seedSandbox(t.db);const party=await sandbox();const id=randomUUID();const models=buyerFixtures();
+ const act=(args:object)=>buyerAction(app.db,party.id,{id,...args},models,clock);
+ await act({action:'start',request:'Two at 3pm'});await act({action:'parse',revision:0});
+ await act({action:'review',revision:0,constraints:{...INTENT,earliest:'15:00'}});
+ const [rule]=await t.admin`select r.id from rules r join merchants m on m.id=r.merchant_id where m.visibility='sandbox' and weekday=2`;
+ const refused=await act({action:'decide',revision:1,ruleId:rule!.id});
+ expect(refused.status).toBe('incompatible_offer');expect(refused.session?.attempts).toBe(1);
+ await act({action:'review',revision:1,constraints:INTENT});
+ const corrected=await act({action:'decide',revision:2,ruleId:rule!.id});
+ expect(corrected.session?.phase).toBe('decided');expect(corrected.session?.attempts).toBe(2);
+ await act({action:'approve',revision:2,terms:corrected.session?.terms});
+ expect((await act({action:'submit',revision:2})).session?.result).toMatchObject({ok:true});
+});
+it('bounds streamed buyer bodies even without an honest content length',async()=>{
+ const party=await sandbox();
+ for(const length of [null,'10']){
+  let chunks=0;let cancelled=false;
+  const stream=new ReadableStream<Uint8Array>({pull(controller){chunks++;controller.enqueue(new Uint8Array(1024));if(chunks===8192)controller.close();},cancel(){cancelled=true;}});
+  const headers=new Headers({authorization:`Bearer ${party.token}`});if(length)headers.set('content-length',length);
+  const init:RequestInit & {duplex:'half'}={method:'POST',headers,body:stream,duplex:'half'};
+  const response=await buyerHandler(()=>app.db,buyerFixtures,clock)(new Request('http://test/api/buyer',init));
+  expect(response.status).toBe(400);expect(chunks).toBeLessThan(10);expect(cancelled).toBe(true);
+ }
+});
+it('authenticates buyer requests before consuming an oversized body',async()=>{
+ const request=new Request('http://test/api/buyer',{method:'POST',body:'a'.repeat(6001)});
+ const response=await buyerHandler(()=>app.db,buyerFixtures,clock)(request);
+ expect(response.status).toBe(401);expect(request.bodyUsed).toBe(false);
+});

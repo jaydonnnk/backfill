@@ -105,6 +105,10 @@ export async function buyerAction(db: Db, partyId: string, input: unknown, model
     if (a.action === 'parse' || a.action === 'decide') {
       if (a.action === 'parse' && s.phase !== 'draft') return reply('already_attempted');
       if (a.action === 'decide' && s.phase !== 'reviewed') return reply('review_required');
+      if (a.action === 'decide') {
+        const offer = await mcp(tx, partyId, clock, 'get_agent_terms', {ruleId:a.ruleId});
+        if (!offer.ok || !fits(s,offer)) return reply('incompatible_offer');
+      }
       if (s.attempts >= (sandbox ? 2 : 6)) return reply('attempt_cap');
       s.attempts++; s.phase = a.action === 'parse' ? 'parsing' : 'deciding';
       await save(tx, s); return reply('reserved');
