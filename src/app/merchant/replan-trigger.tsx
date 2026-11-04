@@ -31,7 +31,7 @@ export function ReplanTrigger() {
           ? "Today's planning limit is reached. Plans resume tomorrow."
           : "Planning failed. Reload to try again.";
   return (
-    <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm text-[var(--muted)]">
+    <p role="status" className="board-notice">
       {text}
     </p>
   );

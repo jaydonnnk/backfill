@@ -53,7 +53,7 @@ for (const repeat of [1, 2]) test(`S4 four independent reviewed buyers approve e
     const [originalRule] = await app.db.select().from(rules).where(eq(rules.id, pub.ruleId));
     await page.context().addCookies([{ name: MERCHANT_COOKIE, value: owner.token, domain: '127.0.0.1', path: '/merchant', httpOnly: true, sameSite: 'Lax' }]);
     await page.goto('/merchant');
-    const creative = page.getByRole('group', { name: `Creative asset for offer ${pub.ruleId}`, exact: true });
+    await page.getByText('Add a dish photo',{exact:true}).click();const creative=page.getByRole('group',{name:`Creative asset for offer ${pub.ruleId}`, exact: true });
     await creative.getByLabel('Dish photo', { exact: true }).setInputFiles({ name: 'authored-rectangle.png', mimeType: 'image/png', buffer: await syntheticDishPhoto() });
     await creative.getByLabel('Dish or object to isolate', { exact: true }).fill('s7-segmentation-failure');
     await creative.getByLabel('Photo rights basis', { exact: true }).fill('Authored S7 geometry');
@@ -148,7 +148,7 @@ test('S4 ambiguous request, manual clarification, discard and cross-party HTTP p
     await page.getByRole('button', { name: 'Ask hosted Glimmer', exact: true }).click();
     await expect(page.getByText('Clarification required.', { exact: false })).toBeVisible();
     await expect(page.getByLabel('Budget currency', { exact: true })).toHaveValue('');
-    await expect(page.getByLabel('Maximum per cover, in cents', { exact: true })).toHaveValue('');
+    await expect(page.getByLabel('Most per person, in S$', { exact: true })).toHaveValue('');
     await expect(page.getByRole('button', { name: 'Ask Spark Open for a decision', exact: true })).toBeDisabled();
     await capture(page, evidence, 'buyer-clarification');
     const [row] = await app.db.select().from(buyerSessions).where(eq(buyerSessions.partyId, party.id));

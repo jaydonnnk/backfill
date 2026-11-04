@@ -1,11 +1,12 @@
 import { test } from "./proof-s7-fixture";
-import { expect } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import postgres from "postgres";
 import { MERCHANT_COOKIE, mintMerchant } from "../../src/lib/onboarding/links";
 import { connectDb } from "../../src/lib/db/client";
 import { redact } from "../../src/lib/log";
+import { publishDraft, readMenu } from "../../src/lib/onboarding/service";
 
 let admin: postgres.Sql;
 let database: ReturnType<typeof connectDb>;
@@ -177,4 +178,31 @@ test("full signup capacity keeps the visitor signed out with a retry message", a
   await expect(page.getByRole("status").filter({ hasText: "Try again later" })).toBeVisible();
   expect(await rowCount("merchants")).toBe(before);
   expect((await context.cookies()).some(cookie => cookie.name === MERCHANT_COOKIE)).toBe(false);
+});
+
+test("an owner records a voice change in the browser and the server accepts its WAV", async ({ baseURL, page }) => {
+  expect((await page.request.get("/")).headers()["permissions-policy"]).toContain("microphone=()");
+  const owner = await mintMerchant(database.db, "Recording Synthetic Cafe");
+  const read = await readMenu(database.db, owner.id, Buffer.from("89504e470d0a1a0a", "hex"), async () => ({ currency: "SGD", items: [{ name: "Synthetic toast set", priceCents: 600 }], cover: { itemIndexes: [0], description: "Synthetic toast set" } }), "offline-fixture");
+  assert("draftId" in read);
+  const published = await publishDraft(database.db, owner.id, read.draftId, { capacityCovers: 20, terms: { window: { weekday: 2, startMinute: 840, endMinute: 1020, commitByMinute: 720 }, discountBps: 2500, minPoolCovers: 8, perAgentCapCovers: 4, floorPriceCents: 400 } });
+  assert.equal(published.status, "published");
+  const browser = await chromium.launch({ args: ["--use-fake-device-for-media-stream", "--use-fake-ui-for-media-stream"] });
+  try {
+    const context = await browser.newContext({ baseURL });
+    await context.addCookies([{ name: MERCHANT_COOKIE, value: owner.token, domain: "127.0.0.1", path: "/merchant", httpOnly: true, sameSite: "Lax" }]);
+    const board = await context.newPage();
+    const response = await board.goto("/merchant");
+    expect(response?.headers()["permissions-policy"]).toContain("microphone=(self)");
+    // Kopi's button renders only after hydration; a click before it would do nothing.
+    await expect(board.getByRole("button", { name: "Show Kopi", exact: true })).toBeVisible({ timeout: 15_000 });
+    await board.getByText("Change by voice", { exact: true }).click();
+    await board.getByRole("button", { name: "Record your change", exact: true }).click();
+    await expect(board.getByText(/^Recording \d+s of up to 59s$/)).toBeVisible();
+    await board.waitForTimeout(1500);
+    await board.getByRole("button", { name: "Stop and transcribe", exact: true }).click();
+    // The offline provider cannot transcribe, so reaching it proves the recording passed the WAV checks.
+    await expect(board.getByText("The audio could not be transcribed.", { exact: false })).toBeVisible({ timeout: 15_000 });
+    await expect(board.getByText("not a supported WAV", { exact: false })).toHaveCount(0);
+  } finally { await browser.close(); }
 });

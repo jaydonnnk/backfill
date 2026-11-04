@@ -4,10 +4,11 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { percent } from "@/domain/onboarding/replan";
 import type { VoiceView } from "@/lib/owner-voice/service";
+import { VoiceRecorder } from "./voice-recorder";
 import { uploadOwnerVoice, reviewOwnerVoice, proposeOwnerVoice, approveOwnerVoice, discardOwnerVoice } from "./voice-actions";
 
-const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] disabled:opacity-50";
-const secondary = "rounded-md border border-[var(--border)] px-4 py-2 text-sm disabled:opacity-50";
+const button = "button primary";
+const secondary = "button";
 const notices: Record<string, string> = {
   signed_out: "Your session ended. Open your merchant link again.",
   invalid_audio: "Choose a mono, 16-bit PCM WAV at 16 or 24 kHz, up to 60 seconds and 3 MB.",
@@ -21,8 +22,8 @@ const notices: Record<string, string> = {
   not_understood: "The instruction needs clarification. Correct the transcript with exact values and save it again.",
   no_proposal: "Wonder could not propose a change. Your offer is unchanged.",
   invalid_output: "The model output could not be validated. Your offer is unchanged.",
-  failed: "The audio could not be transcribed. Your offer is unchanged. Discard it or upload a new WAV.",
-  transcription_failed: "The audio could not be transcribed. Your offer is unchanged. Discard it or upload a new WAV.",
+  failed: "The audio could not be transcribed. Your offer is unchanged. Discard it, record again or upload a new WAV.",
+  transcription_failed: "The audio could not be transcribed. Your offer is unchanged. Discard it, record again or upload a new WAV.",
   transcribed: "Check the transcript below. Saving your review does not approve a rule change.",
   reviewed: "Transcript review saved. Ask Wonder for a proposed change.",
   proposed: "Review the exact change below. Your offer still uses its current terms.",
@@ -112,53 +113,54 @@ export function OwnerVoice({ ruleId, termsVersion }: { ruleId: string; termsVers
   }
 
   return (
-    <fieldset aria-label={`Voice edit for offer ${ruleId}`} className="mt-4 flex min-w-0 flex-col gap-3 rounded-lg border border-[var(--border)] p-4">
-      <legend className="px-1 font-medium">Edit this offer by voice</legend>
-      <p className="text-sm text-[var(--muted)]">Change discount, capacity, minimum pool or per-agent cap. First check the transcript, then review Wonder&apos;s proposal. Only your separate approval changes this offer.</p>
-      <form action={upload} className="flex min-w-0 flex-col gap-3">
-        <label className="flex min-w-0 flex-col gap-2 text-sm">Owner instruction WAV
-          <input name="audio" type="file" accept=".wav,audio/wav" required disabled={pending !== null} className="min-w-0 max-w-full text-sm file:mr-2 file:rounded-md file:border file:border-[var(--border)] file:bg-transparent file:p-2" />
+    <fieldset aria-label={`Voice edit for offer ${ruleId}`} className="tool-panel">
+      <p>Say the new discount, capacity, minimum pool or per-agent cap. Nothing changes until you approve it.</p>
+      <VoiceRecorder disabled={pending !== null} onNotice={setNotice} onRecorded={wav => { const form = new FormData(); form.set("audio", wav); void upload(form); }} />
+      <form action={upload} className="tool-form tool-upload">
+        <label>Or upload an owner instruction WAV
+          <input name="audio" type="file" accept=".wav,audio/wav" required disabled={pending !== null} />
         </label>
-        <p className="text-sm text-[var(--muted)]">Mono PCM WAV, 16-bit, 16 or 24 kHz. Maximum 60 seconds, 3 MB. Audio is sent for transcription and then discarded; its hash and the private transcript are saved with this edit.</p>
-        <button type="submit" disabled={pending !== null} className={`${button} self-start`}>Transcribe audio</button>
+        <p className="small">Mono PCM WAV, 16-bit, 16 or 24 kHz, up to 60 seconds and 3 MB.</p>
+        <button type="submit" disabled={pending !== null} className={secondary}>Transcribe audio</button>
       </form>
-      {pending && <p role="status" className="text-sm">{pending}</p>}
-      {notice && <p role="status" className="text-sm">{notice}</p>}
+      <p className="small">Audio is sent for transcription and then discarded; its hash and the private transcript are kept.</p>
+      {pending && <p role="status" className="small">{pending}</p>}
+      {notice && <p role="status" className="small">{notice}</p>}
       {edit && edit.rawTranscript !== null && (
         <>
-          <p className="text-sm text-[var(--muted)]">{edit.source === "fixture" ? "Fixture transcript. Authored text attached to a test WAV; this does not prove transcription." : "Voice transcript. Check every value before continuing."}</p>
-          <label className="flex flex-col gap-2 text-sm">Review transcript
-            <textarea maxLength={500} rows={4} value={text} disabled={pending !== null || terminal} onChange={event => { setText(event.target.value); setNotice(""); }} className="w-full rounded-md border border-[var(--border)] bg-transparent p-3 text-base" />
+          <p className="small">{edit.source === "fixture" ? "Fixture transcript. Authored text attached to a test WAV; this does not prove transcription." : "Voice transcript. Check every value before continuing."}</p>
+          <label className="tool-label">Review transcript
+            <textarea maxLength={500} rows={4} value={text} disabled={pending !== null || terminal} onChange={event => { setText(event.target.value); setNotice(""); }}  />
           </label>
-          {dirty && <p className="text-sm">The text changed. Save it to replace the previous review and invalidate its proposal.</p>}
-          {!terminal && <div className="flex flex-wrap gap-2">
+          {dirty && <p className="small">The text changed. Save it to replace the previous review and invalidate its proposal.</p>}
+          {!terminal && <div className="actions">
             <button type="button" className={secondary} disabled={pending !== null || !text.trim()} onClick={() => perform("Saving review…", () => reviewOwnerVoice({ id: edit.id, revision: edit.revision, text }))}>Save reviewed transcript</button>
             {edit.phase === "reviewed" && !dirty && <button type="button" className={button} disabled={pending !== null} onClick={() => perform("Asking Wonder…", () => proposeOwnerVoice({ id: edit.id, revision: edit.revision }))}>Ask Wonder for proposal</button>}
           </div>}
           {edit.phase === "proposed" && edit.proposal && !dirty && (
-            <div className="flex min-w-0 flex-col gap-3">
-              <p className="text-sm">{edit.source === "fixture" ? "Fixture Wonder proposal" : "Wonder proposal"}. Offer v{edit.termsVersion}, reviewed transcript v{edit.revision}. Expires {new Date(edit.expiresAt).toLocaleTimeString("en-SG", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit" })} Singapore time.</p>
-              <p className="text-sm">{edit.proposal.reply}</p>
-              <table className="w-full text-left text-sm">
-                <caption className="mb-2 text-left font-medium">Exact change for this offer</caption>
-                <thead><tr><th scope="col" className="py-2">Term</th><th scope="col">Current</th><th scope="col">Proposed</th></tr></thead>
+            <div className="tool-form">
+              <p className="small">{edit.source === "fixture" ? "Fixture Wonder proposal" : "Wonder proposal"}. Offer v{edit.termsVersion}, reviewed transcript v{edit.revision}. Expires {new Date(edit.expiresAt).toLocaleTimeString("en-SG", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit" })} Singapore time.</p>
+              <p className="small">{edit.proposal.reply}</p>
+              <table>
+                <caption>Exact change for this offer</caption>
+                <thead><tr><th scope="col">Term</th><th scope="col">Current</th><th scope="col">Proposed</th></tr></thead>
                 <tbody>
                   {[
                     ["Discount", percent(edit.before.discountBps), percent(edit.proposal.discountBps)],
                     ["Capacity", edit.before.capacityCovers, edit.proposal.capacityCovers],
                     ["Minimum pool", edit.before.minPoolCovers, edit.proposal.minPoolCovers],
                     ["Per-agent cap", edit.before.perAgentCapCovers, edit.proposal.perAgentCapCovers],
-                  ].map(([term, before, after]) => <tr key={term} className="border-t border-[var(--border)]"><th scope="row" className="py-2 font-normal">{term}</th><td>{before}</td><td>{after}</td></tr>)}
+                  ].map(([term, before, after]) => <tr key={term}><th scope="row">{term}</th><td>{before}</td><td>{after}</td></tr>)}
                 </tbody>
               </table>
-              <p className="text-sm text-[var(--muted)]">Review did not approve this change. The visit window and private floor stay the same. Buyer parties still approve their own commitments.</p>
-              <button type="button" className={`${button} self-start`} disabled={pending !== null} onClick={() => perform("Applying approved change…", () => approveOwnerVoice({ id: edit.id, revision: edit.revision, proposalId: edit.proposalId }))}>Approve this exact change</button>
+              <p className="small">Review did not approve this change. The visit window and private floor stay the same. Buyer parties still approve their own commitments.</p>
+              <button type="button" className={button} disabled={pending !== null} onClick={() => perform("Applying approved change…", () => approveOwnerVoice({ id: edit.id, revision: edit.revision, proposalId: edit.proposalId }))}>Approve this exact change</button>
             </div>
           )}
-          {edit.approval && <p className="text-sm">Separate owner action recorded for proposal {edit.approval.proposalId}. Terms v{edit.approval.version}.</p>}
+          {edit.approval && <p className="small">Separate owner action recorded for proposal {edit.approval.proposalId}. Terms v{edit.approval.version}.</p>}
         </>
       )}
-      {activeId && !terminal && <button type="button" className={`${secondary} self-start`} onClick={discard} disabled={pending === "Discarding…"}>Discard voice edit</button>}
+      {activeId && !terminal && <button type="button" className={secondary} onClick={discard} disabled={pending === "Discarding…"}>Discard voice edit</button>}
     </fieldset>
   );
 }

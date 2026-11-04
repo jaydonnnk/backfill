@@ -13,8 +13,9 @@ const nextConfig: NextConfig = {
   agentRules: false,
   // A menu photo is at most 4 MiB (src/domain/onboarding/menu.ts); the rest is multipart overhead.
   experimental: { serverActions: { bodySizeLimit: "5mb" } },
+  // Only the merchant board records audio, for owner voice edits. A later rule replaces the same header.
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }, { source: "/merchant/access", headers: [{ key: "Cache-Control", value: "private, no-store, max-age=0" }] }];
+    return [{ source: "/:path*", headers: securityHeaders }, { source: "/merchant", headers: [{ key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" }] }, { source: "/merchant/access", headers: [{ key: "Cache-Control", value: "private, no-store, max-age=0" }] }];
   },
 };
 

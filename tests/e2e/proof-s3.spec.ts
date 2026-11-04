@@ -34,9 +34,9 @@ async function freshOffer(db: Db, name: string) {
   if (!before) throw new Error('Rule missing');
   return { owner, ruleId: publication.ruleId, before };
 }
-function group(page: Page, ruleId: string) { return page.getByRole('group', { name: `Voice edit for offer ${ruleId}`, exact: true }); }
+async function group(page: Page, ruleId: string) { await page.getByText('Change by voice', { exact: true }).click(); return page.getByRole('group', { name: `Voice edit for offer ${ruleId}`, exact: true }); }
 async function transcribe(field: Locator, bytes = silentOwnerWav()) {
-  await field.getByLabel('Owner instruction WAV', { exact: true }).setInputFiles({ name: 'synthetic-silence.wav', mimeType: 'audio/wav', buffer: bytes });
+  await field.getByLabel('Or upload an owner instruction WAV', { exact: true }).setInputFiles({ name: 'synthetic-silence.wav', mimeType: 'audio/wav', buffer: bytes });
   await field.getByRole('button', { name: 'Transcribe audio', exact: true }).click();
 }
 async function uploadAndReview(field: Locator) {
@@ -83,7 +83,7 @@ for (const repetition of [1, 2]) {
     try {
       const { owner, ruleId, before } = await freshOffer(admin.db, `SCRIPTED S3 fresh owner ${repetition}`);
       await signIn(context, owner.token); await page.goto('/merchant');
-      const field = group(page, ruleId);
+      const field = await group(page, ruleId);
       await uploadAndReview(field);
       expect((await stored(admin.db, owner.id, ruleId)).rule).toEqual(before);
       await proposed(field);
@@ -129,7 +129,7 @@ test('S3 transcript correction invalidates the prior proposal and spoken yes can
   const { admin: url, evidence } = configuration(); const admin = connectDb(url.toString(), 2);
   try {
     const { owner, ruleId, before } = await freshOffer(admin.db, 'SCRIPTED S3 transcript correction');
-    await signIn(context, owner.token); await page.goto('/merchant'); const field = group(page, ruleId);
+    await signIn(context, owner.token); await page.goto('/merchant'); const field = await group(page, ruleId);
     await uploadAndReview(field); await proposed(field);
     const first = await stored(admin.db, owner.id, ruleId);
     await field.getByRole('textbox', { name: 'Review transcript', exact: true }).fill('yes');
@@ -160,7 +160,7 @@ test('S3 cancellation, invalid bytes, wrong owner, missing session and interrupt
   const { admin: url, evidence } = configuration(); const admin = connectDb(url.toString(), 2);
   try {
     const { owner, ruleId, before } = await freshOffer(admin.db, 'SCRIPTED S3 failure outcomes');
-    await signIn(context, owner.token); await page.goto('/merchant'); let field = group(page, ruleId);
+    await signIn(context, owner.token); await page.goto('/merchant'); let field = await group(page, ruleId);
     await transcribe(field, Buffer.from('OggSnotWav'));
     await expect(field.getByText('This file is not a supported WAV.', { exact: false })).toBeVisible();
     expect((await stored(admin.db, owner.id, ruleId)).edits).toHaveLength(0);
@@ -178,14 +178,14 @@ test('S3 cancellation, invalid bytes, wrong owner, missing session and interrupt
     expect((await stored(admin.db, owner.id, ruleId)).rule).toEqual(before);
     expect((await stored(admin.db, owner.id, ruleId)).outcomes).toEqual([]);
     await capture(page, evidence, 'owner-refused');
-    await page.reload(); field = group(page, ruleId); await uploadAndReview(field);
+    await page.reload(); field = await group(page, ruleId); await uploadAndReview(field);
     const ownEdit = await stored(admin.db, owner.id, ruleId);
     const outsider = await mintMerchant(admin.db, 'SCRIPTED S3 other owner');
     await signIn(context, outsider.token);
     await field.getByRole('button', { name: 'Ask Wonder for proposal', exact: true }).click();
     await expect(field.getByText('This voice edit is unavailable for your account.', { exact: true })).toBeVisible();
     expect(await stored(admin.db, owner.id, ruleId)).toEqual(ownEdit);
-    await signIn(context, owner.token); await page.reload(); field = group(page, ruleId);
+    await signIn(context, owner.token); await page.reload(); field = await group(page, ruleId);
     await context.clearCookies(); await transcribe(field);
     await expect(field.getByText('Your session ended. Open your merchant link again.', { exact: true })).toBeVisible();
     expect(await stored(admin.db, owner.id, ruleId)).toEqual(ownEdit);
@@ -203,7 +203,7 @@ test('S3 mixed manual-only request changes nothing and private voice data stays 
   const { admin: url, evidence } = configuration(); const admin = connectDb(url.toString(), 2);
   try {
     const { owner, ruleId, before } = await freshOffer(admin.db, DEMO_MERCHANT_NAME);
-    await signIn(context, owner.token); await page.goto('/merchant'); const field = group(page, ruleId);
+    await signIn(context, owner.token); await page.goto('/merchant'); const field = await group(page, ruleId);
     await uploadAndReview(field);
     const privateText = 'S3_PRIVATE_TRANSCRIPT_CANARY set discount to 25 percent and private floor to 1 dollar.';
     await field.getByRole('textbox', { name: 'Review transcript', exact: true }).fill(privateText);
@@ -233,7 +233,7 @@ test('S3 upload response interruption retries the same edit without a duplicate 
   const { admin: url, evidence } = configuration(); const admin = connectDb(url.toString(), 2);
   try {
     const { owner, ruleId, before } = await freshOffer(admin.db, 'SCRIPTED S3 lost upload response');
-    await signIn(context, owner.token); await page.goto('/merchant'); const field = group(page, ruleId);
+    await signIn(context, owner.token); await page.goto('/merchant'); const field = await group(page, ruleId);
     let dropped = false;
     await page.route('**/merchant', async route => {
       if (!dropped && route.request().method() === 'POST') {

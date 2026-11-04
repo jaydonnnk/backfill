@@ -1,6 +1,7 @@
 import { merchantKopiCue, merchantStep } from "@/components/merchant-kopi";
 import { KopiMessage } from "@/components/kopi-companion";
 import Link from "next/link";
+import { Kopi } from "@/components/kopi";
 import { MerchantAccessForm } from "./access-form";
 import { percent } from "@/domain/onboarding/replan";
 import { available, dollars } from "@/lib/commitments/service";
@@ -11,7 +12,8 @@ import { merchantVisibility } from "@/lib/onboarding/links";
 import { dashboard, windowText } from "@/lib/onboarding/service";
 import { webEnv, whatsappEnv } from "@/env";
 import { linkedPhoneEnding } from "@/lib/whatsapp/service";
-import { apply, leave, uploadMenu } from "./actions";
+import { apply, leave } from "./actions";
+import { MenuDrop } from "./menu-drop";
 import { LinkWhatsapp } from "./link-whatsapp";
 import { ReplanTrigger } from "./replan-trigger";
 import { currentMerchant } from "./session";
@@ -50,8 +52,7 @@ const VERDICT_TEXT: Record<string, string> = {
 
 const readAt = new Intl.DateTimeFormat("en-SG", { timeZone: "Asia/Singapore", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false });
 
-const card = "flex flex-col gap-4 rounded-lg border border-[var(--border)] p-5";
-const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-ink)] hover:opacity-90";
+const button = "button primary";
 
 function SignedOut() {
   return (
@@ -79,154 +80,111 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const whatsapp = whatsappEnv(webEnv()) !== null;
   const linkedEnding = whatsapp ? await linkedPhoneEnding(webDb(), merchant.id) : null;
 
+  const pendingDraft = board.drafts.find((d) => d.ruleId === null && d.verdict === "ok");
+  const readyPlan = board.plans.some((p) => p.verdict === "ok" && !p.applied);
+  const hasOffers = board.rules.length > 0;
+
   return (
-    <main className="workspace-page">
-      <header className="flex items-start justify-between gap-4">
-        <div className="flex min-w-0 flex-col gap-1">
-          <p className="text-sm text-[var(--muted)]">Backfill for merchants</p>
-          <h1 className="text-2xl font-semibold tracking-tight break-words">{merchant.name}</h1>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-3 pt-1"><Link href="/merchant/access" className="text-sm underline underline-offset-4">Save access link</Link><form action={leave}>
-          <button type="submit" className="text-sm text-[var(--muted)] underline underline-offset-4">
-            Sign out
-          </button>
-        </form></div>
+    <main className="workspace-page merchant-board">
+      <header className="board-head">
+        <h1>{merchant.name}</h1>
+        <div className="board-links"><Link href="/merchant/access">Save access link</Link><form action={leave}><button type="submit">Sign out</button></form></div>
       </header>
 
       <KopiMessage {...cue} />
-      <ol className="onboarding-steps" aria-label="Merchant journey"><li aria-current={step === 1 ? "step" : undefined}>01 / Read your menu</li><li aria-current={step === 2 ? "step" : undefined}>02 / Confirm your terms</li><li aria-current={step === 3 ? "step" : undefined}>03 / Follow your offers</li></ol>
-      <dl className="merchant-summary"><div><dt>Your offers</dt><dd>{board.rules.length}</dd></div><div><dt>Covers filled</dt><dd>{savingsLedger.totals.covers}</dd></div><div><dt>Buyer savings</dt><dd>{dollars(savingsLedger.totals.buyerShareCents)}</dd></div></dl>
-      {notice && (
-        <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">
-          {notice}
-        </p>
-      )}
-      {awaitingReview && <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">Your offer is awaiting a quick review before buyer agents can see it.</p>}
+      <ol className="onboarding-steps" aria-label="Merchant journey"><li className={step > 1 ? "finished" : undefined} aria-current={step === 1 ? "step" : undefined}>01 / Read your menu</li><li className={step > 2 ? "finished" : undefined} aria-current={step === 2 ? "step" : undefined}>02 / Confirm your terms</li><li aria-current={step === 3 ? "step" : undefined}>03 / Follow your offers</li></ol>
+
+      {notice && <p role="status" className="board-notice">{notice}</p>}
+      {awaitingReview && <p role="status" className="board-notice">Your offer is awaiting a quick review before buyer agents can see it.</p>}
       {needsPlan && <ReplanTrigger />}
+      {pendingDraft && <section className="next-step"><div><h2>Your menu is read</h2><p>Check the prices and set your quiet-hour deal.</p></div><Link className="button primary" href={`/merchant/drafts/${pendingDraft.id}`}>Confirm your terms</Link></section>}
+      {readyPlan && <section className="next-step"><div><h2>You sold out. Wonder has a plan.</h2><p>Review it before anything changes.</p></div><a className="button primary" href="#plans">Review the plan</a></section>}
 
-      <section className={card}>
-        <h2 className="text-lg font-medium">Add an offer from your menu</h2>
-        <p className="text-sm text-[var(--muted)]">
-          Muse Spark reads the prices from a photo of your menu. You check them and set your off-peak terms before anything is published. The photo is not kept.
-        </p>
-        <form action={uploadMenu} className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input
-            type="file"
-            name="photo"
-            aria-label="Menu photo"
-            accept="image/jpeg,image/png,image/webp"
-            required
-            className="min-w-0 flex-1 text-sm file:mr-3 file:rounded-md file:border file:border-[var(--border)] file:bg-transparent file:px-3 file:py-2 file:text-sm file:text-[var(--foreground)]"
-          />
-          <SubmitButton className={button} pendingLabel="Reading menu…">
-            Read menu
-          </SubmitButton>
-        </form>
-      </section>
+      {hasOffers && <dl className="merchant-summary"><div><dt>Covers filled</dt><dd>{savingsLedger.totals.covers}</dd></div><div><dt>Booked value</dt><dd>{dollars(savingsLedger.totals.chargedCents)}</dd></div><div><dt>Buyer savings</dt><dd>{dollars(savingsLedger.totals.buyerShareCents)}</dd></div></dl>}
 
-      {whatsapp && (
-        <section className={card}>
-          <h2 className="text-lg font-medium">Change your offer by WhatsApp</h2>
-          <p className="text-sm text-[var(--muted)]">
-            Link your phone, then message the Backfill WhatsApp number, for example &ldquo;make it 20% off&rdquo;. Your Muse Wonder agent shows the change and it goes live only after you reply YES.
-          </p>
-          <LinkWhatsapp linkedEnding={linkedEnding} button={button} />
-        </section>
-      )}
+      {!hasOffers && <section className="board-start">
+        <div>
+          <h2>Add an offer from your menu</h2>
+          <MenuDrop large />
+          <p className="small">Muse Spark reads the prices. You check them and set the terms before anything goes live. The photo is not kept.</p>
+          <p className="small">No offers yet.</p>
+        </div>
+        <Kopi />
+      </section>}
 
-      <section className={card}>
-        <h2 className="text-lg font-medium">Your offers</h2>
-        {board.rules.length === 0 ? (
-          <p className="text-sm text-[var(--muted)]">No offers yet.</p>
-        ) : (
-          <ul className="flex flex-col divide-y divide-[var(--border)]">
-            {board.rules.map(({ rule, offerPriceCents, published }) => (
-              <li key={rule.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0">
-                <div className="chips"><span className={`chip ${available(rule) && !awaitingReview ? "good" : "wait"}`}>{awaitingReview ? "Awaiting review" : available(rule) ? "Open to commitments" : "Unavailable"}</span><span className="chip">{published ? "Menu confirmed" : "Configured offer"}</span><span className="chip">Terms v{rule.termsVersion}</span></div>
-                <p className="font-medium">
-                  {percent(rule.terms.discountBps)} off: {dollars(rule.listPriceCents)} becomes {dollars(offerPriceCents)} per cover
-                </p>
-                <p className="text-sm text-[var(--muted)]">{windowText(rule)}</p>
-                <p className="text-sm text-[var(--muted)]">
-                  Unlocks at {rule.terms.minPoolCovers} covers · up to {rule.terms.perAgentCapCovers} per agent · {rule.capacityCovers} covers available · your floor{" "}
-                  {dollars(rule.terms.floorPriceCents)} (never shown to buyers) · terms v{rule.termsVersion}
-                </p>
-                <OwnerVoice ruleId={rule.id} termsVersion={rule.termsVersion} />
-                <OwnerCreative ruleId={rule.id} termsVersion={rule.termsVersion} initial={creative.get(rule.id) ?? null} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      {hasOffers && <div className="board-grid">
+        <div className="board-main">
+          <h2>Your offers</h2>
+          {board.rules.map(({ rule, offerPriceCents, published }) => {
+            const latest = board.occurrences.filter((o) => o.ruleId === rule.id).at(-1);
+            return <article className="offer-chit" key={rule.id}>
+              <div className="chips"><span className={`chip ${available(rule) && !awaitingReview ? "good" : "wait"}`}>{awaitingReview ? "Awaiting review" : available(rule) ? "Open to commitments" : "Unavailable"}</span><span className="chip">{published ? "Menu confirmed" : "Configured offer"}</span><span className="chip">Terms v{rule.termsVersion}</span></div>
+              <div className="offer-deal">
+                <strong>{percent(rule.terms.discountBps)} off</strong>
+                <p><s>{dollars(rule.listPriceCents)}</s> {dollars(offerPriceCents)} <span>per cover</span></p>
+              </div>
+              <p className="offer-when">{windowText(rule)}</p>
+              <dl className="offer-facts">
+                <div><dt>Unlocks at</dt><dd>{rule.terms.minPoolCovers} covers</dd></div>
+                <div><dt>Covers available</dt><dd>{rule.capacityCovers}</dd></div>
+                <div><dt>Most per agent</dt><dd>{rule.terms.perAgentCapCovers}</dd></div>
+                <div><dt>Your floor (private)</dt><dd>{dollars(rule.terms.floorPriceCents)}</dd></div>
+              </dl>
+              {latest && <div className="offer-fill">
+                <p>{latest.visitDate}: {latest.unlocked ? `${latest.covers} of ${rule.capacityCovers} covers filled` : "Pool not reached"}{latest.soldOut && " · Sold out"}</p>
+                <progress max={rule.capacityCovers} value={Math.min(latest.covers, rule.capacityCovers)} aria-label="Covers filled in the latest round" />
+              </div>}
+              <div className="offer-tools">
+                <details><summary>Change by voice</summary><OwnerVoice ruleId={rule.id} termsVersion={rule.termsVersion} /></details>
+                <details><summary>Add a dish photo</summary><OwnerCreative ruleId={rule.id} termsVersion={rule.termsVersion} initial={creative.get(rule.id) ?? null} /></details>
+              </div>
+            </article>;
+          })}
 
-      <section className={card}>
-        <h2 className="text-lg font-medium">Savings ledger</h2>
-        <p className="text-sm">{savingsLedger.totals.entries} filled commitments, {savingsLedger.totals.covers} covers. Buyers saved {dollars(savingsLedger.totals.buyerShareCents)}.</p>
-        <p className="text-sm text-[var(--muted)]">Accepted total {dollars(savingsLedger.totals.chargedCents)}. Agent share {dollars(savingsLedger.totals.agentShareCents)}. Network share {dollars(savingsLedger.totals.networkShareCents)}. No money is collected by this demo.</p>
-        <p className="text-sm text-[var(--muted)]">{savingsLedger.reconciled ? "Ledger totals reconcile." : "Historical entries need reconciliation. Totals above include recorded entries only."}</p>
-      </section>
+          {board.plans.length > 0 && <section id="plans" className="board-plans">
+            <h2>Muse Wonder plans</h2>
+            <ul>
+              {board.plans.map((p) => <li key={p.id}>
+                <p className="small">After the sellout on {p.visitDate} · {p.applied ? "Applied" : (VERDICT_TEXT[p.verdict] ?? p.verdict)}</p>
+                {p.discountBps !== null && <p className="plan-terms">{percent(p.discountBps)} off · {p.capacityCovers} covers · unlocks at {p.minPoolCovers} · up to {p.perAgentCapCovers} per agent</p>}
+                {p.rationale && <p>{p.rationale}</p>}
+                {p.verdict === "ok" && !p.applied && <form action={apply}><input type="hidden" name="planId" value={p.id} /><SubmitButton className={button} pendingLabel="Applying…">Apply plan</SubmitButton></form>}
+              </li>)}
+            </ul>
+          </section>}
+        </div>
 
-      {board.occurrences.length > 0 && (
-        <section className={card}>
-          <h2 className="text-lg font-medium">Fill history</h2>
-          <ul className="flex flex-col gap-2 text-sm">
-            {board.occurrences.map((o) => (
-              <li key={`${o.ruleId}/${o.visitDate}`} className="flex flex-wrap justify-between gap-2">
-                <span>{o.visitDate}</span>
-                <span className="text-[var(--muted)]">
-                  {o.unlocked ? `${o.covers} ${o.covers === 1 ? "cover" : "covers"} filled` : "Pool not reached"}
-                  {o.soldOut && <span className="ml-2 font-medium text-[var(--accent)]">Sold out</span>}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        <aside className="board-side">
+          <section>
+            <h2>Add an offer from your menu</h2>
+            <MenuDrop />
+          </section>
+          {whatsapp && <section>
+            <h2>Change your offer by WhatsApp</h2>
+            <p className="small">Text &ldquo;make it 20% off&rdquo;. It goes live only after you reply YES.</p>
+            <LinkWhatsapp linkedEnding={linkedEnding} button="button" />
+          </section>}
+          <section>
+            <h2>Savings ledger</h2>
+            <p>{savingsLedger.totals.entries} filled commitments, {savingsLedger.totals.covers} covers.</p>
+            <p className="small">Buyers saved {dollars(savingsLedger.totals.buyerShareCents)}. Agent share {dollars(savingsLedger.totals.agentShareCents)}. Network share {dollars(savingsLedger.totals.networkShareCents)}. No money is collected by this demo.</p>
+            <p className="small">{savingsLedger.reconciled ? "Ledger totals reconcile." : "Historical entries need reconciliation. Totals above include recorded entries only."}</p>
+          </section>
+          {board.occurrences.length > 0 && <section>
+            <h2>Fill history</h2>
+            <ul className="board-rows">
+              {board.occurrences.map((o) => <li key={`${o.ruleId}/${o.visitDate}`}><span>{o.visitDate}</span><span className="muted">{o.unlocked ? `${o.covers} ${o.covers === 1 ? "cover" : "covers"} filled` : "Pool not reached"}{o.soldOut && <strong className="spark"> Sold out</strong>}</span></li>)}
+            </ul>
+          </section>}
+        </aside>
+      </div>}
 
-      {board.plans.length > 0 && (
-        <section className={card}>
-          <h2 className="text-lg font-medium">Muse Wonder plans</h2>
-          <ul className="flex flex-col divide-y divide-[var(--border)]">
-            {board.plans.map((p) => (
-              <li key={p.id} className="flex flex-col gap-2 py-3 first:pt-0 last:pb-0">
-                <p className="text-sm text-[var(--muted)]">
-                  After the sellout on {p.visitDate} · {p.applied ? "Applied" : (VERDICT_TEXT[p.verdict] ?? p.verdict)}
-                </p>
-                {p.discountBps !== null && (
-                  <p className="font-medium">
-                    {percent(p.discountBps)} off · {p.capacityCovers} covers · unlocks at {p.minPoolCovers} · up to {p.perAgentCapCovers} per agent
-                  </p>
-                )}
-                {p.rationale && <p className="text-sm">{p.rationale}</p>}
-                {p.verdict === "ok" && !p.applied && (
-                  <form action={apply}>
-                    <input type="hidden" name="planId" value={p.id} />
-                    <SubmitButton className={button} pendingLabel="Applying…">
-                      Apply plan
-                    </SubmitButton>
-                  </form>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {board.drafts.length > 0 && (
-        <section className={card}>
-          <h2 className="text-lg font-medium">Recent menu reads</h2>
-          <ul className="flex flex-col gap-2 text-sm">
-            {board.drafts.map((d) => (
-              <li key={d.id} className="flex justify-between gap-3">
-                <a href={`/merchant/drafts/${d.id}`} className="shrink-0 underline underline-offset-4">
-                  {readAt.format(d.createdAt)}
-                </a>
-                <span className="text-right text-[var(--muted)]">{d.ruleId ? "Published" : d.verdict === "ok" ? `${dollars(d.listPriceCents ?? 0)} cover, not published` : "Could not use"}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {board.drafts.length > 0 && <details className="board-reads">
+        <summary>Recent menu reads</summary>
+        <ul className="board-rows">
+          {board.drafts.map((d) => <li key={d.id}><a href={`/merchant/drafts/${d.id}`}>{readAt.format(d.createdAt)}</a><span className="muted">{d.ruleId ? "Published" : d.verdict === "ok" ? `${dollars(d.listPriceCents ?? 0)} cover, not published` : "Could not use"}</span></li>)}
+        </ul>
+      </details>}
     </main>
   );
 }

@@ -42,9 +42,10 @@ export async function proveLiveOwnerVoice(options: { appUrl: string; adminUrl: s
       });
       try {
         await page.goto(`${options.appUrl}/merchant`);
+        await page.getByText('Change by voice', { exact: true }).click();
         const field = page.getByRole('group', { name: `Voice edit for offer ${before.id}`, exact: true });
         stage = `${name}-voice`;
-        await field.getByLabel('Owner instruction WAV', { exact: true }).setInputFiles(join(options.inputs, `${name}.wav`));
+        await field.getByLabel('Or upload an owner instruction WAV', { exact: true }).setInputFiles(join(options.inputs, `${name}.wav`));
         await field.getByRole('button', { name: 'Transcribe audio', exact: true }).click();
         await expect.poll(async () => ['transcribed', 'failed'].includes((await state()).edits[0]?.phase ?? ''), { timeout: 40_000 }).toBe(true);
         const transcribed = await state();

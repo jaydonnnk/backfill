@@ -42,7 +42,6 @@ function Scene({ scene, now, shown, savings }: { scene: DemoScene; now: number |
   const reached = covers >= scene.minPoolCovers;
   const deadlinePassed = now !== null && now >= Date.parse(scene.commitBy);
   const result = complete ? scene.pooled.unlocked ? "The group unlocked the offer." : "This group didn’t unlock the offer." : reached ? "Minimum reached. Waiting for confirmation." : "A few more diners. A better price.";
-  const events = playing ? scene.events.filter(e => e.kind === "commitment" && e.at <= (buyers.at(-1)?.committedAt ?? "")) : scene.events;
   return <>
     <section className="booking-stage" aria-label="Group booking progress">
       <div className="booking-offer">
@@ -67,32 +66,51 @@ function Scene({ scene, now, shown, savings }: { scene: DemoScene; now: number |
         {complete && scene.pooled.unlocked && covers>scene.pooled.filledCovers && <p className="small">{covers} diners requested seats; {scene.pooled.filledCovers} could be confirmed.</p>}
       </div>
     </section>
-    <details className="demo-details"><summary>See booking details</summary><div className="demo-detail-content">
-      <p>{scene.summary}</p><p className="small">Simulated buyers. Per-party decision provenance and approval evidence appear below when stored. Missing records remain unavailable. No real payments.</p>
-      <div className="table-scroll"><table><caption>Individual bookings</caption><thead><tr><th>Buyer</th><th>Diners</th><th>On their own</th><th>With the group</th></tr></thead><tbody>{buyers.map(b=><tr key={b.agentId}><td>{b.label}<small>{b.agentId}</small></td><td>{b.covers}</td><td>{b.soloUnlocks ? 'Meets minimum' : 'Below minimum'}</td><td>{playing?'Replaying':b.outcome.replaceAll('_',' ')}</td></tr>)}</tbody></table></div>
-      <details><summary>Booking history</summary><ol className="booking-history">{events.map((event,i)=><li key={`${event.at}:${i}`}><span>{event.label}</span><time dateTime={event.at}>{sgTime(event.at)} SGT</time></li>)}</ol></details>
-    </div></details>
-    {!playing && <DecisionTrail scene={scene} />}
+    <Roster scene={scene} buyers={buyers} playing={playing} />
     {!playing && scene.pooled.soldOut && <details className="demo-details wonder-panel"><summary>What could the café offer next?</summary><div className="demo-detail-content"><p className="eyebrow">Muse Wonder · {scene.plan?.provenance==='recorded_replay'?'recorded Wonder plan replayed':scene.plan?.provenance==='fixture'?'scripted fixture':'stored provenance unavailable'}</p>{!scene.plan ? <p>No Wonder plan stored yet.</p> : scene.plan.verdict==='ok' ? <><div className="plan-diff"><div><span>Discount</span><strong>{percent(scene.discountBps)} → {scene.plan.discountBps===null?'Unknown':percent(scene.plan.discountBps)}</strong></div><div><span>Seats</span><strong>{scene.pooled.filledCovers} → {scene.plan.capacityCovers}</strong></div><div><span>Minimum diners</span><strong>{scene.minPoolCovers} → {scene.plan.minPoolCovers}</strong></div></div><p>{scene.plan.applied?'Approved by the café.':'The café must approve these terms before they go live.'}</p></> : <p>The suggestion didn’t meet the café’s rules. Its offer stays unchanged.</p>}</div></details>}
   </>;
 }
 
-function DecisionTrail({ scene }: { scene: DemoScene }) {
-  return <details className="demo-details" open><summary>Decision and approval trail</summary><div className="demo-detail-content">
-    <p className="small">Each party acts separately. A proposal reserves no seats. Submitted commitments stay pending until settlement. Checkout is simulated.</p>
-    <p className="small">Scripted authorization records a local script accepting exact terms. It does not establish a real person&apos;s approval. Missing evidence stays unavailable.</p>
-    {scene.trail?.length ? scene.trail.map(t => <details className="trail-party" key={t.id}><summary>{t.final?.partyId ?? t.terms?.partyId} · {t.result.replaceAll('_', ' ')}</summary><div className="demo-detail-content">
-      <dl className="trail-fields">
-        <div><dt>Request</dt><dd>{t.request ?? 'Unavailable for this commitment'}</dd></div>
-        <div><dt>Bounded output</dt><dd>{t.output ? `${t.output.covers} covers. ${t.output.reason}` : 'Unavailable for this commitment'}<small>{t.provenance === 'fixture' ? 'Authored synthetic fixture, no model call' : t.provenance === 'recorded_replay' ? 'Historical recorded output replayed' : 'Decision provenance unavailable'}</small></dd></div>
-        <div><dt>Proposed terms</dt><dd>{t.terms ? `v${t.terms.termsVersion} · ${t.terms.visitDate} · ${t.terms.covers} covers · ${dollars(t.terms.pricePerCoverCents)} each · ${dollars(t.terms.totalCents)} total` : 'Unavailable'}</dd></div>
-        <div><dt>Approval evidence</dt><dd>{t.approval === 'scripted' ? 'Scripted authorization matches exact terms' : t.approval === 'mismatch' ? 'Approval mismatch. No matching authorization' : 'Unavailable. No approval established'}</dd></div>
-        <div><dt>Submitted commitment</dt><dd>{t.commitmentId ?? 'None. Proposal only'}{t.final && <small>{`v${t.final.termsVersion} · ${t.final.visitDate} · ${t.final.covers} covers · ${t.final.pricePerCoverCents === null ? 'Accepted price unavailable' : `${dollars(t.final.pricePerCoverCents)} each · ${dollars(t.final.pricePerCoverCents * t.final.covers)} total`}`}</small>}</dd></div>
-        <div><dt>Result</dt><dd>{t.result === 'not_filled' ? 'Not filled. No discounted booking or savings' : t.result === 'proposal_only' ? 'Proposal only. No commitment or confirmed booking' : t.result === 'pending' ? 'Pending. No confirmed booking yet' : 'Filled at settlement. Simulated checkout'}</dd></div>
-        <div><dt>Record links</dt><dd>Run {t.terms?.runId ?? 'unavailable'}<small>Rule {t.final?.ruleId ?? t.terms?.ruleId} · occurrence {t.final?.visitDate ?? t.terms?.visitDate}</small><small>Trail {t.id}</small></dd></div>
-      </dl>
-    </div></details>) : <p>Decision and approval evidence unavailable for this saved scene.</p>}
-  </div></details>;
+const RESULT_MARK = { filled: ['✓', 'Filled'], not_filled: ['×', 'Not filled'], pending: ['…', 'Pending'], proposal_only: ['?', 'Proposal only'] } as const;
+
+function SeatPips({ covers }: { covers: number }) {
+  return <span className="seat-row" role="img" aria-label={`${covers} ${covers === 1 ? 'seat' : 'seats'}`}>{Array.from({ length: Math.min(covers, 12) }, (_, i) => <span key={i} className="on" />)}</span>;
+}
+
+// One tile per party. Opening a tile spans the row and shows that party's stored evidence.
+function Roster({ scene, buyers, playing }: { scene: DemoScene; buyers: DemoScene['buyers']; playing: boolean }) {
+  const place = new Map(buyers.map((b, i) => [b.agentId, i]));
+  const rank = (t: NonNullable<DemoScene['trail']>[number]) => place.get(t.final?.partyId ?? t.terms?.partyId ?? '') ?? buyers.length;
+  const trail = [...(scene.trail ?? [])].sort((a, b) => rank(a) - rank(b));
+  const alone = scene.buyers.length > 0 && scene.buyers.every(b => !b.soloUnlocks);
+  return <section className="roster" aria-label="Parties in this group">
+    <div className="roster-head">
+      <h2>Who joined</h2>
+      <p>{scene.buyers.length} separate parties{alone ? '. None could unlock this alone.' : '.'}</p>
+    </div>
+    {playing || !trail.length ? <div className="roster-grid">{buyers.map(b => <div className="party-tile" key={b.agentId}>
+      <span className="party-top"><SeatPips covers={b.covers} /><span className="party-state">{playing ? 'Joining' : RESULT_MARK[b.outcome][1]}</span></span>
+      <span className="party-ask">{b.label}</span>
+    </div>)}</div> : <div className="roster-grid">{trail.map(t => {
+      const covers = t.final?.covers ?? t.terms?.covers ?? 0;
+      const [mark, word] = RESULT_MARK[t.result];
+      return <details className={`trail-party party-${t.result}`} key={t.id}>
+        <summary>
+          <span className="party-top"><SeatPips covers={covers} /><span className="party-state"><span aria-hidden="true">{mark}</span> {word}</span></span>
+          <span className="party-ask">{t.request ?? t.final?.partyId ?? t.terms?.partyId}</span>
+        </summary>
+        <dl className="trail-fields">
+          <div><dt>Model&apos;s answer</dt><dd>{t.output ? `${t.output.covers} covers. ${t.output.reason}` : 'Unavailable for this commitment'}<small>{t.provenance === 'fixture' ? 'Authored synthetic fixture, no model call' : t.provenance === 'recorded_replay' ? 'Historical recorded output replayed' : 'Decision provenance unavailable'}</small></dd></div>
+          <div><dt>Proposed terms</dt><dd>{t.terms ? `v${t.terms.termsVersion} · ${t.terms.visitDate} · ${t.terms.covers} covers · ${dollars(t.terms.pricePerCoverCents)} each · ${dollars(t.terms.totalCents)} total` : 'Unavailable'}</dd></div>
+          <div><dt>Approval evidence</dt><dd>{t.approval === 'scripted' ? 'Scripted authorization matches exact terms' : t.approval === 'mismatch' ? 'Approval mismatch. No matching authorization' : 'Unavailable. No approval established'}</dd></div>
+          <div><dt>Submitted commitment</dt><dd>{t.commitmentId ?? 'None. Proposal only'}{t.final && <small>{`v${t.final.termsVersion} · ${t.final.visitDate} · ${t.final.covers} covers · ${t.final.pricePerCoverCents === null ? 'Accepted price unavailable' : `${dollars(t.final.pricePerCoverCents)} each · ${dollars(t.final.pricePerCoverCents * t.final.covers)} total`}`}</small>}</dd></div>
+          <div><dt>Result</dt><dd>{t.result === 'not_filled' ? 'Not filled. No discounted booking or savings' : t.result === 'proposal_only' ? 'Proposal only. No commitment or confirmed booking' : t.result === 'pending' ? 'Pending. No confirmed booking yet' : 'Filled at settlement. Simulated checkout'}</dd></div>
+          <div><dt>Record links</dt><dd>Party {t.final?.partyId ?? t.terms?.partyId ?? 'unavailable'}<small>Run {t.terms?.runId ?? 'unavailable'}</small><small>Rule {t.final?.ruleId ?? t.terms?.ruleId} · occurrence {t.final?.visitDate ?? t.terms?.visitDate}</small><small>Trail {t.id}</small></dd></div>
+        </dl>
+      </details>;
+    })}</div>}
+    {!playing && <p className="roster-note">Simulated buyers. Per-party decision provenance and approval evidence open from each tile. Scripted authorization records a local script accepting exact terms. It does not establish a real person&apos;s approval. Missing records remain unavailable.</p>}
+  </section>;
 }
 
 function Ledger({ ledger }: { ledger: DemoLedger | null }) {
@@ -165,10 +183,8 @@ export function LiveBoard({ initial, unavailable = false }: { initial: DemoSnaps
   }
   return <main className="page demo-page demo-simple">
     <KopiMessage {...demoKopiCue(view.scene, feedState, replay !== null)} />
-    <header className="demo-intro"><p className="eyebrow">Backfill in action · Simulated buyers</p><h1>Quiet café.<br/><em>Full table.</em></h1><p>Watch separate bookings come together to unlock an off-peak discount.</p></header>
-    <div className="demo-toolbar"><div className="actions"><button className="button primary" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>{replay ? 'Replay' : 'Watch how it works'} <span aria-hidden="true">↗</span></button>{replay && <button className="button" onClick={() => { replaying.current = false; observation.current = { ...observation.current, replay: true }; setReplay(null); }}>Back to latest</button>}</div><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{replay ? 'Recorded playback' : feedState === 'live' ? 'Latest saved bookings' : feedState === 'stale' ? 'Updates paused · last saved view' : 'Connecting to updates'}</p></div>
-    {view.scene?.trail?.some(t => t.provenance === "recorded_replay") && <p>Recorded buyer decisions replayed on {view.scene.visitDate}</p>}
+    <header className="demo-top"><div className="demo-intro"><h1>Quiet café. <em>Full table.</em></h1><p>Separate bookings unlock one off-peak deal. Buyers are simulated.</p></div><div className="demo-toolbar"><div className="actions"><button className="button primary" onClick={startReplay} disabled={!snapshot.scene || snapshot.scene.buyers.length === 0}>{replay ? 'Replay' : 'Watch how it works'} <span aria-hidden="true">↗</span></button>{replay && <button className="button" onClick={() => { replaying.current = false; observation.current = { ...observation.current, replay: true }; setReplay(null); }}>Back to latest</button>}</div><div className="demo-feed"><p className="feed-state" role="status"><span className={`feed-dot ${feedState}`} />{replay ? 'Recorded playback' : feedState === 'live' ? 'Latest saved bookings' : feedState === 'stale' ? 'Updates paused · last saved view' : 'Connecting to updates'}</p>{view.scene?.trail?.some(t => t.provenance === "recorded_replay") && <p className="small">Recorded buyer decisions replayed on {view.scene.visitDate}</p>}</div></div></header>
     {view.scene ? <Scene key={view.scene.id} scene={view.scene} now={now} savings={view.ledger?.pools.find(p => `${p.ruleId}:${p.visitDate}` === view.scene?.id)?.buyerShareCents ?? null} shown={replay?.shown ?? view.scene.buyers.length} /> : <section className="panel"><h1>{feedState === "stale" ? "Feed unavailable" : "No scene yet"}</h1><p>{feedState === "stale" ? "Reconnecting to the stored scene. No results are available yet." : "The dashboard will update when a demo scene is recorded."}</p></section>}
-    {playing ? <p className="small muted">Recorded playback. No new bookings or payments.</p> : <details className="demo-details"><summary>More about this demo</summary><div className="demo-detail-content results-grid"><Ledger ledger={view.ledger} />{view.muse && <Muse muse={view.muse} />}</div></details>}
+    {playing ? <p className="small muted">Recorded playback. No new bookings or payments.</p> : <details className="demo-details"><summary>Ledger and booking history</summary><div className="demo-detail-content results-grid"><Ledger ledger={view.ledger} /><div className="demo-side">{view.muse && <Muse muse={view.muse} />}{view.scene && <section className="panel"><h2>Booking history</h2><ol className="booking-history">{view.scene.events.map((event,i)=><li key={`${event.at}:${i}`}><span>{event.label}</span><time dateTime={event.at}>{sgTime(event.at)} SGT</time></li>)}</ol></section>}</div></div></details>}
   </main>;
 }

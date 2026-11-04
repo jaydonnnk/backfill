@@ -10,10 +10,10 @@ export function LinkWhatsapp({ linkedEnding, button }: { linkedEnding: string | 
   const [state, action] = useActionState(startWhatsappLink, null);
   return (
     <form action={action} className="flex flex-col gap-3">
-      {linkedEnding && <p className="text-sm">WhatsApp is linked to the number ending {linkedEnding}. Linking again moves it to a new number.</p>}
+      {linkedEnding && <p className="small">WhatsApp is linked to the number ending {linkedEnding}. Linking again moves it to a new number.</p>}
       {state && (
-        <p role="status" className="text-sm">
-          Send <span className="font-mono text-base font-semibold tracking-widest">LINK {state.code}</span> from your phone to the Backfill WhatsApp number within 10 minutes.
+        <p role="status" className="small">
+          Send <span className="link-code">LINK {state.code}</span> from your phone to the Backfill WhatsApp number within 10 minutes.
         </p>
       )}
       <div>
