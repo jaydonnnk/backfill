@@ -1,0 +1,31 @@
+{
+  "commit": "b31262666444067293885856a88c39bd0a3021eb",
+  "authorized": "User explicitly approved applying the production migration and deploying the reviewed app; 0015–0017 are required dependencies.",
+  "startedAt": "2026-11-04T12:41:35.844Z",
+  "before": {
+    "merchants": 4,
+    "rules": 6,
+    "commitments": 26,
+    "ledger": 15,
+    "owner_changes": 1
+  },
+  "after": {
+    "merchants": 4,
+    "rules": 6,
+    "commitments": 26,
+    "ledger": 15,
+    "owner_changes": 1
+  },
+  "applied": [
+    "0015_proof_s3_owner_voice",
+    "0016_proof_s4_buyer_sessions",
+    "0017_proof_s5_creative",
+    "0018_merchant_self_service"
+  ],
+  "runtimePermissions": {
+    "can_register": true,
+    "direct_insert": false
+  },
+  "signupSmoke": "Restricted runtime function created a merchant within a transaction; transaction deliberately rolled back. No persistent test merchant.",
+  "completedAt": "2026-11-04T12:42:09.962Z"
+}

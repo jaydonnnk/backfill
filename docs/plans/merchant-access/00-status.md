@@ -48,3 +48,12 @@
 - On 2026-11-04 the user accepted the working preview and explicitly requested pushing to main. This supersedes the earlier local-only restriction for Git publication.
 - Pre-publication checks were rerun: 631 tests passed, typecheck passed, ESLint passed, and git diff whitespace checks passed. origin/main matched the feature branch's base at aab5c76.
 - Publish with `[skip render]` so the new UI is not automatically deployed before production migration 0018. Production migration and deployment remain pending; no database change is included in this push.
+
+## Production release completed 2026-11-04
+
+- User explicitly approved applying the production migration and deploying after seeing the old live page. This supersedes the prior deployment hold.
+- Production was at migration 0014. Reviewed and applied prerequisite migrations 0015–0017 and signup migration 0018 with the existing Drizzle runner, using the direct owner connection. Existing merchants, rules, commitments, ledger, and owner-change row counts were unchanged.
+- Verified runtime register_merchant execution with a deliberately rolled-back transaction. Runtime still lacks direct merchant INSERT; no persistent smoke-test account was created.
+- Manually deployed b31262666444067293885856a88c39bd0a3021eb to Render service srv-dbfvsq2vcj2c73anqvqg. Deployment dep-dbligejncjis73dv3sqg reports Deploy succeeded|Live. Auto-deploy settings were preserved.
+- Verified https://backfill-9d0x.onrender.com/merchant shows the new signup and returning-link forms. Whitespace-only signup returns the expected validation message from the live server. Restored the blank form for the user.
+- Production evidence is saved locally in evidence/production-migration-2026-11-04.json and evidence/live-merchant-2026-11-04.jpg. Deployed application code at this release was b312626. No paid model calls or persistent test merchants were created.
