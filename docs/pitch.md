@@ -16,7 +16,7 @@ The owner uploads a menu, reviews Spark's extraction, and sets an offer window, 
 
 A visitor can use the synthetic buyer sandbox: Glimmer proposes constraints, Spark Open recommends a decision, and the visitor separately approves exact terms before submitting. Requests go to NVIDIA and Vercel AI Gateway. The hosted flow completed a synthetic smoke round on Nov 4.
 
-The recorded scene had 11 of 20 simulated buyers commit, filling 16 covers. Those are replayed decisions against a synthetic merchant. No payment, identity or attendance is enforced. The MCP connector claim is limited to one test by the author's own Muse account on Oct 29.
+The recorded scene had 11 of 20 simulated buyers commit, filling 16 covers. Those are replayed decisions against a synthetic merchant. No payment, identity or attendance is enforced. The author's own Muse account completed connector tests on Oct 29 and Nov 4; the latter has a matching sandbox commitment in production.
 
 The frozen comparison did not show AI superiority: Spark filled 6 focal seats in 3 of 12 worlds, compared with 12 in 6 of 12 for the fixed policy. Whole-pool seats were 32 versus 48. Guardrails enforce the merchant's limits independently of the model.
 

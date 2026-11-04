@@ -8,7 +8,7 @@ Muse Spark reads menus and proposes merchant counter-offers. Muse Wonder propose
 
 The buyer sandbox uses NVIDIA-hosted `meta/muse-glimmer-30b` for intent and Vercel AI Gateway `meta/muse-spark-open` for decisions. Independent approval switches gate both providers. Requests have bounded output, timeouts and no automatic retries. Sandbox tokens cannot access listed merchants. Limits cap mints, sessions and model actions.
 
-SAM 3.1 and Muse Image have one recorded run each and are disabled in the hosted product. Checkout is simulated. The recorded scene replays frozen historical decisions without inference. One Oct 29 connector test used the author's own Muse account; broader interoperability is unverified.
+SAM 3.1 and Muse Image have one recorded run each and are disabled in the hosted product. Checkout is simulated. The recorded scene replays frozen historical decisions without inference. The author's own Muse account completed Oct 29 and Nov 4 connector tests; broader interoperability is unverified.
 
 ## Observability and verification
 

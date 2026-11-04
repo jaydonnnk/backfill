@@ -22,7 +22,7 @@ The hosted buyer flow was verified on Nov 4 with NVIDIA Glimmer and Gateway Spar
 | SAM 3.1 | Dish segmentation | one recorded run, not enabled in the hosted product |
 | Muse Image | Offer image generation | one recorded run, not enabled in the hosted product |
 
-The recorded scene had 11 of 20 simulated buyers commit and filled 16 covers. It does not prove merchant demand, actual attendance or recovered revenue. The connector evidence is one test by the author's own Muse account on Oct 29. A new real Muse run remains pending.
+The recorded scene had 11 of 20 simulated buyers commit and filled 16 covers. It does not prove merchant demand, actual attendance or recovered revenue. The author's own Muse account completed connector tests on Oct 29 and Nov 4. The Nov 4 sandbox commitment is independently verified in [the evidence](docs/plans/final-leg/evidence/muse-connector/README.md).
 
 ## Local setup
 

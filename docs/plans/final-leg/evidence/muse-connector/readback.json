@@ -1,0 +1,26 @@
+{
+  "provenance": "Read-only Neon production SQL readback, 2026-11-04 23:12 SGT; not an inference from screenshots",
+  "proof": {
+    "commitment_id": "6a9d4bc3-5bb1-4c46-b7e2-1c6a91f02847",
+    "agent_id": "sandbox-8b94eaf1-4cc6-4e29-8551-e32d98b9d43e",
+    "agent_scope": "sandbox",
+    "merchant": "Backfill Sandbox Cafe (synthetic)",
+    "visibility": "sandbox",
+    "rule_id": "baccf111-0000-4000-8000-000000000104",
+    "terms_version": 1,
+    "visit_date": "2026-11-05",
+    "covers": 2,
+    "price_cents": 544,
+    "total_cents": 1088,
+    "committed_at": "2026-11-04T15:10:44.673+00:00",
+    "cancelled": false,
+    "settled": false,
+    "pooled_covers": 4,
+    "agent_commitments": 1
+  },
+  "screenshots": {
+    "03-commitment.png": "d517523f44acf5762966d189dc166d4e9e7854f1d6a3e27f36685ae081091bdd",
+    "01-offers.png": "7e454c718e3d9f6e55467677355df681fca9e3a5af89e5a73cd57f6c1902773e",
+    "02-approval.png": "80e5d3e2fac4650b40674aa6725096d73c0959197dbcf911e57a2fb0287d8e85"
+  }
+}
