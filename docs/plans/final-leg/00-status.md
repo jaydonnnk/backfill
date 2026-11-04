@@ -1,6 +1,6 @@
 # Final-leg release status
 
-Branch `final-leg`. Nothing from this branch has been pushed, merged or deployed.
+Branch `final-leg`. The tested branch has been merged, pushed and deployed. See [production release evidence](release-2026-11-04.md).
 
 ## Completed local work
 
@@ -14,7 +14,7 @@ Branch `final-leg`. Nothing from this branch has been pushed, merged or deployed
 
 Task 9 is complete locally. A fresh-context reviewer found no Critical findings and four Important findings. All four were fixed with observed failing regressions in `f9b51e5`; see [review record](review.md). Final fresh-clone installation, typecheck, lint, 685 tests, three consecutive 271-test integration runs, production build, seven merchant browser tests, four sandbox browser tests, and five truth/pixel tests passed. Thirty-six screenshots covered 375px and 1280px, light and dark. No paid or production calls ran.
 
-Gate B requires the operator's specific approvals before production actions. Task 10 has not started. Task 11 remains conditional on Task 10 being fully green before 04:00 SGT. Task 12 and the real Muse connector run remain operator-owned.
+Gate B was approved. Task 10 production engineering checks passed; its new real Muse run remains operator-owned and pending. Task 11 remains conditional on Task 10 being fully green before 04:00 SGT. Task 12 and the real Muse connector run remain operator-owned.
 
 ## Rulings and limits
 

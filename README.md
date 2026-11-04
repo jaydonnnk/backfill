@@ -8,7 +8,7 @@ Singapore cafés publish quiet-hour offers that independent buyer agents can unl
 
 Open `/buyer`, press **Use example**, save the request, and ask Glimmer to propose constraints. Review them, ask Spark Open for a decision, then separately approve and submit the exact terms. The sandbox merchant is synthetic. Checkout is simulated, with no payment, identity or attendance enforcement.
 
-This branch adds that visitor flow. Production availability remains subject to the final release gate; the hosted deployment may still show the earlier build.
+The hosted buyer flow was verified on Nov 4 with NVIDIA Glimmer and Gateway Spark Open, separate approval, and a stored synthetic commitment. See the [release record](docs/plans/final-leg/release-2026-11-04.md).
 
 ## Models
 

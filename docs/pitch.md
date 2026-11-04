@@ -14,7 +14,7 @@ Backfill explores a merchant-controlled route into agent commerce. Demand from i
 
 The owner uploads a menu, reviews Spark's extraction, and sets an offer window, minimum group size, per-agent cap and private price floor. Buyer agents submit conditional commitments through MCP. Code checks exact terms, scope, prices and capacity. Wonder proposes changes after a sellout, and the owner approves them.
 
-A visitor can use the synthetic buyer sandbox: Glimmer proposes constraints, Spark Open recommends a decision, and the visitor separately approves exact terms before submitting. Requests go to NVIDIA and Vercel AI Gateway. The hosted flow remains subject to the final release gate.
+A visitor can use the synthetic buyer sandbox: Glimmer proposes constraints, Spark Open recommends a decision, and the visitor separately approves exact terms before submitting. Requests go to NVIDIA and Vercel AI Gateway. The hosted flow completed a synthetic smoke round on Nov 4.
 
 The recorded scene had 11 of 20 simulated buyers commit, filling 16 covers. Those are replayed decisions against a synthetic merchant. No payment, identity or attendance is enforced. The MCP connector claim is limited to one test by the author's own Muse account on Oct 29.
 

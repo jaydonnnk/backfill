@@ -37,7 +37,7 @@ Supported Meta menu, negotiation and planning attempts are recorded in `llm_call
 - Recorded-demo dashboard: [Demo](https://backfill-9d0x.onrender.com/demo)
 - Model roles and live call log: [Why Muse Spark](https://backfill-9d0x.onrender.com/evals) and [System](https://backfill-9d0x.onrender.com/system)
 - Video: not recorded or uploaded for this final slice.
-- S9.5 publication: not authorized or performed in this session. Hosted behavior may differ from the local preview.
+- Final-leg release: deployed and smoke-tested on Nov 4; see [release evidence](../final-leg/release-2026-11-04.md). The new real Muse connector run remains pending.
 
 ## Evidence notes, not for the form
 
