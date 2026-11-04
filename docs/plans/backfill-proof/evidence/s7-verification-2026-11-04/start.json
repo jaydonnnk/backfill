@@ -1,0 +1,12 @@
+{
+  "startedAt": "2026-11-04T08:28:23.080359+00:00",
+  "revision": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f",
+  "branch": "main",
+  "originMain": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f",
+  "remoteMain": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f\trefs/heads/main",
+  "workingTree": "?? docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/\n?? docs/plans/backfill-proof/s7-handoff-2026-11-04.md",
+  "node": "v24.21.0",
+  "npm": "11.19.0",
+  "authority": "local S7 only; no inference/production/install/publication/S8",
+  "testDatabase": "postgres://postgres@127.0.0.1:5432/postgres"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "s6b",
+  "argv": [
+    "node_modules/.bin/tsx",
+    "scripts/verification/proof-s6b.ts",
+    "--check"
+  ],
+  "cwd": "/Users/jayd0/Desktop/meta-hack",
+  "exit": 0,
+  "startedAt": "2026-11-04T10:15:11.460536+00:00",
+  "endedAt": "2026-11-04T10:15:11.996403+00:00",
+  "envNames": [
+    "CPATH",
+    "HOME",
+    "LC_CTYPE",
+    "LIBRARY_PATH",
+    "MANPATH",
+    "NEXT_TELEMETRY_DISABLED",
+    "NODE_OPTIONS",
+    "PATH",
+    "SDKROOT",
+    "TEST_DATABASE_URL",
+    "TMPDIR",
+    "__CF_USER_TEXT_ENCODING"
+  ],
+  "log": "s6b.txt"
+}

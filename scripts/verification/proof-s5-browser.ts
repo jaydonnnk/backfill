@@ -68,8 +68,9 @@ const manifest = await Promise.all(sourceFiles.map(async path => {
 }));
 for (const entry of manifest) assert.equal(entry.snapshotSha256, entry.rootSha256, `Source copy differs from root: ${entry.path}`);
 const verificationInputs = await Promise.all([
+  ...(await filesBelow(join(root, 'docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/font-transport'))).map(path => path.slice(root.length + 1)),
   'drizzle/0017_proof_s5_creative.sql', 'tests/support/proof-s5.ts', 'tests/e2e/proof-s5.spec.ts', 'drizzle/meta/_journal.json',
-  'tests/support/proof-s1.ts', 'tests/support/proof-s2.ts', 'tests/support/proof-s3.ts', 'tests/support/proof-s4.ts', 'tests/support/proof-s5.ts', 'sim/buyers/buyer.ts', 'sim/buyers/intents.ts', 'tests/e2e/proof-s1.spec.ts', 'tests/e2e/proof-s2.spec.ts', 'tests/e2e/proof-s3.spec.ts', 'tests/e2e/proof-s4.spec.ts', 'scripts/verification/proof-s5-browser.ts', 'config/playwright.proof-s5.config.ts',
+  'tests/support/proof-s1.ts', 'tests/support/proof-s2.ts', 'tests/support/proof-s3.ts', 'tests/support/proof-s4.ts', 'tests/support/proof-s5.ts', 'sim/buyers/buyer.ts', 'sim/buyers/intents.ts', 'tests/e2e/proof-s1.spec.ts', 'tests/e2e/proof-s2.spec.ts', 'tests/e2e/proof-s3.spec.ts', 'tests/e2e/proof-s4.spec.ts', 'tests/e2e/proof-s5.spec.ts', 'tests/e2e/kopi-lifecycle.spec.ts', 'tests/e2e/proof-s7-fixture.ts', 'scripts/verification/proof-s7-loopback.mjs', 'scripts/verification/proof-s5-browser.ts', 'config/playwright.proof-s5.config.ts',
 ].map(async path => ({ path, sha256: await hash(join(root, path)) })));
 const realDeps = await readFile(join(source, 'src/lib/owner-voice/deps.ts'));
 let fixtureModuleSha256: string | null = null;
@@ -87,6 +88,8 @@ const appUrl = `http://127.0.0.1:${port}`;
 const env: NodeJS.ProcessEnv = {
   PATH: process.env.PATH, HOME: process.env.HOME, TMPDIR: process.env.TMPDIR,
   NODE_ENV: 'production', NEXT_TELEMETRY_DISABLED: '1', LOG_LEVEL: 'error',
+  NODE_OPTIONS: `--import=${join(root, 'scripts/verification/proof-s7-loopback.mjs')}`,
+  NEXT_FONT_GOOGLE_MOCKED_RESPONSES: join(root, 'docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/font-transport/responses.cjs'),
   META_API_KEY: 'offline-dummy', META_BASE_URL: 'https://model.invalid/v1',
   META_MODEL_SPARK: 'fixture:s1-menu', META_MODEL_WONDER: 'fixture:s3-wonder',
   APP_BASE_URL: appUrl, DATABASE_URL: 'postgres://postgres@127.0.0.1:5432/postgres',
@@ -108,9 +111,20 @@ let serverOutput = '';
 let stage = 'real-production-build';
 const startedAt = new Date().toISOString();
 try {
+  db = await createTestDatabase('proof_s1_browser');
+  env.DATABASE_URL = db.url;
+  await writeFile(join(attempt, 'resources.json'), JSON.stringify({ scratch, database: new URL(db.url).pathname.slice(1), role, port }, null, 2) + '\n');
   console.log('Building the real allowlisted S5 application with dummy model.invalid configuration.');
   await run([join(root, 'node_modules/next/dist/bin/next'), 'build', '--webpack'], source, env, 'production-build.txt');
-  await writeFile(join(source, 'src/lib/creative/deps.ts'), "export { creativeFixtureDeps as creativeDeps } from '../../../tests/support/proof-s5';\n");
+  await writeFile(join(source, 'src/lib/creative/deps.ts'), `import { creativeFixtureDeps } from '../../../tests/support/proof-s5';
+export function creativeDeps() {
+  const deps = creativeFixtureDeps();
+  return { ...deps, segment: async (input: Parameters<typeof deps.segment>[0]) => {
+    if (input.target === 's7-segmentation-failure') throw Error('scripted_s7_segmentation_failure');
+    return deps.segment(input);
+  } };
+}
+`);
   await writeFile(join(source, 'src/lib/buyer/deps.ts'), "export { buyerDeps } from '../../../tests/support/proof-s4';\n");
   await writeFile(join(source, 'src/lib/owner-voice/deps.ts'), "export { voiceFixtureDeps as voiceDeps } from '../../../tests/support/proof-s3';\n");
   creativeFixtureSha256 = await hash(join(source, 'src/lib/creative/deps.ts'));
@@ -122,7 +136,6 @@ try {
   await run([join(root, 'node_modules/next/dist/bin/next'), 'build', '--webpack'], source, env, 'fixture-production-build.txt');
   // Retain this prefix for unchanged inherited S1/S2 browser safety guards.
   stage = 'disposable-database-and-server';
-  db = await createTestDatabase('proof_s1_browser');
   await db.admin.unsafe(`CREATE ROLE ${role} LOGIN IN ROLE backfill_app`);
   roleCreated = true;
   const runtimeUrl = new URL(db.url); runtimeUrl.username = role;
@@ -142,7 +155,7 @@ try {
   console.log('Running S5 desktop/mobile review and combined S1/S2/S3/S4/Kopi regressions.');
   stage = 'chromium';
   const grep = process.env.S5_TEST_GREP;
-  const testArgs = [join(root, 'node_modules/@playwright/test/cli.js'), 'test', '--config', 'config/playwright.proof-s5.config.ts', ...(grep ? ['--grep', grep] : [])];
+  const testArgs = [join(root, 'node_modules/@playwright/test/cli.js'), 'test', '--config', 'config/playwright.proof-s5.config.ts', '--output', join(attempt, 'playwright-results'), ...(grep ? ['--grep', grep] : [])];
   await run(testArgs, root, {
     ...env, S1_APP_URL: appUrl, S1_DATABASE_URL: runtimeUrl.toString(), S1_ADMIN_URL: db.url,
     S1_EVIDENCE_DIR: join(combined, 's1'), S2_EVIDENCE_DIR: join(combined, 's2'), S3_EVIDENCE_DIR: join(combined, 's3'), S4_EVIDENCE_DIR: join(combined, 's4'), S5_EVIDENCE_DIR: evidence,
@@ -167,6 +180,7 @@ try {
     realCreativeDepsSha256: await hash(join(root, 'src/lib/creative/deps.ts')),
     realBuyerDepsSha256: await hash(join(root, 'src/lib/buyer/deps.ts')),
     modelConfiguration: 'offline-dummy at model.invalid; SAM/Image/Voice/Wonder/Glimmer/Spark Open boundaries use authored fixtures only',
+    transport: 'Node preload refuses non-loopback fetch/socket/TLS before DNS in builds/server/tests; automatic browser fixture blocks external requests',
     audio: 'generated 1 second silence WAV, not speech; fixture transcript is authored independently',
     runtimeRole: 'disposable member of backfill_app', retries: 0, genuineModelCalls: 0,
   }, null, 2) + '\n');
@@ -188,22 +202,30 @@ try {
   }
   throw error;
 } finally {
+  const cleanupFailures: string[] = [];
+  async function cleanup(label: string, work: () => Promise<unknown>) {
+    try { await work(); } catch { cleanupFailures.push(label); }
+  }
+  await cleanup('server', async () => {
   if (server && server.exitCode === null) {
     const exited = once(server, 'exit'); server.kill('SIGTERM'); await exited;
   }
-  await writeFile(join(attempt, 'browser-server.txt'), serverOutput);
-  if (db) await db.drop();
+  });
+  await cleanup('server-log', () => writeFile(join(attempt, 'browser-server.txt'), serverOutput));
+  if (db) await cleanup('database', () => db!.drop());
+  await cleanup('role', async () => {
   if (roleCreated) {
     const admin = postgres(configured.toString(), { max: 1, onnotice: () => {} });
     try { await admin.unsafe(`DROP ROLE IF EXISTS ${role}`); } finally { await admin.end({ timeout: 5 }); }
   }
-  await rm(scratch, { recursive: true, force: true });
+  });
+  await cleanup('scratch', () => rm(scratch, { recursive: true, force: true }));
   const audit = postgres(configured.toString(), { max: 1, onnotice: () => {} });
   try {
     const roles = await audit`select rolname from pg_roles where rolname=${role}`;
     const databases = db ? await audit`select datname from pg_database where datname=${new URL(db.url).pathname.slice(1)}` : [];
-    assert.equal(roles.length, 0); assert.equal(databases.length, 0);
-    await writeFile(join(evidence, 'browser-cleanup.json'), JSON.stringify({ attemptId, serverStopped: !server || server.exitCode !== null, ownedRoleRemaining: roles.length, ownedDatabaseRemaining: databases.length, scratchRemoved: true }, null, 2) + '\n');
+    await writeFile(join(evidence, 'browser-cleanup.json'), JSON.stringify({ attemptId, serverStopped: !server || server.exitCode !== null, ownedRoleRemaining: roles.length, ownedDatabaseRemaining: databases.length, scratchRemoved: !cleanupFailures.includes('scratch'), cleanupFailures }, null, 2) + '\n');
+    assert.equal(roles.length, 0); assert.equal(databases.length, 0); assert.deepEqual(cleanupFailures, []);
   } finally { await audit.end({ timeout: 5 }); }
 }
 console.log(`${process.env.S5_TEST_GREP ? 'Filtered S4 browser check' : 'S5 and combined regressions'} passed. Owned server, database, role and source snapshot removed.`);

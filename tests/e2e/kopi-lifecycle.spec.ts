@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect, type Page } from '@playwright/test';
 import { createServer, type ServerResponse } from 'node:http';
 import type { DemoSnapshot } from '../../src/lib/demo/snapshot';
 

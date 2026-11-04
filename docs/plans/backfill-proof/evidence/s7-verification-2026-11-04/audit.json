@@ -1,0 +1,190 @@
+{
+  "historicalFilesUnchanged": 594,
+  "ownedScratchVerifiedAbsent": [
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-dweSQu",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-OQM7Wm",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-ybAgUW",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-FtJLRP",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-gzDJxc",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-tvoxfq",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-Tt9iXf",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-q40PNF",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-4tDDfM",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-t15Vbi",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-BGUq3M",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-W9zWrq",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-yCf1CR",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-DCZfjS",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-4OLaJb",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-1FFTfA",
+    "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s7-build-q2XryG"
+  ],
+  "passes": [
+    {
+      "pass": "02",
+      "checks": 24,
+      "resources": {
+        "scratch": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-tvoxfq",
+        "database": "backfill_t_proof_s1_browser_ba88c7a1",
+        "role": "backfill_t_s5_browser_487310c8",
+        "port": 64797
+      },
+      "settlementReconciled": true
+    },
+    {
+      "pass": "03",
+      "checks": 24,
+      "resources": {
+        "scratch": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-proof-s5-Tt9iXf",
+        "database": "backfill_t_proof_s1_browser_755b5633",
+        "role": "backfill_t_s5_browser_fa026540",
+        "port": 65375
+      },
+      "settlementReconciled": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s2/demo-3-settled-375.png",
+      "width": 375,
+      "height": 6682,
+      "sha256": "68712306ab2a3ac45423d1485b5bd7a0d93b92f83273fd4ecf823290612351f4"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s2/demo-4-settled-1280.png",
+      "width": 1280,
+      "height": 5672,
+      "sha256": "803a86f987d0d01461c643fbdab94232cc0359541792f26209b57f0eab8f518a"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s3/owner-refused-375.png",
+      "width": 375,
+      "height": 4263,
+      "sha256": "23388759f4f74f43621c8ca39f4332285d4c72026860bb3b40551ebc5b8f3603"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s4/media-failed-2-375.png",
+      "width": 375,
+      "height": 4645,
+      "sha256": "e11060f0430a20eb7daf277926a78beac869b0c02e591a411531292a04aa3d11"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/approved-375.png",
+      "width": 289,
+      "height": 2756,
+      "sha256": "7f0ea42706d0f16a55d87e0f4fd23eed685b174f2c90d98e1dbc9efb6bebac09"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s2/demo-feed-interrupted.png",
+      "width": 1280,
+      "height": 5672,
+      "sha256": "c36367c153ae30aa757cc9e4cfa527b1b593d3ed81a4faf4d7576a9329298be8"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s4/buyer-pending-375.png",
+      "width": 375,
+      "height": 3378,
+      "sha256": "4da2147b8b723a1eabdea40e004846d249be9f553d835cc08f48a968f3ccd910"
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s4/buyer-unapproved-1280.png",
+      "width": 1280,
+      "height": 2250,
+      "sha256": "f7d9e68fda5c98a6e256122a21a8535abc6c0caaf1f73b324c3aadadf3f97899"
+    }
+  ],
+  "cleanup": {
+    "addedDatabases": [],
+    "addedRoles": [],
+    "unrelatedBaselineDatabasesPreserved": true
+  },
+  "gates": [
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "log": "publication-01/lint.txt"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "log": "publication-01/typecheck.txt"
+    },
+    {
+      "name": "suite",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit": 0,
+      "log": "publication-01/suite.txt"
+    },
+    {
+      "name": "guards",
+      "command": [
+        "node",
+        "--test",
+        "scripts/verification/proof-s3-live-guard.test.mjs",
+        "scripts/verification/proof-s4-nvidia-guard.test.mjs",
+        "scripts/verification/proof-s4-live-guard.test.mjs",
+        "scripts/verification/proof-s4-live-preload.test.mjs",
+        "scripts/verification/proof-s5-live-guard.test.mjs",
+        "scripts/verification/proof-s7-loopback.test.mjs"
+      ],
+      "exit": 0,
+      "log": "publication-01/guards.txt"
+    },
+    {
+      "name": "s6-audit",
+      "command": [
+        "node",
+        "scripts/verification/proof-s6-audit.mjs",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "publication-01/s6-audit.txt"
+    },
+    {
+      "name": "s6-replay",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s6-replay.ts",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "publication-01/s6-replay.txt"
+    },
+    {
+      "name": "s6b",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s6b.ts",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "publication-01/s6b.txt"
+    }
+  ],
+  "screenshotRetention": {
+    "original": 88,
+    "committed": 8,
+    "archivedLocally": 80,
+    "localArchiveVerified": true
+  },
+  "defaultProductionBuild": {
+    "command": "npm run build",
+    "exit": 0,
+    "sourceFiles": 115,
+    "evidence": "build-diagnosis-01/final-declared/"
+  },
+  "s7Complete": true
+}

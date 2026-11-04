@@ -1,0 +1,26 @@
+{
+  "name": "typecheck-after-cleanup",
+  "argv": [
+    "npm",
+    "run",
+    "typecheck"
+  ],
+  "exit": 0,
+  "startedAt": "2026-11-04T10:22:30.171055+00:00",
+  "endedAt": "2026-11-04T10:22:31.531551+00:00",
+  "envNames": [
+    "CPATH",
+    "HOME",
+    "LC_CTYPE",
+    "LIBRARY_PATH",
+    "MANPATH",
+    "NEXT_TELEMETRY_DISABLED",
+    "NODE_OPTIONS",
+    "PATH",
+    "SDKROOT",
+    "TEST_DATABASE_URL",
+    "TMPDIR",
+    "__CF_USER_TEXT_ENCODING"
+  ],
+  "log": "typecheck-after-cleanup.txt"
+}

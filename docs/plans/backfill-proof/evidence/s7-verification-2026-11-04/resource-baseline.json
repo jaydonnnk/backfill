@@ -1,0 +1,52 @@
+{
+  "databases": [
+    {
+      "datname": "backfill_t_s85_preview_5e3b1b57"
+    },
+    {
+      "datname": "backfill_t_kopi_preview_34432b15"
+    },
+    {
+      "datname": "backfill_t_kopi_preview_8affb711"
+    },
+    {
+      "datname": "backfill_t_kopi_preview_cece0608"
+    },
+    {
+      "datname": "backfill_t_s7_demo_ea1855a9"
+    },
+    {
+      "datname": "backfill_t_kopi_preview_0b388300"
+    },
+    {
+      "datname": "backfill_t_s95_preview_f957c0f7"
+    },
+    {
+      "datname": "backfill_t_s2_tables_ec5ecf88"
+    },
+    {
+      "datname": "backfill_t_tracer_press_b491000e"
+    },
+    {
+      "datname": "backfill_t_llm_calls_a6c4af05"
+    },
+    {
+      "datname": "backfill_t_s4_mcp_8c754a32"
+    },
+    {
+      "datname": "backfill_t_tracer_press_0af29ee3"
+    },
+    {
+      "datname": "backfill_t_s2_tables_3b017cc6"
+    },
+    {
+      "datname": "backfill_t_llm_calls_38886528"
+    },
+    {
+      "datname": "backfill_t_s4_mcp_fb67cb4e"
+    }
+  ],
+  "roles": [],
+  "chromium": "/Users/jayd0/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "chromiumExists": true
+}

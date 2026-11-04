@@ -1,0 +1,662 @@
+{
+  "environment": "Allowlisted PATH/HOME/TMPDIR; explicit local TEST_DATABASE_URL and telemetry disabled; apps inherit only the launcher-owned dummy configuration",
+  "records": [
+    {
+      "record": "browser-pass-01-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:33:50.871859+00:00",
+      "endedAt": "2026-11-04T08:37:23.266742+00:00",
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "browser-pass-02-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:42:07.856094+00:00",
+      "endedAt": "2026-11-04T08:45:23.419696+00:00",
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "browser-pass-03-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:45:23.419920+00:00",
+      "endedAt": "2026-11-04T08:48:23.282030+00:00",
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "consumed-call-guards-command.json",
+      "name": "consumed-call-guards",
+      "command": [
+        "node",
+        "--test",
+        "scripts/verification/proof-s3-live-guard.test.mjs",
+        "scripts/verification/proof-s4-nvidia-guard.test.mjs",
+        "scripts/verification/proof-s4-live-guard.test.mjs",
+        "scripts/verification/proof-s4-live-preload.test.mjs",
+        "scripts/verification/proof-s5-live-guard.test.mjs"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:31:33.078710+00:00",
+      "endedAt": "2026-11-04T08:31:33.217531+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "declared-build-02-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s7-build.ts",
+        "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/declared-build-02"
+      ],
+      "exit": 1,
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "declared-build-04-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s7-build.ts",
+        "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/declared-build-04"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:42:06.719652+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "declared-build-05-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s7-build.ts",
+        "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/declared-build-05"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:44:04.649371+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "declared-build-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s7-build.ts",
+        "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/declared-build-01"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:31:34.302065+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "declared-build-diagnostic-03-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s7-build.ts",
+        "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/declared-build-diagnostic-03",
+        "--debug-prerender"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:34:17.724021+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "gap-red-02-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 1,
+      "startedAt": "2026-11-04T08:32:46.490504+00:00",
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-gap-red-2026-11-04-02",
+      "grep": "S4 four independent.*fresh run 1",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "S5_TEST_GREP",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "gap-red-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "S5_TEST_GREP",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ],
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-gap-red-2026-11-04-01",
+      "grep": "S4 four independent.*fresh run 1",
+      "startedAt": "2026-11-04T08:30:38.377283+00:00",
+      "exit": 1
+    },
+    {
+      "record": "guards-final-command.json",
+      "command": [
+        "node",
+        "--test",
+        "scripts/verification/proof-s3-live-guard.test.mjs",
+        "scripts/verification/proof-s4-nvidia-guard.test.mjs",
+        "scripts/verification/proof-s4-live-guard.test.mjs",
+        "scripts/verification/proof-s4-live-preload.test.mjs",
+        "scripts/verification/proof-s5-live-guard.test.mjs",
+        "scripts/verification/proof-s7-loopback.test.mjs"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:42:27.221381+00:00",
+      "endedAt": "2026-11-04T08:42:27.507957+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "http-diagnostic-02-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 1,
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02",
+      "grep": "scripted S1 merchant review",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "S5_TEST_GREP",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "http-diagnostic-command.json",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s5-browser.ts"
+      ],
+      "exit": 0,
+      "output": "/Users/jayd0/Desktop/meta-hack/docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-01",
+      "grep": "consecutive nods",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "S5_OUTPUT_DIR",
+        "S5_TEST_GREP",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "lint-final-audit-command.json",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:53:49.854552+00:00",
+      "endedAt": "2026-11-04T08:53:52.351409+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "lint-final-bytes-command.json",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:52:06.051454+00:00",
+      "endedAt": "2026-11-04T08:52:11.053522+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "lint-final-command.json",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:42:27.220125+00:00",
+      "endedAt": "2026-11-04T08:42:33.264509+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "s6-audit-command.json",
+      "name": "s6-audit",
+      "command": [
+        "node",
+        "scripts/verification/proof-s6-audit.mjs",
+        "--check"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:31:33.075537+00:00",
+      "endedAt": "2026-11-04T08:31:33.167148+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "s6-replay-command.json",
+      "name": "s6-replay",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s6-replay.ts",
+        "--check"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:31:33.075734+00:00",
+      "endedAt": "2026-11-04T08:31:33.935205+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "s6b-command.json",
+      "name": "s6b",
+      "command": [
+        "node_modules/.bin/tsx",
+        "scripts/verification/proof-s6b.ts",
+        "--check"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:31:33.076874+00:00",
+      "endedAt": "2026-11-04T08:31:33.529365+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "s7-audit-command.json",
+      "command": [
+        "node",
+        "scripts/verification/proof-s7-audit.mjs"
+      ],
+      "exit": 0,
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "s7-audit-final-command.json",
+      "command": [
+        "node",
+        "scripts/verification/proof-s7-audit.mjs"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:53:49.854362+00:00",
+      "endedAt": "2026-11-04T08:53:50.090120+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "suite-01-command.json",
+      "name": "suite-01",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:31:33.074618+00:00",
+      "endedAt": "2026-11-04T08:31:39.686022+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "suite-final-bytes-command.json",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:52:06.051739+00:00",
+      "endedAt": "2026-11-04T08:52:12.871864+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "suite-final-command.json",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:42:27.220386+00:00",
+      "endedAt": "2026-11-04T08:42:34.549235+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "typecheck-final-bytes-command.json",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:52:06.051646+00:00",
+      "endedAt": "2026-11-04T08:52:08.160565+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "typecheck-final-command.json",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:42:27.220306+00:00",
+      "endedAt": "2026-11-04T08:42:29.996323+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "PATH",
+        "TEST_DATABASE_URL",
+        "TMPDIR"
+      ]
+    },
+    {
+      "record": "commands-initial.json",
+      "name": "lint-initial",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "startedAt": "2026-11-04T08:30:21.998337+00:00"
+    },
+    {
+      "record": "commands-initial.json",
+      "name": "typecheck-initial",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 2,
+      "startedAt": "2026-11-04T08:30:25.088989+00:00"
+    },
+    {
+      "record": "gates-02-commands.json",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit": 0,
+      "log": "lint-02.txt"
+    },
+    {
+      "record": "gates-02-commands.json",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "log": "typecheck-02.txt"
+    },
+    {
+      "record": "declared-build-01/commands.json",
+      "dependencyLayout": "symlinked-dependencies",
+      "command": "npm run build -> next build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-01/commands.json",
+      "dependencyLayout": "copied-installed-dependencies",
+      "command": "npm run build -> next build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-02/commands.json",
+      "dependencyLayout": "symlinked-dependencies",
+      "command": "npm run build -> next build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-02/commands.json",
+      "dependencyLayout": "copied-installed-dependencies",
+      "command": "npm run build -> next build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-04/commands.json",
+      "dependencyLayout": "symlinked-dependencies",
+      "command": "npm run build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-04/commands.json",
+      "dependencyLayout": "copied-installed-dependencies",
+      "command": "npm run build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-05/commands.json",
+      "dependencyLayout": "symlinked-dependencies",
+      "command": "npm run build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-05/commands.json",
+      "dependencyLayout": "copied-installed-dependencies",
+      "command": "npm run build",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-diagnostic-03/commands.json",
+      "dependencyLayout": "symlinked-dependencies",
+      "command": "npm run build -- --debug-prerender",
+      "exit": 1
+    },
+    {
+      "record": "declared-build-diagnostic-03/commands.json",
+      "dependencyLayout": "copied-installed-dependencies",
+      "command": "npm run build -- --debug-prerender",
+      "exit": 1
+    },
+    {
+      "record": "minimal-build-diagnostic.json",
+      "purpose": "Determine whether the default build failure also affects a trivial app using the same installed dependencies, independent of Backfill product source",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "scratch": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-s7-minimal-2wsh5jtt",
+      "startedAt": "2026-11-04T08:36:54.983364+00:00",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "NODE_ENV",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "exit": 0
+    },
+    {
+      "record": "minimal-hook-build-diagnostic.json",
+      "purpose": "Isolate usePathname with a trivial client provider and the same installed dependencies",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "scratch": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-s7-hook-minimal-jqie9ctw",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "NODE_ENV",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "exit": 0
+    },
+    {
+      "record": "minimal-kopi-build-diagnostic.json",
+      "purpose": "Isolate unchanged KopiProvider with real TypeScript/Next config and same installed dependencies, without font imports or other app routes",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "scratch": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-s7-kopi-minimal-2g772gh5",
+      "envNames": [
+        "HOME",
+        "NEXT_TELEMETRY_DISABLED",
+        "NODE_ENV",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "exit": 0
+    }
+  ]
+}

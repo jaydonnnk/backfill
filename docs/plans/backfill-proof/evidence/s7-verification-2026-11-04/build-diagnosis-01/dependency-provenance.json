@@ -1,0 +1,20 @@
+{
+  "cachedArchiveMatchesLockfileIntegrity": true,
+  "files": [
+    {
+      "path": "dist/server/lib/dedupe-fetch.js",
+      "matchesCachedPackage": true,
+      "installedHash": "328b1d37d632d5b18f09be7b4bf389b7e1f474ae52a197e1984c3c4957b14e6f"
+    },
+    {
+      "path": "dist/server/route-modules/app-page/module.compiled.js",
+      "matchesCachedPackage": true,
+      "installedHash": "3b55f56f8c70bbadffdacea23a1c19689c3889bab7e78da6c8121ada787bfe99"
+    },
+    {
+      "path": "dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+      "matchesCachedPackage": true,
+      "installedHash": "914353e0cf478e617e8a3b408fa74d9f526e9c338c8bda817cc05f05bfcce7a5"
+    }
+  ]
+}

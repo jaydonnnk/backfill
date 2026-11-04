@@ -1,0 +1,868 @@
+{
+  "provenance": "authored model fixtures; actual scripted buyer UI actions, MCP and PostgreSQL; not human consent",
+  "failedMedia": {
+    "id": "c6a285bf-30b5-4a0e-9e6f-d5ea939c3c35",
+    "phase": "failed",
+    "reason": "segmentation_failed"
+  },
+  "sameOfferThroughMediaFailureAndSettlement": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+  "sessions": [
+    {
+      "id": "7a896b01-64a8-4f32-bcb4-271a11208e34",
+      "partyId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+      "runId": "7a896b01-64a8-4f32-bcb4-271a11208e34",
+      "revision": 2,
+      "request": "Two for kopi on 2026-11-04 from 16:57 to 17:26, SGD6 each.",
+      "referenceClock": "2026-11-04T08:48:12.283Z",
+      "expiresAt": "2026-11-04T09:08:12.283Z",
+      "attempts": 3,
+      "phase": "submitted",
+      "proposal": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "constraints": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "decision": {
+        "covers": 2,
+        "reason": "Authored fixture selects two covers within reviewed constraints."
+      },
+      "terms": {
+        "runId": "7a896b01-64a8-4f32-bcb4-271a11208e34",
+        "partyId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+        "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+        "termsVersion": 1,
+        "visitDate": "2026-11-04",
+        "covers": 2,
+        "pricePerCoverCents": 544,
+        "totalCents": 1088
+      },
+      "offer": {
+        "ok": true,
+        "terms": {
+          "merchantName": "Backfill Demo Cafe",
+          "offer": {
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "merchantId": "a6988a24-a238-4f29-bb5a-131db2e03809",
+            "termsVersion": 1,
+            "listPriceCents": 680,
+            "offerPriceCents": 544,
+            "discountBps": 2000,
+            "window": {
+              "weekday": 3,
+              "startMinute": 1017,
+              "endMinute": 1046,
+              "commitByMinute": 1016
+            },
+            "minPoolCovers": 8,
+            "perAgentCapCovers": 2
+          },
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+          "nextOccurrence": {
+            "visitDate": "2026-11-04",
+            "commitBy": "2026-11-04T08:56:00.000Z",
+            "startsAt": "2026-11-04T08:57:00.000Z",
+            "endsAt": "2026-11-04T09:26:00.000Z"
+          }
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      },
+      "parseReceipt": {
+        "source": "fixture",
+        "route": "nvidia_nim",
+        "model": "fixture:glimmer",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "decisionReceipt": {
+        "source": "fixture",
+        "route": "vercel_gateway",
+        "model": "fixture:spark-open",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "approval": {
+        "terms": {
+          "runId": "7a896b01-64a8-4f32-bcb4-271a11208e34",
+          "partyId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "source": "agent_action",
+        "approvedAt": "2026-11-04T08:48:13.184Z"
+      },
+      "result": {
+        "ok": true,
+        "replayed": false,
+        "commitment": {
+          "commitmentId": "6eb308bb-7f48-4bd8-812e-a46823d82de3",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "maxPricePerCoverCents": 544,
+          "committedAt": "2026-11-04T08:48:13.254Z",
+          "commitBy": "2026-11-04T08:56:00.000Z",
+          "status": "pending",
+          "pooledCovers": 2,
+          "minPoolCovers": 8
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      }
+    },
+    {
+      "id": "aee23aae-c348-4330-8257-ec3e0c857a78",
+      "partyId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+      "runId": "aee23aae-c348-4330-8257-ec3e0c857a78",
+      "revision": 1,
+      "request": "Two for kopi on 2026-11-04 from 16:57 to 17:26, SGD6 each.",
+      "referenceClock": "2026-11-04T08:48:13.518Z",
+      "expiresAt": "2026-11-04T09:08:13.518Z",
+      "attempts": 2,
+      "phase": "submitted",
+      "proposal": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "constraints": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "decision": {
+        "covers": 2,
+        "reason": "Authored fixture selects two covers within reviewed constraints."
+      },
+      "terms": {
+        "runId": "aee23aae-c348-4330-8257-ec3e0c857a78",
+        "partyId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+        "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+        "termsVersion": 1,
+        "visitDate": "2026-11-04",
+        "covers": 2,
+        "pricePerCoverCents": 544,
+        "totalCents": 1088
+      },
+      "offer": {
+        "ok": true,
+        "terms": {
+          "merchantName": "Backfill Demo Cafe",
+          "offer": {
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "merchantId": "a6988a24-a238-4f29-bb5a-131db2e03809",
+            "termsVersion": 1,
+            "listPriceCents": 680,
+            "offerPriceCents": 544,
+            "discountBps": 2000,
+            "window": {
+              "weekday": 3,
+              "startMinute": 1017,
+              "endMinute": 1046,
+              "commitByMinute": 1016
+            },
+            "minPoolCovers": 8,
+            "perAgentCapCovers": 2
+          },
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+          "nextOccurrence": {
+            "visitDate": "2026-11-04",
+            "commitBy": "2026-11-04T08:56:00.000Z",
+            "startsAt": "2026-11-04T08:57:00.000Z",
+            "endsAt": "2026-11-04T09:26:00.000Z"
+          }
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      },
+      "parseReceipt": {
+        "source": "fixture",
+        "route": "nvidia_nim",
+        "model": "fixture:glimmer",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "decisionReceipt": {
+        "source": "fixture",
+        "route": "vercel_gateway",
+        "model": "fixture:spark-open",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "approval": {
+        "terms": {
+          "runId": "aee23aae-c348-4330-8257-ec3e0c857a78",
+          "partyId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "source": "agent_action",
+        "approvedAt": "2026-11-04T08:48:13.785Z"
+      },
+      "result": {
+        "ok": true,
+        "replayed": false,
+        "commitment": {
+          "commitmentId": "17b6050d-cb81-4fbd-9cb8-9ffb0f50d5a5",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "maxPricePerCoverCents": 544,
+          "committedAt": "2026-11-04T08:48:13.839Z",
+          "commitBy": "2026-11-04T08:56:00.000Z",
+          "status": "pending",
+          "pooledCovers": 4,
+          "minPoolCovers": 8
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      }
+    },
+    {
+      "id": "19fbc2b7-c1a5-44b0-b58b-5bde2bd79dcc",
+      "partyId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+      "runId": "19fbc2b7-c1a5-44b0-b58b-5bde2bd79dcc",
+      "revision": 1,
+      "request": "Two for kopi on 2026-11-04 from 16:57 to 17:26, SGD6 each.",
+      "referenceClock": "2026-11-04T08:48:13.945Z",
+      "expiresAt": "2026-11-04T09:08:13.945Z",
+      "attempts": 2,
+      "phase": "submitted",
+      "proposal": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "constraints": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "decision": {
+        "covers": 2,
+        "reason": "Authored fixture selects two covers within reviewed constraints."
+      },
+      "terms": {
+        "runId": "19fbc2b7-c1a5-44b0-b58b-5bde2bd79dcc",
+        "partyId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+        "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+        "termsVersion": 1,
+        "visitDate": "2026-11-04",
+        "covers": 2,
+        "pricePerCoverCents": 544,
+        "totalCents": 1088
+      },
+      "offer": {
+        "ok": true,
+        "terms": {
+          "merchantName": "Backfill Demo Cafe",
+          "offer": {
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "merchantId": "a6988a24-a238-4f29-bb5a-131db2e03809",
+            "termsVersion": 1,
+            "listPriceCents": 680,
+            "offerPriceCents": 544,
+            "discountBps": 2000,
+            "window": {
+              "weekday": 3,
+              "startMinute": 1017,
+              "endMinute": 1046,
+              "commitByMinute": 1016
+            },
+            "minPoolCovers": 8,
+            "perAgentCapCovers": 2
+          },
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+          "nextOccurrence": {
+            "visitDate": "2026-11-04",
+            "commitBy": "2026-11-04T08:56:00.000Z",
+            "startsAt": "2026-11-04T08:57:00.000Z",
+            "endsAt": "2026-11-04T09:26:00.000Z"
+          }
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      },
+      "parseReceipt": {
+        "source": "fixture",
+        "route": "nvidia_nim",
+        "model": "fixture:glimmer",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "decisionReceipt": {
+        "source": "fixture",
+        "route": "vercel_gateway",
+        "model": "fixture:spark-open",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "approval": {
+        "terms": {
+          "runId": "19fbc2b7-c1a5-44b0-b58b-5bde2bd79dcc",
+          "partyId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "source": "agent_action",
+        "approvedAt": "2026-11-04T08:48:14.231Z"
+      },
+      "result": {
+        "ok": true,
+        "replayed": false,
+        "commitment": {
+          "commitmentId": "64551c50-6b8e-4f16-9882-f481e763b048",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "maxPricePerCoverCents": 544,
+          "committedAt": "2026-11-04T08:48:14.301Z",
+          "commitBy": "2026-11-04T08:56:00.000Z",
+          "status": "pending",
+          "pooledCovers": 6,
+          "minPoolCovers": 8
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      }
+    },
+    {
+      "id": "022b9cec-fd64-4730-adb2-76768f1be9e9",
+      "partyId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+      "runId": "022b9cec-fd64-4730-adb2-76768f1be9e9",
+      "revision": 1,
+      "request": "Two for kopi on 2026-11-04 from 16:57 to 17:26, SGD6 each.",
+      "referenceClock": "2026-11-04T08:48:14.411Z",
+      "expiresAt": "2026-11-04T09:08:14.411Z",
+      "attempts": 2,
+      "phase": "submitted",
+      "proposal": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "constraints": {
+        "partySize": 2,
+        "visitDate": "2026-11-04",
+        "earliest": "16:57",
+        "latest": "17:26",
+        "budgetPerCoverCents": 600,
+        "currency": "SGD",
+        "requirements": []
+      },
+      "decision": {
+        "covers": 2,
+        "reason": "Authored fixture selects two covers within reviewed constraints."
+      },
+      "terms": {
+        "runId": "022b9cec-fd64-4730-adb2-76768f1be9e9",
+        "partyId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+        "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+        "termsVersion": 1,
+        "visitDate": "2026-11-04",
+        "covers": 2,
+        "pricePerCoverCents": 544,
+        "totalCents": 1088
+      },
+      "offer": {
+        "ok": true,
+        "terms": {
+          "merchantName": "Backfill Demo Cafe",
+          "offer": {
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "merchantId": "a6988a24-a238-4f29-bb5a-131db2e03809",
+            "termsVersion": 1,
+            "listPriceCents": 680,
+            "offerPriceCents": 544,
+            "discountBps": 2000,
+            "window": {
+              "weekday": 3,
+              "startMinute": 1017,
+              "endMinute": 1046,
+              "commitByMinute": 1016
+            },
+            "minPoolCovers": 8,
+            "perAgentCapCovers": 2
+          },
+          "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+          "nextOccurrence": {
+            "visitDate": "2026-11-04",
+            "commitBy": "2026-11-04T08:56:00.000Z",
+            "startsAt": "2026-11-04T08:57:00.000Z",
+            "endsAt": "2026-11-04T09:26:00.000Z"
+          }
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      },
+      "parseReceipt": {
+        "source": "fixture",
+        "route": "nvidia_nim",
+        "model": "fixture:glimmer",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "decisionReceipt": {
+        "source": "fixture",
+        "route": "vercel_gateway",
+        "model": "fixture:spark-open",
+        "servedModel": null,
+        "upstream": null,
+        "inputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "approval": {
+        "terms": {
+          "runId": "022b9cec-fd64-4730-adb2-76768f1be9e9",
+          "partyId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "source": "agent_action",
+        "approvedAt": "2026-11-04T08:48:14.695Z"
+      },
+      "result": {
+        "ok": true,
+        "replayed": false,
+        "commitment": {
+          "commitmentId": "b7adecf3-95cf-440d-a118-259723ea8546",
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "termsVersion": 1,
+          "visitDate": "2026-11-04",
+          "covers": 2,
+          "maxPricePerCoverCents": 544,
+          "committedAt": "2026-11-04T08:48:14.766Z",
+          "commitBy": "2026-11-04T08:56:00.000Z",
+          "status": "pending",
+          "pooledCovers": 8,
+          "minPoolCovers": 8
+        },
+        "binding": "A commitment is binding: if the pool reaches its minimum by the deadline, the buyer agrees to come in that window and pay the offer price per cover. It can be cancelled only before the commit deadline; from the deadline on it cannot be withdrawn."
+      }
+    }
+  ],
+  "pending": {
+    "scene": {
+      "id": "22c354d9-7174-4e89-a865-b42f3c58f4fc:2026-11-04",
+      "events": [
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:13.254Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:13.839Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:14.301Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:14.766Z",
+          "label": "+2 covers committed"
+        }
+      ],
+      "merchantName": "Backfill Demo Cafe",
+      "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+      "listPriceCents": 680,
+      "offerPriceCents": 544,
+      "discountBps": 2000,
+      "minPoolCovers": 8,
+      "visitDate": "2026-11-04",
+      "visitWindow": "16:57–17:26",
+      "commitBy": "2026-11-04T08:56:00.000Z",
+      "phase": "open",
+      "trail": [
+        {
+          "id": "6eb308bb-7f48-4bd8-812e-a46823d82de3",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "6eb308bb-7f48-4bd8-812e-a46823d82de3",
+          "final": {
+            "partyId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "pending"
+        },
+        {
+          "id": "17b6050d-cb81-4fbd-9cb8-9ffb0f50d5a5",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "17b6050d-cb81-4fbd-9cb8-9ffb0f50d5a5",
+          "final": {
+            "partyId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "pending"
+        },
+        {
+          "id": "64551c50-6b8e-4f16-9882-f481e763b048",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "64551c50-6b8e-4f16-9882-f481e763b048",
+          "final": {
+            "partyId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "pending"
+        },
+        {
+          "id": "b7adecf3-95cf-440d-a118-259723ea8546",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "b7adecf3-95cf-440d-a118-259723ea8546",
+          "final": {
+            "partyId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "pending"
+        }
+      ],
+      "buyers": [
+        {
+          "agentId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+          "label": "Synthetic S4 browser party 0",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:13.254Z",
+          "soloUnlocks": false,
+          "outcome": "pending"
+        },
+        {
+          "agentId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+          "label": "Synthetic S4 browser party 1",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:13.839Z",
+          "soloUnlocks": false,
+          "outcome": "pending"
+        },
+        {
+          "agentId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+          "label": "Synthetic S4 browser party 2",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:14.301Z",
+          "soloUnlocks": false,
+          "outcome": "pending"
+        },
+        {
+          "agentId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+          "label": "Synthetic S4 browser party 3",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:14.766Z",
+          "soloUnlocks": false,
+          "outcome": "pending"
+        }
+      ],
+      "pooled": {
+        "covers": 8,
+        "unlocked": true,
+        "filledCovers": 0,
+        "soldOut": false
+      },
+      "plan": null
+    },
+    "muse": null,
+    "ledger": {
+      "covers": 0,
+      "buyerShareCents": 0,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "agentsCommitted": 4,
+      "poolsUnlocked": 0,
+      "reconciled": true,
+      "pools": []
+    }
+  },
+  "settled": {
+    "scene": {
+      "id": "22c354d9-7174-4e89-a865-b42f3c58f4fc:2026-11-04",
+      "events": [
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:13.254Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:13.839Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:14.301Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "commitment",
+          "at": "2026-11-04T08:48:14.766Z",
+          "label": "+2 covers committed"
+        },
+        {
+          "kind": "cleared",
+          "at": "2026-11-04T08:48:14.806Z",
+          "label": "Pool unlocked: 8 covers filled"
+        },
+        {
+          "kind": "sold_out",
+          "at": "2026-11-04T08:48:14.806Z",
+          "label": "Sold out"
+        }
+      ],
+      "merchantName": "Backfill Demo Cafe",
+      "summary": "Backfill Demo Cafe: 20% off, S$6.80 becomes S$5.44 per cover, Wednesday 16:57-17:26 Singapore time. It unlocks only if at least 8 covers are committed before 16:56 that day; one agent may hold at most 2 covers.",
+      "listPriceCents": 680,
+      "offerPriceCents": 544,
+      "discountBps": 2000,
+      "minPoolCovers": 8,
+      "visitDate": "2026-11-04",
+      "visitWindow": "16:57–17:26",
+      "commitBy": "2026-11-04T08:56:00.000Z",
+      "phase": "cleared",
+      "trail": [
+        {
+          "id": "6eb308bb-7f48-4bd8-812e-a46823d82de3",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "6eb308bb-7f48-4bd8-812e-a46823d82de3",
+          "final": {
+            "partyId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "filled"
+        },
+        {
+          "id": "17b6050d-cb81-4fbd-9cb8-9ffb0f50d5a5",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "17b6050d-cb81-4fbd-9cb8-9ffb0f50d5a5",
+          "final": {
+            "partyId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "filled"
+        },
+        {
+          "id": "64551c50-6b8e-4f16-9882-f481e763b048",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "64551c50-6b8e-4f16-9882-f481e763b048",
+          "final": {
+            "partyId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "filled"
+        },
+        {
+          "id": "b7adecf3-95cf-440d-a118-259723ea8546",
+          "terms": null,
+          "request": null,
+          "output": null,
+          "provenance": "unavailable",
+          "approval": "unavailable",
+          "commitmentId": "b7adecf3-95cf-440d-a118-259723ea8546",
+          "final": {
+            "partyId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+            "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+            "termsVersion": 1,
+            "visitDate": "2026-11-04",
+            "covers": 2,
+            "pricePerCoverCents": 544,
+            "totalCents": 1088
+          },
+          "result": "filled"
+        }
+      ],
+      "buyers": [
+        {
+          "agentId": "e4e6bb2a-05c7-48f8-9bbe-dbd070d85d39",
+          "label": "Synthetic S4 browser party 0",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:13.254Z",
+          "soloUnlocks": false,
+          "outcome": "filled"
+        },
+        {
+          "agentId": "52c24393-e2b3-41f6-ae7f-3e5e99b8991f",
+          "label": "Synthetic S4 browser party 1",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:13.839Z",
+          "soloUnlocks": false,
+          "outcome": "filled"
+        },
+        {
+          "agentId": "66a80797-c9d7-4277-9f78-f9033985aabc",
+          "label": "Synthetic S4 browser party 2",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:14.301Z",
+          "soloUnlocks": false,
+          "outcome": "filled"
+        },
+        {
+          "agentId": "67928030-be59-4c41-9bb1-9d8669ad2a1a",
+          "label": "Synthetic S4 browser party 3",
+          "covers": 2,
+          "committedAt": "2026-11-04T08:48:14.766Z",
+          "soloUnlocks": false,
+          "outcome": "filled"
+        }
+      ],
+      "pooled": {
+        "covers": 8,
+        "unlocked": true,
+        "filledCovers": 8,
+        "soldOut": true
+      },
+      "plan": null
+    },
+    "muse": null,
+    "ledger": {
+      "covers": 8,
+      "buyerShareCents": 1088,
+      "agentShareCents": 0,
+      "networkShareCents": 0,
+      "agentsCommitted": 4,
+      "poolsUnlocked": 1,
+      "reconciled": true,
+      "pools": [
+        {
+          "ruleId": "22c354d9-7174-4e89-a865-b42f3c58f4fc",
+          "visitDate": "2026-11-04",
+          "clearedAt": "2026-11-04T08:48:14.806Z",
+          "unlocked": true,
+          "covers": 8,
+          "buyerShareCents": 1088,
+          "agentShareCents": 0,
+          "networkShareCents": 0,
+          "reconciled": true
+        }
+      ]
+    }
+  },
+  "errors": []
+}

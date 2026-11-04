@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { eq } from 'drizzle-orm';
 import { connectDb } from '../../src/lib/db/client';

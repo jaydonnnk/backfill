@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-04T10:15:11.068838+00:00",
+  "revision": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f",
+  "status": " M docs/plans/backfill-proof/00-status.md\n M scripts/verification/proof-s5-browser.ts\n M tests/e2e/kopi-lifecycle.spec.ts\n M tests/e2e/proof-s1.spec.ts\n M tests/e2e/proof-s2.spec.ts\n M tests/e2e/proof-s3.spec.ts\n M tests/e2e/proof-s4.spec.ts\n M tests/e2e/proof-s5.spec.ts\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-gap-red-2026-11-04-01/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-gap-red-2026-11-04-02/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-01/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/\n?? docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/\n?? docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/\n?? docs/plans/backfill-proof/s7-handoff-2026-11-04.md\n?? scripts/verification/proof-s7-audit.mjs\n?? scripts/verification/proof-s7-build.ts\n?? scripts/verification/proof-s7-loopback.mjs\n?? scripts/verification/proof-s7-loopback.test.mjs\n?? tests/e2e/proof-s7-fixture.ts\n",
+  "baselineFileCount": 1543,
+  "fullBaselineHashes": "archive/proof-s7-publication-2026-11-04-01/originals/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/publication-01/start.json",
+  "baselineAvailability": "local-only archive"
+}

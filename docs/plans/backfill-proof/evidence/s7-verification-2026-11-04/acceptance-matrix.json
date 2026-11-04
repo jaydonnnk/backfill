@@ -1,0 +1,49 @@
+{
+  "preparedBeforeExecution": true,
+  "provenance": "Scripted model boundaries and actions; no new model observation, payment, human consent or demand proof",
+  "rows": [
+    {
+      "condition": "pool-success",
+      "namedTests": "proof-s1.spec.ts: one actual owner-publish/MCP/real-wall-clock settle journey; proof-s4.spec.ts: four reviewed buyer UI -> MCP -> settleDue injected-clock journey",
+      "expectedEvidence": "four distinct two-cover parties; exact approvals, duplicate replay, four ledger entries/eight covers; repeated fresh DBs",
+      "status": "planned"
+    },
+    {
+      "condition": "pool-insufficient",
+      "namedTests": "proof-s1.spec.ts and proof-s2.spec.ts: separate three-party offers; proof-s4-buyer.test.ts",
+      "expectedEvidence": "six covers settle not_filled; no clearing fills or ledger rows; public UI no booking claim",
+      "status": "planned"
+    },
+    {
+      "condition": "changed-approval-and-identity",
+      "namedTests": "proof-s3.spec.ts transcript correction/wrong owner; proof-s4.spec.ts reviewed constraints/cross party; proof-s4-guards.test.ts exact changed dimensions/terms; proof-s6-order.test.ts",
+      "expectedEvidence": "corrections invalidate old proposals/approvals; stale terms refused; independent scenarios",
+      "status": "planned"
+    },
+    {
+      "condition": "owner-refusal",
+      "namedTests": "proof-s3.spec.ts: cancellation, invalid bytes, wrong owner, missing session and interrupted proposal preserve terms",
+      "expectedEvidence": "actual UI discards a proposed rule change; original DB rule/outcomes unchanged; separate offer",
+      "status": "planned"
+    },
+    {
+      "condition": "optional-media-failure-complete-booking",
+      "namedTests": "NEW extension to proof-s4.spec.ts four-party journey at desktop/mobile, with targeted failure in tests/support/proof-s5.ts",
+      "expectedEvidence": "browser upload/segment shows failed -> same unchanged offer discovered -> four reviewed approved buyer commitments -> eight settled covers; source-only fixture injection",
+      "status": "planned"
+    },
+    {
+      "condition": "privacy-and-honest-state",
+      "namedTests": "proof-s2.spec.ts public HTML/SSE/snapshot; proof-s3.spec.ts private transcript; proof-s5.spec.ts owner-only media; proof-s4-guards.test.ts buyer response auth; extended proof-s4.spec.ts privacy canaries",
+      "expectedEvidence": "private floors/transcripts/rationales/media absent publicly; wrong owner 404; pending distinct from filled/failed",
+      "status": "planned"
+    },
+    {
+      "condition": "desktop-mobile-feed",
+      "namedTests": "proof-s1/s2/s3/s4/s5 captures at 1280/375; kopi-lifecycle.spec.ts",
+      "expectedEvidence": "overflow/pageerrors checked; real SSE storage permission failure and network disconnect recover saved state; lifecycle fixtures supplemental",
+      "status": "planned"
+    }
+  ],
+  "journeyLimits": "S1 owner publication/MCP; S4 buyer UI/failed media; S2 public trails; S3 owner edits; S5 asset review are separate offers, not one single all-feature journey."
+}

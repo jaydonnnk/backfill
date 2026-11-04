@@ -1,0 +1,20 @@
+✔ durable exclusive slots cap concurrency and all four approved attempts (94.619875ms)
+✔ wrong hosts/endpoints/models/audio never dispatch; failed HTTP attempt is not reusable (10.212083ms)
+✔ receipts omit hidden reasoning and malformed nested metadata (8.673459ms)
+✔ reserves all five cases once across independent guard instances; never stores auth headers (101.683792ms)
+✔ failure consumes its durable slot; modified settings, unknown cases and remote paths dispatch nothing (12.07275ms)
+✔ historical preload refuses consumed authority before any upstream dispatch (53.356ms)
+✔ NVIDIA guard reserves at most two exact requests across guard instances; failures consume slots (64.243167ms)
+✔ continuation guard forbids explicit inference and permits only one durable clarification slot (28.194708ms)
+✔ S5 reserves two exact media bodies once, persists failure consumption and refuses altered requests (33.15475ms)
+✔ S5 captures only bounded response bytes and blocks a successful slot across guard instances (52.156834ms)
+✔ S7 refuses fetch, HTTP, TLS and raw sockets before external transport (156.96225ms)
+✔ S7 retains actual loopback HTTP traffic (61.859584ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.540208

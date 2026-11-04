@@ -1,5 +1,32 @@
 # Status: Backfill proof build
 
+## Current S7 verification complete locally, 2026-11-04
+
+S7's required local gates pass against main checkpoint
+`545fd0c23b2f0411d8f45b10dab54b88c3e0845f` plus the recorded verification changes.
+The user authorized curating, committing and pushing S7 to main. Publication is
+separate from deployment; the commit uses `[skip render]`. S8 remains unstarted.
+
+Fresh lint/typecheck, 607 tests across 72 files, twelve offline guards, S6 audit,
+24-outcome replay and S6b checks pass. Two independent combined browser runs
+pass 24/24 each at desktop/mobile sizes. Their unchanged source and verification
+inputs are rechecked by the final acceptance audit. The declared `npm run build`
+now also passes with unchanged product source, schema, dependencies and pricing.
+
+The former Turbopack prerender failure came from the verification runner's
+`fs.cp` converting the relative `.bin/next` link into an absolute link to the
+original repository. Snapshot hooks and the renderer used separate React objects.
+Preserving symlinks fixes that copy defect; Kopi needed no product change.
+
+[S7 acceptance and reproduction](evidence/s7-verification-2026-11-04/README.md),
+[build diagnosis](evidence/s7-verification-2026-11-04/build-diagnosis-01/README.md)
+and [acceptance audit](evidence/s7-verification-2026-11-04/audit.json).
+Redundant local diagnostics and 80 omitted screenshots have a hash-verified,
+ignored local archive. Both browser receipt sets and eight reviewed screenshots
+are committed. All 594 historical evidence files are unchanged. Owned resources
+are removed. S6's negative AI result and S6b's no-winner outcome stand.
+No inference, installation, production access, production migration or deployment occurred.
+
 ## Current S6b offline evaluation, 2026-11-04
 
 No deterministic policy passed the frozen decision rule, so no winner is named.

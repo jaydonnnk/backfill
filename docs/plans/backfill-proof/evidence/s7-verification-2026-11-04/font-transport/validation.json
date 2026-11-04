@@ -1,0 +1,5 @@
+{
+  "beforeDiscoveredFontFiles": 0,
+  "afterDiscoveredFontFiles": 19,
+  "cause": "Next Webpack loader recognizes src: url(...), while the minified existing CSS used src:url(...). Font URLs were not emitted and yielded 404s."
+}

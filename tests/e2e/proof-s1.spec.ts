@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { eq } from 'drizzle-orm';
 import { singaporeLocal } from '../../src/domain/singapore-time';
@@ -28,7 +29,7 @@ test('scripted S1 merchant review, seven independent MCP parties, deadline outco
   const clients: Awaited<ReturnType<typeof connectBuyer>>[] = [];
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  page.on('console', message => { if (message.type() === 'error') errors.push(`${message.text()} at ${message.location().url}`); });
   const scenarios = [];
   try {
     const local = singaporeLocal(new Date(Date.now() + 120_000));

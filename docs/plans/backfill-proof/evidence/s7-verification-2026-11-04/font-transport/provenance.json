@@ -1,0 +1,102 @@
+{
+  "provenance": "Existing ignored local Next font cache, copied without network; font/CSS transport fixture only, product layout unchanged",
+  "sourceCss": ".next/static/chunks/285h2bwtnk8lv.css",
+  "sourceCssSha256": "de24b5e31ed5348851de97c7fa6ec5c82835aea9c4db64d7013bbe9ce2e5226d",
+  "files": [
+    {
+      "source": ".next/static/media/5fbd9980918344f2-s.3-pcjiz3ygyf8.woff2",
+      "file": "5fbd9980918344f2-s.3-pcjiz3ygyf8.woff2",
+      "sha256": "5ae60a8bb15c2065126fdf5af9912cd548be48fd43f19d543b69b95ee0314240"
+    },
+    {
+      "source": ".next/static/media/cc68f550ae21708a-s.p.3dosikwwiz7p4.woff2",
+      "file": "cc68f550ae21708a-s.p.3dosikwwiz7p4.woff2",
+      "sha256": "17bb6d80eeea10c69887aa64a1b48e70a3f540de50480da9ec933fac1996bf97"
+    },
+    {
+      "source": ".next/static/media/4feb736c6e568291-s.2w2uf6dgc3uj-.woff2",
+      "file": "4feb736c6e568291-s.2w2uf6dgc3uj-.woff2",
+      "sha256": "1bec363fff2816f3a27a015e2bdc8005d2cdab5909ce1208d863ed6482c492cd"
+    },
+    {
+      "source": ".next/static/media/cbb1b71f089ac5c8-s.p.0twlw20dvfl-2.woff2",
+      "file": "cbb1b71f089ac5c8-s.p.0twlw20dvfl-2.woff2",
+      "sha256": "30ad65d8dff39d9154b3e43fedfaeaea9767468238ea633272304b6fc82bdca7"
+    },
+    {
+      "source": ".next/static/media/faab88e4be272d29-s.0rgnxg2b64rzs.woff2",
+      "file": "faab88e4be272d29-s.0rgnxg2b64rzs.woff2",
+      "sha256": "c6f09ee0e0a24b7c85ecb2a601eb99332f65b1f6b37c31e0bbe73fb307625eca"
+    },
+    {
+      "source": ".next/static/media/a45aa1001bf9176f-s.2vemzm0itqzfy.woff2",
+      "file": "a45aa1001bf9176f-s.2vemzm0itqzfy.woff2",
+      "sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54"
+    },
+    {
+      "source": ".next/static/media/41ba59f553543ecf-s.3cb5lpr2l6xud.woff2",
+      "file": "41ba59f553543ecf-s.3cb5lpr2l6xud.woff2",
+      "sha256": "0a8b854cc18641bd1b8222afa7ec82a75e59bc6501f777744ec87db1b6cd7a2c"
+    },
+    {
+      "source": ".next/static/media/67bba87670b402d1-s.1u30mmyq6lnsd.woff2",
+      "file": "67bba87670b402d1-s.1u30mmyq6lnsd.woff2",
+      "sha256": "f1050dc5317b43434c0aeda599d4624c774ffc162e87a8cf204b949b6a85816d"
+    },
+    {
+      "source": ".next/static/media/d6c1ff7e86974212-s.p.40sczeszzbjw1.woff2",
+      "file": "d6c1ff7e86974212-s.p.40sczeszzbjw1.woff2",
+      "sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac"
+    },
+    {
+      "source": ".next/static/media/49b1d53681a91a99-s.1yd4_i3e35931.woff2",
+      "file": "49b1d53681a91a99-s.1yd4_i3e35931.woff2",
+      "sha256": "311098be73eac339128f0b5a6e33d72645b6f87488541fdf467c402152d297fd"
+    },
+    {
+      "source": ".next/static/media/123d516c9baeb953-s.1qc6dx89jd2qv.woff2",
+      "file": "123d516c9baeb953-s.1qc6dx89jd2qv.woff2",
+      "sha256": "d524dc8ff6dbf7ed69772f3b2ff4affaf5a89b5762b270e36c3f21da0d4e39f5"
+    },
+    {
+      "source": ".next/static/media/a74d2542cc4c775f-s.29yke99gs9qpn.woff2",
+      "file": "a74d2542cc4c775f-s.29yke99gs9qpn.woff2",
+      "sha256": "b2529fba93fd07a50ffb8fc3d103eb04b0c298d4f6564d2833c44fde286de7e4"
+    },
+    {
+      "source": ".next/static/media/7ac0b1cd3e695dd0-s.1i-sca43-qwng.woff2",
+      "file": "7ac0b1cd3e695dd0-s.1i-sca43-qwng.woff2",
+      "sha256": "77f03e26f981c582bdba3a7abed4baa2d3149211c01366bb3ab3ba7622ec4ae5"
+    },
+    {
+      "source": ".next/static/media/916cd8a3bde3edf8-s.p.0oace-s_gkfks.woff2",
+      "file": "916cd8a3bde3edf8-s.p.0oace-s_gkfks.woff2",
+      "sha256": "a76f53ca6612e7b3828eec2311098675b7f9849ae4169a8bcef6302aec02a6c0"
+    },
+    {
+      "source": ".next/static/media/e60f3e45d49b65c3-s.352ti9pm7m6qh.woff2",
+      "file": "e60f3e45d49b65c3-s.352ti9pm7m6qh.woff2",
+      "sha256": "f746246b6b0b641f99d9e26e0bf4e42197bde692126857857f0195a94362d52a"
+    },
+    {
+      "source": ".next/static/media/1f5edaafc8393c36-s.0o-3_g79811ob.woff2",
+      "file": "1f5edaafc8393c36-s.0o-3_g79811ob.woff2",
+      "sha256": "b814a03d7e57b0626a906f76911b9361d173a1aabc5544c40f72d6a35a1e4940"
+    },
+    {
+      "source": ".next/static/media/f1c080d8717d5d0c-s.0ngr-xkgqz1kf.woff2",
+      "file": "f1c080d8717d5d0c-s.0ngr-xkgqz1kf.woff2",
+      "sha256": "69744cabbccc9faf77516ce9b744361e1e6be7f8081400006035a153797d2965"
+    },
+    {
+      "source": ".next/static/media/afc8e0e4a8c58d89-s.15orukf5wyxb5.woff2",
+      "file": "afc8e0e4a8c58d89-s.15orukf5wyxb5.woff2",
+      "sha256": "1b6b18fd0fd240bc6d5850f4df621484722d4b5d3650ebdd1e3a8bbd81c75854"
+    },
+    {
+      "source": ".next/static/media/2880e9b87afbd5d9-s.p.226pwps5o-gq_.woff2",
+      "file": "2880e9b87afbd5d9-s.p.226pwps5o-gq_.woff2",
+      "sha256": "ad4580d8cb4b5f627c2d18457656732f7f7b070f7837fbc380e08054157e6f6c"
+    }
+  ]
+}

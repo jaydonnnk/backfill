@@ -1,11 +1,15 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect, type Page } from '@playwright/test';
 import { randomUUID } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 import { eq, ne } from 'drizzle-orm';
 import { connectDb } from '../../src/lib/db/client';
 import { buyerSessions, commitments, merchants } from '../../src/lib/db/schema';
 import { mintAgent } from '../../src/lib/agents/tokens';
-import { mintMerchant } from '../../src/lib/onboarding/links';
+import { mintMerchant, MERCHANT_COOKIE } from '../../src/lib/onboarding/links';
+import { creativeAssets, clearingFills, ledger, rules } from '../../src/lib/db/schema';
+import { getCreative } from '../../src/lib/creative/service';
+import { syntheticDishPhoto } from '../support/proof-s5';
 import { readMenu, publishDraft } from '../../src/lib/onboarding/service';
 import { settleDue } from '../../src/lib/commitments/service';
 import { singaporeLocal } from '../../src/domain/singapore-time';
@@ -36,6 +40,7 @@ for (const repeat of [1, 2]) test(`S4 four independent reviewed buyers approve e
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
   try {
+    await page.setViewportSize({ width: repeat === 1 ? 1280 : 375, height: 900 });
     const local = singaporeLocal(new Date(Date.now() + 8 * 60_000));
     expect(local.minute).toBeLessThan(1370);
     const at = (minute: number) => `${String(Math.floor(minute / 60)).padStart(2, '0')}:${String(minute % 60).padStart(2, '0')}`;
@@ -45,6 +50,26 @@ for (const repeat of [1, 2]) test(`S4 four independent reviewed buyers approve e
     if (!('draftId' in draft)) throw Error('draft');
     const pub = await publishDraft(app.db, owner.id, draft.draftId, { ...SETTINGS, terms: { ...SETTINGS.terms, window: { weekday: local.weekday, commitByMinute: local.minute, startMinute: local.minute + 1, endMinute: local.minute + 30 } } });
     if (pub.status !== 'published') throw Error('publication');
+    const [originalRule] = await app.db.select().from(rules).where(eq(rules.id, pub.ruleId));
+    await page.context().addCookies([{ name: MERCHANT_COOKIE, value: owner.token, domain: '127.0.0.1', path: '/merchant', httpOnly: true, sameSite: 'Lax' }]);
+    await page.goto('/merchant');
+    const creative = page.getByRole('group', { name: `Creative asset for offer ${pub.ruleId}`, exact: true });
+    await creative.getByLabel('Dish photo', { exact: true }).setInputFiles({ name: 'authored-rectangle.png', mimeType: 'image/png', buffer: await syntheticDishPhoto() });
+    await creative.getByLabel('Dish or object to isolate', { exact: true }).fill('s7-segmentation-failure');
+    await creative.getByLabel('Photo rights basis', { exact: true }).fill('Authored S7 geometry');
+    await creative.getByLabel('I permit local processing and composition.', { exact: true }).check();
+    await creative.getByLabel('This uses synthetic local offer terms.', { exact: true }).check();
+    await creative.getByRole('button', { name: 'Save photo privately', exact: true }).click();
+    await creative.getByRole('button', { name: 'Create dish cutout', exact: true }).click();
+    await expect(creative.getByText('Optional media failed. Nothing was approved or posted. Your offer remains usable.', { exact: true })).toBeVisible();
+    const [mediaRow] = await app.db.select().from(creativeAssets).where(eq(creativeAssets.ruleId, pub.ruleId));
+    if (!mediaRow) throw Error('Missing failed media');
+    const failedMedia = (await getCreative(app.db, owner.id, mediaRow.id)).asset;
+    expect(failedMedia).toMatchObject({ phase: 'failed', reason: 'segmentation_failed' });
+    expect((await app.db.select().from(rules).where(eq(rules.id, pub.ruleId)))[0]).toEqual(originalRule);
+    await capture(page, evidence, `media-failed-${repeat}`);
+    await page.setViewportSize({ width: repeat === 1 ? 1280 : 375, height: 900 });
+    await page.context().clearCookies();
     const sessions = [];
     for (let i = 0; i < 4; i++) {
       const party = await mintAgent(app.db, randomUUID(), `Synthetic S4 browser party ${i}`);
@@ -103,8 +128,11 @@ for (const repeat of [1, 2]) test(`S4 four independent reviewed buyers approve e
     await settleDue(app.db, owner.id, () => singaporeInstant(local.date, local.minute + 1));
     const settled = await demoSnapshot(app.db, singaporeInstant(local.date, local.minute + 1));
     expect(settled.scene?.pooled.filledCovers).toBe(8);
+    expect(await app.db.select().from(clearingFills).where(eq(clearingFills.ruleId, pub.ruleId))).toHaveLength(4);
+    expect(await app.db.select().from(ledger).where(eq(ledger.ruleId, pub.ruleId))).toHaveLength(4);
+    expect(JSON.stringify({ pending, settled, sessions })).not.toMatch(/floorPriceCents|rawTranscript|audioSha256|sourceBytes|segmentation_failed/);
     expect(errors).toEqual([]);
-    await writeFile(`${evidence}/browser-buyers-${repeat}.json`, JSON.stringify({ provenance: 'authored model fixtures; actual scripted buyer UI actions, MCP and PostgreSQL; not human consent', sessions, pending, settled, errors }, null, 2));
+    await writeFile(`${evidence}/browser-buyers-${repeat}.json`, JSON.stringify({ provenance: 'authored model fixtures; actual scripted buyer UI actions, MCP and PostgreSQL; not human consent', failedMedia: { id: failedMedia?.id, phase: failedMedia?.phase, reason: failedMedia?.reason }, sameOfferThroughMediaFailureAndSettlement: pub.ruleId, sessions, pending, settled, errors }, null, 2));
   } finally { await app.close(); }
 });
 

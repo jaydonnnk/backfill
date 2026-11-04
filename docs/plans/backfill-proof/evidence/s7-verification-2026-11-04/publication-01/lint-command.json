@@ -1,0 +1,26 @@
+{
+  "name": "lint",
+  "argv": [
+    "npm",
+    "run",
+    "lint"
+  ],
+  "exit": 0,
+  "startedAt": "2026-11-04T10:22:30.170838+00:00",
+  "endedAt": "2026-11-04T10:22:33.666297+00:00",
+  "envNames": [
+    "CPATH",
+    "HOME",
+    "LC_CTYPE",
+    "LIBRARY_PATH",
+    "MANPATH",
+    "NEXT_TELEMETRY_DISABLED",
+    "NODE_OPTIONS",
+    "PATH",
+    "SDKROOT",
+    "TEST_DATABASE_URL",
+    "TMPDIR",
+    "__CF_USER_TEXT_ENCODING"
+  ],
+  "log": "lint.txt"
+}

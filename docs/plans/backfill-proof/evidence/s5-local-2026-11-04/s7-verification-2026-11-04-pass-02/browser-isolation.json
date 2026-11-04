@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-11-04T08:42:08.222Z",
+  "completedAt": "2026-11-04T08:45:23.314Z",
+  "appUrl": "http://127.0.0.1:64797",
+  "attemptId": "2026-11-04T08-42-08-165Z",
+  "testScope": "all combined regressions",
+  "sourceAllowlist": [
+    "src",
+    "public",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "postcss.config.mjs",
+    "tests/support/proof-s3.ts",
+    "tests/support/proof-s4.ts",
+    "tests/support/proof-s5.ts",
+    "sim/buyers/buyer.ts",
+    "sim/buyers/intents.ts"
+  ],
+  "fixtureInjection": "Only src/lib/creative/deps.ts, src/lib/owner-voice/deps.ts and src/lib/buyer/deps.ts replaced in disposable snapshot; actual actions/service/database run unchanged",
+  "realOwnerDepsSha256": "4d163661f20355593de4a88ac3e67c16dcc86372b10b47d91e543227b063bae4",
+  "realCreativeDepsSha256": "ffd741eb8d236723d22be5726bcd6995a52876a5901f72b971fccf635ac2e985",
+  "realBuyerDepsSha256": "a807fccf113e0109a9448a16632fa7518e0c1ce10e66ac98829056d6c455ba4b",
+  "modelConfiguration": "offline-dummy at model.invalid; SAM/Image/Voice/Wonder/Glimmer/Spark Open boundaries use authored fixtures only",
+  "transport": "Node preload refuses non-loopback fetch/socket/TLS before DNS in builds/server/tests; automatic browser fixture blocks external requests",
+  "audio": "generated 1 second silence WAV, not speech; fixture transcript is authored independently",
+  "runtimeRole": "disposable member of backfill_app",
+  "retries": 0,
+  "genuineModelCalls": 0
+}

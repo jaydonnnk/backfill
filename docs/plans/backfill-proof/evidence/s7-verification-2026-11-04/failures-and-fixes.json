@@ -1,0 +1,67 @@
+[
+  {
+    "check": "initial typecheck",
+    "outcome": "failed",
+    "cause": "New test read phase/reason directly from a jsonb row wrapper",
+    "fix": "Use the existing getCreative service to parse and read the stored asset",
+    "evidence": "commands-initial.json"
+  },
+  {
+    "check": "first guarded Webpack build",
+    "outcome": "failed before browser execution",
+    "cause": "Product next/font attempted Google font transport; loopback guard refused it before DNS",
+    "fix": "Replay existing locally cached font files and CSS at the transport boundary, with their hashes retained",
+    "evidence": "../s5-local-2026-11-04/s7-gap-red-2026-11-04-01/"
+  },
+  {
+    "check": "new media failure proof without fixture failure",
+    "outcome": "failed for intended reason",
+    "cause": "Existing successful segment fixture did not display failed media",
+    "fix": "Snapshot-only creative dependency wrapper throws for the explicit s7-segmentation-failure target; product code and old fixture source unchanged",
+    "evidence": "../s5-local-2026-11-04/s7-gap-red-2026-11-04-02/"
+  },
+  {
+    "check": "first full browser attempt",
+    "outcome": "23 passed, 1 failed",
+    "cause": "Minified cached font CSS used src:url; Next Webpack loader discovers only src: url. Unemitted fonts caused browser 404s",
+    "fix": "Normalize only fixture CSS spacing; loader self-check records 0 before/19 after; S1 console-error assertion retained",
+    "evidence": "../s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/"
+  },
+  {
+    "check": "filtered HTTP diagnostics",
+    "outcome": "one supplemental test passed; filtered S1 retained expected 404 failure with precise URLs",
+    "cause": "Diagnostic test records the failed absolute font paths",
+    "fix": "No assertion removal; final full reruns use corrected fixture",
+    "evidence": "../s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/"
+  },
+  {
+    "check": "default build with node_modules symlink",
+    "outcome": "failed",
+    "cause": "Turbopack excludes installed Next outside its inferred source root",
+    "fix": "Copy already installed dependency tree into the disposable snapshot; no install or product config change",
+    "evidence": "declared-build-05/symlinked-dependencies.txt"
+  },
+  {
+    "check": "default build with absolute local font paths",
+    "outcome": "failed",
+    "cause": "Rust font-file transport cannot use the Webpack mock local-file convention; reports request should be cloneable",
+    "fix": "Serve cached original WOFF2 bytes over owned loopback HTTP and mock only the stylesheet response for default builds",
+    "evidence": "declared-build-04/copied-installed-dependencies.txt",
+    "sourceReference": "https://github.com/vercel/next.js/blob/canary/crates/next-core/src/next_font/google/mod.rs"
+  },
+  {
+    "check": "declared npm run build with copied dependencies and valid loopback font transport",
+    "outcome": "failed, unresolved",
+    "cause": "Compilation/typecheck finish, but /_global-error prerender throws useContext on null. Debug prerender also points to usePathname in KopiProvider. Underlying cause remains unknown",
+    "fix": null,
+    "evidence": "declared-build-05/copied-installed-dependencies.txt",
+    "diagnosticLimits": "A trivial app, a minimal usePathname client and a minimal unchanged KopiProvider app all build. None substitutes for the real production build."
+  },
+  {
+    "check": "declared build root-cause diagnosis and correction",
+    "outcome": "resolved; declared npm run build passes without diagnostic instrumentation",
+    "cause": "fs.cp resolved relative .bin/next symlinks to the original repository; snapshot hooks and original renderer used different React objects",
+    "fix": "Preserve dependency symlinks verbatim and verify the copied CLI target in proof-s7-build.ts; no product change",
+    "evidence": "build-diagnosis-01/README.md"
+  }
+]

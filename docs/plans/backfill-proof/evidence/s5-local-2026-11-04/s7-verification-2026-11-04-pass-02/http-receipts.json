@@ -1,0 +1,242 @@
+[
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-05d701b8b591.json",
+    "sha256": "4eca31993fe7fd0a8c7f04814bcafb5c145caca8c4da72a660d401334a998b70",
+    "receipt": {
+      "test": "queued cue invalidates on null",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-0a67966ea7a4.json",
+    "sha256": "2c3e638b3952a0ab43d767ce00c61e32fc1d43aba0ae57a39376f35618c6b50e",
+    "receipt": {
+      "test": "S3 upload response interruption retries the same edit without a duplicate transaction",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-247d67ff029e.json",
+    "sha256": "51af3f6d0686ba8f17c72422bd01ef8c24847a9fbd665e463a65b25786065104",
+    "receipt": {
+      "test": "S4 ignores delayed replies after credential changes and preserves text edited during parsing",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-317c1e61ace9.json",
+    "sha256": "8fb84bd8fc68a1be275a24b3982b1c96373eb7f9ab28800da4490898e606ac1f",
+    "receipt": {
+      "test": "queued cue invalidates on pool",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-3951508b0a5c.json",
+    "sha256": "d2062776cef75d3e71ed2d3dccf6fd5cad7a1a1f772301cb9b06762b73cc155d",
+    "receipt": {
+      "test": "stored S2 trail on the real demo, with pending and settled pools, interrupted feed and recovery",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-48d68d5b898f.json",
+    "sha256": "569bc33196aa45813635f817ae61e7c49c8dd48b400b94e8f7ad429500b20550",
+    "receipt": {
+      "test": "S3 mixed manual-only request changes nothing and private voice data stays out of public HTML, snapshot and SSE",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-49b5e7787c36.json",
+    "sha256": "1f33829ea99c1638f9b058d01ad4fbc9742797d5230d17095164265ec2858f53",
+    "receipt": {
+      "test": "S3 cancellation, invalid bytes, wrong owner, missing session and interrupted proposal preserve terms",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-4a64b4422c26.json",
+    "sha256": "2953861bc65924e2962aa05bf8e6d9a6cce3ebfa03efcec21682a48da2a620b5",
+    "receipt": {
+      "test": "S5 exact asset review, rejection, stale terms and private media at 375px",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-4bfbe59b275d.json",
+    "sha256": "241d0a06a740111a817dd03e8cc23ecd719f8acb93aa89578288c610a5ce0aaf",
+    "receipt": {
+      "test": "consecutive nods each start an animation",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-54a2921eb377.json",
+    "sha256": "dff966d0c246f1c13e6df26d40b840c71dcb2907ca2e3373b053e4689648c390",
+    "receipt": {
+      "test": "S3 transcript correction invalidates the prior proposal and spoken yes cannot approve it",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-5eb4114de6a9.json",
+    "sha256": "db6b70dceae956e8fa3f67b252d6837f60321dfb545c34b2b62107298e5111e5",
+    "receipt": {
+      "test": "S4 four independent reviewed buyers approve exact terms and settle, fresh run 2",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-7cfd9fc68aea.json",
+    "sha256": "3839caa9461914875124d68d84c1f3548be59d71affae8f3d861739799b4803d",
+    "receipt": {
+      "test": "S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 1",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-7ebaab33da2e.json",
+    "sha256": "3f7415c1d4327429bf765a87f48fd59f06a094f21ed0856633a44453d3874cc9",
+    "receipt": {
+      "test": "queued cue invalidates on navigation",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-8979ea179e71.json",
+    "sha256": "5755ad2c8d5885ecd8822e6133d38295f4604ca2977ffef1d1c867e6b566b06c",
+    "receipt": {
+      "test": "S4 four independent reviewed buyers approve exact terms and settle, fresh run 1",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-989eb994b8c6.json",
+    "sha256": "c7812f6b4a48027d29d148e064057b0dd27deb9d6a9943acdd060f8a97ba7700",
+    "receipt": {
+      "test": "queued cue invalidates on minimum_lost",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-a36a4e01e0b0.json",
+    "sha256": "d998f636995dded803e2ba3b8b791316baa2de4b84be7fb0d407baf839eec7bf",
+    "receipt": {
+      "test": "scripted S1 merchant review, seven independent MCP parties, deadline outcomes and owner approval",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-add97d6b2188.json",
+    "sha256": "2bd081847675004657ee16f8b9f8de909ab2cba1c7c33e4e6e27a48775db498b",
+    "receipt": {
+      "test": "S4 offers a new request after expiry",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-c220ea5c6f78.json",
+    "sha256": "f91fd5e7908ae2e445e97ea47e8fbe9e3da610a1306964a150b30b9f3a69d290",
+    "receipt": {
+      "test": "queued cue invalidates on malformed",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-c58eddc6b71b.json",
+    "sha256": "6b0084b63f09575d005c5a8350a0a004a16a8822b12f29e2d6a0d349242292fe",
+    "receipt": {
+      "test": "queued cue invalidates on plan_applied",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-c6b26d2ac628.json",
+    "sha256": "876ae896e2681fad5d04f976e02dcdfc00a71011c9f456e8c3b0a226c660258d",
+    "receipt": {
+      "test": "queued cue invalidates on clearing",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-d815bf32faef.json",
+    "sha256": "ec4eb75de5df0b5b20532e0c6acaefd163b7169beeea5680ed4f3b728fef8845",
+    "receipt": {
+      "test": "S3 owner upload, reviewed transcript, exact proposal and separate approval, fresh state 2",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-ea6f0db3b530.json",
+    "sha256": "0bb4d6f8fe99235c41411022ec70e2e180e26f0465b095d275d327ae44ad5c39",
+    "receipt": {
+      "test": "queued cue invalidates on stale",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-f38bb7ca9cd0.json",
+    "sha256": "48aaf975fdfa550e7bb3eee9381b99b9b7c37aae3e0f05e3c50e2ae8a4328ea1",
+    "receipt": {
+      "test": "S4 ambiguous request, manual clarification, discard and cross-party HTTP protection",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  },
+  {
+    "originalPath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/http-fe6a935c663d.json",
+    "sha256": "ebe9beb7dc49856175705e96cb2ea55e94a93b55902b5c088a1b9936995ba555",
+    "receipt": {
+      "test": "S5 exact asset review, rejection, stale terms and private media at 1280px",
+      "httpErrors": [],
+      "external": [],
+      "pageErrors": []
+    }
+  }
+]

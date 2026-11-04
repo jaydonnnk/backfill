@@ -1,0 +1,17 @@
+{
+  "node": "v24.21.0",
+  "observations": [
+    {
+      "verbatimSymlinks": false,
+      "link": "/var/folders/zn/8xx89l71235c5k2qhc_k3ck80000gn/T/backfill-s7-link-proof-14QzFV/original/next/dist/bin/next",
+      "resolvesInsideCopy": false
+    },
+    {
+      "verbatimSymlinks": true,
+      "link": "../next/dist/bin/next",
+      "resolvesInsideCopy": true
+    }
+  ],
+  "scratchRemoved": true,
+  "earlierDiagnosticFailure": "First self-check compared /var path with canonical /private/var path. Corrected by comparing canonical paths; not a build failure."
+}

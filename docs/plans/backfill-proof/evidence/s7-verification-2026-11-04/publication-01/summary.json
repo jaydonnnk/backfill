@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-04T10:23:49.574512+00:00",
+  "baseRevision": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f",
+  "s7CompleteLocally": true,
+  "passed": {
+    "tests": 607,
+    "testFiles": 72,
+    "guards": 12,
+    "browserPasses": 2,
+    "checksPerBrowserPass": 24,
+    "declaredBuild": "npm run build, Turbopack, uninstrumented real source",
+    "historicalEvidenceFilesUnchanged": 594
+  },
+  "reusedBrowserEvidence": "Input/source hashes remain exact. Full browsers were not rerun during publication. Fresh non-browser gates ran.",
+  "cleanup": {
+    "addedDatabases": [],
+    "addedRoles": [],
+    "unrelatedBaselineDatabasesPreserved": true
+  },
+  "retention": {
+    "originalEvidenceFiles": 455,
+    "archivedOnlyFiles": 340,
+    "retainedReviewedScreenshots": 8,
+    "omittedScreenshotsArchivedLocally": 80,
+    "archiveAvailability": "local only, ignored"
+  },
+  "review": {
+    "reviewer": "independent code-review subagent",
+    "scope": "S7 verification runners, transport fixtures, browser regression changes, final audit, evidence curation and acceptance claims",
+    "findings": [],
+    "method": "Read-only review; no additional app/test/provider execution",
+    "manualFallback": "no-mistakes CLI unavailable; actual repository lint/typecheck/full suite/guards/evidence checks and independent review used"
+  },
+  "unperformed": [
+    "production access or migrations",
+    "inference",
+    "dependency installation",
+    "deployment",
+    "S8"
+  ],
+  "pricingPolicy": "unchanged; S6 negative AI result and S6b no winner preserved",
+  "publicationAuthorization": "User explicitly requested cleanup, commit and push main after diagnosis. Commit uses [skip render].",
+  "gitHubCI": "To be checked after push; not represented as passed here.",
+  "decisionTimestampNote": "First seven inherited decisions are retrospective record-write timestamps, not original action timestamps."
+}

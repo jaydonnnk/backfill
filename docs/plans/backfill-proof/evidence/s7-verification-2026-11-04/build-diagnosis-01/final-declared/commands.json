@@ -1,0 +1,12 @@
+[
+  {
+    "dependencyLayout": "symlinked-dependencies",
+    "command": "npm run build",
+    "exit": 1
+  },
+  {
+    "dependencyLayout": "copied-installed-dependencies",
+    "command": "npm run build",
+    "exit": 0
+  }
+]

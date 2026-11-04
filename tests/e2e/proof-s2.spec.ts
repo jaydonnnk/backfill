@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect } from '@playwright/test';
 import { randomUUID } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 import { eq, sql } from 'drizzle-orm';

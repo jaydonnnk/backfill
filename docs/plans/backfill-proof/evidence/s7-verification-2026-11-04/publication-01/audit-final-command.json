@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "node",
+    "scripts/verification/proof-s7-audit.mjs"
+  ],
+  "exit": 0,
+  "startedAt": "2026-11-04T10:23:11.021914+00:00",
+  "endedAt": "2026-11-04T10:23:11.450878+00:00",
+  "envNames": [
+    "CPATH",
+    "HOME",
+    "LC_CTYPE",
+    "LIBRARY_PATH",
+    "MANPATH",
+    "NEXT_TELEMETRY_DISABLED",
+    "NODE_OPTIONS",
+    "PATH",
+    "SDKROOT",
+    "TEST_DATABASE_URL",
+    "TMPDIR",
+    "__CF_USER_TEXT_ENCODING"
+  ],
+  "log": "audit-final.txt"
+}

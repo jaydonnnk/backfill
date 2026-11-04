@@ -1,0 +1,47 @@
+{
+  "method": "Actual PNGs opened with view_image; test assertions separately check document widths and values",
+  "scope": "Representative inspection, not manual inspection of every capture",
+  "notes": "Kopi is a movable fixed overlay and overlaps some lower-page text in full-page captures. No document overflow or incorrect state was observed; no product polish change made.",
+  "screenshots": [
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s2/demo-4-settled-1280.png",
+      "sha256": "803a86f987d0d01461c643fbdab94232cc0359541792f26209b57f0eab8f518a",
+      "observation": "Eight covers confirmed, SGD10.88 simulated savings; independent approval states remain honest."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s2/demo-3-settled-375.png",
+      "sha256": "68712306ab2a3ac45423d1485b5bd7a0d93b92f83273fd4ecf823290612351f4",
+      "observation": "Six diners joined; no bookings confirmed; no discounted fill or savings claimed."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s4/media-failed-2-375.png",
+      "sha256": "e11060f0430a20eb7daf277926a78beac869b0c02e591a411531292a04aa3d11",
+      "observation": "Optional media failed notice with original offer v1 intact; no media approval."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-02/combined-regressions/s3/owner-refused-375.png",
+      "sha256": "23388759f4f74f43621c8ca39f4332285d4c72026860bb3b40551ebc5b8f3603",
+      "observation": "Discarded voice edit states offer unchanged; original v1 terms retained."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s2/demo-feed-interrupted.png",
+      "sha256": "c36367c153ae30aa757cc9e4cfa527b1b593d3ed81a4faf4d7576a9329298be8",
+      "observation": "Paused last saved view retains eight saved fills and warns results may be stale."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s4/buyer-unapproved-1280.png",
+      "sha256": "f7d9e68fda5c98a6e256122a21a8535abc6c0caaf1f73b324c3aadadf3f97899",
+      "observation": "Exact terms visible; submit disabled before separate approval."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/combined-regressions/s4/buyer-pending-375.png",
+      "sha256": "4da2147b8b723a1eabdea40e004846d249be9f553d835cc08f48a968f3ccd910",
+      "observation": "Exact party/price/date; stored pending state explicitly conditional on settlement."
+    },
+    {
+      "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-03/approved-375.png",
+      "sha256": "7f0ea42706d0f16a55d87e0f4fd23eed685b174f2c90d98e1dbc9efb6bebac09",
+      "observation": "Fixture geometry, separate exact asset approval and stored version/hash displayed."
+    }
+  ]
+}

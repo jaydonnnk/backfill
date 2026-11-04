@@ -1,0 +1,25 @@
+--- scripts/verification/proof-s7-build.ts before
++++ scripts/verification/proof-s7-build.ts after
+@@ -5,7 +5,7 @@
+ import { createServer } from 'node:http';
+ import { createRequire } from 'node:module';
+ import { constants } from 'node:fs';
+-import { cp, mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
++import { cp, mkdir, mkdtemp, readFile, readdir, realpath, rm, symlink, writeFile } from 'node:fs/promises';
+ import { tmpdir } from 'node:os';
+ import { basename, join, resolve } from 'node:path';
+ import { createTestDatabase } from '../../tests/support/db';
+@@ -95,7 +95,12 @@
+     assert.match(first.outputText, /outside|symlink|resolve.*next|Next\.js package not found/i, 'Build failure needs a separate diagnosis');
+     await rm(join(source, '.next'), { recursive: true, force: true });
+     await rm(join(source, 'node_modules'));
+-    await cp(join(root, 'node_modules'), join(source, 'node_modules'), { recursive: true, mode: constants.COPYFILE_FICLONE });
++    // Keep .bin/next relative so the CLI and compiled app use the same copied Next runtime.
++    await cp(join(root, 'node_modules'), join(source, 'node_modules'), { recursive: true, mode: constants.COPYFILE_FICLONE, verbatimSymlinks: true });
++    const nextCli = await realpath(join(source, 'node_modules/.bin/next'));
++    const copiedNextCli = await realpath(join(source, 'node_modules/next/dist/bin/next'));
++    await writeFile(join(output, 'dependency-resolution.json'), JSON.stringify({ nextCli, copiedNextCli }, null, 2) + '\n');
++    assert.equal(nextCli, copiedNextCli, 'Build CLI must resolve inside the copied dependency tree');
+     const second = await build('copied-installed-dependencies');
+     assert.equal(second.exit, 0, 'Declared production build failed with local installed dependencies');
+   }

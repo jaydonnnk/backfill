@@ -1,0 +1,54 @@
+{
+  "baseRevision": "545fd0c23b2f0411d8f45b10dab54b88c3e0845f",
+  "files": [
+    {
+      "path": "scripts/verification/proof-s5-browser.ts",
+      "sha256": "c1e58ea2b4bff767ac76e6c457d93587b4aeadd444409a56fdbcd751af79d582"
+    },
+    {
+      "path": "scripts/verification/proof-s7-audit.mjs",
+      "sha256": "5ecea2ec142903f0a0e9b9780d08a7b4c17536a0d91f5f9c2cbebcca15e1952c"
+    },
+    {
+      "path": "scripts/verification/proof-s7-build.ts",
+      "sha256": "4151e446659ac7ef70e9bd5dcb021a3aa037c835e290e2145cf78da7edd9073e"
+    },
+    {
+      "path": "scripts/verification/proof-s7-loopback.mjs",
+      "sha256": "45b2a6996c3a6097ad0392a87563b25c5612dba781666cf8a28523422b368ebf"
+    },
+    {
+      "path": "scripts/verification/proof-s7-loopback.test.mjs",
+      "sha256": "037e29367745a795ef51b5c54832a126383e4a6236a6697437f0cdaeb3b4323a"
+    },
+    {
+      "path": "tests/e2e/kopi-lifecycle.spec.ts",
+      "sha256": "3ba4ce3c1f69357488a249e7626e88d6aa58deab3da2464e7db0db110bdda88a"
+    },
+    {
+      "path": "tests/e2e/proof-s1.spec.ts",
+      "sha256": "3d5945f85cb57ed9e6ba4fa23962d9ed8a43177271bbc596245c083de3e83bd4"
+    },
+    {
+      "path": "tests/e2e/proof-s2.spec.ts",
+      "sha256": "53331ffd8fd7252d0dd99d4bcbfcb17961cf605295452187300a4117ecb8b566"
+    },
+    {
+      "path": "tests/e2e/proof-s3.spec.ts",
+      "sha256": "3448dd3a808a6a81ca915c824137ca00089bf6fcec3b08de3646cd6144b1c75f"
+    },
+    {
+      "path": "tests/e2e/proof-s4.spec.ts",
+      "sha256": "9a3d97e7acf568c5024e161efa2540bf9e750cd15e96417d7d86cb930d8c6286"
+    },
+    {
+      "path": "tests/e2e/proof-s5.spec.ts",
+      "sha256": "b16c1bcc0d32b5f5ef854f19c5cf92b72a57032f3412ce1cd23040bb2a6f8b92"
+    },
+    {
+      "path": "tests/e2e/proof-s7-fixture.ts",
+      "sha256": "509ba26fb5851ffacbac252403db5b64486a8d0eca007fcd103799653dbb4b78"
+    }
+  ],
+  "productSource": "Unchanged. Build and browser manifests independently pin actual source/assets/config inputs."
+}

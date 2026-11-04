@@ -1,4 +1,5 @@
-import { test, expect, type BrowserContext, type Locator, type Page } from '@playwright/test';
+import { test } from './proof-s7-fixture';
+import { expect, type BrowserContext, type Locator, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 import { and, eq } from 'drizzle-orm';
@@ -176,6 +177,7 @@ test('S3 cancellation, invalid bytes, wrong owner, missing session and interrupt
     await expect(field.getByText('Discarded. Your offer is unchanged.', { exact: true })).toBeVisible();
     expect((await stored(admin.db, owner.id, ruleId)).rule).toEqual(before);
     expect((await stored(admin.db, owner.id, ruleId)).outcomes).toEqual([]);
+    await capture(page, evidence, 'owner-refused');
     await page.reload(); field = group(page, ruleId); await uploadAndReview(field);
     const ownEdit = await stored(admin.db, owner.id, ruleId);
     const outsider = await mintMerchant(admin.db, 'SCRIPTED S3 other owner');

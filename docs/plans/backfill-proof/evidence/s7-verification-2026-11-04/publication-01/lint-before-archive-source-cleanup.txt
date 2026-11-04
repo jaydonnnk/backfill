@@ -1,0 +1,14 @@
+
+> backfill@0.0.0 lint
+> eslint .
+
+
+/Users/jayd0/Desktop/meta-hack/archive/proof-s7-publication-2026-11-04-01/originals/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/build-diagnosis-01/diagnostic-runner.ts
+  8:53  warning  'symlink' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/jayd0/Desktop/meta-hack/archive/proof-s7-publication-2026-11-04-01/originals/docs/plans/backfill-proof/evidence/s7-verification-2026-11-04/build-diagnosis-01/trace.mjs
+  16:33  warning  'parent' is defined but never used  @typescript-eslint/no-unused-vars
+  16:40  warning  'isMain' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 3 problems (0 errors, 3 warnings)
+

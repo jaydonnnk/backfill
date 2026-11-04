@@ -1,0 +1,305 @@
+{
+  "reason": "Existing launcher moves failed screenshots to its ignored archive; these captures are retained, not deleted",
+  "files": [
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/approved-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/approved-375.png",
+      "sha256": "3a90789f5e37774ef46394c9ce158c6fbe0ce41aa3413081a56ecc06b377d13a"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/rejected-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/rejected-1280.png",
+      "sha256": "366c9d98613541f32cc912f349d630dd2532dc91d5ecd98e5adbb9d767a3f618"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/rejected-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/rejected-375.png",
+      "sha256": "4f2390f0b69f08c4afd5a5f077a1bd683aa007fd623e49531529f5ae9a19a366"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/stale-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/stale-375.png",
+      "sha256": "cdf8b59e310fb3fec2e041871912f5cff4b1f5c0c44f05e5c17f0a27fd74edd1"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/review-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/review-1280.png",
+      "sha256": "f83719c28df058f1f5d771d8105917cdd343b5639f8ca5d8da6932583db1437d"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/approved-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/approved-1280.png",
+      "sha256": "3f4a54b84cadc4df2a878e6c03c3b80766de0478b3478c6823bf20a81a5f6d06"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/stale-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/stale-1280.png",
+      "sha256": "f0753fc5c7ced35347ff96b464c715b5412bd54d0e55df3331beebff6b66107b"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/review-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/review-375.png",
+      "sha256": "cacb8a71ebbbbcdde18fcebf4809f90fd6cd2da0100b7b44cc2ce0dcca41883e"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-3-pending-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-3-pending-1280.png",
+      "sha256": "da155ac458ecdd6dc287ddd67b7536023a5f49641b455b88259846823fb2a54f"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-3-settled-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-3-settled-375.png",
+      "sha256": "38fbbb8aaa10c3cb6936e0e9c5364c166f3fd043595c9b5e1e180ebf8835d4ba"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-4-settled-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-4-settled-375.png",
+      "sha256": "975c720c07f49868a50032f4ed5e4b688a694e9c88197c78d53d9acbb5a9e669"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-3-pending-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-3-pending-375.png",
+      "sha256": "0e9f3704447ea447dfc72e4a3b72f6a4c9293edd234053719e1b9eb92259b3a1"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-3-settled-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-3-settled-1280.png",
+      "sha256": "29da72ed03a2810f17fb18cba1df3cbc831ba10142fd50af220f8901349e9924"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-4-pending-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-4-pending-375.png",
+      "sha256": "4f3a5d9945bdf44a804bfea86d69f2ae4c6fc10c467190d6cd80a0df58d3cd57"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-feed-recovered.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-feed-recovered.png",
+      "sha256": "d51c2a92ed33378bbf977965b4da4b53f664bcf3bacc019cc8e0821726a4a1f3"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-feed-interrupted.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-feed-interrupted.png",
+      "sha256": "90af603e97f2b3f5d56948e4fa9657a02a40a7b2826311080f7f576a925a93a2"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-4-settled-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-4-settled-1280.png",
+      "sha256": "eda819ba84eace20b98079f081008b6855c74e382c1134205527817cd7b4a6af"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-malformed-feed.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-malformed-feed.png",
+      "sha256": "426e5600d40d5adbb4322583629a69b1f5523c2530ed95930ab2d13e8ce7bd89"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-feed-disconnected.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-feed-disconnected.png",
+      "sha256": "27b1ee879915aead89a23c47d74ba9a981ff04d2d34426353a82c1a60883f8e0"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s2/demo-4-pending-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s2/demo-4-pending-1280.png",
+      "sha256": "36d2acc86a23b1ec07991fab0ab646ac88f5bb1d10369a28d023fdb1ce1e8b78"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-unapproved-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-unapproved-375.png",
+      "sha256": "b9922fccdae6aee812d9a48df6f7e007d12be411ff67e7b84533028479e1c04c"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-corrected-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-corrected-1280.png",
+      "sha256": "e52175a8d474d639dcdedce3e5e218f774f34735c44b22b37c86a3520012bab8"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-applied-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-applied-1280.png",
+      "sha256": "cec81cbcb347169d2356e593d8b0ecf68f61a387a286527dc32374a7c5a443f5"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-applied-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-applied-375.png",
+      "sha256": "54445a86b982eabdcf816a9ab99bfbb8a1f3dbedcfc621b84f93011d46d0f9bb"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-refused-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-refused-1280.png",
+      "sha256": "6bf27270886de11436d7802231ae17b28e4ec10dcf0ae16270c735c34dba6827"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-unapproved-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-unapproved-1280.png",
+      "sha256": "27cc87346d36458f45f722a8e2cda878e65339f3ac8847edb46e13b7f89f734d"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-corrected-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-corrected-375.png",
+      "sha256": "dea14ace1e75081231618ff05c0b8f345ede0add06dffbedc75f59361e50dbe3"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s3/owner-refused-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s3/owner-refused-375.png",
+      "sha256": "b08436ecd98c47254e02e29dd847e752e705e745b809a04d069faf55cf5ba965"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-unapproved-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-unapproved-1280.png",
+      "sha256": "f18dafba808528f5554463badd83e05d339ccd0702b7deb153d7abb5ae5af7df"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-pending-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-pending-375.png",
+      "sha256": "470800235d2834e471a562569ff72d204f35f699de77dc39f87b4f55c70e5b16"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-pending-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-pending-1280.png",
+      "sha256": "3a622b713e8d07a53d73ad03648f8b845ea0b5c57ea37924792808f94ac2c662"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/media-failed-1-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/media-failed-1-1280.png",
+      "sha256": "212d85f3d1066faaa3f043c20f79842ae487cbb349bfda9e5cf1df6e5858974d"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/media-failed-2-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/media-failed-2-375.png",
+      "sha256": "9afaefd4a6b42c2824a9580844e2ea5990413be7dccc9c478dfb33eaf5ac765f"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/media-failed-1-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/media-failed-1-375.png",
+      "sha256": "eda68d19d61adc513bcd9a7f04dc420e1d37c9819ead169b14bc1b86802600a9"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-clarification-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-clarification-1280.png",
+      "sha256": "4fe39237de6dae290370d435bdba5aaad92bdeb3de83b50c33f0cb99312349c8"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/media-failed-2-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/media-failed-2-1280.png",
+      "sha256": "2dffbd823010eca92b3d44a4b341e3775bfb0041fb041285ff062345f8e90bbd"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-unapproved-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-unapproved-375.png",
+      "sha256": "766969ab42ce3fedc544509238a0a09a2ee7505caf21a723193129537a2195a9"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s4/buyer-clarification-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s4/buyer-clarification-375.png",
+      "sha256": "2c52e3d9790dd687077b748735fd28630ffcf9479eec16e7b85ed9a54b223fbf"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-success-unapproved-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-success-unapproved-375.png",
+      "sha256": "6bd3312800f77b2b45faa9b83f846dba3c7b59911721c33bc586a13bbf375166"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-success-pending.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-success-pending.png",
+      "sha256": "8047b6f36718aca3028bef637bb656b23f88393245fea7a375199d70b5390914"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-insufficient-pending.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-insufficient-pending.png",
+      "sha256": "33257535c464af2f91b7f37b2d8c14aba084e1bc79b0c53b68ac2475d5e9f542"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-insufficient-final.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-insufficient-final.png",
+      "sha256": "ab0a2831f988da9d789bf36b15ef8227fc6bb1d4f26b36fecd52dfcebcafe97e"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-success-unapproved-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-success-unapproved-1280.png",
+      "sha256": "fc95c282ef00f1b1d2e830e554cbe581080dd433159da5eb184f9278d942b611"
+    },
+    {
+      "failedRun": "s7-verification-2026-11-04-pass-01",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-verification-2026-11-04-pass-01/combined-regressions/s1/browser-success-final.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-33-51-213Z/combined-regressions/s1/browser-success-final.png",
+      "sha256": "a01ce7478983b49c8c4b70f14d37c2fc078954c604e798c31fbf62f92af9fa07"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-success-unapproved-375.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-success-unapproved-375.png",
+      "sha256": "263871caf6c4fa8bbc04f6a8d27bbf4d064e9f532e41d631a2eef271ed84dadb"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-success-pending.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-success-pending.png",
+      "sha256": "8461a4bce40b3173bb0bcd5cb5d536dfc1d23e36a7933bcb195987518f7de119"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-insufficient-pending.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-insufficient-pending.png",
+      "sha256": "5a096963fe75564bc4395d3b8a645c9ec44feeeed80c3bdda19c5138d7f0728b"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-insufficient-final.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-insufficient-final.png",
+      "sha256": "9b2ffd483e1b7ece15333e3b873339ba27bdafb4d4c3045d2755d4d03eb9190b"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-success-unapproved-1280.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-success-unapproved-1280.png",
+      "sha256": "8babcd6654c88fcafe7f8850634dfc2e723512f37b92b5ecb401d2b0837b7528"
+    },
+    {
+      "failedRun": "s7-http-diagnostic-2026-11-04-02",
+      "originalEvidencePath": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/s7-http-diagnostic-2026-11-04-02/combined-regressions/s1/browser-success-final.png",
+      "retainedPath": "archive/proof-s5-browser/2026-11-04T08-39-20-527Z/combined-regressions/s1/browser-success-final.png",
+      "sha256": "acf0ec278242f9a2a6d8d6c9b57d047bd42277f95f39493669442636c05b21f7"
+    }
+  ]
+}

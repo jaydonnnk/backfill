@@ -1,0 +1,2378 @@
+[
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-preflight-2026-11-03.md",
+    "sha256": "c93ddfc962b71cf1b21c6baeaf543994788608f76299759f21489b64ef41f5df"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-ai-sdk-2026-11-03.txt",
+    "sha256": "212f63360f57abfdacbe398463d615289d43fbf4a613bce7d796ec0c348cf5b4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-ai-sdk-credits-2026-11-03.json",
+    "sha256": "7cd4f8bdd95891a5946b001bf9eb3c9b8767d0c2cc564dd965ae89a186a260ac"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-ai-sdk-low-2026-11-03.txt",
+    "sha256": "ff77ce2817fd6e0ed6d30a67bd65bcc494cadf38b01b17a6dd736342afc4aaaf"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-ai-sdk-trace-2026-11-03.txt",
+    "sha256": "dbac5be0f1566b81a6cf2b4355f0e977208dcec55c5910dddb30b07d0814d0e9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-credit-read-2026-11-03.json",
+    "sha256": "f35a2a9dd6288e41a1d95fefb42f83ff6dc1c71b5e9a3d4932187fffd57d7be5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-spark-open-smoke-2026-11-03-attempt-02.json",
+    "sha256": "50df6a6565ead74fc577ca721a7d6007f717ee4c68b45ab21036b0272b42d39e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s0-vercel-spark-open-smoke-2026-11-03.json",
+    "sha256": "507d89f29f508d984503c139fdb03f6d41d4ad27ef24b18afd8e238724bf1dce"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/README.md",
+    "sha256": "9e73f62872f7ad526fe2af734f120bf67a8e3944cb478c912fc94c954c6ba3b1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/SHA256SUMS",
+    "sha256": "ac394b226d292cdc32ddfb3ab755f219219b0562d7c0206613254c91ca467359"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-insufficient-final.png",
+    "sha256": "b5f82ba3785d5396c67c724df78f227bbb020041fe4b6068b66fcdcd2fe667fd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-insufficient-pending.png",
+    "sha256": "4f17a5ca87ec5dbf76b9bcb7c279345ac57f469a7a27aa5c617e48885862501e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-receipt.json",
+    "sha256": "3de3f9da2a9b0b661b0325fca3ba4bc27e1bbe76e3e18b286404e304be147835"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-server.txt",
+    "sha256": "a2feb4722fa905fdf81ee35f66aeb938689a0bc136fde4bacbc5303fdda8aab7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-success-final.png",
+    "sha256": "18aee7a682afbbc56c9819b087922ed96c149f225180e2f0752b4abb0ae067ed"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-success-pending.png",
+    "sha256": "1aad6761c9bc5068b2939e8146bf484668992f2ab9646cfd45bf673cf32091b3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-success-unapproved-1280.png",
+    "sha256": "7add8cdb5fc4350054d54065d5415f8661b83a4ca1301b919759967c47ef5003"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-success-unapproved-375.png",
+    "sha256": "5a2784fec0f628b766168689c0eab7df5a245864ecdb5cad64aab82a8a6b15e1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/browser-test.txt",
+    "sha256": "ee7005c46890c4138b0a1914536ef4918cc2ad493dfc0a7324a2a44321356778"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/cleanup.json",
+    "sha256": "91f1da40da4c3f862ab0316b9d13a7b5f15e144f347da0ac0fe2d36969ff2dcd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/decisions.md",
+    "sha256": "1f048cb24fe627d4a98377d70b52da4efc896478b305e8ca6e79db1d70e5768d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/full-tests.txt",
+    "sha256": "4bd90ae22023f37cd487b89c0754b13ce284ee246e1a3b9ad59714c2ab41d67a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/missing-test-url-rejected.txt",
+    "sha256": "2ac7939b86b9c006b8dce25bbbe9a538691359e905b2996a5d5c7916689c60c5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/production-build.txt",
+    "sha256": "13c2a672d0252fd7249a7fa2138869ab61e4e0a41e55d46927140f80fb587fac"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/service-run-1.json",
+    "sha256": "546f81a9b847fa4f27e430f1273e458cbe4bad9175fc91eac6752709734e11ae"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/service-run-2.json",
+    "sha256": "ac6344d767ebb95b0e1557f97886fa6b3a752b7f7f4b895392c3e6a50e8a55d8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s1-journey/typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/README.md",
+    "sha256": "a99301a3357851474662e68b8a88d2438b59d901da0058c36967a5ef0d273e55"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/SHA256SUMS",
+    "sha256": "c146f5f4d4eff9d3bcf2b72cbf57f9a07b7d5715519a402bd83f61d4489a70de"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/browser-launcher.txt",
+    "sha256": "cd8502d8536afc054fedcb86287e4c2305db2f8778372dd3649c48f1de5a21ae"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/browser-server.txt",
+    "sha256": "e58e453d218c5992d5562675e082542bfce6d52fa7c0939d8cd1e6d744989a0a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/browser-test.txt",
+    "sha256": "668c0c6b95c7c1d07021f4772aa237a991b181487b0a15cdbaa2097c62bff8f9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/disconnect-red.md",
+    "sha256": "64f0a620987c8d09804f1a0613574718f6064280a2c3ff022c61739ef289af99"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/production-build.txt",
+    "sha256": "8d9bc8eb0d06cb8af7d63eb62a624c54de36657023aa4f12e4c7b8c59b03c96d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-01/s1-combined-browser/browser-receipt.json",
+    "sha256": "219777a17444e8bcf61cdae6f3b2ce4321132c8c66d536f9d6f7868420d70ebb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/browser-launcher.txt",
+    "sha256": "cd8502d8536afc054fedcb86287e4c2305db2f8778372dd3649c48f1de5a21ae"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/browser-server.txt",
+    "sha256": "e47ffc2fb85525b67a23fe08eba45eb9d890aa2f9c70c1853245cdb5dd22b00b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/browser-test.txt",
+    "sha256": "43347371c2de2dfb4a7eef7ae2b66e4e39bee4394a1d48891feeac60c659538f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/malformed-close-red.md",
+    "sha256": "138b0e7e9adffda3190dd6d8b991cf2f7b8a14e62a5d0a02f2d7b275024df833"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/production-build.txt",
+    "sha256": "e3c899c418146fa3b797f80ed790258918fad53525168501b7a46fdb27eced4d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/attempt-02/s1-combined-browser/browser-receipt.json",
+    "sha256": "0aa9adc705d830dda2884937d76ddd5a217fce800039c43548191ba6a66a7f77"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/browser-launcher.txt",
+    "sha256": "4cd98f5d3c56d4a8307b707db5d6d1a3e5fd938bbdd840434f7637a5a06e9d11"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/browser-receipt.json",
+    "sha256": "af15317b79519adb86a2e6bcb28371c14fdf55bab2475819a160905d79de06dd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/browser-server.txt",
+    "sha256": "9f6431259e494c3d7ddbfc8e5afcd84c4743b2881eca6b85a6438e6628f80129"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/browser-test.txt",
+    "sha256": "a99d3ea407905467ae28c982b9e946ef0980901114c4122b99a335a7721b7b7a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/build-source-proof.json",
+    "sha256": "8526e2e29a43275200226ce3789fdb0dc0a16d19833478290e52c94dc11a797d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/cleanup.json",
+    "sha256": "34de668331df918db67ade884a17ee2825cc3e89d123a71be09d0e56cbf3e9f1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/decisions.md",
+    "sha256": "8ad9812310f184637345af0c084a8d82ced9d01112e120c4e4259b8cf202d9af"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-3-pending-1280.png",
+    "sha256": "7fe354d63d1911f60af664424ab1ee460ad31d53ad4d1b0713a59c76b5a34520"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-3-pending-375.png",
+    "sha256": "c3dd6834d12437fec0dff033d37bae27963adf7ef3a51f771ffef286be04c3d4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-3-settled-1280.png",
+    "sha256": "07341e5ea29b215364ff7c3dc4e4630bd3078ea5dbdef9788a3358e99d243873"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-3-settled-375.png",
+    "sha256": "e3aa3d556f565687af0b69e92191322e3fb0bcbc817585cc4a9af8b0c530296f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-4-pending-1280.png",
+    "sha256": "9665fe15413d48a35acf7362086e83b014acdf1fb07fed4738862628b3c06cd0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-4-pending-375.png",
+    "sha256": "51df1b1ab41a7603cb5acef49476d676855dfbdba3b0903d47e540bd6b392402"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-4-settled-1280.png",
+    "sha256": "5ec75f0581678ca54b2eb3ab7163333233ea061ac29bf8aac244ff7adc72060c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-4-settled-375.png",
+    "sha256": "6fbf83a73dd3ef898321863a4b4f51687c574e2582be38f661576ac9f3ea0aaa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-feed-disconnected.png",
+    "sha256": "1f1b831435dd9adfda5abd32b4de008b824543fa1cbca25063b20b347b75e369"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-feed-interrupted.png",
+    "sha256": "58d423feecefceb2ec3d6e38e66b73e4c425754e30e421522142cfeb9b2f9fac"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-feed-recovered.png",
+    "sha256": "663bec5dcb0edba20853112a1b28394a71d9e3b5a798352e1a58d989b591b783"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/demo-malformed-feed.png",
+    "sha256": "377af7320936f92a940b85b3a9063b9717c7c4cc2a47797854b4f98f2b83baf4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/feed-error-after-malformed-red.txt",
+    "sha256": "bf68a19654c368d31a59b5a1eb5588ebad43456e4ca8e85f14af637dedd8569f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/feed-inconsistent-red.txt",
+    "sha256": "46db187bd66f569eefc0ad9c0f65cb8214bfa65d43d354cd46450b23411a433e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/browser-launcher.txt",
+    "sha256": "4cd98f5d3c56d4a8307b707db5d6d1a3e5fd938bbdd840434f7637a5a06e9d11"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/browser-receipt.json",
+    "sha256": "61f88c312a4c089a3b6e4886a25e478a33c8b99ecedb98c87448c7546e19526a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/browser-server.txt",
+    "sha256": "27a20180c4bddc8eea6a22da700f35aefe41eb7229b2ba807d600f3b112841fa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/browser-test.txt",
+    "sha256": "2223958d3741301b5dbb1c85fe2933dc3ae72be2dd68e0f96c1604b22b443014"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/production-build.txt",
+    "sha256": "306f80789d011de88fc581f7634faaaffaa44755e0227bd6458df388532e5922"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-1/s1-combined-browser/browser-receipt.json",
+    "sha256": "4dc07a17bfafe67ab626305b40ddec82ffc2f38739f0160d3a1f4656d8f9db24"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/browser-launcher.txt",
+    "sha256": "4cd98f5d3c56d4a8307b707db5d6d1a3e5fd938bbdd840434f7637a5a06e9d11"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/browser-receipt.json",
+    "sha256": "f2716b62937c805fa17bc7c65e0dc35d293686651be5d312852db1235296dbcb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/browser-server.txt",
+    "sha256": "852955abb280aaf04c2a4030b32acd0bd9fbebe0a1fb8d644d50944b100ce546"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/browser-test.txt",
+    "sha256": "4608bdaa2bbbb3b4ad6fdbcf172fb571072d892a891021ef8d2cd371a4ec7a41"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/production-build.txt",
+    "sha256": "4740e55122860c700f2d23a5440d22328f26c906cd98a35bf091d3eb375ee387"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/final-run-2/s1-combined-browser/browser-receipt.json",
+    "sha256": "70896b1a6a42f5c3e4e96d6bc765f93b1f6ada45a2a7c8b1b3328ef9cef56a5c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/full-tests.txt",
+    "sha256": "a97d5c683affb07e0c4609b6e564523fc2b4caf987476c424dc16f609c53dc2f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/inherited-preservation.json",
+    "sha256": "d43cb4408f12c5018e379ff87b6e6c54f9419c92fb7e0f63f9ec1470d5db8cb0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/inherited-sha256.json",
+    "sha256": "6ba6556951085b5238d68e44c8e8856914adca5efc8e558c226844ca7dd0ac53"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/missing-url-rejected.txt",
+    "sha256": "d2f1c43df1c79e25786b18c582ee9c2545239b87e7860550941fe400cf559902"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/nonlocal-url-rejected.txt",
+    "sha256": "e9536c1c0b1033b51cfc130078d3a4d85b04a941740b9288d5e6e660eec04a21"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/production-build.txt",
+    "sha256": "6c9b78eada8d5a24cc0925896be2295e19c57f2a60876759fa419be3447a3488"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/regressions-red.txt",
+    "sha256": "64b0c0cc8a5cb714be217f90e7a7db3e7f1cdcf93b1350b357580ad8d62696c1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-insufficient-final.png",
+    "sha256": "f2fa36ba52197d8537bc6f97edeb9c8f1793c799195fd9bf5d62bc73c751e1e5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-insufficient-pending.png",
+    "sha256": "d8b2544804240d683cd5f603b600455e2776e6817739b634faa96d57aee69bb3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-receipt.json",
+    "sha256": "29eebc74b5f8378b3d5dbf58dd401a021d4e9c62fb6dddf98f824fba100a8694"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-success-final.png",
+    "sha256": "ca37ffba44f7426e1ce4ca0070573ba468a1d0ae6cde3cc0b67e73fabea0bb04"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-success-pending.png",
+    "sha256": "03d0cb5044ba5373d8cdd8b3247bfaaa53a30b295b6a51d48838a5b92af2ca8c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-success-unapproved-1280.png",
+    "sha256": "53988926c5f20a8cc38cd3d033bef9269c1fe25707a647d6225632528c07dad6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/s1-combined-browser/browser-success-unapproved-375.png",
+    "sha256": "24095d0de2af532517616ff41d9226465f8ac5ee19e35ce04cde6697a7f450af"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/screenshot-audit.json",
+    "sha256": "7a667b42051ae723b7f77c00afafa0da8f8d41dd025fbe0024b21a93923dec2b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/service-run-1.json",
+    "sha256": "56669e69203703e1fac48e3cc225e73e026db05d771dbc3ecdbe272adae03a47"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/service-run-2.json",
+    "sha256": "075d1ef2bc218f7f4dca8624829eb80780197fa83a895c26bbb2f1ea98b0eba1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/service-trail.json",
+    "sha256": "982c6d248bb0d6d0762109b0d82f89d4a916664aa23f999fca138789852ac952"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s2-decision-trail/verification.json",
+    "sha256": "ced062d1b96df95236dd825d76dc3084ee0d9eefa37a1a1959701fcc2181996c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/README.md",
+    "sha256": "2c4e29ecf619a70cdbd608c141c21131aa3a04d2fd2104ac79bd774e94ec7604"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/SHA256SUMS",
+    "sha256": "4b55d39a8636be8b9233249cd2507a8c4c51176b28e361252f416494e48d5446"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/browser-server.txt",
+    "sha256": "880dcf91f5abe25181c0ac5d5c54ea786a4b5c32ddedc8803cad39bd43b83645"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/browser-test.txt",
+    "sha256": "59aa060d8152620b9216bec7cb706669e3e07c3144e0f477be089e5f89a0b157"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/combined-regressions/s1/browser-receipt.json",
+    "sha256": "7e74cf3593a5d33641d8d0ae157f6b046de29a0038df96f89b9de6b087f49a98"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/combined-regressions/s2/browser-receipt.json",
+    "sha256": "6c856155e145453f37cd90d02b50f55ae92bab7d278f1454d1d8631062af25a1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-33-44-326Z/production-build.txt",
+    "sha256": "6d5af2312dbaddea165fc9edc9a6cf1f069488b71c7b9e87e143c766b71302b7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-failures.json",
+    "sha256": "aca3151961a5ca2dc1519ccd19dc8e4c50c9e391bc0b33caa258b31171708d25"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-owner-run-1.json",
+    "sha256": "1591c7539bb32226f40d0eb1cb5670388f5053f6f3a9afa28ed4c2937dc5a31f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-owner-run-2.json",
+    "sha256": "5aba0b0294ba1184a2419d3a1a774063a220bfdde073013dafc9bb1cfce2f8f8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-privacy.json",
+    "sha256": "0a10d2a0ff3ef3e0e9f6ddaf82c72c575b2bc9631aeebca1a1ab0af8df5f08db"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-server.txt",
+    "sha256": "081d398310b280d5ba4147018610c9ae0b63226bdb818ad40bef31aef95fbe95"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-test.txt",
+    "sha256": "28640afba0791922226cc831d50d6d473942cb3085b0535d1bd7b6ac07113166"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/browser-transcript-correction.json",
+    "sha256": "a126828cb719f2e80da07be3b05561d8aff0cb5fe2ae6c6642ef9380346e557e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/combined-regressions/s1/browser-receipt.json",
+    "sha256": "57ba09347970c25695bff4610fc1b1ce960d0e00c7a329b6967c7dfcfb652205"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/combined-regressions/s2/browser-receipt.json",
+    "sha256": "112613130c28f515d1d5f86e00dbade75741151b99e0db95c832e0a83a7243e2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/fixture-production-build.txt",
+    "sha256": "e081302ebd996d2da3919b8ca32fc59ccab0a5c3ff078e63fbe435934cadce81"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/launcher-failure.json",
+    "sha256": "dfa55309275abdd8cbe0910888cc42cab425875589d079a7f211b061e076e75b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-37-40-124Z/production-build.txt",
+    "sha256": "fe7c0c4b541c93db14b25eca043b6607e5106471e1d301ce68d6e22354943b24"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-42-49-350Z/browser-server.txt",
+    "sha256": "bc40d5c892fabb126ae9f8936dfaec63c15d6da665400b06b2163fbf29e52a9d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-42-49-350Z/browser-test.txt",
+    "sha256": "81016a061db895f32f3684f406d9395988b4a9ed4d9c0876eaee354e5c71f75c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-42-49-350Z/browser-upload-response-retry.json",
+    "sha256": "82ec0409f5db684e02dbcccb62f59b65bf372db21fd1ecfad4a2cef2186f6592"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-42-49-350Z/fixture-production-build.txt",
+    "sha256": "e5ad24cc48c2659f0683213c7c7489165b55712e4406e0c2c6d47ef415c4a452"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-42-49-350Z/production-build.txt",
+    "sha256": "b621fb7238da06545c7c5ccec912bc080a57b44799e04dca7568ecf37f18ad83"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-48-26-214Z/browser-server.txt",
+    "sha256": "53cbd7deba4e133b7bdbf247215d820b5272c4a379ca71bd1a2cfeaa578a79ca"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-48-26-214Z/browser-test.txt",
+    "sha256": "6ad006eee726f96da8401521b789970eac3c675d6a7d277424e305a40247ddd2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-48-26-214Z/fixture-production-build.txt",
+    "sha256": "866ea568377d30eda61f5974506a4adccee4a2012b5977cbd74f76ce6f17a424"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/attempts/2026-11-03T05-48-26-214Z/production-build.txt",
+    "sha256": "48024231b406a1c494b1ac5df2d7d650d8c254962f1debaca6408cfbdf01d27e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/backend-lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/backend-regressions.txt",
+    "sha256": "f29317ea59c0f42cc392e1f29e8345c10b268e0d782f2bd3f0f980dd297ba445"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/backend-typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/baseline-lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/baseline-tests.txt",
+    "sha256": "c1cd65f7a65ecd7ce189c6724c0449cc0676ba873598ed0d67c1298df75373a3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/baseline-typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-cleanup.json",
+    "sha256": "859f6cd792be1ff5daeafce60be3d6ccda75c476242b9dced21e1deba92860f2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-failures.json",
+    "sha256": "146e305c95d640510f28f2806a2606b87f136fbb291740a130706fa79ce3383f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-isolation.json",
+    "sha256": "13ff3ab63532ad1495890bb41ba18b813d65b0978eaf931f61c920c5225c1259"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-owner-run-1.json",
+    "sha256": "327f3398705a859a52c9b0e2c1fcb2aec0b92ccae1f8fabd9f24a6f7f46a7486"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-owner-run-2.json",
+    "sha256": "2388e7644b8282fc8a7b5f1e1aecbc221bc36fab757ac1247e1a7f7a70c751fd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-privacy.json",
+    "sha256": "a04131b96ac96d98c220a485bc145ae66523e7193ae0e945796da8fcadf4b5ec"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-transcript-correction.json",
+    "sha256": "39eae361cc4ca061bf3392e368590aba13d892e669caaac17d272ccb92d57625"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/browser-upload-response-retry.json",
+    "sha256": "6c47eece2812527c7d362ee7ffafa436b071025ae73fe655ffcd16e27593dae4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-insufficient-final.png",
+    "sha256": "6ff320ddb2194ff74251370450f87beb03597964193eef9ab22802bbcfa6fcba"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-insufficient-pending.png",
+    "sha256": "9128992d03a9f504599655b94d45b5750c77e44bd6a815b523d00a642e4cefa9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-receipt.json",
+    "sha256": "a7aa6c0a5e7216481bf914605dcf4e7beb4f7c4943133d1a0a0563a714fe2f33"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-success-final.png",
+    "sha256": "baba6585c07dcaae1c39ed190dcad3bbfdf512b8a0336b7cdb58c5f29a9ee5d7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-success-pending.png",
+    "sha256": "48c4e451c92e75a3c8d513874c665d08d88ff0b88ea8dc8c0e5d8c2859554f8b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-success-unapproved-1280.png",
+    "sha256": "1edccf348884bdb5d9404e2fee1679416b1b19dc3e84cb432ee42dee0c2ace37"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s1/browser-success-unapproved-375.png",
+    "sha256": "1d900dea6de72f74c89abb34a19df79d60df4d7cf7092fbdd62b303c6e0ecd85"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/browser-receipt.json",
+    "sha256": "cc70f59cad27db49ecc729bb0fd62b7391ace2ac1550de6c7b40c99d8642b3de"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-3-pending-1280.png",
+    "sha256": "254462715e8254298f1f4ee23f3a2586c2d82d61f1bcf2210e7ac0f8791df51e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-3-pending-375.png",
+    "sha256": "2f442714c68c410ba651971f0a5b31f487e01ed21c7b7342f3377baceafd6b4b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-3-settled-1280.png",
+    "sha256": "2faad52fa2425c6a9fbaf70e6ceb110725dc955a81f0e386980cb71776e35ccc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-3-settled-375.png",
+    "sha256": "bec8f5bfc081acb96c47d05f9c18af251af6459117c52f4f9ab86b726ef47ec9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-4-pending-1280.png",
+    "sha256": "c602a1833dfdd70d3ca09476f43bbc4ee4e4e8f361287f22a8d349d5a3cf2928"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-4-pending-375.png",
+    "sha256": "975f9353539450e2433d4bcfc97962a35e130107b06f770ff9649fab53cc5bed"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-4-settled-1280.png",
+    "sha256": "d69c625f85b7488bfbc92fffa70bf7054adde2757802457d08e65ad33abcda2f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-4-settled-375.png",
+    "sha256": "b2f39d29c15dc220daa8fea924250b37f955355642c3b8376b4ed7dc128a30f7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-feed-disconnected.png",
+    "sha256": "23a8a94d848c4514c621a04957ffe510d7cda34377db2877d80f5e613331ad3b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-feed-interrupted.png",
+    "sha256": "8ee6bcf0a78581ce32b842a52c3d51d8c0ff516ec53a2bc4e070fc94f4bf6459"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-feed-recovered.png",
+    "sha256": "9c9ca8bc6a638e07acf1fc4be980a7c4e6366a7bb0abd6c60b4c212d693edd4c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/combined-regressions/s2/demo-malformed-feed.png",
+    "sha256": "1e3df49b881bf23e60369e9a61290bd9acbbea72a2111e046a30e26b9e3c6bbf"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/decisions.md",
+    "sha256": "ad884b3cb7d32839f35b888bd0b76c81946afbfc9da820c8293512c7e620fd69"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/final-audit.json",
+    "sha256": "3ac6f0e17a5a2c88a2163ed791da7c51b46b6c7c052cb06e74e80228bb7db963"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/final-result.json",
+    "sha256": "a0994095664fe95a700121b41860ab8abc35e9294149c82f14053e48529c13d6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/full-tests-initial-failure.txt",
+    "sha256": "d1c854d4ef71c3878f7ab5c07861cd0b54a81ca1025e592bf5ee7ce3a530b0e7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/full-tests.txt",
+    "sha256": "0f2610f27049cd89400e5c98e8f5d1d67207142b7dc54291c81413d4b2d2b1cb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/inherited-preservation.json",
+    "sha256": "d16feffbab4aec2c19fcd0d3a553878007445a7028e252457fd8ed0b1990b701"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/inputs/ambiguous.wav",
+    "sha256": "d327a817bc757a8308c5ec1e4e65fc79157d4b63e578e7e355b68931dfeedbf0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/inputs/audio-provenance.json",
+    "sha256": "5e636404e9441b1e3a3abf95998a1051f079c103bdc86f76174431c4c43438d3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/inputs/clear.wav",
+    "sha256": "8c4759bcd5643bb15248c523ad707edef90a4916752009ef4d4d13afda96c90c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/launcher-guards.json",
+    "sha256": "a17c9bfbe889b7e99cb1480acd6bda86c1fea9ea2ddc143f7f4471e2cf311e5a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/README.md",
+    "sha256": "b3e8af3043daba47033251c3fa0ad7e7952a0acbeb78186751bd62986e40c7fc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/SHA256SUMS",
+    "sha256": "c520c9835f45cf4e900d9cbc18804918dbaeb9f623fead02de1143a6bfe0356d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/acceptance-audit.json",
+    "sha256": "bb0e1d3358276cad99f25d1c6c999e2294061958184d63ede47edf206a041ce3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-clarification-1280.png",
+    "sha256": "01d47b583593b36342c485139adf8786b735e9ee3b6c9ab2a2d0c3944d9b8b5f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-clarification-375.png",
+    "sha256": "92cbaa3c73b85239ccf075f547fec03641096256367c76728ed1fc9be574d216"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-proposed-state.json",
+    "sha256": "c66f70b316bab8aec0f406c38a9a48e6f05980a0f11241b54982b354150fe9c7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-transcribed-state.json",
+    "sha256": "412e6441b509f36016d4fcc6afef714f67f1521e7172c964c8748ef0afa3f46e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-transcript-1280.png",
+    "sha256": "b63b39c5be616009e7455d6f5f266b30ab87302a58b5573c5205493dbe68fceb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ambiguous-transcript-375.png",
+    "sha256": "356f158b834c8053a4998c9a47cbdadfc6ecb9af5215a9c0a9451d1ca5c3e92e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-applied-1280.png",
+    "sha256": "7f4dcf75213ecfdf1e1e496d3af749fa60c06f0c834af260046f0a9709c65a8a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-applied-375.png",
+    "sha256": "4216f05f0b4e3e7be3ed4f8edb25edd4a8138f037b11778050ef381b25f921aa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-proposed-state.json",
+    "sha256": "db909d77456511db80b15fd2a945fd2b9efaf871b00f7f5125ebc9ffac777d52"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-transcribed-state.json",
+    "sha256": "b014cc226530804111049170e4974ea8c1b44bed71ac8162ec200d53cd55cd6d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-transcript-1280.png",
+    "sha256": "cebeb3a58df3ac273e16ec682cc15a00934ba3ef0007cfe446bc278552930312"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-transcript-375.png",
+    "sha256": "9e8f32f3dc321f0c98f5dc5244a19e4658c52f3daa51fbceadfe5d5d23d385af"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-unapproved-1280.png",
+    "sha256": "73156638766b5658b543789d112d5065e47476cb930f55222939079fcf216a5a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/clear-unapproved-375.png",
+    "sha256": "dd4f05d4dcd70fb40509975dde8c890f0c6b0c891765ec866aae6ca7a36a1aa0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/current-case.json",
+    "sha256": "ee9a915ca392f701659347ce83fa40387d61d3603b450d42e1bbecdfe4f625fc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/dispatch-session.json",
+    "sha256": "8c1c1aa6fbcaffab4ad1ff90b7aa49fc1deda01647fab1ce7190cb529fb3ef24"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/guard-tests.txt",
+    "sha256": "7d30577989f56842546eaba5be304dd3ccce7a897443c22392abcff53749e6b2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/harness-lint.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/launcher.txt",
+    "sha256": "a81bec2adb3fb1427df44669fa2bd38caf424fb0766f19553bd1358c47f42643"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/owner-change-schema.json",
+    "sha256": "35856ca0bcf1fd4a2bc77a810e106560ab14752d70b05446c76a211458dcf7ca"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/plan.md",
+    "sha256": "2139365d648040e2eef689768234241d0e92590492dd096be8ddfc674303c79e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/production-build.txt",
+    "sha256": "e0caa88dce289b8b2694694924945ef3cf61341c0b1b6673e3bb2e670325402e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/review-ambiguous.json",
+    "sha256": "a4adf9bd4371faa71fc03f3283f752f78fc90ce9dd83aa7735eba335d4e36913"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/review-clear.json",
+    "sha256": "69e2a067333b7c59403f54a97541cf6ae2d55c10b8ee037282145f4f90001200"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/run-result.json",
+    "sha256": "fbdc892997b75892d3fce46db9ba9adbf703e86b12c77eb5c77032698b1bfb6b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/server.txt",
+    "sha256": "052ad7ac9e55db4f9ca4a0ee1ac58e5eb4dbe8434193771484fdf9c1198d9f00"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ui-receipt.json",
+    "sha256": "06c8f57c1bb3380da68b2fc3efb2392a8f8383f3d6be60b7d90e66e27a008505"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/ui-stage.json",
+    "sha256": "46a7fb2ab2a3d8b42e7f389677e4da115d5b63dde00f4a8fb15de49b807bddb7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/voice-ambiguous-dispatch.json",
+    "sha256": "40a5e7797f3367ad073492799124742028b199655abd48c009835a596230d5c6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/voice-ambiguous-result.json",
+    "sha256": "c177195892f4ed1a429a52f0f9dfd2cd62413f394f8f88c1d73258159baa5d90"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/voice-clear-dispatch.json",
+    "sha256": "67b0159525c13c10a109b30f3c4a89298a1602eddf3edba8d679e7f3a2ce2b9c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/voice-clear-result.json",
+    "sha256": "4c76ba12c9823bb962695bfea7b839eec3d8a4ea7965c0cec294dfff5175d84a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/wonder-ambiguous-dispatch.json",
+    "sha256": "b6cb3bd82a1e5be1b83e44d0410de47649ed5b1c4701bb59cd7e3a9f28ced274"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/wonder-ambiguous-result.json",
+    "sha256": "38393a40c58eab0e88a3ca9c3d073ebbbc56d30dfbdd0c2675f0718210a3bb2a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/wonder-clear-dispatch.json",
+    "sha256": "1b1c918535ecf916ff9878d0d59171f3d25de6495719bc2330d7f38a05630ffa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/live-authorized-2026-11-03-01/wonder-clear-result.json",
+    "sha256": "e4256dc673278122bab2b96b957b0cf7536e7be16ccaa620c6bb8348d1525d6b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/missing-url-rejected.txt",
+    "sha256": "b03be90c22fb49598d6b9c3baabc860ef8cfa6297bf02690040046f6d85ad2f1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/nonlocal-url-rejected.txt",
+    "sha256": "820219b6105999316d1a70d17ee75c6b4761e6fbfed36d24b8f2aa81533835ff"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/nul-output-red.txt",
+    "sha256": "f8484b7a0469402a7f68546a9501bf051c4fab051f50d3bb85d623a315544a12"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/offline-SHA256SUMS",
+    "sha256": "307cdcf68ff5b5217a6533b71a2d888f204ae24224e45cd8460029e47ef63852"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/offline-result.json",
+    "sha256": "f364c5ca32e49f41ff052e6da49d601bfbafc4f2ef176a40e0bb53077e98044f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-applied-1280.png",
+    "sha256": "42e885e56f54d67cc60f068f02a168928020c788e4a08197715eb879b1d2f76a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-applied-375.png",
+    "sha256": "be90fdaebd8a3a7829424da18c0cff0fa7a8ee53db98eb958e2253c8fdf2f9ad"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-corrected-1280.png",
+    "sha256": "7a64dc6dc211ca421b2303b1723fcd0cb271ea34ea46486f930ea75859cf009c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-corrected-375.png",
+    "sha256": "42b8fe7730e7f8e3983b0793ef4940f14b6b635e594c02c888448ecb46ed3af7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-1280.png",
+    "sha256": "078a8a92cea9e0c322e21e5c2ac968d2b6459e01cbe09639bdd46bdf430c262a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/owner-unapproved-375.png",
+    "sha256": "bf62ab9d92fefcca4ac274fada37e90885cb101754c59bc10e5704ea46bf2185"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/README.md",
+    "sha256": "0e98e1cd56abe0cc897bdacebf498c85dd9a3ade87b1f5434e707b2b9cc628b2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-guard-tests.txt",
+    "sha256": "dba9830cab58426c4c74f1ef1bf7161d0ba89077cd7c487960e11764fe1eb478"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-tests.txt",
+    "sha256": "46afb3f94b509103c16cd425cf1770369e0834d3dcb324c7d1bea4478fcc1396"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/backfill-s3-publication-typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/evidence-output-check.json",
+    "sha256": "bb28fdfdd82d231927a90dd88957dcb94ce04c23049c40a41be39580e6f6239b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/evidence-write-correction.json",
+    "sha256": "f61ad08ad7d4d9cd1f157a96db9fe955f00c520a88820ef736a080646486c703"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/full-tests.txt",
+    "sha256": "532b6344d09f3c48ba2034bb80b52a9e8dfdfd55c3881050e39cb27f3b2e1e69"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/guard-tests.txt",
+    "sha256": "67db663031bc0c3fc0d9457101c44b418b4547e71615b4539bbe4ab2e6cfbd8e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/lint.txt",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/published.json",
+    "sha256": "2eb75acf9dc531e3bb46820f1667d25bf2c9b398dfd67d4a812d7d88a42e8021"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/publication-2026-11-03/typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-capacity-red.txt",
+    "sha256": "c72d1c5b8aa947d57ac3302c303c8beccf1e288e848e0c4a12ee4cd1c86ea947"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-green.txt",
+    "sha256": "e2ddec99b276c6ebd58464920b437f771e4fa30b7e03e202c0222cde5ea8caa8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-receipt.json",
+    "sha256": "9f53bac099b3c247a69f75b2d52e554980bf64618afa8c263ac2a19919bb3750"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-red.txt",
+    "sha256": "38511167be3943077695ee33a555eec01d441feaf71ba0160c12c67a6aa31eb8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-run-1.json",
+    "sha256": "db7fa4ec593266d90c31beb404a6002af2c76d8249ae5230b954cb1f01b8954f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-run-2.json",
+    "sha256": "cd3c6b08d62055912d7c488a574eb66cd213a8753b16f8920078e85c607054de"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/service-trail.json",
+    "sha256": "e35e812d025f16a2860c70e7f2b90bb0187267d18f952cab5911dce486221dba"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/source-manifest.json",
+    "sha256": "71e5e1102869c77cfd4764dc29287718c820eb704c9c2d8760995756fc46350a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/typecheck.txt",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/voice-contract.md",
+    "sha256": "3c2ea8a2cbab58a46817428c74af28370583ea620963cfd6a5e731478cddb2e5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/voice-multipart-red.txt",
+    "sha256": "7f2aff3dedeb1a5e11e48c59f308fc78e1c7bb22644b86d67fb1937d03d920c4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/voice-provider-green.txt",
+    "sha256": "12048e09f1436fc0a6e766566b8afbc978352b11ba995abf4a453e0d9ef4c31a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/voice-provider-red.txt",
+    "sha256": "b071b4b6224148d44b78e28c36895923e26cf5db418b42692d2544e0fbf0ffac"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s3-owner-voice/wav-red.txt",
+    "sha256": "6a60accea06079ba103613b5a5fcade2b01895ec488b3fa59413498308de46ad"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/README.md",
+    "sha256": "18bd1f2927d8435ecf0ad75ec54047775f6313bd731e14be431df3b48f4825f9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/gateway-migration-2026-11-03-01/README.md",
+    "sha256": "b27cc7f6e2c45147fc024ed275e7855edfe175ab22f2effed1e30e4018f632f6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/gateway-migration-2026-11-03-01/removal-receipt.json",
+    "sha256": "e98aed512dbe941f4eec5055df2cee53c85c651233e6b9055b0bbc0e36cb63b6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/README.md",
+    "sha256": "deba047ad83ff900c1c863aee47586691ae7d9b784d2f4de4a0d90abda466cb5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/authority-and-load-attempt.json",
+    "sha256": "bbdfa2c4baa54cc36c1c844f3879db59c191867c645e3bf1a70b26244a2f0a9e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/cleanup.json",
+    "sha256": "09c78f192ab9df843a86c73410041dea458cfe3df181d3c9940ae944bdf27c8a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/memory-samples.json",
+    "sha256": "7a270ead0619db6933b69313113e4b741d1c4aeec18686e110316b97470a6a82"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/glimmer-cpu-authorized-2026-11-03-01/run-failure.json",
+    "sha256": "c103c63f13e7212fb8f269ee631e93713134380f38a1d1eb339571d2501c5c83"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/README.md",
+    "sha256": "69b5ffeee2bd63411edc46ad60d5e08522cfd31f3c6965fe9f9c61fa22ee1d33"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/acceptance-and-cost.json",
+    "sha256": "b80f4ccecdf79bb5adab4de003da72b5a91ca57e008ce8e8aed4afb42daf5fec"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/authority.json",
+    "sha256": "d8dd7c174f9def9f2dab262a3827901980fed3a64ae857cb75cf1759cb999d1d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/cleanup.json",
+    "sha256": "5ae91e9b0e430119ceedf4f7411292027589a46ea9e6f155055decaaa9e15922"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/dispatch-session.json",
+    "sha256": "0393f5749cc304ee6a1383c46c9282f4e8deeee163e92c5295c85e78af1d9028"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/download-verification.json",
+    "sha256": "9f346bb0199ce57a44fa7d6483efc7027972d720a366286b5cccce031a7d8748"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-1-approved-request.json",
+    "sha256": "dc5aaa8f4b81ae30f5e9a759ea82329fe5128badc00bb8fe4dd6e724d03dbdde"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-1-dispatch.json",
+    "sha256": "370757a18b943b2d773d24815247d33cf04d4d70b67c0abdcf2fd1a33082851a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-1-final.json",
+    "sha256": "f813074f1421085b476e082fb6869abb1a3bff29f504bc97b430ed0b00c0206d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-1-http.json",
+    "sha256": "4aa00d21ada2993a1efbc2abd52ca81be5a5c8a6f5f16319df0019d663b84013"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-2-approved-request.json",
+    "sha256": "0aad104e38f3ec8d4b4ed3007c45e7de0c41f391ca236810aafa48acb9dc32b1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-2-dispatch.json",
+    "sha256": "bea9b0c94378bea1dd8163965da5a93fd350797b7fdb1f641697da890795a6bc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-2-final.json",
+    "sha256": "8dba6ea177f1d19828950ead4c7305178f91e26b243c17eeaf9615ee9c7146f3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-2-http.json",
+    "sha256": "4aa00d21ada2993a1efbc2abd52ca81be5a5c8a6f5f16319df0019d663b84013"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-3-approved-request.json",
+    "sha256": "7c7bef9c365fdd63df959d770d3a21f7fc19887defa9ba4005d9d740aec3d3aa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-3-dispatch.json",
+    "sha256": "89e3c965eb1157fb62a671d98e1fd3058cd4687873515458e515174971a97eec"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-3-final.json",
+    "sha256": "fd12ad093d07c8f1e4e361470589ec981b88a6b366551d90985dc6df31631044"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-3-http.json",
+    "sha256": "4aa00d21ada2993a1efbc2abd52ca81be5a5c8a6f5f16319df0019d663b84013"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-4-approved-request.json",
+    "sha256": "34b2d313fd1091a8d4acaaf4d1ad9a9ed09da8d828ccb18ba5a3ebdfdb1ef01b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-4-dispatch.json",
+    "sha256": "d606d2a2919d07a602fbbfd5bed5ea7d21e1027cef3ea0c045249007642adcb2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-4-final.json",
+    "sha256": "e95a23d8a7c5cffa376cb97ab2bdd4c99e2b0fbd4e79b293f29f6c1d9c5e1110"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/eligible-4-http.json",
+    "sha256": "4aa00d21ada2993a1efbc2abd52ca81be5a5c8a6f5f16319df0019d663b84013"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-pending-1280.png",
+    "sha256": "b2bd433363aebe952d34918e276234c561556d46b1b04f10e7caf0061fba9023"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-pending-375.png",
+    "sha256": "3e5ac1d80bea19e5d42572e3409163136f60c35b115f158cf21ba782d9af1554"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-refusal-1280.png",
+    "sha256": "926e85f49b426f379ae1f0dc93398d9ccd59818d7d655386a9bad7a237829ae1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-refusal-375.png",
+    "sha256": "cbfed8a3d6fe43e37489dccb169211bbda10a7d0a9e63dfee07529f95a429ad8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-settled-1280.png",
+    "sha256": "a702eba560da3b9af96de7d61edf2caf34f6352014dd14f70d4e5d91becf3334"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-settled-375.png",
+    "sha256": "c0f2d2c1b0d245e6c515f872b7aabe86019566e7bb2048795c248001056af8c4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-unapproved-1280.png",
+    "sha256": "117e850ebab0b9ee2a8c72bbcd1195d3c7ee3dd79664536028039c7866d55f5e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/genuine-unapproved-375.png",
+    "sha256": "b6649c8cbfbca8855da177be6f020644522175d1c4609281c5712b6cd393b140"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/glimmer-blocked.json",
+    "sha256": "7355927d65c22cb4a5884fbc758ceae687c982021013763c2cda2b81bb94a2db"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/live-source-manifest.json",
+    "sha256": "eb105b0b43ea0a16f35cbd4201ea117441fef4c4dd4b390ebd3763efa755319d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/memory-samples.json",
+    "sha256": "8a7f3cdd8ad2150185b5eb4ed3083d5f83026eec08a31ceec47ac2204acc4f8f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/pricing-at-dispatch.json",
+    "sha256": "8a54c79d87e637bb748dc8c52308c5069e5a4eeb45441ba6b5be188212dbd5a3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/refusal-1-approved-request.json",
+    "sha256": "39ca993ff11645b0cc059874240f30a183455952ad4ebc640b0cad4f1d1b7218"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/refusal-1-decision.json",
+    "sha256": "2e7114bec48d7ec42f5ad000e5a0a033d9bd8ae4c56c0a02baeabee1fb7e5a60"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/refusal-1-dispatch.json",
+    "sha256": "9d1143a2edf103108525ff8ad8132e59c07ca8be08b359e38f236fefb3818105"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/refusal-1-http.json",
+    "sha256": "4aa00d21ada2993a1efbc2abd52ca81be5a5c8a6f5f16319df0019d663b84013"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/replay-audit.json",
+    "sha256": "e544ddb3edf2ca799f3c7d0d7e7b456055524529f760c5cf4058aa5fc53c9870"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/runtime-startup.json",
+    "sha256": "9784b51b595ac33a1a8b00b43e65c5a6d0163c7862549d0d935e52ca959857d5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/live-authorized-2026-11-03-01/ui-and-database-audit.json",
+    "sha256": "1c2e1687609732576e9bd4e17c9eb0fad2de56bb09e0610ff1647d73b965a37c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/README.md",
+    "sha256": "0b27e89a77ff89462b89f6874c83e265e3447ed7c9e2e1c69aefd934081309ac"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/acceptance.json",
+    "sha256": "a79dc1f7cfb66ac0af63e563ae3c2c9729d8dacf7b330e2cf8296967de861c14"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/authority.json",
+    "sha256": "5f9b325b1567419640fffdd9d061ad0c3b0fb6e1da8baf740dcd8cf74f6efaab"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/clarification-dispatch.json",
+    "sha256": "9a0bd0b5b2108973a7c869ef3acf6a23a87ac45056b012ae20eeafc7454a8acc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/clarification-http.json",
+    "sha256": "89959f186e288871d15f5aaaed0a3a47ae9bde788d91bbc393a75fa952586cea"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/clarification-result.json",
+    "sha256": "4a2eb5bfc7062db6f3daefbc5b27001f664dcecf3dffb5c7d91aa12fd3148b33"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/cleanup.json",
+    "sha256": "dd6dc849e15628b49256aba80fa6231148b8a99e5dcf3560528df417a045f02c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/independent-acceptance-audit.json",
+    "sha256": "518275b2815d06f7cbe0941bcf83f48c143bc644a9d535c765f12e9ba092495b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/independent-review.json",
+    "sha256": "5688356d1449637c52ac2cfa1bdc6e15704a7ebfaa6286f347552330071aee3e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/prior-frozen-guard.mjs.txt",
+    "sha256": "640c07a8cc64024d413cc01c94daff827c5e7912add5faf386936f7f9c4ffe00"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/run-consumed.json",
+    "sha256": "6172cb2d024a4e91a4dd735ca082685fa7a3743ccbd8004943b11d742c2adc40"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/source-manifest.json",
+    "sha256": "1694eda6e3a36a9720c07ce4dd3f98627e0889be805cce1ff65e8d6782d74edb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/README.md",
+    "sha256": "01a4f39160561cfbf1cca15bd91cbf4dd642cbb94f0a2e53a584b05deb6bf2ab"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/authority.json",
+    "sha256": "8784f8233bbcbedb8689d55f1229e48592fa6f9a72b420c09270a91e2c051c88"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/cleanup.json",
+    "sha256": "b28f91dff49a7cbdbf3e9c25b336ef1ab56dadd3239def275ddb81949371afd6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/explicit-dispatch.json",
+    "sha256": "e477c365d47589b2b327179461c3d8df2847b5ca4c80b841066e9b366780aaef"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/explicit-http.json",
+    "sha256": "300d18ed6bc34154c3aa7d927008e5822a80eb0ee0a2d50b4bf37e08d1d2463b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/explicit-result.json",
+    "sha256": "0a8dbbe038ff4654c49b5065f952e728fe95e78bf3cc30c574497ce714c582e7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/failure.json",
+    "sha256": "2b1c3cc83879a566cd5be752ba7630e231915ac2bfc1dfb13109126309745399"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/independent-output-audit.json",
+    "sha256": "1a131b29271b776c5ad6c52609e76141cf5f6d4c71f8bbc266ee0e262fa5101c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/run-consumed.json",
+    "sha256": "865f601ec37f60a6b2aa10e495cdd327f89d66f9a5db703cd385f78b5140484a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/source-manifest.json",
+    "sha256": "2e89b86ee259ee72dabb54251a23947fc9822e95219c9b647f9f04bcab1e8530"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/README.md",
+    "sha256": "9de5f6035e72c3dd00853e310a56240df3ae8dea9c519b5cedbc31cf6626f5fe"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/attempts/2026-11-03T14-15-30-584Z/browser-test.txt",
+    "sha256": "c9f78f1f3354e1cd84a2bb5f63c36556b10c654d9e128213ed75c24ace82754b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/attempts/2026-11-03T14-15-30-584Z/fixture-production-build.txt",
+    "sha256": "9e67354c3cb1e198222b4fb810f02a588f31c2fb7a9171e0a85de975a2c38f8d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/attempts/2026-11-03T14-15-30-584Z/production-build.txt",
+    "sha256": "0f475739a0128e0a338fc4fb2269de05eb0a382ae8f6310abee584add40831bd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/browser-cleanup.json",
+    "sha256": "65be57fd4612d7edbb2bf4a888d1b8d21da81a6b584a4ca5a107255fd0fa2c98"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/browser-isolation.json",
+    "sha256": "15e085f53071b4954f242ef2434c15bb0579ebdca9b15dae2080ab0dff420d47"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-clarification-1280.png",
+    "sha256": "17fae3dbddc721133e292dd098dcba934328470a3724b5accd639d4a3c638524"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-clarification-375.png",
+    "sha256": "cf50c55537d6cfc0f3a19b67117fd2ec5ba44626acb7ad1d36cd3264ac7d9db1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-pending-1280.png",
+    "sha256": "2e6cfb76a5a8209d02690bdaf9dbcde2b1d472512f9bbece8edd3bc1d0451352"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-pending-375.png",
+    "sha256": "b3491db25e5f79adfb48cc27dbed998c1a83ba886a669c3476b01b9e7b9ab195"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-unapproved-1280.png",
+    "sha256": "4b7e499c9b39148ae3c258d42d6a1477ff1d13182affdce7d7646917f4ed7b6f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/buyer-unapproved-375.png",
+    "sha256": "adb03961a81974b900809f156ca8be86b36fcf6173c9378637caea882478ea7f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/browser/source-manifest.json",
+    "sha256": "0e803460c0182524a3b75e0d141686693d7b2d3ad5984894573bae212dc3e526"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/README.md",
+    "sha256": "7beb49c7d61c0aef389b26b847cb7f64b65800e4368b12907b7e3f2139571191"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/build-cleanup.json",
+    "sha256": "22ef00de499281763576a9cc6920df195ff8fce48dacdc426d20dca90a9348d3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/build-manifest.json",
+    "sha256": "0e58aedca6f275fec462c2428814bf561b6b9d1b2406942510e604ace3e5fe79"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/full-tests.txt",
+    "sha256": "11c3bb749090d971e9a8ca9311429978d5ec0beb1bb63b02f89f21c3b7cfcd5e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/guard-tests.txt",
+    "sha256": "74a271b1b725dbf6be4814b18a8263bb38e0b4a3cd8d276a9e5baacf2e0d37a5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/production-build.txt",
+    "sha256": "0b5b68b7aceec8d74ffa05125be7506ada9fa130bb258d4df515bfdf10486057"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/publication-2026-11-03/review.json",
+    "sha256": "2b15728913be1fdd87baa647df1365979c701108e0c44adc2e559d282ac1770a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s4-buyer-models/retention.json",
+    "sha256": "91959d3f5ed93710d174e62cefd5045b3e9e979ac6f0aa9536491a551ccaa5bf"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-codec-2026-11-04/README.md",
+    "sha256": "f86fcd7b11bf6805df0a318586c259ee19d9333ba145e7cc2de7936ffb43efab"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-codec-2026-11-04/checks.json",
+    "sha256": "e59d5aa9b79a0544e1ab8fa446667147a6845ac55b6dfb34b6a0424e6e1c6ad5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-codec-2026-11-04/install.json",
+    "sha256": "fdd7d38abf815cac2df0e4cfd3bdf63d8fb3e0a47f17c5e9de6e0ac277fc2e12"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-codec-2026-11-04/retention.json",
+    "sha256": "46488bdbcfbce605138af8b107cc0f8b3b5214774c58973dd6679a58ed9ed394"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/README.md",
+    "sha256": "5da84c5ad11a1f20fd9366d7c6b68ebe016a448d0c595fac6216f079a0e47844"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/artifact-manifest.json",
+    "sha256": "6ad6eb5e55414ef16cebc3e5d932c3c2ac6ffc4e60fe8372e65d44e67d2738b5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/checks.json",
+    "sha256": "bd4c574beb330de9c02a8eb7a52f454ce579525d7e8501af07f80f55e818f70d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/cleanup.json",
+    "sha256": "5357e742e6c7c0af4e01a12237f102591582db30877665971ac62739e9b6975a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/composition-receipt.json",
+    "sha256": "65eea1c37db10a803b8003b3c75baa5226799b6b664c490dc20da39b6ab141dd"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/cutout-approval.json",
+    "sha256": "4e8c0c0e5d1d13076e0011aa1bdcd0795e433d172d6e35ecc7a261b47621b97e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-composition-2026-11-04-01/source-stability.json",
+    "sha256": "fcf7488981810e9efa1c3831e5b7fe841e20e7dd4e227dead607557b224cd649"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/README.md",
+    "sha256": "c4031489c28682fac2644e8a4e9698a0643f118e4dcb056ee80068b1ed17e637"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/checks.json",
+    "sha256": "94c0abb3ff338e4688dddb240627d62168a7294a04872b430c73c044f9f53db9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/cleanup.json",
+    "sha256": "5357e742e6c7c0af4e01a12237f102591582db30877665971ac62739e9b6975a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/composition-receipt.json",
+    "sha256": "c4981986c6894b2726904287ed52d7a2e54dc1c4649ef84472662aa557c0c302"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/cutout-approval.json",
+    "sha256": "4e8c0c0e5d1d13076e0011aa1bdcd0795e433d172d6e35ecc7a261b47621b97e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-final-approval-2026-11-04-01/final-approval.json",
+    "sha256": "8b4ac3a8b3b28c912a3f12190fe924fc00c4f3b810ecda84bbe63ab09c85a4f7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/README.md",
+    "sha256": "58f489130b1d0a46adfa2414955f4e72e91809262b8b5ed8eb78453240fbb568"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/approved-run.json",
+    "sha256": "d5ec75350b9b7f77f3dad6d93a23b6493e7a6381d934a50c34bf1f0b18f3643c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/approved-source-archive.json",
+    "sha256": "f47b6f54e98d522862470e0ba3c54e9d8ec95c53d66cd851b123315eb63498da"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/awaiting-owner-review.json",
+    "sha256": "80b300683e15c8fd84e66f518e6cff74c1c865a5ff79740c6b2b70a4744079d7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/call-integrity.json",
+    "sha256": "24e8d62624e7df214105d24e59dd4733ec34f562dd289a94bafd92e7ba1645b0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/cleanup.json",
+    "sha256": "a4bd3c4fb6d2bcf5ec9743985649ee1b37a954358aedab7102c607977067c7b1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/image-dispatch.json",
+    "sha256": "ff9d386ab47f149cc4854830e123e77ddeb8f8b2ffe130772305fc3d99a30014"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/image-http.json",
+    "sha256": "377de7c4f02b64d0f64ce32ed2e30427cd73ce6a040f012c0eab5f3c0a32eb43"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/image-output.json",
+    "sha256": "383185901f7b1782944bbe2a78e96cf0d60a08ef601b7a824e8ad2955d248a23"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/local-mask-correction.json",
+    "sha256": "96539dcfd3221ab13b7570bde2db9005f5c008598f8c921f6b4396ce97fc9cf2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/pixel-proof.json",
+    "sha256": "484d9eff863105335f4bb181fb2c1bb2703fc9630e6afdec60698c63dbb135ce"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/run-started.json",
+    "sha256": "9c50f2821152cb494bfe87e62965b85e2fc3a3ea8d2bd8cd0ce2bce52ecc9da3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/sam-dispatch.json",
+    "sha256": "ab0bc8780ec3d25117cc60ba1fb1686d903d9cb3b932a01426914ce521ca0b78"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/sam-http.json",
+    "sha256": "3379813f509f6370c57ae2aeab407d6113fe6ab34177d50b250af8130359e084"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/sam-output.json",
+    "sha256": "62835afc8405f974fc9a3f70442fdf29bbf234861aa8474b319baa565c753a24"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-live-authorized-2026-11-04-01/service-receipt.json",
+    "sha256": "d3c142c0865819665b24b05811fb2d25fc8724c6f457fe491891b0586aa0f4b4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/README.md",
+    "sha256": "3329b4d1249b7c8418fa0d6e6b271b5ebef044b95fb502c1f20697d74e242d13"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/background-fixture.png",
+    "sha256": "7605fa4c07b65b13eec45cee27c667a5d5399e624f82ffebe3b723d5cc52326b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/composed-fixture.png",
+    "sha256": "77386dc4fc494612aad3d7c53ee63520a50c5ddbea9212b4d1f6fc6c48ebd25f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/cutout-fixture.png",
+    "sha256": "6be220472e6b7fadfd61032dc92ff22222d9741fb2347fe227df6d1f28072894"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/manifest.json",
+    "sha256": "5d48ebc991b67bc14936afa3a79b36f0639d378d460430ba28aa6db78f7cff61"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/mask-fixture.png",
+    "sha256": "5e2aac8afd2468fb87ae107bfcdc9d66d35fd6a2eeb8d59f6615d1333fd09814"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/assets-fixture/source-fixture.png",
+    "sha256": "a8902442ba3f69745ba290ae4bb559542a9087192f9f03f6e074042d16eaf11d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/approved-1280.png",
+    "sha256": "2d81be584612baaa1dd679b7fe6a8ffcc362ab916fadf05d7e09ab3a65114ac0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/approved-375.png",
+    "sha256": "1fa4369af62312dbc08bbee1e78951f4bed93cab2e86a950e0256f7f89e83f93"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/browser-1280.json",
+    "sha256": "282ac471cc71da8eee91fc2bd6adfd3b9768a98714cbb5d45dc3faa0de1e6646"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/browser-375.json",
+    "sha256": "8820aafda911f1a90184ddfb8e30f754722f2223bd10551eab8175b15922a45e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/browser-cleanup.json",
+    "sha256": "e6b205c7def5f7b45b5a362c33f78ac03b86bd69a3767c96cb97ecb68038dd82"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/browser-isolation.json",
+    "sha256": "1f0ed2bd97f42cde563421e9358fc2b9533eff6dc767fc5966cac9326bc28022"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/rejected-1280.png",
+    "sha256": "195701fe92b6ee8ebb6950e2e0d017ba15dfacbeb2857d8f2a210f601b01597e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/rejected-375.png",
+    "sha256": "07759e9b8dafef0c13cb0f5d5e6b047385fe5ba0032c329eb30c2e4ddd9b847d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/review-1280.png",
+    "sha256": "f7f7640ac7345108bdac2bc9a3cd460a2c09c2d080cccd32a11c6d45962b52e1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/review-375.png",
+    "sha256": "c10ed8c1aab221a43e680034bc4109152dbec82e0079e73c5cd978862af22a8d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/source-manifest.json",
+    "sha256": "36f4e8a5bfee43abd8b48dac0b6887cafd4d4e651e9c53d43ee7f379b73547c0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/stale-1280.png",
+    "sha256": "a24d7e334c76c657311b532ff035e627c9aa0655804e8313cddaa37bc2e71824"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/stale-375.png",
+    "sha256": "a35656fdb8ee04ff7d00815dc155bcafea431e775b6aab9645292f34e4e7163a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/retention.json",
+    "sha256": "151bcdb6f2f511d485be16c010e84d8cd3ee95f61ea06f230706bca83d778446"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/superseded-source-change.json",
+    "sha256": "e414a39efb8c7eaba1caa2ef18e6665ba8553488584395618fb8fbba5792c9ee"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/README.md",
+    "sha256": "eb82736a83bcf32081c312383d5cd48156528ea87cf600fbd7a6b1a6dbd214e4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/browser-1280.json",
+    "sha256": "fb4b7774ac13c56f598805bdbc6828681250ee14655276160c9742e0cac68a2c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/browser-375.json",
+    "sha256": "edc09ebc890f2c74605676707a95ab16d1aa3f372d3e4df82d08b1978510d694"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/browser-cleanup.json",
+    "sha256": "d4e3a001ef7654257472d994bb6f86a70fdb15dfb7a42f837abb12fd95f7578e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/browser-isolation.json",
+    "sha256": "04a9004b067f44b6d07314392b222325da7756a650ed611f293d5a737a68eb9c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/browser-results.json",
+    "sha256": "d7927bb4d6dcf3714ecf54443994fdb02c5a534594005b13170d043ad08781a8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/build-results.json",
+    "sha256": "7be0afca6add6f207e11b0e3cb4b0b90b2f61066392b9ec3c55f6a64488a9579"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/checks.json",
+    "sha256": "e68f384e49712fb9afb5228f69faadd5bde615cf86e08c1dad1ceef7d28da604"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/cleanup.json",
+    "sha256": "03f6e9c6e60607f6176a9fe68b7c4ba10c45bcbec9f331b22043178e5676394c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/retention.json",
+    "sha256": "62c9dd2d2816150c32af84cf9e51a6b8e991505f15d90726e0810c54a310c174"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/review-1280.png",
+    "sha256": "f7f7640ac7345108bdac2bc9a3cd460a2c09c2d080cccd32a11c6d45962b52e1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/review-375.png",
+    "sha256": "6672d36b3036e2f6630e59f83b7774fbd0d05aa9adfeb0ab4a5a0008dae917f5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/saved-output-replay.json",
+    "sha256": "bcafc7f1aa87836059b568dcac3aac15667b14ac0d1c1ef72d20f2bc3388fd9b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/source-manifest.json",
+    "sha256": "4718d29a0dfef69a93c513c4eb904c78f944f73703f6a824c7fa8ab1cc476955"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s5-publication-2026-11-04/staged-code-manifest.json",
+    "sha256": "e5b77044a4d0ba75049c2d736586d452c5833223de11a31440e9099277b36552"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-diagnostic-2026-11-04/README.md",
+    "sha256": "3b2946d2fba6f88f7feef568da315fafb88f453a278147430605fc756466fd73"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-diagnostic-2026-11-04/replay.json",
+    "sha256": "817165bb2d326be44b87c3c11d2250a4760efd6661978e770295083d084e341b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/README.md",
+    "sha256": "a1133405353e291b40412cbd27ff54a90bc6bcdd87d95d4406e23c1629ddfe7a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/acceptance.json",
+    "sha256": "e23738bc47f0312fc087268e9af5486c5cf286735e4c63c5680e275efaef2864"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/audit.json",
+    "sha256": "fb8a120904504684d072f7e394ada2da03d55f9a5dd05c699a6f8c85b2a060f4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/cleanup.json",
+    "sha256": "bd70d711ba962cfe02be144dcc6b7a1a12bf078a6479611053ff991c3f2e0757"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/historical-docs/00-status.md.pre-live.txt",
+    "sha256": "e8b69be992d73dc298f3fa1f5c7ec6aa6dc6d52277ec8fc6daf4e0bcc1f5c42d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/historical-docs/s6-handoff-2026-11-04.md.pre-live.txt",
+    "sha256": "fad8e5df665a3b8581534d5af8626fd4dbec3a89713821cf754855d1189ee868"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/historical-docs/s6-local-design.md.pre-live.txt",
+    "sha256": "81a19895f1270e4329fece221ac7604ed45c2400c05ae47db21d2d43ddc9079d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/report-browser.json",
+    "sha256": "a2c99463a055bcac669dd07be4ea0d9b176eba40f5fb9add5a34c325e65a09a5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/report.html",
+    "sha256": "ff409989e55e80fd7882eaccad1a868e6968865a9188d7168c5077a074f44ff7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/run-closure.json",
+    "sha256": "9c6ec2aa4ae7120bed9735cac3bce09542059ef43d625ec0ddeba15c745aad26"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/run-consumed.json",
+    "sha256": "0512243a1d76a53b32d4c937ed262462857c07dcd96bbf75320fea38aae5ecde"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-01.json",
+    "sha256": "5d9277d3f72b6929609f01a8bff7a99f62d16818e4d7fd94ab5f0db5f768c553"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-02-round-1-dispatch.json",
+    "sha256": "7216641717ca5f0537ed8bb691c2f36c2d161e2457786b1142a744c9101384c1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-02-round-1-http.json",
+    "sha256": "d34ae51cff05bf8bbbb52e09449eb8dc8a12f86c890a79ed25f9cf3f3a6cce0f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-02-round-1-result.json",
+    "sha256": "31562866825de31bf0f37a901e17109b80d3496d5fa034a0c4eb06370f4d7c25"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-02.json",
+    "sha256": "bd2cf8283435eca7b3f4aca54209ca6ae3fa72727f82155c9c45a3162f4c3f62"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-1-dispatch.json",
+    "sha256": "a02a73d2b35d14fd8fe09ea2c540a8ab36be1ea4d01b1439f54887bbbc3e7546"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-1-http.json",
+    "sha256": "bc8a6294cdc13a6e9174d36ff47eaf8082de7142a4a727a83c08aef3d4199035"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-1-result.json",
+    "sha256": "d41c9fb60996bd34b852402f5135c0fc088152faefcf21aabb220cbcee1b78ca"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-2-dispatch.json",
+    "sha256": "e5961c654ade2e60a0813ca7014dd11236deb2b06045d1689fb24b3cf05891d8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-2-http.json",
+    "sha256": "3c40b2b9b315616c1b57b37ea1adc189b85bdba940e41d786563ed240887748d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03-round-2-result.json",
+    "sha256": "86db2f77ce01b6723bf29ddd449e6d784c5bd227bccc927ee295263e831c9761"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-03.json",
+    "sha256": "41cd4ad91e597710531b56ed031a5b818e2fceca510b54a0c25f5bc0ce612300"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-1-dispatch.json",
+    "sha256": "516f402a5200a874703617dfb8a7f4244767574cef2bdfb0e850a602a4c5ca36"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-1-http.json",
+    "sha256": "d573304940544ee9c809a8287ca183cd3a3179db3eebd9359d2dad9cbec99a0b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-1-result.json",
+    "sha256": "f2bac1e3dccc3fbe064a4a7de05bae6b1e3bd09a6a51ba53b3ffb982ab60b8fa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-2-dispatch.json",
+    "sha256": "8226d4417757a1f225d6e616d4b61f6e92d7be49d41a2e1d0df41cddf4ef2b86"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-2-http.json",
+    "sha256": "48c4d60a52c7c57036f51f90795803123ea27f640beb1283fd30c88f7d2ce81c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-2-result.json",
+    "sha256": "374017fbbf014c87839d78ff36a242c400bbe55f5e787dd0646ce2926a130c89"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-3-dispatch.json",
+    "sha256": "b08db28d1174af63b33113da73212ca125588205f3fbf285fe89987fa178a171"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-3-http.json",
+    "sha256": "52eb58ef2e45afbf4a157c6dd4f92084a23fccc145adaefa3d368593cc260964"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04-round-3-result.json",
+    "sha256": "f955769ce87e1b5aec103ea561e1738f96c269e43080047cfa47a9359878b50f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-04.json",
+    "sha256": "003465476887c65a2b27075730423d7f5cd8fcb62f0211758ede563e0bf24956"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-05-round-1-dispatch.json",
+    "sha256": "7930ebe44fa9d7b4f71a085c3b7b81de0ac82221793f6620da6261370ff7c8a8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-05-round-1-http.json",
+    "sha256": "b5d6cb711f01aa60c9e9c7141f88ae7aa9246a104deddd81affd2a769d8d7d52"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-05-round-1-result.json",
+    "sha256": "77902cf12c520726aad52e399669f3c31bbf594753e77fad120d4d95c0a9e736"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-05.json",
+    "sha256": "a72e79dd84f1049c4c81a5ee44de246ce562ef787888c2a4d08f0048e10f8d70"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-06-round-1-dispatch.json",
+    "sha256": "9c08a0d300efd8555aa255750306c1989d90d5ae463a8804e9de5f9375de6066"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-06-round-1-http.json",
+    "sha256": "57f3e9ef5faa1f979e6363415073e3a37e02d7baffdfc64a1c7917d81ad90b84"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-06-round-1-result.json",
+    "sha256": "961108ee8ff2cbddc763f84d0e9c1629c441d7f87e3ec58a47085e0588313a48"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-06.json",
+    "sha256": "8f98c30ea2976a8063ae129ad56bb4a70b90a88d54fdc0e3b1a61daa91480625"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-07-round-1-dispatch.json",
+    "sha256": "3adcefb302d583205f5257074154fcac9fbc99745ea95a983d11a4b33c0cfdfc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-07-round-1-http.json",
+    "sha256": "ad3171703ba927e52dab6ed67b042cc703cb44739234b31b6d84f063d85d8445"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-07-round-1-result.json",
+    "sha256": "92f229004163fb619dd6263a25213255cffaa9975602e0d5dff8143fdbdabf25"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-07.json",
+    "sha256": "257c730cfd034bfa0afceb8b2b1d41c658b074a9989760cc36df57cb7eec474d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-08-round-1-dispatch.json",
+    "sha256": "e0cf09e6ac1cdd963001a95ca98e909c060d5d9157c42cd4ca6ae6cb70aa188f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-08-round-1-http.json",
+    "sha256": "2b47ebfa51f4526f0550f0dbd94649ae7abda2d32b84cefa75d78a95a38e2047"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-08-round-1-result.json",
+    "sha256": "9bfec882644303708501f6e5f78e80ff3567f2c3f3b8d0dc978b9ac6bbd03867"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-08.json",
+    "sha256": "468ca18d7040562728128a3312a9d80efda0191d6660385d34d038d2c0aca5e5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-09-round-1-dispatch.json",
+    "sha256": "52f6db6cf86f44748f39b84a2b8f759fe58d9a5de76cb7c18556cbefde0059ba"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-09-round-1-http.json",
+    "sha256": "a36c9a9eb1d3313a84bad4a219460ce350a356923b08a70cc32e6cdac31d5568"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-09-round-1-result.json",
+    "sha256": "02c9291b8a9463615ecd21fa12c698eb0b0ea05e50e98589cb499499f04c3b2a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-09.json",
+    "sha256": "b66a794ef3375fd34269d85b4bcbf765da47bcfa2907d7ff492c309d8c05564e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-10.json",
+    "sha256": "f599f82fc8a362f1e3985a719764adfcaef66866e50d0f767507ad49537c1fa7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-11-round-1-dispatch.json",
+    "sha256": "f70c1b6d0fb3f17a6be2c87a6c52c8f2bb901174d362c048ca6b3a27717e2ac5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-11-round-1-http.json",
+    "sha256": "6b2edb5e0535a36f93672d66125e47c4adacd2cd2c335ef977a93aa52e043498"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-11-round-1-result.json",
+    "sha256": "01c504483593b35e05a9235aacf339c03bcca195897f575c7e60260dd2699a9d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-11.json",
+    "sha256": "97eac776bd7eb09587ede1dcea95635a6804ac70ae64430818e0756930aa6ca6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-1-dispatch.json",
+    "sha256": "f6d9d5c3b24056d6e4a3d203fdbf56bad3773b0c8d245fa09e78830bb569fee6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-1-http.json",
+    "sha256": "948dc1db03f8d87065918ee9c5f920bc875994586100a8cf785b1ededea19ac7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-1-result.json",
+    "sha256": "2b4189487f1ea3f843b88434df83bc5a8deffec066ef0db97a0b8eaf5a776de2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-2-dispatch.json",
+    "sha256": "6180f511b2f3689f9a1f761bfd5042800f3371221a7ff2ccc5110770d3b10b31"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-2-http.json",
+    "sha256": "2e4f14850976b55f52aef10c7688cc48673110905122ac8e35f2a66182daf26f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-2-result.json",
+    "sha256": "7f692ffa5aebfb6c7e8e4ec5c1500f203982b01e2c07730a25e4448dda83de36"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-3-dispatch.json",
+    "sha256": "f504c1b06ecb1747a57717f8ce20dd8721941c4abedac62e115b825116c65cc5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-3-http.json",
+    "sha256": "0d90e27ac65e64d62bf348b3d36f0b7936baa6400c594e84660e40e9195d6629"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12-round-3-result.json",
+    "sha256": "70a931fec1dbead4b0cc56bf9e4eb131f73d0b9dd5cbc254463f08ad5f337dfa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/s6-12.json",
+    "sha256": "72a0db96abdc9ab16842145d57c979143f850a9d152f334e00306965af8946d1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01/summary.json",
+    "sha256": "28d2ffe1da694ad41566b557bbfdfbc337fb7a82291905798ff52a0e4950b38d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/README.md",
+    "sha256": "034c425259163c0eaa79e066c03cc47092fd1a24c6c0adffbafbcae179617240"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/checks.json",
+    "sha256": "e077bd3c87155a8da838049d35db7c36aefcc6dd3215a50747eb2ba635748264"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/contract.json",
+    "sha256": "3cd781ca046eb906cc172fb90840c5a5112e1dde3208545e71eae853ea95c143"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/inference-approval.json",
+    "sha256": "a41539ff32f24ce90db30a1b1bb24501dc56d2d4a278f5893ad8fcf253224160"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/preparation-history.json",
+    "sha256": "2c9dbaacfb83d5d7a6f9e9c9a62d188e2ee938a8f5573e522aac96442ce31d5f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/cleanup.json",
+    "sha256": "9a771bef8a668e8349766ab8233e6e4169b01a970ab51b8af14dc2176681a904"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/run-consumed.json",
+    "sha256": "afe6bfea78e31ec2ce4ae0212ad4127a5cc2b441d7ed07350c94f49b847cd432"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-01.json",
+    "sha256": "aa02e84010b676daffabab77b806e0bb74d0f7d9c69c74993b1de08ddb323cc9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-02-round-1-dispatch.json",
+    "sha256": "343c290166c43042be5d355bfd277d369c584113fdde2dc81d2659813ee40f10"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-02-round-1-http.json",
+    "sha256": "dd756ba93b727bdaeeddd82c8fd0de2b2fa81f0f3fe56af9165511d0fcce7cda"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-02-round-1-result.json",
+    "sha256": "4fe6c155180fd13002a883cfaa44364092f951baf8995f2ac09bf372fe9c487a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-02.json",
+    "sha256": "e1b52ec997be5c160ca33b47927b16f5b28554b5b147402e6ab34c36803a23a4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-1-dispatch.json",
+    "sha256": "f8cbdc12bf97f06e69f8fcaa0a1c71c7fb21c8654d9b75d4f5bba29892e59074"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-1-http.json",
+    "sha256": "e47ee21caed3b4f4ceec1f45cf515be9bbd9d0cba611ea98d46dfd7e0a306466"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-1-result.json",
+    "sha256": "462ba2ef4ff67a68ca6b943d73df8a4d98198da46840eae8f94bf788efdd1ebf"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-2-dispatch.json",
+    "sha256": "e91f080ba0cf227b48e570c849a6efbddc87965eebabf814c2e40584b67fafe2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-2-http.json",
+    "sha256": "291bf8c3f5b75b9bc00501c4db791cd6515ad29ea08342d6f679ce629dc36c2e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-2-result.json",
+    "sha256": "a864ce048ab28122ea77aee48c999aa2e0eb8a7b4691cf6df136adf79ba4d6bb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-3-dispatch.json",
+    "sha256": "4d31f23bca151305b578dea4a042d5fe208069fa226de96cbefe4aed65656b67"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-3-http.json",
+    "sha256": "6de993ebea2a8fbbdef63af74cbef1afcda25b671e03eaafb0b8de35ee6cf233"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03-round-3-result.json",
+    "sha256": "bfecaff868f7d98a84a99f6c3c5b3fa97adbdedfbeb4d6009650a0f72ae282f7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-03.json",
+    "sha256": "f4fe987391a77691f5a85f600bffa0257046e5470269d0a30f1151bc168c8267"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-1-dispatch.json",
+    "sha256": "f26304e5e46a3f66f7d6c47f395520161a2ab5df2ba892d9f9132032be0064a0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-1-http.json",
+    "sha256": "c2df8f15883f1e066e4ebb3e0376337211cb7bd94fb867bd05798b7aacee972f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-1-result.json",
+    "sha256": "4bd1f0d468095643643f5d4eef9fe8ed2beb77e9b7bf0f2106e7104023109eaf"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-2-dispatch.json",
+    "sha256": "123fb4d815a984b833f4736df9c32421e231ea04e0b27d788a0da152d5ef95f2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-2-http.json",
+    "sha256": "e426c8eab0d45ca81d7aaba88072cba1766548e275ee79759dd86bf37fc2a29d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-2-result.json",
+    "sha256": "05f06be2703ac59ecc878ff2d04e52ddbd38c671a2dde09544b5518d8a56dc17"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-3-dispatch.json",
+    "sha256": "23dcc3921e5863dfcfdea2435189585f4c7b4711a34bc70c6ceeb535de60612e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-3-http.json",
+    "sha256": "7d493f9f505273188510dd850a7496903c42e5237b98c15afd267bced1b19b20"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04-round-3-result.json",
+    "sha256": "c4a56cff3b9fd0e5ac53ebc60adba2fa42bac0469c9bdea050f35fa0ae6f54ef"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-04.json",
+    "sha256": "dd1fca4fee345c2c197b9501f73d192c6b3902e771c22e671281a3956c30738f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-05-round-1-dispatch.json",
+    "sha256": "a0badaaf9c627c5d80484e58b7eb5ec8c27726b33fe98d81021a1e2cf3f623f5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-05-round-1-http.json",
+    "sha256": "92a23e89099da6c6ee2b57ee4a6c9bf646e213398daeed2534e8f8dbed59a91a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-05-round-1-result.json",
+    "sha256": "93652d71bcb8c0cbe89bfc7e74826ae6724eb79611e0878908bb2e38c675f051"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-05.json",
+    "sha256": "a69f07655fcbe9ddbfdedbce246f6e532ebd09e21419597765a6aef7bc70844a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-06-round-1-dispatch.json",
+    "sha256": "9d7d5caf5ace9677caacd2817411c061b9dd7a727c2789d48701cb14750283a1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-06-round-1-http.json",
+    "sha256": "2e6b344046fc983c89c49b59be703778cedc34c22eec5a76390eab40ad4d60c5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-06-round-1-result.json",
+    "sha256": "d8ff280a7c46eb28de8dcdb0210a179eaa6fc6d030f568058b88ab10ab60c87f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-06.json",
+    "sha256": "7ab51fa3a457d786e3d0b628fa544bf196b2138d744f6ddd815a54090c40de0b"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-07-round-1-dispatch.json",
+    "sha256": "0595865f113a8251b291092c05917f88cf8698759a733b97771ed52fdd7e3e59"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-07-round-1-http.json",
+    "sha256": "982b9d3ab738ae993210e3c4ffeef9ee5b6bfd9af0c372e376d63a022395fc95"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-07-round-1-result.json",
+    "sha256": "937901dde66ddbf6dfa9ecda8f60af1859ca67769ffee3d6c54db0abaa5bb5b9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-07.json",
+    "sha256": "8cdaaf02ac11c239b87bede7c8e3a308671825da61d94e9502d77b742a95aef7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-08-round-1-dispatch.json",
+    "sha256": "b6cb788e5c8dc0f210efafb9eb93c992464046ba337922c8a669f7dede5a1025"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-08-round-1-http.json",
+    "sha256": "cd62a770c07643d69292a2b55f43be9ceb8cef8f008363b22de3bcfe24bca5a7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-08-round-1-result.json",
+    "sha256": "86e1692c5549e568d3680d041332c942c75d730d6db32c7d04fa7ee28d9b6902"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-08.json",
+    "sha256": "104c00a390fc53815d1740e6fac94532190977da8f8e43c1577b5bdd6e7cd287"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-09-round-1-dispatch.json",
+    "sha256": "d7c0ba35fd23f930e62e747648319549adbc2017c26512fd8f1b842bd8437215"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-09-round-1-http.json",
+    "sha256": "60cf96ea1721cbfb978d50039606ba3aff3921679ff77af1ff3bcaed7d7d8c72"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-09-round-1-result.json",
+    "sha256": "1999e205c7fc4a10fc93584d4defc3a022de0c5ecf539657163e194746c29ceb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-09.json",
+    "sha256": "0e3e4fd4be942e4c7ea19b6517169b4c2caca9e96193a9513a6ec848ebf194a6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-10.json",
+    "sha256": "d34d88e8c3867e212bab9806d061cc9533287cc22793a88dbd15da408fe06bce"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-11-round-1-dispatch.json",
+    "sha256": "0b3c8d621105d009aa0f467d0f91f51904bd2a23bb0fa8b778c94be309a79646"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-11-round-1-http.json",
+    "sha256": "083462d772914f259f45adb9cb4099eccc37ecf0a370c80d675a5e5ced555ae2"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-11-round-1-result.json",
+    "sha256": "b271dc5d57ea6a4550036b8d71292a7fbd58b087790bce5eedd19145524198d4"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-11.json",
+    "sha256": "c546a5fe493bc728dd5e4e613dd685caefa31f548285593564b2cc4c55404632"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-1-dispatch.json",
+    "sha256": "fc801e47452deab2a29897ec9be7ea6e3b7ff858d419596dad6cf408af19bdee"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-1-http.json",
+    "sha256": "4de4ac451013ec6eb5b49d8af2b78349bc41411069c0f706d758138d6db272b5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-1-result.json",
+    "sha256": "802f4cb0027dd6eb7053a8b1303d99b618bea6759d80a52e65a96d2844e831b6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-2-dispatch.json",
+    "sha256": "b86319cc9418ea21815eac99b5f3f47fd8638536cd501a2c572a220418520a61"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-2-http.json",
+    "sha256": "05e43660e043096d550c8dc146df83164d4266fca55c7b5a68724362eae13868"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-2-result.json",
+    "sha256": "5aca7134608f45b2d21341c1c9956b7603147ff9752a58a82ea74133d1ac7176"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-3-dispatch.json",
+    "sha256": "082af43ad6e40b84141b627fc4a78d6b0fb793b17d5d28390eedc5951263e01a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-3-http.json",
+    "sha256": "cff039d5371959be407a4978ed3b4fca2af19bbcc9897f6ff4d20f10da1ac32e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12-round-3-result.json",
+    "sha256": "cde88c63ab90889ffd5682c76fabce51a706e02720bb44952b7a182597e60213"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/s6-12.json",
+    "sha256": "a00dfd52077018560a9fd3ed0993153f96f05deed7b7a53a8e2b0ecc94f7a2f8"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/rehearsal-02/summary.json",
+    "sha256": "12f60b13cbcb19f5852730a6bc94e58caab38a6d36c0d1fa438b12266cd44b4d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/retention.json",
+    "sha256": "c270e0bd5c4d06a3f0eed94ee29990e01d5ed03d79be277eeb60d4665bc6ff33"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/source-manifest.json",
+    "sha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/approval-guard.json",
+    "sha256": "8e1eda34031296666c8f771b21f1c5ae83b1625a3a1d416963b6017966e135ff"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/dispatch-count-red.log",
+    "sha256": "fe114a867e0eb7ae54c9234d49fe5743b38f192972f3f7a5ffb58d54ef9f321c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/durability-red.log",
+    "sha256": "2125f3117a02aff4d6558d01f28c6dd84c9c728daf23b0ddf757fd1e7b6b19a5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/full-suite-final.log",
+    "sha256": "3353dda3840be5e2d06170b6d2fc61aa7bdf931b8aa37fe43381c93c127c85f5"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/lint.log",
+    "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/manifest-pin-red.log",
+    "sha256": "44e0e96b5aa615dc4a598e1d5fba7b496214861adeb533943129ad83e33b5f45"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/offline-guards.log",
+    "sha256": "154c9b888d682e4ff0eba8fe36af135ff0fab852b66d8f0106d79b5094a6920f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/preflight-final.log",
+    "sha256": "f4eeb9f5f1aedeef390a16e06e59a85b0865453147287a8c0ccb94c743624ce0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/resource-red.log",
+    "sha256": "f6cf02d6448152ec779522ccb8e536635ae220e3a2f8dbf6799553ba79d6cef9"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/review-red.log",
+    "sha256": "7cce86243254f6a1ba8b6464a962171d6891b6a0269ab9a3fc4c268368683f5f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-live-preparation-2026-11-04/verification/typecheck.log",
+    "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/README.md",
+    "sha256": "873958e5a6538066ce92faeb5c7facdd1f76260936d857e85fcce33ee9390d04"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/case-freeze.json",
+    "sha256": "7a56d4bff0d96c233f82b344d0691f720080ae12e259f2ce9cd376721b735f41"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks/s1/service-run-1.json",
+    "sha256": "08a8bbb991eccde0ec4f651c551d42b2a81861219ed51d8a9d86fcee9253e8d6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks/s1/service-run-2.json",
+    "sha256": "1bc1ac1070b4685d76aab659ae451b959bdc0e7f73fd457729dfb36622f3b6cc"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks/s2/service-trail.json",
+    "sha256": "f3dc39b224b52edcf4bc8aba38d79ad3ea99afc06aad60faa628fe4fe0df0e42"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks/s3/service-receipt.json",
+    "sha256": "22401143631942d15b31c73a67ab17fbb6ae2ce282519c4226117de774c17400"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks/s4/service-journeys.json",
+    "sha256": "5a407e0bd2d2cf7b34d6efead6b99c25ff07ac88bb7dc4e54b5e2d7b4182b81e"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/checks.json",
+    "sha256": "bcbfde9582fa0c69758828a0db3b12b609b9d6658730c9d09a4c9e0d78205519"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/retention.json",
+    "sha256": "a6d13ffbfed241bf13594483904cb32824564bfe671f5782fa9aebb2a1520a15"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/cleanup.json",
+    "sha256": "04e4364ec14978859adad00230a57101163338a43c2ed004771f599d95821057"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/report-1280.png",
+    "sha256": "da7d493f0c53a01d7086f0bad8c12e1bd366edae3cdfa72ccb8ce12e9e428cf3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/report-375.png",
+    "sha256": "41b8bf2c00a59f81010c83b057a6cfc602034b51b7f78eaf70e52529aea91aaa"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/report-browser.json",
+    "sha256": "9d4b757ce7ff83a609de4044a68a2300d69eca8bca51c9263ccd116d2c7a6c76"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/report.html",
+    "sha256": "96b824a73f48d9e4bb475697aaae7c8f349ed8c519c36f9a28bad829151d3b8d"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-01.json",
+    "sha256": "b8d4890966a9605d4b060e8c90d3da8dda7d359706a0ef4d6b41a5e303e1e654"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-02.json",
+    "sha256": "25f4633c3403c775fc2e37c20f5dc2914633ab8f7a442f12ede887f214be7ee7"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-03.json",
+    "sha256": "4349cfb2f7d5aa0eea04a2f688c01147a0b50b58c2f6c3b1bb63367f3a7febc0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-04.json",
+    "sha256": "4e14f37fbf2804b6f1b06ddd6ff4dc587200663743d26e2485955b20c2b8c682"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-05.json",
+    "sha256": "3c6a4acdfe5f92ccdd6981fd810daa65e5fdb75334eaf6340b0c3163fc5ef10c"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-06.json",
+    "sha256": "80002ec0f225ab1e413e27f48a5af8b1168b745db45b6f32fe20b12d19ef2dbb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-07.json",
+    "sha256": "b1f65c93d8c380f494316e8d724df32852931a4912bf2350a8f2b19ddf1c0715"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-08.json",
+    "sha256": "2e26cf9c88c01940d63139eccf2bc2558e7eee96b68eb6cfe59d402aaa877ae6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-09.json",
+    "sha256": "89496d6e0660c8d049864cf323e0bb95be7ab2f91949692c510cf376c63a24b0"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-10.json",
+    "sha256": "961248ab067afd62eaaec257ab97ac908aef3a507d909b7cad38799a7a6b7cb1"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-11.json",
+    "sha256": "4c2d427d2116472117aea491970fb678449d5a0577e14ee2c9ff90c8f15b3a36"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/s6-12.json",
+    "sha256": "2eb1a0314696e3c1d59a9bf4e7178c55f20bb285fa35c4ae16756adafd2aa6a3"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/source-manifest.json",
+    "sha256": "2e33658cb2bb00f2219e457b193f68cb0cd52f7c849f4b3c48d5ff2ec5ac13b6"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6-local-2026-11-04/run-03/summary.json",
+    "sha256": "042c24720c058f1a1f287d671b80fc4a52a6cd8bf9d193361219e5ae15e42063"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/README.md",
+    "sha256": "8a182ed5bf7604bd0a183dcb4bd85152a6b7537016238a00ffeabab6fa6df84f"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/case-freeze.json",
+    "sha256": "a2e203c0aa18ec344d54c48e156a5d1b4cc415e93367e188fb9413cb3fb11fbb"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/run-01/report-browser.json",
+    "sha256": "8982c5428738245f009161bb32dcc90106e59e8da84449dd38beee393e75850a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/run-01/report.html",
+    "sha256": "02dcd3219ec4d394e73a5a64b4d8f77dd7ff3774c7fea303c3b685295fcea656"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/run-01/source-manifest.json",
+    "sha256": "2beeb6dca2e1438d98e1ec7dbc9602811eb77c6e8161aa11251a45338d60188a"
+  },
+  {
+    "path": "docs/plans/backfill-proof/evidence/s6b-offline-2026-11-04/run-01/summary.json",
+    "sha256": "d0cc5bf786abb47eab194839206ae0f732524063aabbcc4df380eaa8d360219c"
+  }
+]
