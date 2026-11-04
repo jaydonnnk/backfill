@@ -1,13 +1,15 @@
 'use client';
 import { useRef, useState } from 'react';
 import type { Intent } from '@/lib/buyer/models';
+import { SandboxConnect } from './sandbox-connect';
 import type { Session } from '@/lib/buyer/service';
 
-type Offer = { merchantName: string; summary: string; offer: { ruleId: string } };
+type Offer = { merchantName: string; summary: string; nextOccurrence: {visitDate:string}; offer: { ruleId: string } };
 const empty: Intent = { partySize: null, visitDate: null, earliest: null, latest: null, budgetPerCoverCents: null, currency: null, requirements: [] };
 const button = 'rounded-md bg-[var(--accent)] px-4 py-2 text-sm text-[var(--accent-ink)] disabled:opacity-50';
 const field = 'block w-full rounded-md border border-[var(--border)] p-2 bg-transparent';
 const notices: Record<string, string> = {
+  incompatible_offer: 'This offer runs 14:00-17:00. Widen your time window or use the example.',
   ok: 'Saved.', model_failed: 'The model is unavailable or its output could not be validated. Nothing was submitted. Correct the request or review constraints manually.',
   revision_changed: 'This request changed. Reload the saved state before continuing.', busy: 'The saved model attempt is still pending. Check saved state; do not start another attempt.',
   approval_required: 'Approve these exact terms first.', approval_mismatch: 'The exact terms do not match. Review them again.', stale_terms: 'The offer changed or its deadline passed. Review constraints and request a fresh decision.',
@@ -44,10 +46,29 @@ export function BuyerReview() {
     try {
       const r = await fetch('/api/buyer', { headers: { Authorization: `Bearer ${token}` } });
       const data = await r.json();
-      if (r.ok && Array.isArray(data.offers)) { setOffers(data.offers); setRule(data.offers[0]?.offer.ruleId ?? ''); }
+      if (r.ok && Array.isArray(data.offers)) { const ordered = [...data.offers].sort((a: Offer,b: Offer) => a.nextOccurrence.visitDate.localeCompare(b.nextOccurrence.visitDate)); setOffers(ordered); setRule(ordered[0]?.offer.ruleId ?? ''); }
       else setNotice('Could not load offers. Check your buyer credential.');
     } catch { setNotice('The offer feed is unavailable. No commitment was submitted.'); }
     finally { setBusy(false); }
+  }
+  async function example() {
+    setBusy(true);
+    try {
+      let credential = token;
+      if (!credential) {
+        const response = await fetch('/api/buyer/sandbox', {method:'POST'});
+        const result = await response.json();
+        if (!response.ok || typeof result.token !== 'string') {setNotice('The sandbox is unavailable or its hourly limit was reached. Try again later.');return;}
+        credential = result.token; setToken(credential);
+      }
+      const response = await fetch('/api/buyer', {headers:{Authorization:`Bearer ${credential}`}});
+      const data = await response.json();
+      if (!response.ok || !Array.isArray(data.offers) || !data.offers.length) {setNotice('The sandbox offer is unavailable.');return;}
+      const ordered: Offer[] = [...data.offers].sort((a:Offer,b:Offer)=>a.nextOccurrence.visitDate.localeCompare(b.nextOccurrence.visitDate));
+      setOffers(ordered);setRule(ordered[0]!.offer.ruleId);
+      setRequest(`Table for 2 on ${ordered[0]!.nextOccurrence.visitDate}, between 14:00 and 17:00, up to S$6 per person`);
+    } catch {setNotice('The sandbox is unavailable. Try again later.');}
+    finally {setBusy(false);}
   }
   function change(patch: Partial<Intent>) { generation.current++; setConstraints({ ...constraints, ...patch }); setDirty(true); }
   const requestDirty = s !== null && s.request !== request;
@@ -56,8 +77,9 @@ export function BuyerReview() {
   return <main className="mx-auto max-w-3xl p-5 space-y-6">
     <a href="/demo">Backfill / Kopi</a>
     <h1 className="text-3xl">Review your buyer request</h1>
-    <p>Hosted Glimmer through NVIDIA proposes constraints. Your request is sent to the hosted provider. Spark Open recommends a decision. You separately approve exact terms and submit. Checkout is simulated.</p>
-    <label className="block">Buyer credential<input className={field} type="password" autoComplete="off" value={token} onChange={e => { generation.current++; setToken(e.target.value); setSession(null); setId(null); setRequest(''); setConstraints(empty); setExpired(false); setDirty(false); setOffers([]); setRule(''); setNotice(''); }} /></label>
+    <p>Hosted Glimmer through NVIDIA proposes constraints. Your request is sent to NVIDIA and Vercel AI Gateway. Spark Open recommends a decision. You separately approve exact terms and submit. Checkout is simulated.</p>
+    <button className={button} disabled={busy || !!s} onClick={example}>Use example</button>
+    <details><summary>Use an existing buyer credential</summary><label className="block">Buyer credential<input className={field} type="password" autoComplete="off" value={token} onChange={e => { generation.current++; setToken(e.target.value); setSession(null); setId(null); setRequest(''); setConstraints(empty); setExpired(false); setDirty(false); setOffers([]); setRule(''); setNotice(''); }} /></label></details>
     <p className="text-sm">Credential stays in this page&apos;s memory. Agent actions do not establish real-person consent.</p>
     <label className="block">Your request<textarea aria-label="Your request" className={field} maxLength={300} value={request} disabled={terminal} onChange={e => { generation.current++; setRequest(e.target.value); }} /></label>
     <div className="flex flex-wrap gap-2">
@@ -92,8 +114,9 @@ export function BuyerReview() {
         {s.terms && s.decision.covers > 0 && <><button className={button} disabled={disabled || terminal || !!s.approval} onClick={() => act({ action: 'approve', terms: s.terms })}>Approve these exact terms</button> <button className={button} disabled={disabled || terminal || !s.approval} onClick={() => act({ action: 'submit' })}>Submit approved commitment</button></>}
         <p>{s.approval ? `Separate approval saved as ${s.approval.source}.` : 'No approval saved.'}</p>
       </section>}
-      {s.result?.ok && <p className="break-words">Stored commitment {s.result.commitment.commitmentId}: {s.result.commitment.status}. Pending commitments fill only if the pool qualifies at settlement. <a href="/demo">View pooled outcome</a></p>}
+      {s.result?.ok && <p className="break-words">Stored commitment {s.result.commitment.commitmentId}: {s.result.commitment.status}. Pooled covers: {s.result.commitment.pooledCovers ?? 0} / {s.result.commitment.minPoolCovers ?? 4}. Pending commitments fill only if the pool qualifies at settlement. <a href="/demo">View pooled outcome</a></p>}
       {terminal && <button className={button} disabled={busy} onClick={() => { generation.current++; setExpired(false); setSession(null); setId(null); setRequest(''); setConstraints(empty); setDirty(false); }}>Start a new request</button>}
     </>}
+    <SandboxConnect token={token} />
   </main>;
 }

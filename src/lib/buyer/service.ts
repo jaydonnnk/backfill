@@ -159,7 +159,7 @@ export async function buyerAction(db: Db, partyId: string, input: unknown, model
         else s.decisionReceipt = Receipt.parse(error.receipt);
       }
       await save(tx, s);
-      return { status: 'model_failed', session: s };
+      return { status: error instanceof Error && error.message === 'incompatible_offer' ? 'incompatible_offer' : 'model_failed', session: s };
     });
   }
 }
