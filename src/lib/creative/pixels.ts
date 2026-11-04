@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { judgePhoto } from '@/domain/onboarding/menu';
 
 export const MAX_PIXELS = 8_000_000;
+export const HOSTED_MAX_PIXELS = 2_000_000;
 export const Mask = z.strictObject({
   width: z.int().positive().max(4096), height: z.int().positive().max(4096),
   pixels: z.array(z.union([z.literal(0), z.literal(1)])).max(MAX_PIXELS),
@@ -10,9 +11,9 @@ export const Mask = z.strictObject({
 export type Mask = z.infer<typeof Mask>;
 const decode = (bytes: Uint8Array) => sharp(bytes, { limitInputPixels: MAX_PIXELS, animated: false, failOn: 'warning' }).autoOrient().toColourspace('srgb').ensureAlpha();
 
-export async function inspectPhoto(bytes: Uint8Array): Promise<{ width: number; height: number }> {
+export async function inspectPhoto(bytes: Uint8Array, maxPixels = MAX_PIXELS): Promise<{ width: number; height: number }> {
   if (!judgePhoto(bytes).ok) throw new Error('invalid_photo');
-  const meta = await sharp(bytes, { limitInputPixels: MAX_PIXELS }).metadata();
+  const meta = await sharp(bytes, { limitInputPixels: maxPixels }).metadata();
   if ((meta.pages ?? 1) !== 1 || !['png', 'jpeg', 'webp'].includes(meta.format ?? '')) throw new Error('invalid_photo');
   const { info } = await decode(bytes).raw().toBuffer({ resolveWithObject: true });
   if (info.width > 4096 || info.height > 4096) throw new Error('photo_dimensions');

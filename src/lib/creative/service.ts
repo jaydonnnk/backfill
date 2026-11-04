@@ -7,9 +7,9 @@ import type { Db, Executor } from '@/lib/db/client';
 import { creativeAssets, merchants, rules } from '@/lib/db/schema';
 import { termsSummary, toRule } from '@/lib/commitments/service';
 import type { SegmentInput } from '@/integrations/meta/media';
-import { composeAsset, cutoutPhoto, inspectPhoto, maskPng } from './pixels';
+import { composeAsset, cutoutPhoto, inspectPhoto, maskPng, HOSTED_MAX_PIXELS, MAX_PIXELS } from './pixels';
 
-export type CreativeDeps = { source: 'fixture' | 'provider' | 'replay'; available: boolean; segment: (input: SegmentInput) => Promise<unknown>; background: () => Promise<Uint8Array | null> };
+export type CreativeDeps = { source: 'fixture' | 'provider' | 'replay'; available: boolean; take?: (db: Executor, merchantId: string) => Promise<boolean>; segment: (input: SegmentInput) => Promise<unknown>; background: () => Promise<Uint8Array | null> };
 const Id=z.uuid(), Hash=z.string().regex(/^[a-f0-9]{64}$/u), Text=z.string().trim().min(1).max(120).refine(s=>!/[\u0000-\u001f]/u.test(s));
 const Phase=z.enum(['source','segmenting','cutout_review','cutout_approved','composing','review','approved','rejected','failed']);
 const Image=z.object({ b64:z.string().max(16_000_000), sha256:Hash });
@@ -64,7 +64,7 @@ const Upload=z.object({id:Id,ruleId:Id,termsVersion:z.int().positive(),target:Te
 export async function uploadCreative(db:Db,merchantId:string,input:Omit<z.input<typeof Upload>,'localPermission'>&{localPermission:boolean;bytes:Uint8Array},deps:CreativeDeps):Promise<CreativeResult>{
   const p=Upload.safeParse(input);if(!p.success||!Id.safeParse(merchantId).success)return result('invalid_request');
   const photo=judgePhoto(input.bytes);if(!photo.ok)return result('invalid_photo');
-  let size:{width:number;height:number};try{size=await inspectPhoto(input.bytes);}catch{return result('invalid_photo');}
+  let size:{width:number;height:number};try{size=await inspectPhoto(input.bytes,deps.source==='provider'?HOSTED_MAX_PIXELS:MAX_PIXELS);}catch{return result('invalid_photo');}
   const source=image(input.bytes);
   return db.transaction(async tx=>{
     await tx.execute(sql`select pg_advisory_xact_lock(hashtextextended(${merchantId},4151015))`);
@@ -92,6 +92,7 @@ async function reserve(db:Db,merchantId:string,id:string,expected:Stored['phase'
     if(needsModel&&!deps.available)return {invoke:false as const,output:result('media_unavailable',row)};
     if(needsModel&&r.provenance!==deps.source)return {invoke:false as const,output:result('model_mismatch',row)};
     if(next==='segmenting'&&deps.source==='provider'&&!r.hostedPermission)return {invoke:false as const,output:result('upload_not_permitted',row)};
+    if(needsModel&&deps.take&&!await deps.take(tx,merchantId))return {invoke:false as const,output:result('media_unavailable',row)};
     const reserved={...r,phase:next,...(next==='segmenting'?{segmentReservedAt:now()}:r.includeBackground?{backgroundReservedAt:now()}:{})};
     await save(tx,row,reserved);return {invoke:true as const,row,record:reserved};
   });

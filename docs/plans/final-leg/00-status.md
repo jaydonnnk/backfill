@@ -59,3 +59,13 @@ The local ledger and scratch evidence are retained as requested instead of delet
 ## Deferred minor
 
 View pooled outcome links to the separate recorded demo, not the sandbox pool. The result shows the actual pooled covers and minimum. The misleading destination remains deferred from the review's Minor list.
+
+## Task 11 local checkpoint
+
+Task 10 became fully green at 23:12 SGT, before the 04:00 start cutoff. Task 11 local code now adds an explicit creative switch (default off), atomic 20-operation global and 2-operation merchant daily caps, and a two-million-pixel source limit before upload storage and provider dispatch. Existing larger private uploads cannot reach the provider. Owner cutout/final approvals remain mandatory, and the UI warns that SAM may miss parts of a dish.
+
+Five new integration cases were observed failing before their implementations. Typecheck, lint, 690 tests and the isolated production build pass. This checkpoint has not been pushed or deployed. Hosted media remains disabled and the public recorded-only claims remain unchanged. The separate paid smoke approval is still needed. No Task 11 provider calls were made.
+
+Ruling: quotas count hosted model operations, including failed operations, using the existing fixed database windows. Segmentation and an optional background each consume an operation. The budget is reserved in the asset-state transaction, with model dispatch afterward. Existing explicitly bounded replay/fixture runners can omit the quota callback; the normal hosted dependency always supplies it. Cost if wrong: two calls exhaust a merchant's day even when the provider fails, and direct operator runners retain their own spending responsibility.
+
+The hosted pixel limit leaves the original eight-million-pixel offline contract intact; actual source bytes are checked again at the hosted provider boundary. Cost if wrong: previously saved larger photos cannot be processed through the hosted flow and must be resized by their owner. Render memory and live mask quality remain unverified until the paid smoke.

@@ -7,9 +7,9 @@ const button='rounded-md border border-[var(--border)] px-3 py-2 text-sm disable
 const input='rounded-md border border-[var(--border)] bg-transparent px-3 py-2 text-base';
 const notices:Record<string,string>={
   source:'Photo saved privately. Creating a cutout needs separate hosted-call approval.',
-  media_unavailable:'Hosted media needs a separately approved run. Your offer remains usable.',
-  invalid_request:'Complete the rights and local-processing fields before saving.',invalid_photo:'Choose a valid JPEG, PNG or WebP up to 4 MB and 4096 pixels per side.',
-  cutout_review:'Review the mask and real-photo cutout. Approve the cutout before composing.',
+  media_unavailable:'Hosted media is disabled or its daily processing allowance is exhausted. Your offer remains usable.',
+  invalid_request:'Complete the rights and local-processing fields before saving.',invalid_photo:'Choose a valid JPEG, PNG or WebP up to 4 MB, two million pixels and 4096 pixels per side.',
+  cutout_review:'Review the mask and real-photo cutout. SAM may miss parts of a dish. Approve the cutout before composing.',
   cutout_approved:'Cutout approved for this asset. Compose the exact public terms below.',
   review:'Preview only. Review the composition and exact terms, then approve or reject this asset.',
   approved:'Approved for this exact asset and offer version. Local review only; nothing was posted.',
