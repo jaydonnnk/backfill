@@ -1,0 +1,55 @@
+{
+  "version": "s6-pricing-2",
+  "frozenBeforeResults": true,
+  "evaluationKind": "deterministic_offline",
+  "doesNotReplace": "s6-pricing-1 and its genuine results stay frozen",
+  "liveAiAuthorized": false,
+  "aiArm": null,
+  "visitDate": "2026-11-12",
+  "referenceClock": "2026-11-12T01:00:00.000Z",
+  "focalClock": "2026-11-12T01:01:00.000Z",
+  "settlementClock": "2026-11-12T04:00:01.000Z",
+  "ruleDefaults": {
+    "weekday": 4,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "perAgentCapCovers": 2
+  },
+  "focalCovers": 2,
+  "backgroundCoversPerParty": 2,
+  "priceWorlds": [
+    { "id": "p1", "listPriceCents": 680, "discountBps": 2000, "floorPriceCents": 503 },
+    { "id": "p2", "listPriceCents": 680, "discountBps": 2000, "floorPriceCents": 535 },
+    { "id": "p3", "listPriceCents": 1250, "discountBps": 2500, "floorPriceCents": 903 }
+  ],
+  "pools": [
+    { "id": "pivotal", "backgroundParties": 3, "minPoolCovers": 8, "capacityCovers": 8 },
+    { "id": "already_unlocked", "backgroundParties": 4, "minPoolCovers": 8, "capacityCovers": 12 },
+    { "id": "short", "backgroundParties": 2, "minPoolCovers": 8, "capacityCovers": 8 },
+    { "id": "full", "backgroundParties": 4, "minPoolCovers": 8, "capacityCovers": 8 },
+    { "id": "solo", "backgroundParties": 0, "minPoolCovers": 2, "capacityCovers": 8 }
+  ],
+  "reservationBpsOfOffer": [11000, 10000, 9900, 9800, 9700, 9600, 9400, 9200, 9000, 8800],
+  "buyerGapBpsOfOffer": 200,
+  "buyerLowballBpsOfOffer": 8000,
+  "buyers": [
+    { "id": "walk_one", "bids": "reservation once", "commit": "accepted only" },
+    { "id": "open_take", "bids": "reservation minus one gap, once", "commit": "last signed counter at or below reservation" },
+    { "id": "repeat_take", "bids": "reservation up to three times", "commit": "last signed counter at or below reservation" },
+    { "id": "ladder_take", "bids": "reservation minus two gaps, minus one gap, then reservation", "commit": "last signed counter at or below reservation" },
+    { "id": "lowball_take", "bids": "lowball price up to three times", "commit": "last signed counter at or below reservation" }
+  ],
+  "policies": [
+    { "id": "fixed_max", "inputs": "public", "rule": "fixedConcession, unchanged: max(bid, previous - maxConcession)" },
+    { "id": "always_hold", "inputs": "public", "rule": "previous" },
+    { "id": "half_step", "inputs": "public", "rule": "max(bid, previous - floor(maxConcession / 2))" },
+    { "id": "quarter_step", "inputs": "public", "rule": "max(bid, previous - floor(maxConcession / 4))" },
+    { "id": "hold_first_then_max", "inputs": "public", "rule": "previous in round 1, then fixedConcession" },
+    { "id": "accept_in_band_else_hold", "inputs": "public", "rule": "bid when bid >= previous - maxConcession, else previous" },
+    { "id": "pivotal_max_else_hold", "inputs": "server pool state", "rule": "fixedConcession when the focal covers would unlock the pool and fit capacity, else previous" }
+  ],
+  "costBpsOfOffer": [0, 5000, 8000, 9000],
+  "comparator": "fixed_max",
+  "decisionRule": "A policy is a default candidate over fixed_max only if, in every buyer by price-world slice, its focal seats and whole-pool seats are at least fixed_max's and its whole-pool margin is at least fixed_max's at every declared cost. Otherwise no policy is dominant, no overall winner is named, and the choice stays a product decision that needs a merchant cost and buyer mix."
+}

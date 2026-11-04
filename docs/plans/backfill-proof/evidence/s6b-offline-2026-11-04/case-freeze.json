@@ -1,0 +1,11 @@
+{
+  "version": "s6-pricing-2",
+  "caseFile": "docs/plans/backfill-proof/s6b-cases.json",
+  "sha256": "fb8787f5c99114e0324f8e9f0c282813d386d8e7ed8ebd3a39c1e2b111c4da4f",
+  "designFile": "docs/plans/backfill-proof/s6b-design.md",
+  "designSha256": "ffb14d83dc6f3c002d369b90e7aff6a53cedba5fd03b9af0057e820fb877f888",
+  "frozenAt": "2026-11-04T07:56:52Z",
+  "resultsExistedAtFreeze": false,
+  "blind": false,
+  "newInferenceCalls": 0
+}

@@ -1,0 +1,1373 @@
+{
+  "provenance": "offline_replay_of_saved_s6_evidence",
+  "assurance": "Budget and repeat-bid buyers are assumptions, not measured behavior. Spark answers only from exactly matching recordings. S6 evidence is unchanged and stays the result of record.",
+  "newInferenceCalls": 0,
+  "savedOutcomesReproduced": 24,
+  "attribution": [
+    {
+      "id": "s6-01",
+      "bids": [
+        544
+      ],
+      "sparkQuote": 544,
+      "baselineQuote": 544,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 544,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-02",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 542,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": -2,
+      "poolSeatsDelta": -8,
+      "focalCentsDelta": -1070,
+      "poolCentsDelta": -4334,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-03",
+      "bids": [
+        500,
+        520,
+        540
+      ],
+      "sparkQuote": 538,
+      "baselineQuote": 520,
+      "sparkLastCounter": 538,
+      "baselineLastCounter": 520,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 36,
+      "poolCentsDelta": 36,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-04",
+      "bids": [
+        480,
+        490,
+        500
+      ],
+      "sparkQuote": null,
+      "baselineQuote": null,
+      "sparkLastCounter": 535,
+      "baselineLastCounter": 510,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-05",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-06",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": -2,
+      "poolSeatsDelta": -6,
+      "focalCentsDelta": -1070,
+      "poolCentsDelta": -3246,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-07",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-08",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": "stale_terms"
+    },
+    {
+      "id": "s6-09",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 542,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": null,
+      "baselineRefusal": "past_deadline"
+    },
+    {
+      "id": "s6-10",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": null,
+      "sparkLastCounter": null,
+      "baselineLastCounter": null,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 0,
+      "poolCentsDelta": 0,
+      "sparkRefusal": "over_agent_cap",
+      "baselineRefusal": "over_agent_cap"
+    },
+    {
+      "id": "s6-11",
+      "bids": [
+        535
+      ],
+      "sparkQuote": null,
+      "baselineQuote": 535,
+      "sparkLastCounter": 544,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": -2,
+      "poolSeatsDelta": -2,
+      "focalCentsDelta": -1070,
+      "poolCentsDelta": -1070,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    },
+    {
+      "id": "s6-12",
+      "bids": [
+        527,
+        535,
+        540
+      ],
+      "sparkQuote": 540,
+      "baselineQuote": 535,
+      "sparkLastCounter": 540,
+      "baselineLastCounter": 535,
+      "focalSeatsDelta": 0,
+      "poolSeatsDelta": 0,
+      "focalCentsDelta": 10,
+      "poolCentsDelta": 10,
+      "sparkRefusal": null,
+      "baselineRefusal": null
+    }
+  ],
+  "sensitivity": [
+    {
+      "delta": 0,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 2,
+        "focalCents": 1088
+      },
+      "bestStepAfterTheFact": {
+        "step": 9,
+        "focalSeats": 12,
+        "focalCents": 6420
+      }
+    },
+    {
+      "delta": 1,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 2,
+        "focalCents": 1088
+      },
+      "bestStepAfterTheFact": {
+        "step": 8,
+        "focalSeats": 12,
+        "focalCents": 6430
+      }
+    },
+    {
+      "delta": 2,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 2,
+        "focalCents": 1088
+      },
+      "bestStepAfterTheFact": {
+        "step": 7,
+        "focalSeats": 12,
+        "focalCents": 6440
+      }
+    },
+    {
+      "delta": 3,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 2,
+        "focalCents": 1088
+      },
+      "bestStepAfterTheFact": {
+        "step": 6,
+        "focalSeats": 12,
+        "focalCents": 6450
+      }
+    },
+    {
+      "delta": 4,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 6,
+        "focalCents": 3264
+      },
+      "bestStepAfterTheFact": {
+        "step": 5,
+        "focalSeats": 12,
+        "focalCents": 6460
+      }
+    },
+    {
+      "delta": 5,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 6,
+        "focalCents": 3264
+      },
+      "bestStepAfterTheFact": {
+        "step": 13,
+        "focalSeats": 14,
+        "focalCents": 7418
+      }
+    },
+    {
+      "delta": 6,
+      "spark": {
+        "focalSeats": 6,
+        "focalCents": 3244,
+        "poolSeats": 32,
+        "poolCents": 17388
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 6,
+        "focalCents": 3264
+      },
+      "bestStepAfterTheFact": {
+        "step": 13,
+        "focalSeats": 14,
+        "focalCents": 7418
+      }
+    },
+    {
+      "delta": 7,
+      "spark": {
+        "focalSeats": 8,
+        "focalCents": 4328,
+        "poolSeats": 40,
+        "poolCents": 21736
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 6,
+        "focalCents": 3264
+      },
+      "bestStepAfterTheFact": {
+        "step": 13,
+        "focalSeats": 14,
+        "focalCents": 7418
+      }
+    },
+    {
+      "delta": 8,
+      "spark": {
+        "focalSeats": 8,
+        "focalCents": 4328,
+        "poolSeats": 40,
+        "poolCents": 21736
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 6,
+        "focalCents": 3264
+      },
+      "bestStepAfterTheFact": {
+        "step": 12,
+        "focalSeats": 14,
+        "focalCents": 7424
+      }
+    },
+    {
+      "delta": 9,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 12,
+        "focalCents": 6408,
+        "poolSeats": 48,
+        "poolCents": 25992
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 12,
+        "focalSeats": 14,
+        "focalCents": 7424
+      }
+    },
+    {
+      "delta": 10,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 17,
+        "focalSeats": 14,
+        "focalCents": 7428
+      }
+    },
+    {
+      "delta": 11,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 11,
+        "focalSeats": 14,
+        "focalCents": 7434
+      }
+    },
+    {
+      "delta": 12,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 11,
+        "focalSeats": 14,
+        "focalCents": 7434
+      }
+    },
+    {
+      "delta": 13,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 11,
+        "focalSeats": 14,
+        "focalCents": 7434
+      }
+    },
+    {
+      "delta": 14,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 10,
+        "focalSeats": 14,
+        "focalCents": 7444
+      }
+    },
+    {
+      "delta": 15,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 10,
+        "focalSeats": 14,
+        "focalCents": 7444
+      }
+    },
+    {
+      "delta": 16,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 10,
+        "focalSeats": 14,
+        "focalCents": 7444
+      }
+    },
+    {
+      "delta": 17,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 9,
+        "focalSeats": 14,
+        "focalCents": 7454
+      }
+    },
+    {
+      "delta": 18,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 9,
+        "focalSeats": 14,
+        "focalCents": 7454
+      }
+    },
+    {
+      "delta": 19,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 9,
+        "focalSeats": 14,
+        "focalCents": 7454
+      }
+    },
+    {
+      "delta": 20,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 8,
+        "focalSeats": 14,
+        "focalCents": 7470
+      }
+    },
+    {
+      "delta": 21,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 8,
+        "focalSeats": 14,
+        "focalCents": 7470
+      }
+    },
+    {
+      "delta": 22,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 8,
+        "focalSeats": 14,
+        "focalCents": 7470
+      }
+    },
+    {
+      "delta": 23,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 7,
+        "focalSeats": 14,
+        "focalCents": 7486
+      }
+    },
+    {
+      "delta": 24,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 7,
+        "focalSeats": 14,
+        "focalCents": 7486
+      }
+    },
+    {
+      "delta": 25,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 7,
+        "focalSeats": 14,
+        "focalCents": 7486
+      }
+    },
+    {
+      "delta": 26,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 6,
+        "focalSeats": 14,
+        "focalCents": 7502
+      }
+    },
+    {
+      "delta": 27,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 6,
+        "focalSeats": 14,
+        "focalCents": 7502
+      }
+    },
+    {
+      "delta": 28,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 6,
+        "focalSeats": 14,
+        "focalCents": 7502
+      }
+    },
+    {
+      "delta": 29,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 5,
+        "focalSeats": 14,
+        "focalCents": 7518
+      }
+    },
+    {
+      "delta": 30,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 5,
+        "focalSeats": 14,
+        "focalCents": 7518
+      }
+    },
+    {
+      "delta": 31,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 5,
+        "focalSeats": 14,
+        "focalCents": 7518
+      }
+    },
+    {
+      "delta": 32,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 4,
+        "focalSeats": 14,
+        "focalCents": 7536
+      }
+    },
+    {
+      "delta": 33,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 4,
+        "focalSeats": 14,
+        "focalCents": 7536
+      }
+    },
+    {
+      "delta": 34,
+      "spark": {
+        "focalSeats": 12,
+        "focalCents": 6504,
+        "poolSeats": 48,
+        "poolCents": 26088
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 4,
+        "focalSeats": 14,
+        "focalCents": 7536
+      }
+    },
+    {
+      "delta": 35,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 3,
+        "focalSeats": 14,
+        "focalCents": 7556
+      }
+    },
+    {
+      "delta": 36,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 3,
+        "focalSeats": 14,
+        "focalCents": 7556
+      }
+    },
+    {
+      "delta": 37,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 3,
+        "focalSeats": 14,
+        "focalCents": 7556
+      }
+    },
+    {
+      "delta": 38,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 2,
+        "focalSeats": 14,
+        "focalCents": 7576
+      }
+    },
+    {
+      "delta": 39,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 2,
+        "focalSeats": 14,
+        "focalCents": 7576
+      }
+    },
+    {
+      "delta": 40,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 2,
+        "focalSeats": 14,
+        "focalCents": 7576
+      }
+    },
+    {
+      "delta": 41,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 1,
+        "focalSeats": 14,
+        "focalCents": 7592
+      }
+    },
+    {
+      "delta": 42,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 1,
+        "focalSeats": 14,
+        "focalCents": 7592
+      }
+    },
+    {
+      "delta": 43,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 12,
+        "focalCents": 6528
+      },
+      "bestStepAfterTheFact": {
+        "step": 1,
+        "focalSeats": 14,
+        "focalCents": 7592
+      }
+    },
+    {
+      "delta": 44,
+      "spark": {
+        "focalSeats": 14,
+        "focalCents": 7574,
+        "poolSeats": 56,
+        "poolCents": 30422
+      },
+      "fixed": {
+        "focalSeats": 14,
+        "focalCents": 7428,
+        "poolSeats": 56,
+        "poolCents": 30276
+      },
+      "alwaysHold": {
+        "focalSeats": 14,
+        "focalCents": 7616
+      },
+      "bestStepAfterTheFact": {
+        "step": 0,
+        "focalSeats": 14,
+        "focalCents": 7616
+      }
+    }
+  ],
+  "horizon": {
+    "oneBidModelCases": [
+      "s6-02",
+      "s6-05",
+      "s6-06",
+      "s6-07",
+      "s6-08",
+      "s6-09",
+      "s6-11"
+    ],
+    "repeatBidUnmeasuredCases": [
+      "s6-02",
+      "s6-05",
+      "s6-06",
+      "s6-07",
+      "s6-08",
+      "s6-09",
+      "s6-11"
+    ],
+    "repeatBidFixed": {
+      "focalSeats": 12,
+      "focalCents": 6408,
+      "poolSeats": 48,
+      "poolCents": 25992,
+      "unmeasuredCases": []
+    },
+    "firstRoundProposals": 10,
+    "firstRoundHolds": 8,
+    "holdRationalesCitingRemainingRounds": 7,
+    "finalRoundRationales": [
+      {
+        "caseId": "s6-04",
+        "round": 3,
+        "price": 535,
+        "rationale": "Small final-round concession to fill off-peak seats while protecting margin."
+      },
+      {
+        "caseId": "s6-12",
+        "round": 3,
+        "price": 540,
+        "rationale": "Final round so meet buyer at 540 to fill two off-peak seats."
+      }
+    ],
+    "causalEffectOfPromptText": null
+  },
+  "replicates": {
+    "input": "bid 535, previous 544, round 1, covers 2",
+    "proposals": [
+      {
+        "caseId": "s6-02",
+        "price": 542
+      },
+      {
+        "caseId": "s6-05",
+        "price": 544
+      },
+      {
+        "caseId": "s6-06",
+        "price": 544
+      },
+      {
+        "caseId": "s6-07",
+        "price": 544
+      },
+      {
+        "caseId": "s6-08",
+        "price": 544
+      },
+      {
+        "caseId": "s6-09",
+        "price": 542
+      },
+      {
+        "caseId": "s6-11",
+        "price": 544
+      }
+    ],
+    "accepted": 0,
+    "total": 7,
+    "exactUpper95": 0.41
+  },
+  "breakEvenCostCents": {
+    "focal": 527.3333333333334,
+    "wholePool": 537.75
+  }
+}

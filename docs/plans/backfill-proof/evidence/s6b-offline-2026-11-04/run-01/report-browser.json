@@ -1,0 +1,9 @@
+{
+  "report": "report.html",
+  "viewports": [
+    {"width": 1280, "height": 800, "documentScrollWidth": 1280, "inspected": true},
+    {"width": 375, "height": 812, "documentScrollWidth": 375, "tablesScrollingInsideContainer": 11, "inspected": true}
+  ],
+  "tables": 11,
+  "externalRequests": 0
+}

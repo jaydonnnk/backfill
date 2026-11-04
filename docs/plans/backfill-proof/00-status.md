@@ -1,5 +1,12 @@
 # Status: Backfill proof build
 
+## Current S6b offline evaluation, 2026-11-04
+
+No deterministic policy passed the frozen decision rule, so no winner is named.
+S6's negative AI result stands, and all inference authority stays closed.
+No inference, production change or S7/S8 work occurred.
+[S6b results](evidence/s6b-offline-2026-11-04/README.md), [S6 replay addendum](evidence/s6-diagnostic-2026-11-04/README.md), [design](s6b-design.md).
+
 ## Current S6 complete locally, 2026-11-04
 
 After explicit approval of the sixteen-request/US$21.05 scope, the bounded run made

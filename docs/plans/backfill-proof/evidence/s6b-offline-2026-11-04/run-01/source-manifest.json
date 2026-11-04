@@ -1,0 +1,45 @@
+{
+  "node": "v24.21.0",
+  "files": [
+    {
+      "path": "docs/plans/backfill-proof/s6b-cases.json",
+      "sha256": "fb8787f5c99114e0324f8e9f0c282813d386d8e7ed8ebd3a39c1e2b111c4da4f"
+    },
+    {
+      "path": "scripts/verification/proof-s6b.ts",
+      "sha256": "8f83f722008d891ff421d61a1a87997d9860c4c83413f373cfaa2d4f60adcf87"
+    },
+    {
+      "path": "scripts/verification/proof-s6b-model.ts",
+      "sha256": "3aafe50588d173a96d9b93691505c12c53df9ec8c0db47162250fe3361271a35"
+    },
+    {
+      "path": "scripts/verification/proof-s6-replay.ts",
+      "sha256": "c9e58570d1ace7b598515defe15e57f11400ec8e2ee12de3939c30cb30e13a91"
+    },
+    {
+      "path": "scripts/verification/proof-s6-policy.ts",
+      "sha256": "79a0a91cdd94eb652bd9e22163bdfb500ab778d3ee0b7a08585eaa6de067327d"
+    },
+    {
+      "path": "src/domain/negotiation/rules.ts",
+      "sha256": "e488e192af57fc29b16444cf0e8f0a288ca1324ea8e0d7d4cc9b40d185ab0b11"
+    },
+    {
+      "path": "src/domain/clearing/clear.ts",
+      "sha256": "86ca410d82b5f7327037f0c1c52c6d31df021ed611dbdb9dd161cd3cc9c7a303"
+    },
+    {
+      "path": "src/domain/offers/evaluate.ts",
+      "sha256": "a2ab2092f985fdc75aafbc19e85e11bfdbe590e6af1aee599f395a45bd475363"
+    },
+    {
+      "path": "src/domain/offers/schema.ts",
+      "sha256": "f673bbe457b1632f2f1760cf0522f8d5ffe8c600b77bc6a13f829c2ae31a7b84"
+    },
+    {
+      "path": "src/domain/commitments/occurrence.ts",
+      "sha256": "d538265916640449826610a7bd61d0264721df973f48c20e4185d320bd30f481"
+    }
+  ]
+}
