@@ -3,6 +3,7 @@ import { webEnv, whatsappEnv } from "@/env";
 import { createMetaProvider } from "@/integrations/meta/provider";
 import { webDb } from "@/lib/db/client";
 import { llmCallRecorder } from "@/lib/llm-calls";
+import { readBounded } from "@/lib/http-body";
 import { log } from "@/lib/log";
 import { challengeFor, inboundMessages, sendText, signatureValid } from "@/lib/whatsapp/cloud";
 import { wonderOwner } from "@/lib/whatsapp/owner-model";
@@ -24,7 +25,9 @@ export async function POST(request: Request): Promise<Response> {
   const env = webEnv();
   const config = whatsappEnv(env);
   if (config === null) return new Response("Not found", { status: 404 });
-  const raw = await request.text();
+  const bytes = await readBounded(request, 1_000_000);
+  if (bytes === null) return new Response("Request too large", { status: 413 });
+  const raw = new TextDecoder().decode(bytes);
   if (!signatureValid(raw, request.headers.get("x-hub-signature-256"), config.appSecret)) {
     log("warn", "whatsapp.rejected", { reason: request.headers.has("x-hub-signature-256") ? "bad_signature" : "no_signature", bytes: raw.length });
     return new Response("Forbidden", { status: 403 });

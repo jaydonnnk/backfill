@@ -3,8 +3,11 @@ import { authenticateAgent } from "@/lib/agents/tokens";
 import type { Clock } from "@/lib/commitments/service";
 import type { Db } from "@/lib/db/client";
 import type { NegotiationDeps } from "@/lib/negotiation/service";
+import { readBounded } from "@/lib/http-body";
 import { errorFields, log } from "@/lib/log";
 import { buildMcpServer } from "./server";
+
+const MAX_BODY_BYTES = 64_000;
 
 // Streamable HTTP MCP, stateless: each POST carries one JSON-RPC message or batch and gets a JSON
 // reply, so the server keeps nothing in memory between requests and any instance can answer. The
@@ -21,11 +24,15 @@ export function mcpPostHandler(db: () => Db, clock: Clock = () => new Date(), ne
     }
     if (!agentId) return Response.json({ error: "unauthorized" }, { status: 401, headers: { "WWW-Authenticate": 'Bearer realm="backfill"' } });
 
+    const body = await readBounded(req, MAX_BODY_BYTES);
+    if (body === null) return Response.json({ error: "request too large" }, { status: 413 });
+    const bounded = new Request(req.url, { method: req.method, headers: req.headers, body: Buffer.from(body) });
+
     const server = buildMcpServer(db(), agentId, clock, negotiation());
     const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
     await server.connect(transport);
     try {
-      return await transport.handleRequest(req);
+      return await transport.handleRequest(bounded);
     } finally {
       await server.close();
     }

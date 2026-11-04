@@ -55,6 +55,21 @@ describe("GET /api/whatsapp", () => {
 });
 
 describe("POST /api/whatsapp", () => {
+  it("rejects oversized bytes before signature validation, including understated length", async () => {
+    const body = "é".repeat(500_001);
+    for (const headers of [new Headers(), new Headers({ "content-length": "10" })]) {
+      const res = await POST(new Request("https://backfill.test/api/whatsapp", { method: "POST", body, headers }));
+      expect(res.status).toBe(413);
+    }
+    expect(state.afters).toHaveLength(0);
+    expect(logged().filter(e => e.event === "whatsapp.rejected")).toEqual([]);
+  });
+
+  it("accepts exactly 1,000,000 signed bytes", async () => {
+    const body = payload + " ".repeat(1_000_000 - Buffer.byteLength(payload));
+    expect((await post(body, sign(body))).status).toBe(200);
+  });
+
   it("answers 200 at once and handles the messages after the response", async () => {
     const res = await post(payload, sign(payload));
     expect(res.status).toBe(200);

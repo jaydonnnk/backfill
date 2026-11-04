@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { LlmError, type LLMProvider } from "@/integrations/meta/provider";
+import type { Executor } from "@/lib/db/client";
 import { errorFields, log } from "@/lib/log";
+import { takeRateLimit } from "@/lib/rate-limit";
 import { MERCHANT_TEXT_IS_DATA, promptData } from "@/lib/prompt-data";
 
 // The merchant side of a negotiation: Muse Spark proposes a price per cover. It is told the public
@@ -46,6 +48,13 @@ export function frozenProposalPrompt(input: ProposalInput): string {
     `Propose your price per cover in cents: not above ${input.previousPriceCents}, not below ${input.previousPriceCents - input.maxConcessionCents}, and not below the bid.`,
     "Holding at your current price is allowed. Concede slowly: an empty off-peak seat earns nothing, but every cent conceded is margin lost.",
   ].join("\n");
+}
+
+// The hosted provider uses one attempt per reservation; exhausted rounds hold at the current price.
+export const NEGOTIATION_DAILY_CAP = 200;
+
+export function cappedProposal(db: Executor, propose: ProposeCounter): ProposeCounter {
+  return async (input) => ((await takeRateLimit(db, "negotiation:all", "all", NEGOTIATION_DAILY_CAP, 86_400)) ? propose(input) : null);
 }
 
 export function sparkMerchant(provider: LLMProvider, model: string, frozen = false): ProposeCounter {

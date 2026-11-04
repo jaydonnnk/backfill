@@ -8,7 +8,8 @@ import { clockTime, constraintOf, settleDue, toRule, WEEKDAY_NAMES } from "@/lib
 import type { Db } from "@/lib/db/client";
 import { clearingFills, clearings, menuDrafts, offerPublications, planApplications, rules, wonderPlans } from "@/lib/db/schema";
 import { recentAttempts } from "@/lib/llm-calls";
-import { MENU_VISION_PURPOSE, type PlanMemory, type ProposePlan, type ReadMenu, WONDER_PLAN_PURPOSE } from "./models";
+import { takeLimits } from "@/lib/rate-limit";
+import { type PlanMemory, type ProposePlan, type ReadMenu, WONDER_PLAN_PURPOSE } from "./models";
 
 // Everything a merchant does through its secret link, against the database. The runtime role
 // records drafts and plans, and publishes or applies only through publish_offer and
@@ -17,12 +18,13 @@ import { MENU_VISION_PURPOSE, type PlanMemory, type ProposePlan, type ReadMenu, 
 export type Clock = () => Date;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-// Arbitrary constants naming the advisory locks: one menu read and one planning pass at a time, so
-// simultaneous requests cannot all pass the same daily-cap read.
-const MENU_LOCK_KEY = 4_151_006;
+// Arbitrary constant naming the advisory lock: one planning pass at a time, so simultaneous requests
+// cannot all pass the same daily-cap read.
 const PLAN_LOCK_KEY = 4_151_007;
-// Model attempts per purpose per rolling day, across all merchants, so a leaked link cannot run up spend.
-export const MENU_DAILY_CAP = 30;
+// Menu reads per day, across all merchants and per client, so nobody can run up spend or use up the day.
+export const MENU_DAILY_CAP = 100;
+export const MENU_CLIENT_DAILY_CAP = 10;
+// Model attempts per rolling day, across all merchants, so a leaked link cannot run up spend.
 export const PLAN_DAILY_CAP = 30;
 // Sold-out occurrences planned per pass, oldest first.
 const PLANS_PER_PASS = 3;
@@ -31,37 +33,34 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export type ReadMenuResult =
   | { status: "ok" | "refused"; draftId: string }
-  | { status: "empty" | "too_large" | "not_an_image" | "busy" | "daily_cap" | "failed" };
+  | { status: "empty" | "too_large" | "not_an_image" | "daily_cap" | "failed" };
 
 // Reads one menu photo with Muse Spark and stores the draft, counted or not. The photo is hashed
 // and dropped; it is never stored or logged.
-export async function readMenu(db: Db, merchantId: string, bytes: Uint8Array, read: ReadMenu, model: string, clock: Clock = () => new Date()): Promise<ReadMenuResult> {
+export async function readMenu(db: Db, merchantId: string, bytes: Uint8Array, read: ReadMenu, model: string, clock: Clock = () => new Date(), client: string | null = null): Promise<ReadMenuResult> {
+  void clock; // Retained for existing callers; rate-limit windows use the database clock.
   const photo = judgePhoto(bytes);
   if (!photo.ok) return { status: photo.reason };
-  return db.transaction(async (tx) => {
-    const [lock] = await tx.execute<{ locked: boolean }>(sql`select pg_try_advisory_xact_lock(${MENU_LOCK_KEY}) as locked`);
-    if (!lock?.locked) return { status: "busy" };
-    const now = clock();
-    if ((await recentAttempts(tx, MENU_VISION_PURPOSE, new Date(now.getTime() - DAY_MS))).count >= MENU_DAILY_CAP) return { status: "daily_cap" };
-    const draft = await read({ mediaType: photo.mediaType, base64: Buffer.from(bytes).toString("base64") });
-    if (draft === null) return { status: "failed" };
-    const verdict = judgeDraft(draft);
-    const [row] = await tx
-      .insert(menuDrafts)
-      .values({
-        merchantId,
-        photoSha256: createHash("sha256").update(bytes).digest("hex"),
-        photoBytes: bytes.length,
-        photoType: photo.mediaType,
-        model,
-        draft,
-        verdict: verdict.ok ? "ok" : verdict.reason,
-        listPriceCents: verdict.ok ? verdict.listPriceCents : null,
-      })
-      .returning({ id: menuDrafts.id });
-    if (!row) throw new Error("menu draft insert returned no row");
-    return { status: verdict.ok ? "ok" : "refused", draftId: row.id };
-  });
+  if (!(await takeLimits(db, "menu", client, MENU_CLIENT_DAILY_CAP, MENU_DAILY_CAP, DAY_MS / 1000))) return { status: "daily_cap" };
+  // The model is asked outside any transaction: a call can take seconds, and the pool is small.
+  const draft = await read({ mediaType: photo.mediaType, base64: Buffer.from(bytes).toString("base64") });
+  if (draft === null) return { status: "failed" };
+  const verdict = judgeDraft(draft);
+  const [row] = await db
+    .insert(menuDrafts)
+    .values({
+      merchantId,
+      photoSha256: createHash("sha256").update(bytes).digest("hex"),
+      photoBytes: bytes.length,
+      photoType: photo.mediaType,
+      model,
+      draft,
+      verdict: verdict.ok ? "ok" : verdict.reason,
+      listPriceCents: verdict.ok ? verdict.listPriceCents : null,
+    })
+    .returning({ id: menuDrafts.id });
+  if (!row) throw new Error("menu draft insert returned no row");
+  return { status: verdict.ok ? "ok" : "refused", draftId: row.id };
 }
 
 export type DraftView = { id: string; draft: MenuDraft; verdict: string; listPriceCents: number | null; createdAt: Date; ruleId: string | null };

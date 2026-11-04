@@ -1,6 +1,6 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { webEnv, whatsappEnv } from "@/env";
@@ -15,6 +15,7 @@ import { newLinkCode } from "@/lib/whatsapp/service";
 import { currentMerchant, setMerchantSession } from "./session";
 import { MerchantName } from "@/domain/onboarding/access";
 import { registerMerchant } from "@/lib/onboarding/registration";
+import { clientKey } from "@/lib/rate-limit";
 import { errorFields, log } from "@/lib/log";
 
 // The merchant's actions. Each one authenticates the cookie again; none trusts a merchant id from the form.
@@ -27,7 +28,7 @@ export async function createWorkspace(_previous: CreateWorkspaceState, form: For
   let destination = "/merchant";
   try {
     if (!await currentMerchant()) {
-      const result = await registerMerchant(webDb(), name.data);
+      const result = await registerMerchant(webDb(), name.data, clientKey(await headers()));
       if (result.status === "rate_limited") return { status: "rate_limited" };
       await setMerchantSession(result.token);
       destination = "/merchant/access";
@@ -69,7 +70,7 @@ export async function uploadMenu(form: FormData): Promise<never> {
   const photo = form.get("photo");
   const bytes = photo instanceof File ? new Uint8Array(await photo.arrayBuffer()) : new Uint8Array();
   const { env, provider: meta } = provider();
-  const result = await readMenu(webDb(), merchant.id, bytes, sparkMenuReader(meta, env.META_MODEL_SPARK), env.META_MODEL_SPARK);
+  const result = await readMenu(webDb(), merchant.id, bytes, sparkMenuReader(meta, env.META_MODEL_SPARK), env.META_MODEL_SPARK, undefined, clientKey(await headers()));
   if ("draftId" in result) redirect(`/merchant/drafts/${result.draftId}`);
   redirect(`/merchant?status=${result.status}`);
 }

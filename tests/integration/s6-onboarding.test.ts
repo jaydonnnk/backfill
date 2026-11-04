@@ -64,6 +64,7 @@ beforeEach(async () => {
   bodies = [];
   // Each test starts under both daily caps.
   await t.admin`delete from llm_calls`;
+  await t.admin`truncate rate_limits`;
 });
 
 // A small JPEG header is enough: the photo is only sniffed, hashed and sent to the (fake) model.
@@ -196,38 +197,37 @@ describe("menu photo to draft with Muse Spark vision", () => {
     expect(calls?.n).toBe(3);
   });
 
-  it("stops at the daily cap of 30 model attempts, counting failed ones", async () => {
+  it("counts failed reads toward the 100-read cap without depending on call logs", async () => {
     const m = await merchant();
-    for (let i = 0; i < 29; i++) await insertCall(MENU_VISION_PURPOSE, SPARK);
-    script = [MENU];
-    expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toMatchObject({ status: "ok" });
+    for (let i = 0; i < 100; i++) {
+      expect(await readMenu(app.db, m.id, PHOTO, async () => null, SPARK)).toEqual({ status: "failed" });
+    }
     expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toEqual({ status: "daily_cap" });
-    expect(bodies).toHaveLength(1);
+    expect(bodies).toHaveLength(0);
   });
 
-  it("counts only the last 24 hours toward the daily cap", async () => {
+  it("allows reads again after the rate-limit window expires", async () => {
     const m = await merchant();
-    const yesterday = new Date(Date.now() - 25 * 60 * 60 * 1000);
-    for (let i = 0; i < 30; i++) await insertCall(MENU_VISION_PURPOSE, SPARK, yesterday);
+    for (let i = 0; i < 100; i++) await readMenu(app.db, m.id, PHOTO, async () => null, SPARK);
+    await t.admin`update rate_limits set window_start = window_start - interval '1 day'`;
     script = [MENU];
     expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toMatchObject({ status: "ok" });
   });
 
-  it("refuses a second read while one holds the lock", async () => {
+  it("allows another menu read while a slow reader is waiting", async () => {
     const m = await merchant();
     let release!: () => void;
-    const held = new Promise<void>((resolve) => (release = resolve));
+    const held = new Promise<void>(resolve => { release = resolve; });
     let entered!: () => void;
-    const inside = new Promise<void>((resolve) => (entered = resolve));
-    const slow = readMenu(app.db, m.id, PHOTO, async () => {
-      entered();
-      await held;
-      return MENU;
-    }, SPARK);
+    const inside = new Promise<void>(resolve => { entered = resolve; });
+    const slow = readMenu(app.db, m.id, PHOTO, async () => { entered(); await held; return MENU; }, SPARK);
     await inside;
-    expect(await readMenu(app.db, m.id, PHOTO, read(), SPARK)).toEqual({ status: "busy" });
-    release();
-    expect(await slow).toMatchObject({ status: "ok" });
+    script = [MENU];
+    let second;
+    try { second = await readMenu(app.db, m.id, PHOTO, read(), SPARK); }
+    finally { release(); }
+    expect((await slow).status).toBe("ok");
+    expect(second.status).toBe("ok");
   });
 });
 

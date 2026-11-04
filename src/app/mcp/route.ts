@@ -3,7 +3,7 @@ import { createMetaProvider } from "@/integrations/meta/provider";
 import { webDb } from "@/lib/db/client";
 import { llmCallRecorder } from "@/lib/llm-calls";
 import { methodNotAllowed, mcpPostHandler } from "@/lib/mcp/http";
-import { sparkMerchant } from "@/lib/negotiation/merchant-agent";
+import { cappedProposal, sparkMerchant } from "@/lib/negotiation/merchant-agent";
 import type { NegotiationDeps } from "@/lib/negotiation/service";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +12,8 @@ export const dynamic = "force-dynamic";
 function negotiation(): NegotiationDeps | null {
   const env = webEnv();
   if (!env.NEGOTIATION_SIGNING_SECRET) return null;
-  const provider = createMetaProvider({ baseUrl: env.META_BASE_URL, apiKey: env.META_API_KEY, record: llmCallRecorder(webDb()) });
-  return { secret: env.NEGOTIATION_SIGNING_SECRET, propose: sparkMerchant(provider, env.META_MODEL_SPARK) };
+  const provider = createMetaProvider({ baseUrl: env.META_BASE_URL, apiKey: env.META_API_KEY, record: llmCallRecorder(webDb()), maxAttempts: 1 });
+  return { secret: env.NEGOTIATION_SIGNING_SECRET, propose: cappedProposal(webDb(), sparkMerchant(provider, env.META_MODEL_SPARK)) };
 }
 
 // The buyer-facing MCP server, shaped as a Muse custom connector: streamable HTTP at /mcp with a

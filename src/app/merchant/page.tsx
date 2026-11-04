@@ -26,7 +26,6 @@ const STATUS_TEXT: Record<string, string> = {
   empty: "Choose a photo of your menu first.",
   too_large: `That photo is over ${MAX_PHOTO_BYTES / 1024 / 1024} MB. Try a smaller one.`,
   not_an_image: "That file is not a JPEG, PNG or WebP photo.",
-  busy: "Another menu is being read. Try again in a moment.",
   daily_cap: "Today's menu reading limit is reached. Try again tomorrow.",
   failed: "Muse Spark could not read that photo. Try a clearer, straight-on photo.",
   plan_applied: "The plan is applied. Your offer now has the new terms.",
