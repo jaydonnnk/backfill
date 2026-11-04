@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { LlmRecordingError, type LLMProvider } from "@/integrations/meta/provider";
 import { redact } from "@/lib/log";
+import { MERCHANT_TEXT_IS_DATA, promptData } from "@/lib/prompt-data";
 import type { BuyerIntent } from "./intents";
 
 // One Muse Spark buyer agent's decision on one offer: how many covers to commit, none when the
@@ -22,6 +23,8 @@ export type BuyerRequest = { system: string; prompt: string };
 export const BUYER_SYSTEM =
   "You are a buyer agent for one person in Singapore. You commit to a pooled off-peak offer only when it fits the person's intent. A commitment is binding from its deadline on. Reply only with JSON matching the schema.";
 
+// Frozen: the stored scene recording was made with exactly these words and is validated against them.
+// A new live call uses hardenedBuyerRequest.
 export function buyerRequest(buyer: BuyerIntent, offer: OfferSeen): BuyerRequest {
   const at = (iso: string) => new Date(iso).toLocaleString("en-SG", { timeZone: "Asia/Singapore", dateStyle: "medium", timeStyle: "short" });
   return {
@@ -34,6 +37,11 @@ export function buyerRequest(buyer: BuyerIntent, offer: OfferSeen): BuyerRequest
       `You may commit at most ${offer.perAgentCapCovers} covers. Decide how many covers to commit, or 0 if the offer does not fit.`,
     ].join("\n"),
   };
+}
+
+export function hardenedBuyerRequest(buyer: BuyerIntent, offer: OfferSeen): BuyerRequest {
+  const { system, prompt } = buyerRequest(buyer, { ...offer, merchantName: promptData(offer.merchantName), summary: promptData(offer.summary) });
+  return { system: `${system} ${MERCHANT_TEXT_IS_DATA}`, prompt };
 }
 
 // error is the failure's name and first line, never a key or a prompt.

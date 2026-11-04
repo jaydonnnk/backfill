@@ -7,6 +7,7 @@ import { available, dollars } from "@/lib/commitments/service";
 import { merchantLedger } from "@/lib/ledger/service";
 import { webDb } from "@/lib/db/client";
 import { MAX_PHOTO_BYTES } from "@/domain/onboarding/menu";
+import { merchantVisibility } from "@/lib/onboarding/links";
 import { dashboard, windowText } from "@/lib/onboarding/service";
 import { webEnv, whatsappEnv } from "@/env";
 import { linkedPhoneEnding } from "@/lib/whatsapp/service";
@@ -73,6 +74,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const cue = merchantKopiCue(board.drafts, board.plans, published);
   const step = merchantStep(board.drafts, board.rules.length);
   const savingsLedger = await merchantLedger(webDb(), merchant.id);
+  const awaitingReview = board.rules.length > 0 && (await merchantVisibility(webDb(), merchant.id)) === "pending";
   const planned = new Set(board.plans.map((p) => `${p.ruleId}/${p.visitDate}`));
   const needsPlan = board.occurrences.some((o) => o.soldOut && !planned.has(`${o.ruleId}/${o.visitDate}`));
   const whatsapp = whatsappEnv(webEnv()) !== null;
@@ -100,6 +102,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           {notice}
         </p>
       )}
+      {awaitingReview && <p role="status" className="rounded-md border border-[var(--border)] px-4 py-3 text-sm">Your offer is awaiting a quick review before buyer agents can see it.</p>}
       {needsPlan && <ReplanTrigger />}
 
       <section className={card}>

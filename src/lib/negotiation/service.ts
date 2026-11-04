@@ -3,7 +3,7 @@ import { occurrenceOn } from "@/domain/commitments/occurrence";
 import { signCounterOffer } from "@/domain/negotiation/counter-offer";
 import { MAX_ROUNDS, maxConcessionCents, type RoundContext, type RoundStatus, settleRound, startRound } from "@/domain/negotiation/rules";
 import { offerPriceCents } from "@/domain/offers/evaluate";
-import { available, type Clock, constraintOf, deadlineOf, toRule } from "@/lib/commitments/service";
+import { agentScope, available, type Clock, constraintOf, deadlineOf, toRule } from "@/lib/commitments/service";
 import type { Executor } from "@/lib/db/client";
 import { commitments, merchants, negotiationRounds, negotiations, rules } from "@/lib/db/schema";
 import type { ProposeCounter } from "./merchant-agent";
@@ -58,9 +58,9 @@ class Refused extends Error {
 export async function negotiate(db: Executor, deps: NegotiationDeps, agentId: string, input: NegotiateInput): Promise<NegotiateResult> {
   const now = (deps.clock ?? (() => new Date()))();
   try {
-    const [row] = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, eq(rules.merchantId, merchants.id)).where(eq(rules.id, input.ruleId));
+    const [row] = await db.select({ rule: rules, merchantName: merchants.name, visibility: merchants.visibility }).from(rules).innerJoin(merchants, eq(rules.merchantId, merchants.id)).where(eq(rules.id, input.ruleId));
     const rule = row && toRule(row.rule);
-    if (!row || !rule || !available(rule)) throw new Refused("offer_unavailable");
+    if (!row || !rule || !available(rule) || row.visibility !== ((await agentScope(db, agentId)) === "sandbox" ? "sandbox" : "listed")) throw new Refused("offer_unavailable");
     if (input.termsVersion !== rule.termsVersion) throw new Refused("stale_terms");
     const occurrence = occurrenceOn(rule.terms.window, input.visitDate);
     if (!occurrence) throw new Refused("not_on_offer_weekday");

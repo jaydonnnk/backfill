@@ -2,6 +2,7 @@ import { LlmRecordingError, type ImageInput, type LLMProvider } from "@/integrat
 import { MenuDraft } from "@/domain/onboarding/menu";
 import { percent, WonderPlan } from "@/domain/onboarding/replan";
 import { errorFields, log } from "@/lib/log";
+import { MERCHANT_TEXT_IS_DATA, promptData } from "@/lib/prompt-data";
 
 // The two S6 model calls. Muse Spark reads a menu photo into a MenuDraft; Muse Wonder, the
 // merchant's agent, plans the rule's next terms after a sellout. Neither is told the hidden floor,
@@ -65,7 +66,7 @@ export function planPrompt(m: PlanMemory): string {
     (p) => `- after ${p.visitDate}: ${p.verdict === "ok" ? `proposed ${p.discountBps === null ? "?" : percent(p.discountBps)} off, capacity ${p.capacityCovers}, ${p.applied ? "applied" : "not applied"}` : `refused (${p.verdict})`}`,
   );
   return [
-    `You are the merchant agent of ${m.merchantName}, a Singapore food and drink merchant on Backfill, where buyer agents pool off-peak covers.`,
+    `You are the merchant agent of ${promptData(m.merchantName)}, a Singapore food and drink merchant on Backfill, where buyer agents pool off-peak covers.`,
     `The off-peak slot is ${m.window}. List price S$${(m.listPriceCents / 100).toFixed(2)} per cover; current terms ${percent(m.discountBps)} off, capacity ${m.capacityCovers} covers, minimum pool ${m.minPoolCovers}, at most ${m.perAgentCapCovers} covers per agent.`,
     `The occurrence on ${m.soldOutDate} sold out.`,
     "Fill history, oldest first:",
@@ -82,7 +83,7 @@ export function wonderMerchant(provider: LLMProvider, model: string): ProposePla
       const result = await provider.generate({
         model,
         purpose: WONDER_PLAN_PURPOSE,
-        system: "You are a careful merchant agent for a small Singapore food and drink business. Reply only with JSON matching the schema.",
+        system: `You are a careful merchant agent for a small Singapore food and drink business. ${MERCHANT_TEXT_IS_DATA} Reply only with JSON matching the schema.`,
         prompt: planPrompt(memory),
         schemaName: "WonderPlan",
         schema: WonderPlan,

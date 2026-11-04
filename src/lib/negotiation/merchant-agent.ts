@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { LlmError, type LLMProvider } from "@/integrations/meta/provider";
 import { errorFields, log } from "@/lib/log";
+import { MERCHANT_TEXT_IS_DATA, promptData } from "@/lib/prompt-data";
 
 // The merchant side of a negotiation: Muse Spark proposes a price per cover. It is told the public
 // numbers and the round's bounds, never the hidden floor, so nothing it writes can reveal the floor.
@@ -31,7 +32,12 @@ export const MerchantProposal = z.strictObject({
 
 const dollars = (cents: number) => `S$${(cents / 100).toFixed(2)}`;
 
-export function proposalPrompt(input: ProposalInput): string {
+// Frozen: the closed S6 comparison ran with exactly these words. Live calls use proposalPrompt.
+export const FROZEN_PROPOSAL_SYSTEM = "You are the pricing agent of a small Singapore food and drink merchant on Backfill. Reply only with JSON matching the schema.";
+
+export const proposalPrompt = (input: ProposalInput): string => frozenProposalPrompt({ ...input, merchantName: promptData(input.merchantName) });
+
+export function frozenProposalPrompt(input: ProposalInput): string {
   return [
     `You price off-peak covers for ${input.merchantName}, a Singapore food and drink merchant.`,
     `List price ${dollars(input.listPriceCents)} (${input.listPriceCents} cents); published agent offer ${dollars(input.offerPriceCents)} (${input.offerPriceCents} cents).`,
@@ -42,14 +48,14 @@ export function proposalPrompt(input: ProposalInput): string {
   ].join("\n");
 }
 
-export function sparkMerchant(provider: LLMProvider, model: string): ProposeCounter {
+export function sparkMerchant(provider: LLMProvider, model: string, frozen = false): ProposeCounter {
   return async (input) => {
     try {
       const result = await provider.generate({
         model,
         purpose: NEGOTIATION_PURPOSE,
-        system: "You are the pricing agent of a small Singapore food and drink merchant on Backfill. Reply only with JSON matching the schema.",
-        prompt: proposalPrompt(input),
+        system: frozen ? FROZEN_PROPOSAL_SYSTEM : `${FROZEN_PROPOSAL_SYSTEM} ${MERCHANT_TEXT_IS_DATA}`,
+        prompt: frozen ? frozenProposalPrompt(input) : proposalPrompt(input),
         schemaName: "MerchantProposal",
         schema: MerchantProposal,
         maxCompletionTokens: 1024,

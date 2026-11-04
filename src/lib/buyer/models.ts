@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createGateway, generateText } from 'ai';
-import { BuyerDecision, buyerRequest, type OfferSeen } from '../../../sim/buyers/buyer';
+import { BuyerDecision, hardenedBuyerRequest, type OfferSeen } from '../../../sim/buyers/buyer';
 
 const text = z.string().min(1).max(200).refine(s => !/[\u0000\uD800-\uDFFF]/u.test(s));
 const time = z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/);
@@ -56,7 +56,7 @@ export function glimmerParser(fetcher: typeof fetch = fetch): Models['parse'] {
 export function gatewayBuyer(fetcher: typeof fetch = fetch): Models['decide'] {
   const gateway = createGateway({ fetch: (input, init) => fetcher(input, { ...init, redirect: 'error' }) });
   return async (partyId, request, intent, offer) => {
-    const bounded = buyerRequest({ agentId: partyId, intent: JSON.stringify({ request, reviewedConstraints: intent }) }, offer);
+    const bounded = hardenedBuyerRequest({ agentId: partyId, intent: JSON.stringify({ request, reviewedConstraints: intent }) }, offer);
     const result = await generateText({ model: gateway('meta/muse-spark-open'), ...bounded, system: bounded.system + ' Return one JSON object with exactly two fields: covers (integer >=0, use 0 to decline) and reason (a string of 1-200 characters). No additional fields, markdown or reasoning. This is a recommendation; final approval is separate.', maxOutputTokens: 512, reasoning: 'low', providerOptions: { gateway: { only: ['baseten'] } }, maxRetries: 0, abortSignal: AbortSignal.timeout(45_000) });
     const upstream = z.object({ gateway: z.object({ routing: z.object({ finalProvider: z.string().max(100).optional() }).optional() }).optional() }).safeParse(result.providerMetadata);
     const receipt: ModelReceipt = { source: 'provider', route: 'vercel_gateway', model: 'meta/muse-spark-open', servedModel: result.response.modelId, upstream: upstream.success ? upstream.data.gateway?.routing?.finalProvider ?? null : null, inputTokens: result.usage.inputTokens ?? null, outputTokens: result.usage.outputTokens ?? null, costUsd: null };

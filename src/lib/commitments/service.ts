@@ -9,7 +9,7 @@ import { evaluateCommitment, evaluatePool, meetsFloor, offerPriceCents, toOffer 
 import { MerchantRule, type Offer } from "@/domain/offers/schema";
 import { MINUTES_PER_DAY, singaporeLocal } from "@/domain/singapore-time";
 import type { Executor } from "@/lib/db/client";
-import { clearingFills, clearings, commitments, ledger, merchants, negotiationRounds, rules } from "@/lib/db/schema";
+import { agents, clearingFills, clearings, commitments, ledger, merchants, negotiationRounds, rules } from "@/lib/db/schema";
 
 // Everything a buyer agent can do through the MCP server, against the database. Nothing returned
 // here carries the hidden floor, the capacity or a reason that compares the floor with the price:
@@ -89,14 +89,22 @@ function offerView(merchantName: string, rule: MerchantRule, now: Date): OfferVi
   return { merchantName, offer, summary: termsSummary(merchantName, offer), nextOccurrence: occurrenceView(nextOccurrence(rule.terms.window, now)) };
 }
 
-export async function listOffers(db: Executor, clock: Clock = () => new Date()): Promise<OfferView[]> {
+export type AgentScope = "standard" | "sandbox";
+const visibleTo = (scope: AgentScope) => (scope === "sandbox" ? "sandbox" : "listed");
+
+export async function agentScope(db: Executor, agentId: string): Promise<AgentScope> {
+  const [row] = await db.select({ scope: agents.scope }).from(agents).where(eq(agents.id, agentId));
+  return row?.scope ?? "standard";
+}
+
+export async function listOffers(db: Executor, clock: Clock = () => new Date(), scope: AgentScope = "standard"): Promise<OfferView[]> {
   const now = clock();
-  const rows = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, eq(rules.merchantId, merchants.id)).orderBy(asc(merchants.name), asc(rules.id));
+  const rows = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, and(eq(rules.merchantId, merchants.id), eq(merchants.visibility, visibleTo(scope)))).orderBy(asc(merchants.name), asc(rules.id));
   return rows.map((r) => ({ name: r.merchantName, rule: toRule(r.rule) })).filter((r) => available(r.rule)).map((r) => offerView(r.name, r.rule, now));
 }
 
-export async function getAgentTerms(db: Executor, ruleId: string, clock: Clock = () => new Date()): Promise<OfferView | null> {
-  const [row] = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, eq(rules.merchantId, merchants.id)).where(eq(rules.id, ruleId));
+export async function getAgentTerms(db: Executor, ruleId: string, clock: Clock = () => new Date(), scope: AgentScope = "standard"): Promise<OfferView | null> {
+  const [row] = await db.select({ rule: rules, merchantName: merchants.name }).from(rules).innerJoin(merchants, and(eq(rules.merchantId, merchants.id), eq(merchants.visibility, visibleTo(scope)))).where(eq(rules.id, ruleId));
   if (!row) return null;
   const rule = toRule(row.rule);
   return available(rule) ? offerView(row.merchantName, rule, clock()) : null;
@@ -240,8 +248,8 @@ export async function submitCommitment(
 
       // Hold availability through insertion so a scene cannot retire an accepted offer.
       await tx.execute(sql`select lock_rule_for_clearing(${input.ruleId})`);
-      const [ruleRow] = await tx.select().from(rules).where(eq(rules.id, input.ruleId));
-      const rule = ruleRow && toRule(ruleRow);
+      const [joined] = await tx.select({ rule: rules }).from(rules).innerJoin(merchants, and(eq(rules.merchantId, merchants.id), eq(merchants.visibility, visibleTo(await agentScope(tx, agentId))))).where(eq(rules.id, input.ruleId));
+      const rule = joined && toRule(joined.rule);
       if (!rule || !available(rule)) throw new Refused("offer_unavailable");
       const occurrence = occurrenceOn(rule.terms.window, input.visitDate);
       if (!occurrence) throw new Refused("not_on_offer_weekday");
@@ -289,6 +297,7 @@ export async function submitCommitment(
   } catch (err) {
     if (err instanceof Refused) return { ok: false, reason: err.reason };
     const constraint = constraintOf(err);
+    if (constraint === "commitments_scope") return { ok: false, reason: "offer_unavailable" };
     if (constraint === "commitments_terms_current") return { ok: false, reason: "stale_terms" };
     if (constraint === "commitments_occurrence_cleared") return { ok: false, reason: "occurrence_cleared" };
     if (constraint === "commitments_negotiation_once") return { ok: false, reason: "counter_offer_used" };

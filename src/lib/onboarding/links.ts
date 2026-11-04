@@ -16,6 +16,11 @@ export const MERCHANT_COOKIE = "backfill_merchant";
 
 export type MerchantIdentity = { id: string; name: string };
 
+export async function merchantVisibility(db: Executor, merchantId: string): Promise<"listed" | "pending" | "sandbox" | null> {
+  const [row] = await db.select({ visibility: merchants.visibility }).from(merchants).where(eq(merchants.id, merchantId));
+  return row?.visibility ?? null;
+}
+
 // Creates the merchant and its link token. The token is returned once and never stored.
 export async function mintMerchant(db: Executor, name: string): Promise<{ id: string; token: string }> {
   const token = newMerchantToken();

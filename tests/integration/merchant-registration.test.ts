@@ -59,15 +59,15 @@ describe("website merchant registration", () => {
     expect((await authenticateMerchant(app.db, old.token))?.id).toBe(old.id);
     expect((await authenticateMerchant(app.db, added.token))?.id).toBe(added.merchantId);
   });
-  it("admits only one concurrent signup when 29 recent merchants exist", async () => {
-    await t.admin`insert into merchants(name) select 'Recent' from generate_series(1,29)`;
+  it("admits only one concurrent signup when 99 recent merchants exist", async () => {
+    await t.admin`insert into merchants(name) select 'Recent' from generate_series(1,99)`;
     const results = await Promise.all([registerMerchant(app.db, "Last slot A"), registerMerchant(app.db, "Last slot B")]);
     expect(results.map(r => r.status).sort()).toEqual(["created", "rate_limited"]);
     const [row] = await t.admin`select count(*)::int as count from merchants`;
-    expect(row?.count).toBe(30);
+    expect(row?.count).toBe(100);
   });
   it("does not count old merchants or create offers and model calls", async () => {
-    await t.admin`insert into merchants(name,created_at) select 'Old', now()-interval '2 hours' from generate_series(1,30)`;
+    await t.admin`insert into merchants(name,created_at) select 'Old', now()-interval '2 hours' from generate_series(1,100)`;
     expect((await registerMerchant(app.db, "New cafe")).status).toBe("created");
     for (const table of ["rules", "commitments", "llm_calls"]) {
       expect(await t.admin.unsafe(`select * from ${table}`)).toHaveLength(0);

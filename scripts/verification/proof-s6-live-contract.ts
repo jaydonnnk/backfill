@@ -7,7 +7,7 @@ import {MerchantRule} from '../../src/domain/offers/schema';
 import {settleRound} from '../../src/domain/negotiation/rules';
 import {createMetaProvider,type LlmCallRecord} from '../../src/integrations/meta/provider';
 import {costNanoUsd} from '../../src/integrations/meta/pricing';
-import {MerchantProposal,proposalPrompt,sparkMerchant,type ProposalInput,type ProposeCounter} from '../../src/lib/negotiation/merchant-agent';
+import {frozenProposalPrompt,MerchantProposal,sparkMerchant,type ProposalInput,type ProposeCounter} from '../../src/lib/negotiation/merchant-agent';
 import type {CaseSet,PricingCase} from './proof-s6-policy';
 
 export const S6_ENDPOINT='https://api.meta.ai/v1/chat/completions';
@@ -43,7 +43,7 @@ export function createRoundState(data:CaseSet,c:PricingCase){
 }
 function requestBody(input:ProposalInput){
  const schema=z.toJSONSchema(MerchantProposal,{target:'draft-2020-12'});delete schema.$schema;
- return {model:'muse-spark-1.3',messages:[{role:'system',content:'You are the pricing agent of a small Singapore food and drink merchant on Backfill. Reply only with JSON matching the schema.'},{role:'user',content:proposalPrompt(input)}],max_completion_tokens:1024,reasoning_effort:'low',response_format:{type:'json_schema',json_schema:{name:'MerchantProposal',schema,strict:true}}};
+ return {model:'muse-spark-1.3',messages:[{role:'system',content:'You are the pricing agent of a small Singapore food and drink merchant on Backfill. Reply only with JSON matching the schema.'},{role:'user',content:frozenProposalPrompt(input)}],max_completion_tokens:1024,reasoning_effort:'low',response_format:{type:'json_schema',json_schema:{name:'MerchantProposal',schema,strict:true}}};
 }
 type RecordedCall=Omit<LlmCallRecord,'tokensIn'|'tokensCachedIn'|'tokensOut'|'costNanoUsd'>&{tokensIn:number|null;tokensCachedIn:number|null;tokensOut:number|null;costNanoUsd:number|null;usageStatus:'reported'|'unknown';caseId:string;round:number;inputSha256:string;invoiceCostUsd:null;estimatedCostUsd:number|null};
 export function createPricingSession(options:{directory:string;upstream:typeof fetch;verifySources:()=>Promise<void>;apiKey:string}){
@@ -89,7 +89,7 @@ export function createPricingSession(options:{directory:string;upstream:typeof f
     const row:RecordedCall={...record,tokensIn:usage?.tokensIn??null,tokensCachedIn:usage?.tokensCachedIn??null,tokensOut:usage?.tokensOut??null,costNanoUsd:cost,usageStatus:usage?'reported':'unknown',caseId:c.id,round:input.round,inputSha256,invoiceCostUsd:null,estimatedCostUsd:cost===null?null:cost/1e9};
     records.push(row);try{await durableJson(join(options.directory,id+'-result.json'),row);}catch(error){fatal=error;throw error;}
    }});
-   const price=await sparkMerchant(provider,'muse-spark-1.3')(input);
+   const price=await sparkMerchant(provider,'muse-spark-1.3',true)(input);
    if(fatal)throw fatal;
    state.advance(input,price);return price;
   };

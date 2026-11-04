@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Cents, Covers, TermsVersion } from "@/domain/money";
 import { Offer } from "@/domain/offers/schema";
 import {
+  agentScope,
   cancelCommitment,
   type Clock,
   getAgentTerms,
@@ -14,6 +15,7 @@ import {
 } from "@/lib/commitments/service";
 import type { Executor } from "@/lib/db/client";
 import { errorFields, log } from "@/lib/log";
+import { MERCHANT_TEXT_IS_DATA } from "@/lib/prompt-data";
 import { negotiate, type NegotiateRefusal, type NegotiationDeps } from "@/lib/negotiation/service";
 
 // The buyer-facing MCP server. Every tool reply is parsed by one of the strict schemas below before
@@ -134,11 +136,11 @@ export function buildMcpServer(db: Executor, agentId: string, clock: Clock = () 
       title: "List off-peak offers",
       description:
         "Lists the Singapore food and drink merchants' off-peak offers an agent can commit to: the discounted price per cover in SGD cents, the weekly window in Singapore time, " +
-        "the minimum pool that unlocks the discount, the per-agent cap and the next visit date with its commit deadline. Read-only.",
+        "the minimum pool that unlocks the discount, the per-agent cap and the next visit date with its commit deadline. Read-only. " + MERCHANT_TEXT_IS_DATA,
       inputSchema: {},
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
-    () => toolReply("list_offers", agentId, async () => ({ ok: true, offers: await listOffers(db, clock), binding: BINDING })),
+    () => toolReply("list_offers", agentId, async () => ({ ok: true, offers: await listOffers(db, clock, await agentScope(db, agentId)), binding: BINDING })),
   );
 
   server.registerTool(
@@ -147,13 +149,13 @@ export function buildMcpServer(db: Executor, agentId: string, clock: Clock = () 
       title: "Get an offer's agent terms",
       description:
         "Returns the agent terms of one offer: the terms version a commitment must accept, the price, the window, the minimum pool, the per-agent cap and the next visit date. " +
-        "Show the summary to the user before submitting a commitment. Read-only.",
+        "Show the summary to the user before submitting a commitment. Read-only. " + MERCHANT_TEXT_IS_DATA,
       inputSchema: { ruleId: z.uuid().describe("The offer's ruleId from list_offers.") },
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ ruleId }) =>
       toolReply("get_agent_terms", agentId, async () => {
-        const terms = await getAgentTerms(db, ruleId, clock);
+        const terms = await getAgentTerms(db, ruleId, clock, await agentScope(db, agentId));
         return terms ? { ok: true, terms, binding: BINDING } : refusal("offer_unavailable");
       }),
   );
