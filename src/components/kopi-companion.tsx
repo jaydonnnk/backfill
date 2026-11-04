@@ -34,9 +34,9 @@ function guidance(path: string): string {
 }
 
 const preferenceListeners = new Set<() => void>();
-let sessionHidden = false;
+let sessionHidden = true;
 function readHidden(): boolean {
-  try { return localStorage.getItem('backfill-kopi-hidden') === 'true'; } catch { return sessionHidden; }
+  try { return localStorage.getItem('backfill-kopi-hidden') !== 'false'; } catch { return sessionHidden; }
 }
 function subscribeHidden(listener: () => void) {
   preferenceListeners.add(listener);

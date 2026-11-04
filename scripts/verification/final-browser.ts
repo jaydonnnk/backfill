@@ -79,7 +79,7 @@ try {
       server?.once("exit", () => reject(new Error("Isolated preview exited")));
     });
   } else {
-    const test = spawn(process.execPath, [join(root, "node_modules/@playwright/test/cli.js"), "test", "--config", "config/playwright.final-sandbox.config.ts"], {
+    const test = spawn(process.execPath, [join(root, "node_modules/@playwright/test/cli.js"), "test", "--config", process.argv.includes("--truth") ? "config/playwright.final-truth.config.ts" : "config/playwright.final-sandbox.config.ts"], {
       cwd: root, env: { ...cleanEnv, MERCHANT_ACCESS_URL: appUrl, MERCHANT_ACCESS_TEST_DATABASE_URL: database.url }, stdio: "inherit",
     });
     const [code] = await once(test, "exit");

@@ -23,6 +23,7 @@ function settled(): DemoSnapshot {
 }
 
 describe('Kopi observed events', () => {
+  it('uses singular cover for one committed seat', () => {expect(observe(snapshot({...joined,buyers:[{...buyer,covers:1}]})).events[0]?.text).toBe('+1 cover committed');});
   it('nods for a new buyer but describes an open minimum as pending', () => {
     expect(observe(snapshot(joined)).events).toEqual([
       { id: `${scene.id}:buyer:buyer-1:${at}`, pose: 'watching', motion: 'nod', text: '+2 covers committed' },

@@ -40,7 +40,7 @@ export function advanceKopi(previous: KopiObservation, snapshot: DemoSnapshot, f
   const newcomers = scene.buyers.filter(b => !before.buyers.some(old => old.agentId === b.agentId && old.committedAt === b.committedAt));
   for (const buyer of newcomers) {
     const id = `${scene.id}:buyer:${buyer.agentId}:${buyer.committedAt}`;
-    if (fresh(buyer.committedAt)) emit({ id, pose: 'watching', motion: 'nod', text: `+${buyer.covers} covers committed` });
+    if (fresh(buyer.committedAt)) emit({ id, pose: 'watching', motion: 'nod', text: `+${buyer.covers} ${buyer.covers === 1 ? 'cover' : 'covers'} committed` });
     else seen.add(id);
   }
   if (scene.pooled.unlocked && scene.phase === 'open' && newcomers.some(b => fresh(b.committedAt))) {

@@ -29,3 +29,8 @@ export async function recentAttempts(db: Executor, purpose: string, since: Date)
     .where(and(eq(llmCalls.purpose, purpose), gte(llmCalls.createdAt, since)));
   return { count: row?.count ?? 0, lastAt: row?.lastAt ?? null };
 }
+
+// Public diagnostic metadata only. Output is deliberately excluded at query time.
+export async function recentCalls(db: Db, limit = 50) {
+  return db.select({id:llmCalls.id,model:llmCalls.model,purpose:llmCalls.purpose,ok:llmCalls.ok,tokensIn:llmCalls.tokensIn,tokensOut:llmCalls.tokensOut,costNanoUsd:llmCalls.costNanoUsd,latencyMs:llmCalls.latencyMs}).from(llmCalls).orderBy(desc(llmCalls.createdAt),desc(llmCalls.id)).limit(Math.max(1,Math.min(50,limit)));
+}
