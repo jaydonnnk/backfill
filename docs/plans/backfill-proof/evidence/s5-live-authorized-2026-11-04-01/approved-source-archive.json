@@ -1,0 +1,51 @@
+{
+  "archive": "archive/proof-s5-live-authorized-2026-11-04-01/approved-source",
+  "allBytesMatchPreDispatchHashes": true,
+  "files": [
+    {
+      "path": "src/integrations/meta/media.ts",
+      "sha256": "8f466a63108500fb0583ee2cb15888e0199a55256ae0368d02cc3445e6b88563",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "src/integrations/meta/sam.ts",
+      "sha256": "3076615afe4d17881efb03a860743596df8022c9d06a931d9b402de3228d347a",
+      "reconstructedAfterDispatch": true
+    },
+    {
+      "path": "src/lib/creative/pixels.ts",
+      "sha256": "d8fae24af0ebec2fa01fd268c42ed26332f5a4b8d7e5b0df914a8fcc387b5905",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "src/lib/creative/service.ts",
+      "sha256": "00945c89fe3105f622f76e4497a2a5274588cef847dac4e03e52076e579b7387",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "scripts/verification/proof-s5-live.ts",
+      "sha256": "99d9c214fd88b27c06a54fd3e4a30724bce9296de96b0016b9d1b17b3487db5c",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "scripts/verification/proof-s5-live-guard.mjs",
+      "sha256": "56bd9c86609c87fd409d91fa3cb26e7822f5b1287be6c3c5fd752a7ae097d182",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c511de6c1bc52d4f20a4c347b58eb59b6cf3406455cf8de0987aacaba15d00c",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0e2d237e36766f84aa93569d47d65af19ed7f623cf0d4708a4c60746e67a9bca",
+      "reconstructedAfterDispatch": false
+    },
+    {
+      "path": "drizzle/0017_proof_s5_creative.sql",
+      "sha256": "944d8237302c2f4810487385a1866efca03494c79e16273fab69918565b9dfaf",
+      "reconstructedAfterDispatch": false
+    }
+  ]
+}

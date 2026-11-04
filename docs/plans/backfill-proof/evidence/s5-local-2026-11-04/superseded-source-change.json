@@ -1,0 +1,5 @@
+{
+  "stage": "source-stability-check",
+  "errorName": "AssertionError",
+  "assertion": "Source changed during verification: src/lib/creative/service.ts\n+ actual - expected\n\n+ '00945c89fe3105f622f76e4497a2a5274588cef847dac4e03e52076e579b7387'\n- '7d26881db4634ef19a412597f9fbb77449984114f4aa947bc1bff7de9e86fdd1'\n"
+}

@@ -1,0 +1,11 @@
+{
+  "mode": "offline saved-genuine-output replay using staged S5 source after whitespace fix",
+  "genuineSamResponseSha256": "3d6eb34f7ca66f203872b9cb0395fed2943bbce44eed6a6fbbc2a67d057a70b2",
+  "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "cutoutSha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+  "compositionSha256": "de412d6a7b30c60e8ee92da9bd15c9a4eb61856d286f2ff7c3a8b13af7905a9a",
+  "matchesUserApprovedArtifact": true,
+  "selectedSourcePixelsVerified": 403621,
+  "newModelCalls": 0,
+  "sourcePhotoOrMediaPublished": false
+}

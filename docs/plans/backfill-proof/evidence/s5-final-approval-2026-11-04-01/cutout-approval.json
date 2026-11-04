@@ -1,0 +1,14 @@
+{
+  "userResponse": "Sure",
+  "scope": "Approve this exact corrected cutout for composition with the saved generated background. Final asset approval and public posting are separate.",
+  "recordedAt": "2026-11-04T01:33:02.895Z",
+  "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "cutoutSha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+  "backgroundSha256": "0b141261e74ec808fdf6ef6f25784213ae965544ef7abf297730c5495cccbbcc",
+  "ruleId": "f314412a-bc0e-4385-89b1-26b524feda45",
+  "termsVersion": 1,
+  "publicOfferText": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+  "newModelCalls": 0,
+  "finalAssetApproval": null,
+  "publicPosting": false
+}

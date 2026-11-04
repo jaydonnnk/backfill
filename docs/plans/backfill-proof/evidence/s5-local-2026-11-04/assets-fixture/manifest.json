@@ -1,0 +1,46 @@
+{
+  "assurance": "Authored geometric photo, binary-mask and background fixtures. No SAM payload decode or genuine inference. Scripted verification, no human approval or public posting.",
+  "foodPixels": 4800,
+  "allSelectedSourceAndComposedPixelsExactlyMatch": true,
+  "sourceSize": {
+    "width": 160,
+    "height": 120
+  },
+  "composedSize": {
+    "width": 720,
+    "height": 348
+  },
+  "text": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+  "textWidth": 634,
+  "textHeight": 108,
+  "foodTop": 196,
+  "foodLeft": 280,
+  "modelCalls": 0,
+  "artifacts": [
+    {
+      "name": "source-fixture.png",
+      "bytes": 671,
+      "sha256": "a8902442ba3f69745ba290ae4bb559542a9087192f9f03f6e074042d16eaf11d"
+    },
+    {
+      "name": "mask-fixture.png",
+      "bytes": 302,
+      "sha256": "5e2aac8afd2468fb87ae107bfcdc9d66d35fd6a2eeb8d59f6615d1333fd09814"
+    },
+    {
+      "name": "cutout-fixture.png",
+      "bytes": 795,
+      "sha256": "6be220472e6b7fadfd61032dc92ff22222d9741fb2347fe227df6d1f28072894"
+    },
+    {
+      "name": "background-fixture.png",
+      "bytes": 6606,
+      "sha256": "7605fa4c07b65b13eec45cee27c667a5d5399e624f82ffebe3b723d5cc52326b"
+    },
+    {
+      "name": "composed-fixture.png",
+      "bytes": 24592,
+      "sha256": "77386dc4fc494612aad3d7c53ee63520a50c5ddbea9212b4d1f6fc6c48ebd25f"
+    }
+  ]
+}

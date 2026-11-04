@@ -1,0 +1,16 @@
+{
+  "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "genuineSamResponseSha256": "3d6eb34f7ca66f203872b9cb0395fed2943bbce44eed6a6fbbc2a67d057a70b2",
+  "originalSamSelectedPixels": 278806,
+  "selectedPixels": 403621,
+  "locallyRestoredBowlInteriorPixels": 124815,
+  "allSelectedSourcePixelsPreserved": true,
+  "correction": "Only rice component 1: close source-clipped left rim between actual mask edge contacts and flood-fill enclosed bowl interior. This is local mask postprocessing, not direct SAM output or generated food.",
+  "cutoutSha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+  "rawSamCutoutPreservedAt": "/Users/jayd0/Desktop/meta-hack/archive/proof-s5-live-authorized-2026-11-04-01/cutout.png",
+  "reviewCutout": "/Users/jayd0/Desktop/meta-hack/archive/proof-s5-review-2026-11-04-01/cutout-review.png",
+  "newModelCalls": 0,
+  "cutoutApproval": null,
+  "finalAssetApproval": null,
+  "compositionCreated": false
+}

@@ -1,0 +1,51 @@
+{
+  "assurance": "Actual owner-bound services and disposable restricted-role database. User-approved corrected cutout; saved genuine SAM-derived mask and Image output replayed locally. No authentication or fresh inference claim.",
+  "asset": {
+    "id": "d6289c3d-fcbe-4227-b32c-98ad499d8171",
+    "ruleId": "f314412a-bc0e-4385-89b1-26b524feda45",
+    "termsVersion": 1,
+    "phase": "review",
+    "stale": false,
+    "text": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+    "target": "breaded cutlets, rice bowl, covered soup bowl",
+    "provenance": "replay",
+    "synthetic": true,
+    "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+    "assetSha256": "de412d6a7b30c60e8ee92da9bd15c9a4eb61856d286f2ff7c3a8b13af7905a9a",
+    "cutoutSha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+    "cutoutApproval": {
+      "sha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+      "at": "2026-11-04T01:33:03.613Z"
+    },
+    "approval": null,
+    "media": [
+      "source",
+      "mask",
+      "cutout",
+      "background",
+      "composed"
+    ],
+    "reason": null
+  },
+  "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "approvedCutoutSha256": "46072bf9f46456db8f9032cf582cc7a1d16e26df3a90fe8cd5c218db4ff1c7c8",
+  "backgroundSha256": "0b141261e74ec808fdf6ef6f25784213ae965544ef7abf297730c5495cccbbcc",
+  "compositionSha256": "de412d6a7b30c60e8ee92da9bd15c9a4eb61856d286f2ff7c3a8b13af7905a9a",
+  "publicOfferText": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+  "sourcePixelsVerified": 403621,
+  "allSelectedSourcePixelsExactlyMatch": true,
+  "dimensions": {
+    "width": 1024,
+    "height": 1485
+  },
+  "foodPlacement": {
+    "left": 32,
+    "top": 173
+  },
+  "segmentReplays": 1,
+  "backgroundReplays": 1,
+  "newModelCalls": 0,
+  "finalAssetApproval": null,
+  "publicPosting": false,
+  "privateState": "/Users/jayd0/Desktop/meta-hack/archive/proof-s5-composition-2026-11-04-01/private-state.json"
+}

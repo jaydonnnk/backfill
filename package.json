@@ -28,6 +28,7 @@
     "test:e2e": "playwright test --config config/playwright.config.ts"
   },
   "dependencies": {
+    "@meta-sam/parser": "0.1.0",
     "@modelcontextprotocol/sdk": "1.32.1",
     "ai": "7.0.162",
     "drizzle-orm": "0.45.3",

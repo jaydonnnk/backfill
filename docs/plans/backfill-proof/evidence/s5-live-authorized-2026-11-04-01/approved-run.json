@@ -1,0 +1,124 @@
+{
+  "approval": "User: Authorize the installation as well as the model calls. Scoped conservatively to one SAM still-image request and one Image background, no retries.",
+  "preparedAt": "2026-11-04T00:45:11.662Z",
+  "photoSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "sourceSize": {
+    "width": 960,
+    "height": 1280
+  },
+  "sourceBytes": 1840310,
+  "sourceTransformed": false,
+  "target": "breaded cutlets, rice bowl, covered soup bowl",
+  "ownerLabel": "gyukatsu pork tenderloin, rice, miso soup",
+  "labelVerification": "Owner-supplied, not visually verified. Covered soup is not revealed or regenerated.",
+  "objects": [
+    {
+      "id": 0,
+      "prompts": [
+        {
+          "box": {
+            "left": 430,
+            "top": 485,
+            "right": 960,
+            "bottom": 905
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompts": [
+        {
+          "box": {
+            "left": 0,
+            "top": 530,
+            "right": 405,
+            "bottom": 1190
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompts": [
+        {
+          "box": {
+            "left": 65,
+            "top": 95,
+            "right": 405,
+            "bottom": 385
+          }
+        }
+      ]
+    }
+  ],
+  "exactSamTarget": "<0f>0<|box;x1=430;y1=485;x2=959;y2=904;w=960;h=1280|>,1<|box;x1=0;y1=530;x2=404;y2=1189;w=960;h=1280|>,2<|box;x1=65;y1=95;x2=404;y2=384;w=960;h=1280|>",
+  "requests": [
+    {
+      "slot": "sam",
+      "endpoint": "https://api.meta.ai/v1/responses",
+      "model": "sam-3.1",
+      "bodySha256": "0f923ad0b34d4a8c52bb2bcb7ac03b3487643fb8683d0c64c9fbedf59429cfeb",
+      "maxResponseBytes": 2097152
+    },
+    {
+      "slot": "image",
+      "endpoint": "https://api.meta.ai/v1/images/generations",
+      "model": "muse-image-1.0",
+      "bodySha256": "276ce6034ff70a2b7c16afc30fa211608fa28f6db315a1a306eb2d2681504455",
+      "maxResponseBytes": 6100000
+    }
+  ],
+  "maxAttemptsPerModel": 1,
+  "timeoutMs": 30000,
+  "redirects": "error",
+  "retries": 0,
+  "polling": 0,
+  "fallback": 0,
+  "priceSource": "https://dev.meta.ai/docs/pricing-rate-limits",
+  "priceCheckedAt": "2026-11-04",
+  "maxApiListPriceUsd": 0.0125,
+  "invoicedUsd": null,
+  "publicPostingApproved": false,
+  "assetApproval": false,
+  "cutoutApproval": false,
+  "syntheticPublicTerms": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+  "sourceHashes": [
+    {
+      "path": "src/integrations/meta/media.ts",
+      "sha256": "8f466a63108500fb0583ee2cb15888e0199a55256ae0368d02cc3445e6b88563"
+    },
+    {
+      "path": "src/integrations/meta/sam.ts",
+      "sha256": "3076615afe4d17881efb03a860743596df8022c9d06a931d9b402de3228d347a"
+    },
+    {
+      "path": "src/lib/creative/pixels.ts",
+      "sha256": "d8fae24af0ebec2fa01fd268c42ed26332f5a4b8d7e5b0df914a8fcc387b5905"
+    },
+    {
+      "path": "src/lib/creative/service.ts",
+      "sha256": "00945c89fe3105f622f76e4497a2a5274588cef847dac4e03e52076e579b7387"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live.ts",
+      "sha256": "99d9c214fd88b27c06a54fd3e4a30724bce9296de96b0016b9d1b17b3487db5c"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live-guard.mjs",
+      "sha256": "56bd9c86609c87fd409d91fa3cb26e7822f5b1287be6c3c5fd752a7ae097d182"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c511de6c1bc52d4f20a4c347b58eb59b6cf3406455cf8de0987aacaba15d00c"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0e2d237e36766f84aa93569d47d65af19ed7f623cf0d4708a4c60746e67a9bca"
+    },
+    {
+      "path": "drizzle/0017_proof_s5_creative.sql",
+      "sha256": "944d8237302c2f4810487385a1866efca03494c79e16273fab69918565b9dfaf"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "scope": "Only S5 files generated in this session. Earlier S1-S4 evidence and consumed markers untouched. No genuine S5 outputs or call markers exist.",
+  "archived": [
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/checks",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/checks",
+      "files": 5,
+      "bytes": 180854,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/checks-manifest.json"
+    },
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/checks-final",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/checks-final",
+      "files": 1,
+      "bytes": 6269,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/checks-final-manifest.json"
+    },
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/checks-final-02",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/checks-final-02",
+      "files": 5,
+      "bytes": 180854,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/checks-final-02-manifest.json"
+    },
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-01",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/browser-01",
+      "files": 57,
+      "bytes": 12228255,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/browser-01-manifest.json"
+    },
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-final",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/browser-final",
+      "files": 30,
+      "bytes": 278840,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/browser-final-manifest.json"
+    },
+    {
+      "original": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-accepted/combined-regressions/**/*.png",
+      "archive": "archive/proof-s5-evidence-trim-2026-11-04/accepted-combined-captures",
+      "files": 30,
+      "manifest": "archive/proof-s5-evidence-trim-2026-11-04/accepted-combined-captures/manifest.json"
+    }
+  ],
+  "knownFailures": [
+    {
+      "kind": "verification setup",
+      "detail": "Missing new S1/S2/S4 output directories caused four ENOENT evidence writes. Directories were precreated for subsequent full successful runs.",
+      "log": "archive/proof-s5-full-tests-final.log"
+    },
+    {
+      "kind": "superseded snapshot",
+      "detail": "All 24 browser tests passed, but source-stability correctly rejected a snapshot predating the offline plain-composition fix.",
+      "receipt": "superseded-source-change.json"
+    }
+  ]
+}

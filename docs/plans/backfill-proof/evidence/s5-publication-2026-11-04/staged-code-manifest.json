@@ -1,0 +1,133 @@
+{
+  "validatedIndexTree": "bc2f2e4e81245e677477d2fb3940f200bbc7ae49",
+  "files": [
+    {
+      "path": "config/playwright.proof-s5.config.ts",
+      "sha256": "2c19d8956023648934a00575d9f5d1a1fed65052bf29c34f61c97a8e8a6b5ba1"
+    },
+    {
+      "path": "drizzle/0017_proof_s5_creative.sql",
+      "sha256": "944d8237302c2f4810487385a1866efca03494c79e16273fab69918565b9dfaf"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "sha256": "3072bdab0518f61d9d0eea85ccd2d855ccb3b89da8b4c9d93a1494e37de560c5"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0e2d237e36766f84aa93569d47d65af19ed7f623cf0d4708a4c60746e67a9bca"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c511de6c1bc52d4f20a4c347b58eb59b6cf3406455cf8de0987aacaba15d00c"
+    },
+    {
+      "path": "scripts/verification/proof-s5-browser.ts",
+      "sha256": "7349ff4d548781b6fc924f1301e562c23532f079994bb05927dcb91a0ce4915d"
+    },
+    {
+      "path": "scripts/verification/proof-s5-compose-approved.ts",
+      "sha256": "72b9bf8b00d438f6914b9e6f13234d8c5923ab33616e8349d0002207736b730a"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live-guard.d.mts",
+      "sha256": "3348faa52d0a83337a4f8b43990b795569f683f8be594c6a6ad15bb454cf5f9d"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live-guard.mjs",
+      "sha256": "56bd9c86609c87fd409d91fa3cb26e7822f5b1287be6c3c5fd752a7ae097d182"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live-guard.test.mjs",
+      "sha256": "a7fe636d2df541106e32ea4cfde6b399c95df95556b3da37428952d3acdd54b3"
+    },
+    {
+      "path": "scripts/verification/proof-s5-live.ts",
+      "sha256": "99d9c214fd88b27c06a54fd3e4a30724bce9296de96b0016b9d1b17b3487db5c"
+    },
+    {
+      "path": "scripts/verification/proof-s5-offline.ts",
+      "sha256": "6735eeb54eeea7c067116fd4bcf973631775e793a7052c20209e677e82369375"
+    },
+    {
+      "path": "scripts/verification/proof-s5-review.ts",
+      "sha256": "e004c121be14b97972eff6b2bc58cd88d6828754ccae94054dff845d804a7e7b"
+    },
+    {
+      "path": "src/app/merchant/creative-actions.ts",
+      "sha256": "8d4315d064d6ec5ccbc4d59c0fc7fb4da2644978deaf722f8f3e76eb36f28d21"
+    },
+    {
+      "path": "src/app/merchant/creative/[id]/[kind]/route.ts",
+      "sha256": "2f5b7401dc31c93d979483c44bd9407627cf53703f001d9c30237f7fac438f99"
+    },
+    {
+      "path": "src/app/merchant/owner-creative.tsx",
+      "sha256": "e3fcc4ba3ee872869913ac01f68a36c035570b4cebda7a56aa01189699965046"
+    },
+    {
+      "path": "src/app/merchant/page.tsx",
+      "sha256": "ba23e4f634bc0d1cb7ba212f788944f5908f16a711111df85ceab9096af7e208"
+    },
+    {
+      "path": "src/integrations/meta/media.ts",
+      "sha256": "8f466a63108500fb0583ee2cb15888e0199a55256ae0368d02cc3445e6b88563"
+    },
+    {
+      "path": "src/integrations/meta/sam.ts",
+      "sha256": "9e3f9337957c4026c9c3e3ad1da0cc9cfc025555b623eb1390fe0ab468d07819"
+    },
+    {
+      "path": "src/lib/creative/bowl-mask.ts",
+      "sha256": "54d8116c3ceb93d89b0ddd99526ffd1a7c5f6db4f79fe2fbfca894d481bf69da"
+    },
+    {
+      "path": "src/lib/creative/deps.ts",
+      "sha256": "ffd741eb8d236723d22be5726bcd6995a52876a5901f72b971fccf635ac2e985"
+    },
+    {
+      "path": "src/lib/creative/pixels.ts",
+      "sha256": "d8fae24af0ebec2fa01fd268c42ed26332f5a4b8d7e5b0df914a8fcc387b5905"
+    },
+    {
+      "path": "src/lib/creative/service.ts",
+      "sha256": "00945c89fe3105f622f76e4497a2a5274588cef847dac4e03e52076e579b7387"
+    },
+    {
+      "path": "src/lib/db/schema.ts",
+      "sha256": "35466845fe7f6adcdc6630af60c412303a891b519d219ec97aa31f344fed5836"
+    },
+    {
+      "path": "tests/e2e/proof-s5.spec.ts",
+      "sha256": "7de668e2a72959b82528289b77b60b42e3b1b24e943c8289071213af90e96706"
+    },
+    {
+      "path": "tests/integration/proof-s5-creative.test.ts",
+      "sha256": "c518cf0793b543aace95507d849da0cadd37db68168a5f64db873a4471f37679"
+    },
+    {
+      "path": "tests/support/hermetic-env.ts",
+      "sha256": "a2d4e0ab7db9f6997a5f311f63af9ce1e9b8fa8136fb715f05a797119c439367"
+    },
+    {
+      "path": "tests/support/proof-s5.ts",
+      "sha256": "4b7899b5218af2e7bd8f0ca9b21b6a27e9dbb3cc044041436be3778a533a19c4"
+    },
+    {
+      "path": "tests/unit/proof-s5-bowl-mask.test.ts",
+      "sha256": "fedd5e48069bcbe610899055a7116f0f662d2d136899897ce518f25788c04ed2"
+    },
+    {
+      "path": "tests/unit/proof-s5-creative.test.ts",
+      "sha256": "37537e2f40c21a3d6cff8be6046151f0cf738c7b6983a3cafd3234497c5e61ac"
+    },
+    {
+      "path": "tests/unit/proof-s5-media.test.ts",
+      "sha256": "7e5b213f34408f3442af3148eb5a7092280d05c4e602057abe0c84c53ed79595"
+    },
+    {
+      "path": "tests/unit/proof-s5-sam-codec.test.ts",
+      "sha256": "f7e1ba30b892eea3e0d8dd335b6237aa233df448e893fff1a56360160bfbeca9"
+    }
+  ]
+}

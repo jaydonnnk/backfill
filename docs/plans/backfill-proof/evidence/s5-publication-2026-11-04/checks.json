@@ -1,0 +1,61 @@
+{
+  "scope": "Exact staged S5-only source; later S6 implementation/tests/cases omitted",
+  "validatedIndexTree": "bc2f2e4e81245e677477d2fb3940f200bbc7ae49",
+  "parent": "298d9e74bc6ba4891f549b44bf1f780858a86e13",
+  "tests": 578,
+  "testFiles": 62,
+  "typecheck": true,
+  "lint": true,
+  "offlineGuardTests": 10,
+  "realProductionBuild": true,
+  "fixtureProductionBuild": true,
+  "combinedBrowserChecks": 24,
+  "desktopMobileS5Viewports": [
+    1280,
+    375
+  ],
+  "rootSourceStableThroughRun": true,
+  "newInferenceCalls": 0,
+  "realEnvFilesCopied": 0,
+  "trackedBlankTemplateOnly": ".env.example required by environment-contract unit test, never loaded as runtime configuration",
+  "newS6FilesIncluded": 0,
+  "realPhotoOrModelMediaInGit": false,
+  "publicationReview": {
+    "finding": "SAM mask quota whitespace bypass",
+    "fixed": true,
+    "regressionFailedBeforeFix": true,
+    "validSpacedMaskDecodedAfterFix": true
+  },
+  "unavailableOptionalGateCli": "no-mistakes; manual staged-source/review/checks and post-push CI used",
+  "ciAtCommitTime": "pending until push",
+  "logs": [
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/tests.log",
+      "sha256": "f10af0a30e55f819dea753d07799f0898dabbc9d02f2483256abc9f32ede415a"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/typecheck.log",
+      "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/lint.log",
+      "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/guards.log",
+      "sha256": "6197a5067527355725dd4dde517d4a38d84389c79cf1771332b19139f1555750"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/whitespace-red.log",
+      "sha256": "8cb18af2f039ff550b4e52bb5cb7a709a013be7d7887389ef26563aab598981c"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/whitespace-green.log",
+      "sha256": "fbcf452eb15761d07d51c82a86f0f81b0d509c2738410be5ff23f3aa00c18466"
+    },
+    {
+      "archivePath": "archive/proof-s5-publication-2026-11-04/browser.log",
+      "sha256": "aeae59d31b2760c3e2e547f51cfc7951dcfe63ecff4023d500fe5afd98e71741"
+    }
+  ]
+}

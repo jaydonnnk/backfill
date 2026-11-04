@@ -1,0 +1,10 @@
+{
+  "ownedValidationSnapshotRemoved": true,
+  "browserOwnedServerStopped": true,
+  "browserOwnedDatabaseRemaining": 0,
+  "browserOwnedRoleRemaining": 0,
+  "browserNestedSnapshotRemoved": true,
+  "realEnvFilesCopied": 0,
+  "productionChanges": false,
+  "newInferenceCalls": 0
+}

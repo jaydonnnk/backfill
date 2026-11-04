@@ -1,0 +1,21 @@
+{
+  "privateArtifacts": [
+    {
+      "path": "archive/proof-s5-composition-2026-11-04-01/offer-preview.png",
+      "sha256": "de412d6a7b30c60e8ee92da9bd15c9a4eb61856d286f2ff7c3a8b13af7905a9a",
+      "bytes": 3160385
+    },
+    {
+      "path": "archive/proof-s5-composition-2026-11-04-01/private-state.json",
+      "sha256": "467e93a5b715522e5501d74e553fcdd5eaef8ed2fe5e308dfb84c4af6ed63ef3",
+      "bytes": 14263929
+    },
+    {
+      "path": "archive/proof-s5-composition-2026-11-04-01/review.html",
+      "sha256": "abe75629e177fcbdba213362f2e443b59c65d599a61d5640c2828203c4dfdc21",
+      "bytes": 1033
+    }
+  ],
+  "assetApproved": false,
+  "publicPosting": false
+}

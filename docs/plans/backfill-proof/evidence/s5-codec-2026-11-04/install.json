@@ -1,0 +1,11 @@
+{
+  "userAuthorized": true,
+  "package": "@meta-sam/parser",
+  "version": "0.1.0",
+  "integrity": "sha512-099xq4EhULxm7gV+kEllQ9WTaNgwYumGRvCX5WAT2bny/SEh+U9tVT9bAzN1mISOC7TO6mgOt3MJmZ2Mv2RTmw==",
+  "addedPackages": 1,
+  "existingPackageVersionsChanged": 0,
+  "lifecycleScripts": false,
+  "license": "SAM License",
+  "licenseSha256": "4dea99bfaa016e21bc860d73f344236bd1e5c4977d1a9a8fd32f822b500ae1be"
+}

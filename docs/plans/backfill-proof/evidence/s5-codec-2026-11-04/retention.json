@@ -1,0 +1,9 @@
+{
+  "scope": "Only repeated S5 continuation proof; no historical evidence or live-call markers moved.",
+  "archive": "archive/proof-s5-codec-evidence-trim-2026-11-04",
+  "combinedImagesArchived": 30,
+  "finalServiceReceipts": "checks-final/",
+  "browserSourceManifest": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/source-manifest.json",
+  "actualMediaPrivate": "archive/proof-s5-live-authorized-2026-11-04-01/",
+  "correctedReview": "archive/proof-s5-review-2026-11-04-01/"
+}

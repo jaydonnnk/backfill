@@ -1,0 +1,65 @@
+{
+  "SAMCalls": 1,
+  "ImageCalls": 1,
+  "allAllowancesConsumedAndClosed": true,
+  "retries": 0,
+  "invoiceUnknown": true,
+  "markersAndReceipts": [
+    {
+      "path": "approved-run.json",
+      "sha256": "d5ec75350b9b7f77f3dad6d93a23b6493e7a6381d934a50c34bf1f0b18f3643c"
+    },
+    {
+      "path": "approved-source-archive.json",
+      "sha256": "f47b6f54e98d522862470e0ba3c54e9d8ec95c53d66cd851b123315eb63498da"
+    },
+    {
+      "path": "awaiting-owner-review.json",
+      "sha256": "80b300683e15c8fd84e66f518e6cff74c1c865a5ff79740c6b2b70a4744079d7"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "a4bd3c4fb6d2bcf5ec9743985649ee1b37a954358aedab7102c607977067c7b1"
+    },
+    {
+      "path": "image-dispatch.json",
+      "sha256": "ff9d386ab47f149cc4854830e123e77ddeb8f8b2ffe130772305fc3d99a30014"
+    },
+    {
+      "path": "image-http.json",
+      "sha256": "377de7c4f02b64d0f64ce32ed2e30427cd73ce6a040f012c0eab5f3c0a32eb43"
+    },
+    {
+      "path": "image-output.json",
+      "sha256": "383185901f7b1782944bbe2a78e96cf0d60a08ef601b7a824e8ad2955d248a23"
+    },
+    {
+      "path": "local-mask-correction.json",
+      "sha256": "96539dcfd3221ab13b7570bde2db9005f5c008598f8c921f6b4396ce97fc9cf2"
+    },
+    {
+      "path": "pixel-proof.json",
+      "sha256": "484d9eff863105335f4bb181fb2c1bb2703fc9630e6afdec60698c63dbb135ce"
+    },
+    {
+      "path": "run-started.json",
+      "sha256": "9c50f2821152cb494bfe87e62965b85e2fc3a3ea8d2bd8cd0ce2bce52ecc9da3"
+    },
+    {
+      "path": "sam-dispatch.json",
+      "sha256": "ab0bc8780ec3d25117cc60ba1fb1686d903d9cb3b932a01426914ce521ca0b78"
+    },
+    {
+      "path": "sam-http.json",
+      "sha256": "3379813f509f6370c57ae2aeab407d6113fe6ab34177d50b250af8130359e084"
+    },
+    {
+      "path": "sam-output.json",
+      "sha256": "62835afc8405f974fc9a3f70442fdf29bbf234861aa8474b319baa565c753a24"
+    },
+    {
+      "path": "service-receipt.json",
+      "sha256": "d3c142c0865819665b24b05811fb2d25fc8724c6f457fe491891b0586aa0f4b4"
+    }
+  ]
+}

@@ -1,5 +1,31 @@
 # Status: Backfill proof build
 
+## Current S5: accepted owner photo asset, 2026-11-04
+
+S5 is accepted for local use. The exact corrected cutout and final composition
+were separately approved by the user. The final PNG is bound to its SHA-256,
+synthetic offer and version; edited terms invalidate old approval. No image was
+posted. Original food pixels remain unchanged and generated background is labeled.
+
+The pinned official SAM parser is installed. One genuine SAM request and one Muse
+Image background request returned valid media. Raw SAM omitted the rice interior;
+the raw result is retained and a tested local correction restored only original
+photo pixels. Both inference slots remain consumed/closed. Default hosted media
+is disabled outside separately authorized bounded runners.
+
+[Final approval](evidence/s5-final-approval-2026-11-04-01/README.md),
+[composition](evidence/s5-composition-2026-11-04-01/README.md),
+[genuine media and limitation](evidence/s5-live-authorized-2026-11-04-01/README.md),
+[decoder and checks](evidence/s5-codec-2026-11-04/README.md),
+[S5 continuation](s5-continuation-2026-11-04.md).
+
+The user authorized committing and pushing S5 only. This checkpoint excludes later
+S6 implementation and evidence. Publication checks are in
+[evidence/s5-publication-2026-11-04](evidence/s5-publication-2026-11-04/README.md).
+The commit must contain [skip render]. Production migrations 0015/0016/0017,
+deployment and public posting remain unapproved. Private photo, real-media bytes
+and full approved state remain ignored/local. No new model calls are authorized.
+
 ## Current S4a: NVIDIA-hosted Glimmer
 
 Glimmer uses `meta/muse-glimmer-30b` at NVIDIA's hosted endpoint with the saved
@@ -35,7 +61,7 @@ lint, two isolated builds and 22 combined desktop/mobile Chromium checks.
 [Offline NVIDIA evidence](evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/README.md).
 All four independent parties, exact approvals, simulated settlement and Kopi remain.
 All eight roles remain required overall. Merchant validation and video are separate.
-Payments, attendance and recovered revenue are unproven. No S5 work is authorized.
+Payments, attendance and recovered revenue are unproven. At the S4 publication checkpoint, no S5 work was authorized.
 
 Migrations 0015/0016 have only local proof; no production rollout is authorized.
 The user authorized S4 cleanup, commit and push to main on 2026-11-03. This
@@ -46,7 +72,7 @@ uses `[skip render]`; production migrations/deployment remain unauthorized.
 
 **Ready to start S5 local engineering when requested.** Genuine media proof still
 needs rights-cleared inputs, verified SAM/Image contracts and a separately scoped
-call approval. [S5 readiness](s5-readiness.md). No S5 implementation was performed.
+call approval. [S5 readiness](s5-readiness.md). No S5 implementation was performed in that S4 checkpoint.
 
 [Complete prior chronological status](https://github.com/jaydonnnk/backfill/blob/cdb292da8548d6eef9b47bfe6a0f9a3882d6c7e6/docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/historical-docs/00-status.md.txt)
 is retained for provenance. Its local/Gateway Glimmer instructions are retired.

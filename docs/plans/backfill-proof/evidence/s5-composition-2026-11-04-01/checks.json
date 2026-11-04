@@ -1,0 +1,30 @@
+{
+  "focusedTests": 26,
+  "passed": true,
+  "typecheck": true,
+  "lint": true,
+  "actualComposedPngVerified": true,
+  "preservedSourcePixels": 403621,
+  "newModelCalls": 0,
+  "finalApproval": null,
+  "posted": false,
+  "productUnchangedFromPriorBrowserProof": true,
+  "logs": [
+    {
+      "path": "archive/proof-s5-compose-typecheck.log",
+      "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+    },
+    {
+      "path": "archive/proof-s5-compose-lint.log",
+      "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+    },
+    {
+      "path": "archive/proof-s5-compose-tests.log",
+      "sha256": "9e6c69fc1f5f3312806e7987909c3d237637233786d024442670d2ea990d4cd2"
+    },
+    {
+      "path": "archive/proof-s5-compose-approved.log",
+      "sha256": "dd903c82065bc9d50476f011ebb437ebf1d8ad960c8387f44baccf09f05bd660"
+    }
+  ]
+}

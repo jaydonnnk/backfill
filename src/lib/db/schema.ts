@@ -518,3 +518,13 @@ export const buyerSessions = pgTable('buyer_sessions', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   record: jsonb('record').notNull(),
 });
+
+// S5 owner-only photo and derived media. No public read route or automatic publication.
+export const creativeAssets = pgTable('creative_assets', {
+  id: uuid('id').primaryKey(),
+  merchantId: uuid('merchant_id').notNull().references(() => merchants.id),
+  ruleId: uuid('rule_id').notNull().references(() => rules.id),
+  termsVersion: integer('terms_version').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  record: jsonb('record').notNull(),
+});

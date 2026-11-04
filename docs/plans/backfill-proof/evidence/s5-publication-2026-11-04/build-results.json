@@ -1,0 +1,11 @@
+{
+  "real": {
+    "exitCode": 0,
+    "rawLogSha256": "026eb3934d0974480eef17e91ed5682602add749bd691d125767b35cb3c53542"
+  },
+  "fixture": {
+    "exitCode": 0,
+    "rawLogSha256": "aa6555899aeec03b9c3afdc235bcdd158383de2c50c914b50108e17a74d6c4e2"
+  },
+  "rawLogsArchive": "archive/proof-s5-publication-2026-11-04/browser-output/attempts/"
+}

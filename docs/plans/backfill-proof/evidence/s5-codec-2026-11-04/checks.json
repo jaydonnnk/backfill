@@ -1,0 +1,45 @@
+{
+  "tests": 576,
+  "files": 62,
+  "offlineGuards": 10,
+  "typecheck": true,
+  "lint": true,
+  "realProductionBuild": true,
+  "fixtureProductionBuild": true,
+  "browserChecks": 24,
+  "finalSourceStable": true,
+  "browserEvidence": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted",
+  "cleanup": {
+    "attemptId": "2026-11-04T00-50-03-237Z",
+    "serverStopped": true,
+    "ownedRoleRemaining": 0,
+    "ownedDatabaseRemaining": 0,
+    "scratchRemoved": true
+  },
+  "genuineCalls": {
+    "SAM": 1,
+    "MuseImage": 1,
+    "retries": 0,
+    "invoicedUsd": null
+  },
+  "cutoutApproval": null,
+  "finalAssetApproval": null,
+  "logs": [
+    {
+      "path": "archive/proof-s5-codec-full-final.log",
+      "sha256": "5d2bc4d88502d248d9c3ed226295a60efc1dbce54c4e5ea3e93f4048b4716532"
+    },
+    {
+      "path": "archive/proof-s5-codec-typecheck-accepted.log",
+      "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+    },
+    {
+      "path": "archive/proof-s5-codec-lint-final.log",
+      "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+    },
+    {
+      "path": "archive/proof-s5-codec-guards.log",
+      "sha256": "3992347d9932dad85892111a0b0b1c869dfb8b314f0055eabb7cec64f8cfe17c"
+    }
+  ]
+}

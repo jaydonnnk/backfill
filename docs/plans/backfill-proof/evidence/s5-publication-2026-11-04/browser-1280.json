@@ -1,0 +1,18 @@
+{
+  "width": 1280,
+  "assurance": "Authored photo geometry and model-boundary fixtures. Scripted owner review; no genuine SAM/Image inference or human approval.",
+  "ruleId": "5ebfe3e8-0cd3-4046-955a-d23a94f86bef",
+  "assetId": "199db459-901a-4d72-882a-cd6c05ccad55",
+  "cases": [
+    "separate cutout approval",
+    "exact composition preview",
+    "exact final approval",
+    "reload persistence",
+    "wrong owner private media 404",
+    "no-store media",
+    "stale version invalidation",
+    "rejection",
+    "unchanged offer operation"
+  ],
+  "pageErrors": []
+}

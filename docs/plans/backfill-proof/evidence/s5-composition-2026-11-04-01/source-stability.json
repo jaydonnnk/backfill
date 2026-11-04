@@ -1,0 +1,9 @@
+{
+  "allProductSourceHashesStillMatchPrior24BrowserChecks": true,
+  "productFiles": 110,
+  "verificationInputs": 17,
+  "browserSourceManifest": "docs/plans/backfill-proof/evidence/s5-local-2026-11-04/browser-codec-accepted/source-manifest.json",
+  "newArtifact": "scripts/verification/proof-s5-compose-approved.ts",
+  "sourceSnapshotArchiveNote": "Five immutable source snapshots were renamed .ts.txt to prevent the root TypeScript glob compiling evidence copies. Bytes unchanged; filename-map.json records the mapping.",
+  "newInference": false
+}

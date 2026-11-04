@@ -1,0 +1,71 @@
+{
+  "assurance": "Genuine bounded media attempts, real owner-bound service and disposable restricted-role database. No human cutout or final-asset approval.",
+  "completedAt": "2026-11-04T00:45:44.312Z",
+  "ownerId": "9ecf834e-9796-4896-a510-ef370eae0e78",
+  "ruleId": "f314412a-bc0e-4385-89b1-26b524feda45",
+  "asset": {
+    "id": "1994d01c-d45d-4b87-b62d-ed5d6e122d09",
+    "ruleId": "f314412a-bc0e-4385-89b1-26b524feda45",
+    "termsVersion": 1,
+    "phase": "cutout_review",
+    "stale": false,
+    "text": "SYNTHETIC LOCAL OFFER: 20% off, S$6.80 becomes S$5.44 per cover, Tuesday 14:00-17:00 Singapore time. It unlocks only if at least 8 covers are committed before 12:00 that day; one agent may hold at most 2 covers.",
+    "target": "breaded cutlets, rice bowl, covered soup bowl",
+    "provenance": "provider",
+    "synthetic": true,
+    "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+    "assetSha256": null,
+    "cutoutSha256": "ee0b21f850ed73793b9265058229cbe91b0d26dfa79dfc993c8ff8e5b8a3e471",
+    "cutoutApproval": null,
+    "approval": null,
+    "media": [
+      "source",
+      "mask",
+      "cutout"
+    ],
+    "reason": null
+  },
+  "segmentationStatus": "cutout_review",
+  "backgroundValid": true,
+  "backgroundSha256": "0b141261e74ec808fdf6ef6f25784213ae965544ef7abf297730c5495cccbbcc",
+  "components": [
+    {
+      "id": "0",
+      "bounds": {
+        "left": 434,
+        "top": 489,
+        "right": 960,
+        "bottom": 896
+      },
+      "pixels": 139974,
+      "encoding": "one_bit"
+    },
+    {
+      "id": "1",
+      "bounds": {
+        "left": 0,
+        "top": 532,
+        "right": 393,
+        "bottom": 1173
+      },
+      "pixels": 72577,
+      "encoding": "one_bit"
+    },
+    {
+      "id": "2",
+      "bounds": {
+        "left": 76,
+        "top": 104,
+        "right": 396,
+        "bottom": 385
+      },
+      "pixels": 66255,
+      "encoding": "one_bit"
+    }
+  ],
+  "modelAttemptsMaximum": 2,
+  "callAllowanceClosed": true,
+  "actualInvoicedUsd": null,
+  "commitments": 0,
+  "publicPosting": false
+}

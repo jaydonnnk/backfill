@@ -15,6 +15,8 @@ import { ReplanTrigger } from "./replan-trigger";
 import { currentMerchant } from "./session";
 import { SubmitButton } from "./submit-button";
 import { OwnerVoice } from "./owner-voice";
+import { OwnerCreative } from "./owner-creative";
+import { latestCreative } from "@/lib/creative/service";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +67,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
   const { status, published } = await searchParams;
   const notice = status ? STATUS_TEXT[status] : undefined;
   const board = await dashboard(webDb(), merchant.id);
+  const creative = new Map(await Promise.all(board.rules.map(async ({rule}) => [rule.id, await latestCreative(webDb(), merchant.id, rule.id)] as const)));
   const cue = merchantKopiCue(board.drafts, board.plans, published);
   const step = merchantStep(board.drafts, board.rules.length);
   const savingsLedger = await merchantLedger(webDb(), merchant.id);
@@ -145,6 +148,7 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
                   {dollars(rule.terms.floorPriceCents)} (never shown to buyers) · terms v{rule.termsVersion}
                 </p>
                 <OwnerVoice ruleId={rule.id} termsVersion={rule.termsVersion} />
+                <OwnerCreative ruleId={rule.id} termsVersion={rule.termsVersion} initial={creative.get(rule.id) ?? null} />
               </li>
             ))}
           </ul>

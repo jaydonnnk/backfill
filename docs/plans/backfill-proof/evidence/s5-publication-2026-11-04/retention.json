@@ -1,0 +1,15 @@
+{
+  "scope": "Repeated S5-only fixture regressions and raw build logs archived locally. No original photo or actual model media is published. Earlier S1-S4 and genuine S5 call receipts/consumed markers unchanged.",
+  "archivedFiles": 52,
+  "archivedBytes": 1771835,
+  "archiveManifest": "archive/proof-s5-publication-2026-11-04/retained-repeated-evidence/manifest.json",
+  "archiveManifestSha256": "fc1d363f5c33539dff5d9c22d2121f534ccd33a398dbea48f059d6c840cb9146",
+  "retained": [
+    "final S5 fixture PNGs and 4800-pixel proof",
+    "final source-stable browser hashes/captures/cleanup",
+    "576-test decoder checks and parser installation receipt",
+    "all genuine media dispatch/HTTP/output receipts and consumed markers",
+    "local correction and 403621-pixel proof",
+    "cutout approval, final composition and exact final approval"
+  ]
+}

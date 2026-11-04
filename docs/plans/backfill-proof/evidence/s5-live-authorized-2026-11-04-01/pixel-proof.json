@@ -1,0 +1,46 @@
+{
+  "sourceSha256": "34b4c4af727ee2e238bf2e8b6780cb45ca62f8140e6c843899a2e3f9775e5fe8",
+  "cutoutSha256": "ee0b21f850ed73793b9265058229cbe91b0d26dfa79dfc993c8ff8e5b8a3e471",
+  "allSourceRgbPreserved": true,
+  "selectedPixels": 278806,
+  "sourceSize": {
+    "width": 960,
+    "height": 1280
+  },
+  "components": [
+    {
+      "id": "0",
+      "bounds": {
+        "left": 434,
+        "top": 489,
+        "right": 960,
+        "bottom": 896
+      },
+      "pixels": 139974,
+      "encoding": "one_bit"
+    },
+    {
+      "id": "1",
+      "bounds": {
+        "left": 0,
+        "top": 532,
+        "right": 393,
+        "bottom": 1173
+      },
+      "pixels": 72577,
+      "encoding": "one_bit"
+    },
+    {
+      "id": "2",
+      "bounds": {
+        "left": 76,
+        "top": 104,
+        "right": 396,
+        "bottom": 385
+      },
+      "pixels": 66255,
+      "encoding": "one_bit"
+    }
+  ],
+  "approval": null
+}
