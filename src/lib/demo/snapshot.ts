@@ -54,7 +54,7 @@ export type DemoMuse = {
   merchantName: string;
   visitDate: string;
   covers: number;
-  status: "pending" | "cancelled" | "filled" | "not_filled";
+  status: "awaiting_settlement" | "pending" | "cancelled" | "filled" | "not_filled";
   pooledCovers: number;
   minPoolCovers: number;
 };
@@ -164,7 +164,7 @@ async function sceneOf(db: Executor, now: Date): Promise<DemoScene | null> {
   };
 }
 
-async function museOf(db: Executor): Promise<DemoMuse | null> {
+async function museOf(db: Executor, now: Date): Promise<DemoMuse | null> {
   const [row] = await db
     .select({ c: commitments, merchantName: merchants.name, rule: rules })
     .from(commitments)
@@ -178,7 +178,7 @@ async function museOf(db: Executor): Promise<DemoMuse | null> {
   const visitDate = singaporeLocal(row.c.visitAt).date;
   const pool = await liveCommitments(db, rule.id, visitDate);
   const cleared = await storedClearing(db, rule.id, visitDate);
-  const status = row.c.cancelledAt ? "cancelled" : !cleared ? "pending" : cleared.fills.has(row.c.id) ? "filled" : "not_filled";
+  const status = row.c.cancelledAt ? "cancelled" : !cleared ? now >= deadlineOf(rule, visitDate) ? "awaiting_settlement" : "pending" : cleared.fills.has(row.c.id) ? "filled" : "not_filled";
   return {
     commitmentId: row.c.id,
     merchantName: row.merchantName,
@@ -191,5 +191,5 @@ async function museOf(db: Executor): Promise<DemoMuse | null> {
 }
 
 export async function demoSnapshot(db: Db, now: Date = new Date()): Promise<DemoSnapshot> {
-  return db.transaction(async tx => ({ scene: await sceneOf(tx, now), muse: await museOf(tx), ledger: await publicDemoLedger(tx, DEMO_MERCHANT_NAME) }), { isolationLevel: "repeatable read", accessMode: "read only" });
+  return db.transaction(async tx => ({ scene: await sceneOf(tx, now), muse: await museOf(tx, now), ledger: await publicDemoLedger(tx, DEMO_MERCHANT_NAME) }), { isolationLevel: "repeatable read", accessMode: "read only" });
 }

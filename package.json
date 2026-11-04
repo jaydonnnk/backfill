@@ -27,7 +27,8 @@
     "sim:mint": "tsx sim/buyers/mint.ts",
     "demo:scene": "tsx sim/buyers/run.ts",
     "test:e2e": "playwright test --config config/playwright.config.ts",
-    "sandbox:seed": "tsx scripts/ops/seed-sandbox.ts"
+    "sandbox:seed": "tsx scripts/ops/seed-sandbox.ts",
+    "demo:settle": "tsx scripts/ops/settle-demo.ts"
   },
   "dependencies": {
     "@meta-sam/parser": "0.1.0",

@@ -1,9 +1,11 @@
+import { randomUUID } from "node:crypto";
+import { TrailRecord } from "@/lib/demo/trail";
 import { offerPriceCents } from "@/domain/offers/evaluate";
 import { and, asc, eq, sql } from "drizzle-orm";
 import { SCENE_WINDOW_MINUTES, sceneWindow } from "@/domain/demo/scene";
 import type { Db } from "@/lib/db/client";
 import { settleDue } from "@/lib/commitments/service";
-import { merchants, rules } from "@/lib/db/schema";
+import { demoTrails, merchants, rules } from "@/lib/db/schema";
 import { DEMO_MERCHANT_NAME, demoSnapshot, type DemoSnapshot } from "@/lib/demo/snapshot";
 import { mintMerchant } from "@/lib/onboarding/links";
 import { planPrompt, type ProposePlan } from "@/lib/onboarding/models";
@@ -119,6 +121,7 @@ export async function runScene(o: SceneOptions): Promise<SceneResult> {
   if (o.models.mode === "replay") out("Replay uses the new scene window for rehearsal; its day and time may differ from the original source window.");
 
   const recorded = o.models.mode === "replay" ? new Map(o.models.recording.buyers.map((b) => [b.agentId, b])) : null;
+  const runId = randomUUID();
   const records: Recording["buyers"] = [];
   const committed = new Map<string, string>();
 
@@ -145,6 +148,8 @@ export async function runScene(o: SceneOptions): Promise<SceneResult> {
       }
       if (reply === null) return { agentId: buyer.agentId, covers: 0, reason: null, outcome: "no_reply" };
       if (reply.covers === 0) return { agentId: buyer.agentId, covers: 0, reason: reply.reason, outcome: "declined" };
+      const proposedAt = o.now().toISOString();
+      const approvedAt = o.now().toISOString();
       const submitted = ToolReplies.submit_commitment.parse(
         await client.call("submit_commitment", {
         ruleId,
@@ -156,6 +161,11 @@ export async function runScene(o: SceneOptions): Promise<SceneResult> {
         }),
       );
       if (!submitted.ok) return { agentId: buyer.agentId, covers: reply.covers, reason: reply.reason, outcome: `refused_${submitted.reason}` };
+      if (o.models.mode === "replay") {
+        const finalTerms = {runId,partyId:buyer.agentId,ruleId,termsVersion:terms.offer.termsVersion,visitDate,covers:reply.covers,pricePerCoverCents:terms.offer.offerPriceCents,totalCents:reply.covers*terms.offer.offerPriceCents};
+        await o.db.insert(demoTrails).values({ruleId,partyId:buyer.agentId,visitDate,commitmentId:submitted.commitment.commitmentId,
+          record:TrailRecord.parse({terms:finalTerms,request:buyer.intent,output:reply,provenance:'recorded_replay',proposedAt,approval:{terms:finalTerms,source:'scripted_local_demo',approvedAt}})});
+      }
       committed.set(buyer.agentId, submitted.commitment.commitmentId);
       out(`${buyer.agentId} committed ${reply.covers}`);
       return { agentId: buyer.agentId, covers: reply.covers, reason: reply.reason, outcome: "pending" };
