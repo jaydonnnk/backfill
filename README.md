@@ -54,7 +54,7 @@ The browser runners copy allowlisted sources, use a restricted database login an
 
 Solo submission by Jaydon Kua. Git history starts Oct 26, 2026 at 20:33 ET, with documentation and an empty skeleton. The first application code lands Oct 27 at 10:25 ET. These correspond to Oct 27 at 08:33 and 22:25 SGT.
 
-Pre-existing scaffolding came from the author's public [envoi repository](https://github.com/jaydonnnk/envoi). `src/lib/entrypoint.ts` and `postcss.config.mjs` were carried over unchanged. `config/vitest.config.ts`, `src/lib/db/migrate.ts`, `src/lib/log.ts`, `tests/support/db.ts`, `src/env.ts` and `package.json` were adapted. Backfill's domain and application features were built during the event.
+A small amount of generic setup (environment parsing, logging, database connection and migration runner, entrypoint helper, and test, CI and build configuration) was adapted from the author's earlier work. Backfill's domain and application features were built during the event.
 
 ## Source and evidence
 

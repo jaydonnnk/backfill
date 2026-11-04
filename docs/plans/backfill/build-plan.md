@@ -2,7 +2,7 @@
 
 Window: 2026-10-26 to 2026-11-04, submission due 9:00 PM ET on Nov 4.
 Stack: [../../tech-stack.md](../../tech-stack.md).
-Labels follow envoi: **[verified]**, **[vendor claim]**, **[hypothesis]**, **[unknown]**.
+Labels: **[verified]**, **[vendor claim]**, **[hypothesis]**, **[unknown]**.
 Pitch: [../../pitch.md](../../pitch.md).
 
 ## Singapore steer (2026-10-28)

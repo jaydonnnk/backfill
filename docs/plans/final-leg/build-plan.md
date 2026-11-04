@@ -38,7 +38,7 @@ Never cut Tasks 1-3, 7 or 9.
 | Visitor has no live model and no buyer path | Finding 1, High | 4, 5 |
 | Demo trail reads "Unavailable" | Finding 2, High | 6, 10 |
 | Spark not essential, `/evals` overclaims | Finding 3, High | 7 |
-| `envoi` disclosure understated, first commit date | Finding 4, High | 8 |
+| Setup-code disclosure understated, first commit date | Finding 4, High | 8 |
 | Merchant name injection, impersonation | Finding 5, Medium | 2 |
 | Global caps let one person lock everyone out | Finding 6, Medium | 1, 3 |
 | Menu read holds lock and transaction during model call | Finding 7, Medium | 3 |
@@ -340,7 +340,7 @@ State plainly that counters still use Spark, that this run did not show AI super
 Add at the top: product, live URL, how to try in 60 seconds, and a model table matching `/evals`.
 Add setup steps a stranger can run: Node 24, `npm ci`, env list, `npm run db:migrate`, `npm run dev`, and test commands with `TEST_DATABASE_URL`.
 Rewrite the disclosure: git history starts Oct 26 20:33 ET, with docs and an empty skeleton only until the first application code on Oct 27 10:25 ET.
-Name `src/lib/entrypoint.ts` and `postcss.config.mjs` as unchanged, and `config/vitest.config.ts`, `src/lib/db/migrate.ts`, `src/lib/log.ts`, `tests/support/db.ts`, `src/env.ts` and `package.json` as adapted from `envoi`, with a link to the `envoi` repository if you confirm it is public.
+Name `src/lib/entrypoint.ts` and `postcss.config.mjs` as unchanged, and `config/vitest.config.ts`, `src/lib/db/migrate.ts`, `src/lib/log.ts`, `tests/support/db.ts`, `src/env.ts` and `package.json` as adapted from the author's earlier work.
 Check every README path still exists, including `src/app/api` and `src/integrations/meta`.
 
 - [ ] **Step 2: Pitch and draft**
