@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-11-04T05:31:22.668Z",
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "fullSuite": {
+    "command": "npm test",
+    "testsPassed": 599,
+    "testFilesPassed": 70
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "priorOfflineGuards": {
+    "passed": 10
+  },
+  "preflight": {
+    "preflight": true,
+    "approved": false,
+    "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+    "newInferenceCalls": 0,
+    "credentialReads": 0,
+    "databaseAccess": false
+  },
+  "rehearsal": {
+    "provenance": "scripted_offline_transport",
+    "cases": 12,
+    "scriptedTransportCalls": 16,
+    "newInferenceCalls": 0,
+    "baseline": {
+      "cases": 12,
+      "focalConfirmedCases": 6,
+      "focalConfirmedCovers": 12,
+      "focalChargedCents": 6408,
+      "pooledCovers": 48,
+      "soloCovers": 2,
+      "poolChargedCents": 25992,
+      "poolSavingsCents": 6648,
+      "guardRejectedProposals": 2
+    },
+    "model": {
+      "cases": 12,
+      "focalConfirmedCases": 1,
+      "focalConfirmedCovers": 2,
+      "focalChargedCents": 1088,
+      "pooledCovers": 16,
+      "soloCovers": 0,
+      "poolChargedCents": 8704,
+      "poolSavingsCents": 2176,
+      "guardRejectedProposals": 0
+    },
+    "providerMeasurements": "unmeasured"
+  },
+  "cleanup": {
+    "ownedRolesRemaining": 0,
+    "ownedDatabasesRemaining": 0,
+    "failures": [],
+    "requestsDispatched": 16,
+    "productionChanges": false
+  },
+  "liveDirectoryExists": false,
+  "approval": "pending",
+  "productionChanges": false,
+  "publication": false,
+  "productSourceChanges": false,
+  "newProductBuildOrBrowserProof": false
+}

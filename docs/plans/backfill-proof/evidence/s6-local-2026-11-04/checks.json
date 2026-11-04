@@ -1,0 +1,52 @@
+{
+  "tests": 580,
+  "testFiles": 64,
+  "typecheck": true,
+  "lint": true,
+  "lintWarnings": 0,
+  "offlineGuardTests": 10,
+  "caseFileFrozenAndUnchanged": true,
+  "baselineCaseOutcomesVerified": 12,
+  "aggregateReconciliation": true,
+  "staleApprovalRegressionFailedThenPassed": true,
+  "implementationFilesPinned": 47,
+  "reportViewports": [
+    1280,
+    375
+  ],
+  "productAndPriorBrowserInputsUnchanged": true,
+  "previousMediaReceiptsAndConsumedMarkersUnchanged": true,
+  "newInferenceCalls": 0,
+  "aiMeasuredCases": 0,
+  "ownedResourcesRemaining": 0,
+  "reviewFindingsFixed": [
+    "Stale approval sequencing",
+    "Implementation input hashes"
+  ],
+  "logs": [
+    {
+      "path": "archive/proof-s6-all-tests.log",
+      "sha256": "28d080ac073ce244fc0e682e3942fdc3aab03ae632b2149536d1a5d3a2fcc04e"
+    },
+    {
+      "path": "archive/proof-s6-typecheck-final.log",
+      "sha256": "b9ac0342ecb4134e559a637d61f39f220b96051d6ab745ef1629e64ee6ea7244"
+    },
+    {
+      "path": "archive/proof-s6-lint-accepted.log",
+      "sha256": "8a7e99ba39f6053472a52e8cf716807b2ae565b05a29c6c25ab6c7bced3c874a"
+    },
+    {
+      "path": "archive/proof-s6-offline-guards.log",
+      "sha256": "ba06d5f475378fb57f8ea3c471d10537f6b4bfd4a829e07959813b580bed2e97"
+    },
+    {
+      "path": "archive/proof-s6-order-red.log",
+      "sha256": "942b044f4d97e399ac2f7faab66bfd2de8e4a599394dcd18597a02c450cbf5d6"
+    },
+    {
+      "path": "archive/proof-s6-order-green.log",
+      "sha256": "147c0f0f0e83e84e11c8d7a07d36552de4fa08d69b2a9107ec86ae85d4b5af4a"
+    }
+  ]
+}

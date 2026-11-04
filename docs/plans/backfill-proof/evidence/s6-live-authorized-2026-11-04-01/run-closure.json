@@ -1,0 +1,13 @@
+{
+  "closedAt": "2026-11-04T05:57:41.781Z",
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "approvedMaximumRequests": 16,
+  "requestsDispatched": 15,
+  "unusedSlots": 1,
+  "unusedSlotsReusable": false,
+  "automaticRetries": 0,
+  "additionalInferenceAuthorized": false,
+  "reason": "One approved run completed; the entire allowance is now closed.",
+  "productionChanges": false,
+  "publication": false
+}

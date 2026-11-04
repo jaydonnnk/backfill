@@ -1,0 +1,8 @@
+{
+  "status": 200,
+  "requestId": "c7a9a4c7-3dde-400b-b67e-1197b647578f",
+  "providerRoundTripMs": 5487.067999999999,
+  "body": "{\"id\":\"chatcmpl-01a1a51f-65f6-74cf-b467-3702ccdc735f\",\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"priceCents\\\":542,\\\"rationale\\\":\\\"Small 2-cent concession signals flexibility while protecting margin in round 2.\\\"}\",\"refusal\":null,\"role\":\"assistant\"},\"logprobs\":null}],\"created\":1793771660,\"model\":\"muse-spark-1.3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":547,\"prompt_tokens\":273,\"total_tokens\":820,\"completion_tokens_details\":{\"reasoning_tokens\":512},\"prompt_tokens_details\":{\"cached_tokens\":113}}}",
+  "invoiceCostUsd": null,
+  "consumed": true
+}

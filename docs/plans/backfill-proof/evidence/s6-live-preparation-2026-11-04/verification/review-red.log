@@ -1,0 +1,96 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts --project unit tests/unit/proof-s6-live.test.ts tests/unit/proof-s6-preflight.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+stderr | tests/unit/proof-s6-live.test.ts > records an HTTP failure without a retry and keeps invoice cost unknown
+{"at":"2026-11-04T05:22:25.146Z","level":"error","event":"negotiation.proposal_failed","name":"LlmError","message":"Model call failed after 1 attempts: HTTP 429","attempts":1}
+
+stderr | tests/unit/proof-s6-live.test.ts > preserves reported usage even when proposal content is malformed
+{"at":"2026-11-04T05:22:25.163Z","level":"error","event":"negotiation.proposal_failed","name":"LlmError","message":"Model call failed after 1 attempts: the reply was not JSON","attempts":1}
+
+ ❯ |unit| tests/unit/proof-s6-live.test.ts (11 tests | 2 failed) 151ms
+   × records an HTTP failure without a retry and keeps invoice cost unknown 17ms
+   × preserves reported usage even when proposal content is malformed 15ms
+ ❯ |unit| tests/unit/proof-s6-preflight.test.ts (2 tests | 1 failed) 6ms
+   × rejects replacement of the original manifest even when the replacement source hashes match 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s6-live.test.ts > records an HTTP failure without a retry and keeps invoice cost unknown
+AssertionError: expected [ { provider: 'meta', …(17) } ] to match object [ Array(1) ]
+(10 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  [
+    {
+-     "costNanoUsd": null,
++     "costNanoUsd": 0,
+      "estimatedCostUsd": null,
+      "httpStatus": 429,
+      "invoiceCostUsd": null,
+      "ok": false,
+-     "tokensCachedIn": null,
+-     "tokensIn": null,
+-     "tokensOut": null,
+-     "usageStatus": "unknown",
++     "tokensCachedIn": 0,
++     "tokensIn": 0,
++     "tokensOut": 0,
+    },
+  ]
+
+ ❯ tests/unit/proof-s6-live.test.ts:50:28
+     48|  expect(await session.policy(data,scenario('s6-03'))(input)).toBeNull(…
+     49|  expect(calls).toBe(1);
+     50|  expect(session.records()).toMatchObject([{ok:false,httpStatus:429,inv…
+       |                            ^
+     51| });
+     52| it('preserves reported usage even when proposal content is malformed',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |unit| tests/unit/proof-s6-live.test.ts > preserves reported usage even when proposal content is malformed
+AssertionError: expected [ { provider: 'meta', …(17) } ] to match object [ { ok: false, tokensIn: 100, …(5) } ]
+(12 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -4,8 +4,7 @@
+      "estimatedCostUsd": 0.00021,
+      "invoiceCostUsd": null,
+      "ok": false,
+      "tokensIn": 100,
+      "tokensOut": 20,
+-     "usageStatus": "reported",
+    },
+  ]
+
+ ❯ tests/unit/proof-s6-live.test.ts:56:22
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |unit| tests/unit/proof-s6-preflight.test.ts > rejects replacement of the original manifest even when the replacement source hashes match
+TypeError: pinManifest is not a function
+ ❯ tests/unit/proof-s6-preflight.test.ts:18:20
+     16|  try{
+     17|   const path=join(dir,'manifest.json');await writeFile(path,'{"files":…
+     18|   const pin=runner.pinManifest(await readFile(path));
+       |                    ^
+     19|   await writeFile(path,'{"files":[{"path":"changed.ts","sha256":"updat…
+     20|   await expect(pin(await readFile(path))).rejects.toThrow('Prepared ma…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 10 passed (13)
+   Start at  13:22:24
+   Duration  427ms (import 45%, tests 25%, transform 19%, setup 11%, worker 1%)
+

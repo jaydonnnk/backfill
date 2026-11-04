@@ -1,0 +1,168 @@
+{
+  "id": "s6-11",
+  "description": "One party also qualifies alone",
+  "acceptedQuoteCents": 535,
+  "proposalCallbacks": 1,
+  "pooledCovers": 2,
+  "soloCovers": 2,
+  "focalConfirmedCovers": 2,
+  "chargedCents": 1070,
+  "savingsCents": 290,
+  "focalChargedCents": 1070,
+  "guardRejectedProposals": 0,
+  "refusal": null,
+  "inputs": [
+    {
+      "input": {
+        "merchantName": "S6 synthetic cafe 11",
+        "listPriceCents": 680,
+        "offerPriceCents": 544,
+        "previousPriceCents": 544,
+        "bidCents": 535,
+        "covers": 2,
+        "round": 1,
+        "maxRounds": 3,
+        "maxConcessionCents": 17
+      },
+      "sha256": "289f49a77cab822c206f3c4642457b35f13bab860c8df6f47dbb7eb432b4ea2d",
+      "proposal": 535,
+      "localCallbackMs": 0.0049170000000913205
+    }
+  ],
+  "rounds": [
+    {
+      "negotiationId": "e04c751d-a942-4633-9b3c-9af34e4589d3",
+      "round": 1,
+      "bidCents": 535,
+      "proposedCents": 535,
+      "proposalVerdict": "ok",
+      "status": "accepted",
+      "counterCents": 535,
+      "createdAt": "2026-11-04T02:02:29.676Z"
+    }
+  ],
+  "approvals": [
+    {
+      "source": "scripted_local_demo",
+      "terms": {
+        "runId": "46f54e70-df6e-4f60-b145-03c95192cb05",
+        "partyId": "s6-11-focal",
+        "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+        "termsVersion": 1,
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 535,
+        "totalCents": 1070
+      },
+      "approvedAt": "2026-11-12T01:01:00.000Z",
+      "observedTermsVersion": 1
+    }
+  ],
+  "focalEvents": [
+    {
+      "event": "quote_accepted",
+      "testClock": "2026-11-12T01:01:00.000Z",
+      "termsVersion": 1
+    },
+    {
+      "event": "scripted_approval",
+      "testClock": "2026-11-12T01:01:00.000Z",
+      "termsVersion": 1
+    },
+    {
+      "event": "submitted",
+      "testClock": "2026-11-12T01:01:00.000Z"
+    },
+    {
+      "event": "settled",
+      "testClock": "2026-11-12T04:00:01.000Z"
+    }
+  ],
+  "submissions": [
+    {
+      "partyId": "s6-11-focal",
+      "result": {
+        "ok": true,
+        "replayed": false,
+        "commitment": {
+          "commitmentId": "d104ce55-62e5-458d-be7a-1c1982d4c171",
+          "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "maxPricePerCoverCents": 535,
+          "negotiatedPriceCents": 535,
+          "committedAt": "2026-11-12T01:01:00.000Z",
+          "commitBy": "2026-11-12T04:00:00.000Z",
+          "status": "pending",
+          "pooledCovers": 2,
+          "minPoolCovers": 2
+        }
+      }
+    }
+  ],
+  "storedCommitments": [
+    {
+      "id": "d104ce55-62e5-458d-be7a-1c1982d4c171",
+      "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+      "agentId": "s6-11-focal",
+      "idempotencyKey": "s6-11-focal",
+      "termsVersion": 1,
+      "covers": 2,
+      "maxPricePerCoverCents": 535,
+      "acceptedPricePerCoverCents": 535,
+      "visitAt": "2026-11-12T06:00:00.000Z",
+      "committedAt": "2026-11-12T01:01:00.000Z",
+      "cancelledAt": null,
+      "negotiationId": "e04c751d-a942-4633-9b3c-9af34e4589d3",
+      "negotiatedPriceCents": 535
+    }
+  ],
+  "storedClearing": [
+    {
+      "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+      "visitDate": "2026-11-12",
+      "termsVersion": 1,
+      "unlocked": true,
+      "pricePerCoverCents": 544,
+      "clearedAt": "2026-11-04T02:02:29.679Z"
+    }
+  ],
+  "storedFills": [
+    {
+      "commitmentId": "d104ce55-62e5-458d-be7a-1c1982d4c171",
+      "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+      "visitDate": "2026-11-12",
+      "covers": 2,
+      "pricePerCoverCents": 535
+    }
+  ],
+  "ledgerEntries": [
+    {
+      "id": 20,
+      "createdAt": "2026-11-04T02:02:29.679Z",
+      "commitmentId": "d104ce55-62e5-458d-be7a-1c1982d4c171",
+      "merchantId": "9ca5bd88-6593-4c0f-aa10-e675f67cec13",
+      "ruleId": "ad7283b5-1674-4b9b-a079-302871f06262",
+      "covers": 2,
+      "listPriceCents": 680,
+      "pricePerCoverCents": 535,
+      "savingsCents": 290,
+      "buyerShareCents": 290,
+      "agentShareCents": 0,
+      "networkShareCents": 0
+    }
+  ],
+  "soloCounterfactual": [
+    {
+      "commitmentId": "d104ce55-62e5-458d-be7a-1c1982d4c171",
+      "unlocked": true
+    }
+  ],
+  "ai": {
+    "status": "unmeasured",
+    "reason": "No matching recorded merchant-proposal outputs admitted; no new inference authorized.",
+    "costUsd": null,
+    "providerLatencyMs": null
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "reason": "Separated reserved slots from actual transport dispatch counts; successful comparison behavior is unchanged. Earlier scripted rehearsal and its original manifest/contract are retained.",
+  "supersededManifest": "source-manifest-superseded-01.json",
+  "supersededContract": "contract-superseded-01.json",
+  "supersededRehearsal": "rehearsal-01",
+  "newRehearsal": "rehearsal-02",
+  "newInferenceCalls": 0
+}

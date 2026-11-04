@@ -1,0 +1,193 @@
+{
+  "node": "v24.21.0",
+  "files": [
+    {
+      "path": "docs/plans/backfill-proof/s6-cases.json",
+      "sha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c"
+    },
+    {
+      "path": "drizzle/0000_llm_calls.sql",
+      "sha256": "a96bee8dee100a9f556dfea2c4d4d7472a4dd9bf7744b00479a5c6638201c1cf"
+    },
+    {
+      "path": "drizzle/0001_s2_merchants_rules_commitments_ledger.sql",
+      "sha256": "0c298243bf47b0e9c8fc1db174e16fac03fd222d625731892dcfcce1ff479314"
+    },
+    {
+      "path": "drizzle/0002_s2_triggers.sql",
+      "sha256": "7edc9254d15697d78396011da2290b7786318d938283f0d2ad7f7f0f7b9b95d3"
+    },
+    {
+      "path": "drizzle/0003_s3_min_pool_within_capacity.sql",
+      "sha256": "b7123d2080883f7035690a0c01ce299cb3ced2026da5f3b0d57f35f5bd5008f9"
+    },
+    {
+      "path": "drizzle/0004_s4_agents_cancel_clearings.sql",
+      "sha256": "51e1d4499287c9ab2e2bdee427f09f9565ad03e94f8ef47598076f12c39c0f5f"
+    },
+    {
+      "path": "drizzle/0005_s4_triggers_runtime_role.sql",
+      "sha256": "2b1f301956214f0ac4364411e5c79429201989bfc16f4f15313ccd308b5dfc6e"
+    },
+    {
+      "path": "drizzle/0006_s5_negotiations.sql",
+      "sha256": "201f653ab4d6cc5a75e971654e48489887d9829d6096b08975a19125ad272803"
+    },
+    {
+      "path": "drizzle/0007_s5_negotiation_triggers.sql",
+      "sha256": "d843df37d390e7af97c67d5dbfd841e4119c934c1da074b9fedeb7423246123c"
+    },
+    {
+      "path": "drizzle/0008_s6_onboarding.sql",
+      "sha256": "3c74f35c054c5591ddfc5e9342848f9a6ec6c779db41a7b636e631d3ad57b3bc"
+    },
+    {
+      "path": "drizzle/0009_s6_onboarding_triggers.sql",
+      "sha256": "3c96675b190dd6ba6a50295e36a4237e8e7d3f706dc12c588bd6f909f9ef4709"
+    },
+    {
+      "path": "drizzle/0010_s6b_whatsapp.sql",
+      "sha256": "2a74961c29caf90a4b117763606f1236f5231a6eb9dc6e8d5df8de5a4d8f91c9"
+    },
+    {
+      "path": "drizzle/0011_s6b_whatsapp_triggers.sql",
+      "sha256": "e6c2fde41981eab12f4dc1841b735437fe81de820a7e339234687d0ae5ef5548"
+    },
+    {
+      "path": "drizzle/0012_s6_review_owner_change_rule.sql",
+      "sha256": "d2f126aaf839f4e07c631e95ef1a2c73186bc0bd4d21a62c6479524ce78a6fbe"
+    },
+    {
+      "path": "drizzle/0013_s8_ledger_checkout.sql",
+      "sha256": "3e5d1b75f9744a7e2ecf35d1774753d4077804db289dd92fd9de1c95509953da"
+    },
+    {
+      "path": "drizzle/0014_proof_s2_trail.sql",
+      "sha256": "c03e3e0e9648c813acbeb6e0df5ded6bc2c290137f1b828dfeedcd4d70687bd4"
+    },
+    {
+      "path": "drizzle/0015_proof_s3_owner_voice.sql",
+      "sha256": "0400b2d726bc8dc70be6066d4942dfe7bb278a9c2cbb7621c3e3058e8df0163b"
+    },
+    {
+      "path": "drizzle/0016_proof_s4_buyer_sessions.sql",
+      "sha256": "5a0774fc822e589d4d2950b7ff485a69ca6e25f987d783257e29c5da769ebaa5"
+    },
+    {
+      "path": "drizzle/0017_proof_s5_creative.sql",
+      "sha256": "944d8237302c2f4810487385a1866efca03494c79e16273fab69918565b9dfaf"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "sha256": "3072bdab0518f61d9d0eea85ccd2d855ccb3b89da8b4c9d93a1494e37de560c5"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0e2d237e36766f84aa93569d47d65af19ed7f623cf0d4708a4c60746e67a9bca"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c511de6c1bc52d4f20a4c347b58eb59b6cf3406455cf8de0987aacaba15d00c"
+    },
+    {
+      "path": "scripts/verification/proof-s6-offline.ts",
+      "sha256": "9a64d1ef14a9e8f4767c667febe40afee6f8e75e61c582e4273b5fac1a116ca0"
+    },
+    {
+      "path": "scripts/verification/proof-s6-policy.ts",
+      "sha256": "79a0a91cdd94eb652bd9e22163bdfb500ab778d3ee0b7a08585eaa6de067327d"
+    },
+    {
+      "path": "src/domain/clearing/clear.ts",
+      "sha256": "86ca410d82b5f7327037f0c1c52c6d31df021ed611dbdb9dd161cd3cc9c7a303"
+    },
+    {
+      "path": "src/domain/clearing/schema.ts",
+      "sha256": "2332142fd5c9d5d652c0ed17808b2481bafe29f937ca36a6a0ad2a91f4aca7bd"
+    },
+    {
+      "path": "src/domain/commitments/occurrence.ts",
+      "sha256": "d538265916640449826610a7bd61d0264721df973f48c20e4185d320bd30f481"
+    },
+    {
+      "path": "src/domain/commitments/schema.ts",
+      "sha256": "29e2aa21b5ac0c4d32ccc5234dcbc5058e03f2594cbbb837281a49842498e948"
+    },
+    {
+      "path": "src/domain/demo/scene.ts",
+      "sha256": "5f7da49933b6adea8c30af514129b6623e450d465a835cd8b995fb18639d9cfb"
+    },
+    {
+      "path": "src/domain/money.ts",
+      "sha256": "d06611e467350bca837039b23ad91fadce9b1e701ceea01ecf20d85d0b2556ee"
+    },
+    {
+      "path": "src/domain/negotiation/counter-offer.ts",
+      "sha256": "26dff5a52b80e24207a3dc68fe5abcd9d60c1dd1ebce564d4bc86d27967ae293"
+    },
+    {
+      "path": "src/domain/negotiation/rules.ts",
+      "sha256": "e488e192af57fc29b16444cf0e8f0a288ca1324ea8e0d7d4cc9b40d185ab0b11"
+    },
+    {
+      "path": "src/domain/offers/evaluate.ts",
+      "sha256": "a2ab2092f985fdc75aafbc19e85e11bfdbe590e6af1aee599f395a45bd475363"
+    },
+    {
+      "path": "src/domain/offers/schema.ts",
+      "sha256": "f673bbe457b1632f2f1760cf0522f8d5ffe8c600b77bc6a13f829c2ae31a7b84"
+    },
+    {
+      "path": "src/domain/singapore-time.ts",
+      "sha256": "347507751234ec63df3d25b8cc8f2e3a53330120f57615f5e455be158d22fc83"
+    },
+    {
+      "path": "src/env.ts",
+      "sha256": "29a1a4e6fc3500039f31a634577eb701a5b7836c30a9c15fc6097f986c59802c"
+    },
+    {
+      "path": "src/lib/agents/tokens.ts",
+      "sha256": "6584d8538e70492ce02d529f6f16821cf0355bd5c161827a8e11b2b02487ed95"
+    },
+    {
+      "path": "src/lib/commitments/service.ts",
+      "sha256": "d6b4d915e54ff9b777da5134e8cfa235211781cc09313f69f9996bd3acd74c1f"
+    },
+    {
+      "path": "src/lib/db/client.ts",
+      "sha256": "d06a68f193a821b0202388b749e3b2949095f2887b4aeba3cda4d78a5e74b018"
+    },
+    {
+      "path": "src/lib/db/migrate.ts",
+      "sha256": "4259684d33ae4c7c62ecbd895fad3b6d4fde9731f00f48d151cfb26983691724"
+    },
+    {
+      "path": "src/lib/db/schema.ts",
+      "sha256": "35466845fe7f6adcdc6630af60c412303a891b519d219ec97aa31f344fed5836"
+    },
+    {
+      "path": "src/lib/demo/trail.ts",
+      "sha256": "1a6a1a10fac822f01924b55a5ee36e1ebcff9189d180f3e9d4cef72d4d093e39"
+    },
+    {
+      "path": "src/lib/negotiation/merchant-agent.ts",
+      "sha256": "c39d9306347c2d5ed2d876fd60fa512fa52e17231779e0988379ffbeb87ea799"
+    },
+    {
+      "path": "src/lib/negotiation/service.ts",
+      "sha256": "dbe2254d7aefc054f737aaf22f07f6e879580c5700edf535e20a025504fcbc31"
+    },
+    {
+      "path": "src/lib/onboarding/links.ts",
+      "sha256": "0bdf80ba27dfa172d58f32b76123cf6c8039bda4a9872d2ed0b9e9651b00fbdc"
+    },
+    {
+      "path": "tests/support/db.ts",
+      "sha256": "bc9f37c427253a19d52e87dcffcddf380ec4946ceca5afe939263672491da3d9"
+    },
+    {
+      "path": "tests/support/proof-s2.ts",
+      "sha256": "c22b0cc57e63f853bb8c22a52c380d6876e5654ee69d382d47c1c256b18125bb"
+    }
+  ]
+}

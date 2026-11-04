@@ -1,0 +1,22 @@
+{
+  "authority": null,
+  "approved": false,
+  "provenance": "scripted_offline_transport",
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "startedAt": "2026-11-04T05:30:27.910Z",
+  "consumed": true,
+  "limits": {
+    "maxRequests": 16,
+    "maxCompletionTokens": 1024,
+    "contextTokens": 1048576,
+    "ceilingUsd": 21.05,
+    "maximumCalculatedUsd": 21.041152,
+    "retries": 0,
+    "timeoutMs": 60000,
+    "totalTimeoutMs": 960000,
+    "maxRequestBytes": 8192,
+    "maxResponseBytes": 65536
+  },
+  "productionAccess": false
+}

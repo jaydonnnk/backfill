@@ -1,0 +1,8 @@
+{
+  "status": 200,
+  "requestId": "a4633c8a-2823-460d-bf57-15f8c1041a96",
+  "providerRoundTripMs": 4849.996790999998,
+  "body": "{\"id\":\"chatcmpl-01a1a51f-5044-76d4-8991-ccc81e162c4e\",\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"priceCents\\\":544,\\\"rationale\\\":\\\"Holding firm in round one to defend margin with two rounds remaining.\\\"}\",\"refusal\":null,\"role\":\"assistant\"},\"logprobs\":null}],\"created\":1793771655,\"model\":\"muse-spark-1.3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":374,\"prompt_tokens\":273,\"total_tokens\":647,\"completion_tokens_details\":{\"reasoning_tokens\":341},\"prompt_tokens_details\":{\"cached_tokens\":0}}}",
+  "invoiceCostUsd": null,
+  "consumed": true
+}

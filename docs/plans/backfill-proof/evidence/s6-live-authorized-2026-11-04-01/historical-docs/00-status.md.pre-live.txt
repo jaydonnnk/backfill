@@ -1,0 +1,87 @@
+# Status: Backfill proof build
+
+## Current S6 live run prepared; approval pending, 2026-11-04
+
+The bounded live pricing comparison is implemented and rehearsed through two
+separate restricted-role local databases. Sixteen scripted transport calls made
+zero genuine inference calls; all owned databases/roles were removed.
+[Contract, spending derivation and checks](evidence/s6-live-preparation-2026-11-04/README.md).
+Proposed scope: at most sixteen direct Meta Muse Spark 1.3 requests, 1,024
+completion tokens each, zero retries/fallback, US$21.05 total under verified
+vendor rates. This is a conservative full-context bound, not expected spending.
+The live run is not approved or executed. 599 tests/70 files, typecheck/lint and
+ten offline call guards passed after review fixes. S6 work remains uncommitted.
+
+The user approved S5's exact final asset for local use and asked to move to S6.
+[Final S5 approval](evidence/s5-final-approval-2026-11-04-01/README.md) is saved against
+its exact hash/rule/version. Nothing was posted. The raw SAM rice-interior miss and
+explicit source-pixel-only correction remain inspectable. Both paid media slots
+remain consumed/closed; approval did not authorize further calls or production.
+
+S6 has twelve frozen synthetic cases, a strong fixed pricing policy and actual
+restricted-role negotiation/booking/settlement proof. Final results reconcile to
+48 pooled covers versus 2 alone across the twelve synthetic worlds. Alone is a
+clearing-engine counterfactual, not measured customer demand. Focal policy outcomes
+and whole-pool outcomes are separate. AI is unmeasured in all twelve cases; no
+AI-superiority claim is supported. No new inference was run.
+
+[HTML evidence report](evidence/s6-local-2026-11-04/run-03/report.html),
+[checks/limitations](evidence/s6-local-2026-11-04/README.md),
+[frozen cases](s6-cases.json), [current continuation](s6-handoff-2026-11-04.md).
+580 tests/64 files, typecheck, lint and ten offline guards passed. The HTML report
+passed desktop/mobile checks. Product bytes still match the prior 24-check browser
+proof. Local S6 DB/role were removed. The live AI comparison remains pending
+approval and execution of the prepared bounded run, at most 16 proposal requests.
+No posting, commit, push, deployment, production change, further install or S7/S8
+is authorized. Migrations 0015/0016/0017 remain local.
+
+## Current S4a: NVIDIA-hosted Glimmer
+
+Glimmer uses `meta/muse-glimmer-30b` at NVIDIA's hosted endpoint with the saved
+runtime key. Spark Open remains on its separate Gateway SDK route. There is no
+active local/Gateway Glimmer parser or download path. The local installation is
+removed. [Current contract and exact test limits](s4a-nvidia.md).
+
+**S4a synthetic proof acceptance is complete.** The first run verified explicit
+extraction; the separately approved continuation made exactly one new HTTP-200
+clarification call. Unknown time/budget/currency stayed null. The saved explicit
+output was reused with exact request/reference clock and replay provenance.
+Actual authenticated services and disposable PostgreSQL passed correction/review,
+edit invalidation, discard, wrong-party and duplicate-call guards. Zero commitments
+or approvals were created. New usage is 262 input/240 output tokens; invoiced cost
+is unknown. [Acceptance and audit](evidence/s4-buyer-models/nvidia-acceptance-authorized-2026-11-03-02/README.md).
+
+The prior failed test and its overly narrow requirement expectation remain in
+history; its original guard source is preserved. Both inference allowances are
+consumed/closed. No retries, new Spark calls, paid fallback or billing changes.
+Fresh 550 tests, typecheck, lint and two guard tests passed. All 101 product hashes
+still match the existing builds/22 desktop-mobile browser checks. Owned local
+verification resources are removed. No new live-browser claim is made.
+
+## Preserved proof and remaining scope
+
+S1/S2 offline journey and S3 genuine Voice/Wonder proof remain preserved. S4b has
+five genuine Gateway decisions and five offline replays; its allowance is closed.
+Both prior local Glimmer loads stopped before readiness and sent zero parser
+requests. Their authorizations and S3's four-call allowance remain consumed.
+
+The prior NVIDIA adapter checkpoint passed 550 tests in 57 files, typecheck,
+lint, two isolated builds and 22 combined desktop/mobile Chromium checks.
+[Offline NVIDIA evidence](evidence/s4-buyer-models/nvidia-migration-2026-11-03-01/README.md).
+All four independent parties, exact approvals, simulated settlement and Kopi remain.
+All eight roles remain required overall. Merchant validation and video are separate.
+Payments, attendance and recovered revenue are unproven. At the S4 publication checkpoint, no S5 work was authorized.
+
+Migrations 0015/0016 have only local proof; no production rollout is authorized.
+The user authorized S4 cleanup, commit and push to main on 2026-11-03. This
+publication checkpoint includes the completed S4 source, local migration 0016,
+tests, guarded runners and audit evidence, based on parent `b1df9ad`. Publication
+uses `[skip render]`; production migrations/deployment remain unauthorized.
+[Publication checks and archive manifest](evidence/s4-buyer-models/publication-2026-11-03/README.md).
+
+**Ready to start S5 local engineering when requested.** Genuine media proof still
+needs rights-cleared inputs, verified SAM/Image contracts and a separately scoped
+call approval. [S5 readiness](s5-readiness.md). No S5 implementation was performed in that S4 checkpoint.
+
+[Complete prior chronological status](https://github.com/jaydonnnk/backfill/blob/cdb292da8548d6eef9b47bfe6a0f9a3882d6c7e6/docs/plans/backfill-proof/evidence/s4-buyer-models/nvidia-live-authorized-2026-11-03-01/historical-docs/00-status.md.txt)
+is retained for provenance. Its local/Gateway Glimmer instructions are retired.

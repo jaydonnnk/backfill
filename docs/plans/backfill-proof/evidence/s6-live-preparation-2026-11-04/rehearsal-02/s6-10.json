@@ -1,0 +1,424 @@
+{
+  "id": "s6-10",
+  "description": "Focal party exceeds agent cap",
+  "baseline": {
+    "id": "s6-10",
+    "description": "Focal party exceeds agent cap",
+    "acceptedQuoteCents": null,
+    "proposalCallbacks": 0,
+    "pooledCovers": 0,
+    "soloCovers": 0,
+    "focalConfirmedCovers": 0,
+    "chargedCents": 0,
+    "savingsCents": 0,
+    "focalChargedCents": 0,
+    "guardRejectedProposals": 0,
+    "refusal": "over_agent_cap",
+    "inputs": [],
+    "rounds": [],
+    "approvals": [
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "fcaf8bbf-8764-431c-ad89-9e8d165120f6",
+          "partyId": "s6-10-background-0",
+          "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:00.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "fcaf8bbf-8764-431c-ad89-9e8d165120f6",
+          "partyId": "s6-10-background-1",
+          "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:01.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "fcaf8bbf-8764-431c-ad89-9e8d165120f6",
+          "partyId": "s6-10-background-2",
+          "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:02.000Z",
+        "observedTermsVersion": 1
+      }
+    ],
+    "focalEvents": [
+      {
+        "event": "settled",
+        "testClock": "2026-11-12T04:00:01.000Z"
+      }
+    ],
+    "submissions": [
+      {
+        "partyId": "s6-10-background-0",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "dd252236-d099-4936-94c5-8a9dcabeb9e9",
+            "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:00.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 2,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-10-background-1",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "023a8157-9fcc-432c-b1ef-79554706a2ad",
+            "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:01.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 4,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-10-background-2",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "c2cbf3a8-7d57-4556-ad41-748cee275a08",
+            "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:02.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 6,
+            "minPoolCovers": 8
+          }
+        }
+      }
+    ],
+    "storedCommitments": [
+      {
+        "id": "dd252236-d099-4936-94c5-8a9dcabeb9e9",
+        "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+        "agentId": "s6-10-background-0",
+        "idempotencyKey": "s6-10-bg-0",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:00.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "023a8157-9fcc-432c-b1ef-79554706a2ad",
+        "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+        "agentId": "s6-10-background-1",
+        "idempotencyKey": "s6-10-bg-1",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:01.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "c2cbf3a8-7d57-4556-ad41-748cee275a08",
+        "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+        "agentId": "s6-10-background-2",
+        "idempotencyKey": "s6-10-bg-2",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:02.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      }
+    ],
+    "storedClearing": [
+      {
+        "ruleId": "5fc768bc-c6b6-4a8c-b1e6-43af8791ca7d",
+        "visitDate": "2026-11-12",
+        "termsVersion": 1,
+        "unlocked": false,
+        "pricePerCoverCents": 544,
+        "clearedAt": "2026-11-04T05:30:28.781Z"
+      }
+    ],
+    "storedFills": [],
+    "ledgerEntries": [],
+    "soloCounterfactual": [
+      {
+        "commitmentId": "dd252236-d099-4936-94c5-8a9dcabeb9e9",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "023a8157-9fcc-432c-b1ef-79554706a2ad",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "c2cbf3a8-7d57-4556-ad41-748cee275a08",
+        "unlocked": false
+      }
+    ],
+    "ai": {
+      "status": "unmeasured",
+      "reason": "No matching recorded merchant-proposal outputs admitted; no new inference authorized.",
+      "costUsd": null,
+      "providerLatencyMs": null
+    }
+  },
+  "model": {
+    "id": "s6-10",
+    "description": "Focal party exceeds agent cap",
+    "acceptedQuoteCents": null,
+    "proposalCallbacks": 0,
+    "pooledCovers": 0,
+    "soloCovers": 0,
+    "focalConfirmedCovers": 0,
+    "chargedCents": 0,
+    "savingsCents": 0,
+    "focalChargedCents": 0,
+    "guardRejectedProposals": 0,
+    "refusal": "over_agent_cap",
+    "inputs": [],
+    "rounds": [],
+    "approvals": [
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "90dd61e2-6779-4b5f-af8e-7686cc4d2ea4",
+          "partyId": "s6-10-background-0",
+          "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:00.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "90dd61e2-6779-4b5f-af8e-7686cc4d2ea4",
+          "partyId": "s6-10-background-1",
+          "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:01.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "90dd61e2-6779-4b5f-af8e-7686cc4d2ea4",
+          "partyId": "s6-10-background-2",
+          "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:02.000Z",
+        "observedTermsVersion": 1
+      }
+    ],
+    "focalEvents": [
+      {
+        "event": "settled",
+        "testClock": "2026-11-12T04:00:01.000Z"
+      }
+    ],
+    "submissions": [
+      {
+        "partyId": "s6-10-background-0",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "5df9bc87-7a6b-486d-957e-bdf630f5107b",
+            "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:00.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 2,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-10-background-1",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "d6d9bb89-34da-4c8c-b33b-8d915c1d5217",
+            "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:01.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 4,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-10-background-2",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "6cb1d1b4-1359-4ac4-8412-3a34c1b2275a",
+            "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:02.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 6,
+            "minPoolCovers": 8
+          }
+        }
+      }
+    ],
+    "storedCommitments": [
+      {
+        "id": "5df9bc87-7a6b-486d-957e-bdf630f5107b",
+        "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+        "agentId": "s6-10-background-0",
+        "idempotencyKey": "s6-10-bg-0",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:00.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "d6d9bb89-34da-4c8c-b33b-8d915c1d5217",
+        "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+        "agentId": "s6-10-background-1",
+        "idempotencyKey": "s6-10-bg-1",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:01.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "6cb1d1b4-1359-4ac4-8412-3a34c1b2275a",
+        "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+        "agentId": "s6-10-background-2",
+        "idempotencyKey": "s6-10-bg-2",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:02.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      }
+    ],
+    "storedClearing": [
+      {
+        "ruleId": "bf9ea568-984d-4961-978d-fb37c70972da",
+        "visitDate": "2026-11-12",
+        "termsVersion": 1,
+        "unlocked": false,
+        "pricePerCoverCents": 544,
+        "clearedAt": "2026-11-04T05:30:28.795Z"
+      }
+    ],
+    "storedFills": [],
+    "ledgerEntries": [],
+    "soloCounterfactual": [
+      {
+        "commitmentId": "5df9bc87-7a6b-486d-957e-bdf630f5107b",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "d6d9bb89-34da-4c8c-b33b-8d915c1d5217",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "6cb1d1b4-1359-4ac4-8412-3a34c1b2275a",
+        "unlocked": false
+      }
+    ],
+    "ai": {
+      "status": "no_proposal_needed",
+      "invoiceCostUsd": null,
+      "requests": []
+    },
+    "provenance": "scripted_offline_transport"
+  }
+}

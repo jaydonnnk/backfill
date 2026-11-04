@@ -1,0 +1,35 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts --project unit tests/unit/proof-s6-durability.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+stderr | tests/unit/proof-s6-durability.test.ts > refuses dispatch if synchronizing the consumed-marker directory fails
+{"at":"2026-11-04T05:29:59.869Z","level":"error","event":"negotiation.proposal_failed","name":"LlmRecordingError","pgCode":null,"message":null}
+
+ ❯ |unit| tests/unit/proof-s6-durability.test.ts (1 test | 1 failed) 25ms
+   × refuses dispatch if synchronizing the consumed-marker directory fails 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s6-durability.test.ts > refuses dispatch if synchronizing the consumed-marker directory fails
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/unit/proof-s6-durability.test.ts:18:54
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  13:29:59
+   Duration  198ms (transform 33%, import 26%, setup 21%, tests 18%, worker 2%)
+

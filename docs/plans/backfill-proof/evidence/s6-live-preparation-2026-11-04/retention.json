@@ -1,0 +1,10 @@
+{
+  "scope": "Superseded scripted preparation outputs only. No genuine provider call, approval, marker or accepted evidence moved.",
+  "archived": [
+    {"name": "rehearsal-01", "reason": "Scripted rehearsal superseded by rehearsal-02; zero inference.", "files": 63},
+    {"name": "contract-superseded-01.json", "reason": "Superseded preparation contract.", "files": 1},
+    {"name": "source-manifest-superseded-01.json", "reason": "Superseded preparation manifest.", "files": 1}
+  ],
+  "archive": "archive/proof-s6-evidence-trim-2026-11-04/preparation",
+  "archiveTracked": false
+}

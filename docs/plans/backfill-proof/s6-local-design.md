@@ -1,0 +1,80 @@
+# S6 local design and case freeze
+
+S6's later authorized genuine comparison is complete. See
+[final acceptance](evidence/s6-live-authorized-2026-11-04-01/README.md).
+The remainder records the original local-only design and baseline checkpoint.
+
+The user's "Approved. Then move on to the next step" approves the exact S5 asset
+for local use and authorizes the next planned S6 work. It does not authorize new
+inference, installations, production changes, publication, commit/push/deploy or
+S7/S8. S5's two actual media call slots remain closed. The original S5-only fence
+is superseded for independent local S6 work by this new instruction.
+
+## Two separate questions
+
+1. Pooling value uses the same valid stored commitments, public terms, prices and
+   clearing engine. Compare each commitment alone with their pooled stored outcome.
+   Alone is an explicit domain-engine counterfactual; pooled is real DB settlement.
+2. AI pricing value compares existing Muse Spark merchant-price proposals with a
+   deterministic maximum-concession policy. This uses negotiate, signed counters,
+   submitCommitment and settleDue. The baseline is not an artificially stubborn
+   always-hold policy. It receives only ProposalInput, never private floors.
+
+Both pricing policies use identical synthetic initial state, fixed buyer bid
+ladders, public bounds, maximum three rounds and zero automatic retries. Capacity
+and private floor are server fixtures, never proposal inputs. Expected outcomes
+and twelve cases are frozen before new AI outputs. No existing recording is
+admitted without exact matching public input; none is currently admitted.
+The twelve fresh case worlds use a new date and numbered synthetic merchants.
+Do not retrofit older S4 buyer decisions into merchant-pricing measurements.
+
+## Independent local implementation
+
+- Freeze exactly twelve small synthetic cases: immediate acceptance, small valid
+  concession, escalating bids, below-budget refusal, insufficient demand, lower
+  minimum, exhausted capacity, stale terms, past deadline, per-agent cap, an offer
+  that also qualifies alone, and a hidden-floor refusal followed by a valid quote.
+- Fixed policy: max(current bid, previous price minus allowed concession).
+  Shared production guards may reject a proposal. Neither side sees the floor.
+- Script independent two-person background parties and exact local approval
+  records. Focal approvals name the actual signed price/version. They are scripted
+  test authorizations, not human consent. Preserve the S5 human approval separately.
+- A restricted runtime role performs actual services and DB outcomes. No env loader,
+  provider client or external HTTP. Use a disposable explicit-loopback database.
+- Record case-level rounds/proposals, guard refusals, exact accepted prices, stored
+  commitments/fills, focal versus whole-pool metrics and counterfactual outcomes.
+  Reconcile covers and SGD cents. Missing AI outcomes/cost/latency stay null.
+- Reuse existing actual-service tests for timeout, malformed output, duplicates,
+  unsafe price, races and stale approvals; do not rebuild their product behavior.
+- Emit JSON plus one standalone .html report, per the user's visualization rule.
+  No marketing-page redesign or replacement evaluation dashboard.
+
+## Acceptance boundaries
+
+Offline baseline/guard proof cannot pass the live AI comparison. Keep every frozen
+case, including refusals and failures. Report no model ranking or superiority while
+AI sample count is zero. Do not mix prior call costs, count proposals as bookings,
+claim payments/attendance/revenue, compute a small-sample p95 or equate replay time
+with provider latency. A separately scoped live pricing run will be needed.
+
+## Work sequence
+
+Freeze inputs and hashes. Test fixed-policy and result reconciliation behavior.
+Run the baseline through real services in a restricted disposable DB. Reuse the
+existing failure tests under fresh S6 output paths. Review final evidence against
+literal expected outcomes and preserve every previous marker/receipt. Stop at S6.
+
+## Completion record
+
+The frozen case hash stayed unchanged. All twelve literal baseline outcomes and
+ledger/counterfactual aggregates passed under the restricted runtime. Review
+independently reproduced the numbers. Its sequencing finding was verified by a
+failing regression, then fixed; the accepted run records observed rule version 1
+at approval before changing to version 2. The report now pins implementation,
+migration and package hashes. Run-03 is final; earlier runs are archived.
+
+580 tests/64 files, typecheck/lint and ten offline guards passed. The exact HTML
+report passed 1280px/375px checks. No product UI/runtime change was made for S6,
+so the prior product browser proof is reused only after verifying unchanged source
+hashes. AI measurements, cost and provider latency remain null. A separately
+prepared/approved live run is still required; S6 is not fully complete.

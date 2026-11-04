@@ -1,0 +1,8 @@
+{
+  "status": 200,
+  "requestId": "d2690692-8034-410b-92d4-67d1d203ac10",
+  "providerRoundTripMs": 4956.006874999999,
+  "body": "{\"id\":\"chatcmpl-01a1a51e-fd0f-72c9-986f-fd4a4fa12944\",\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"priceCents\\\": 544, \\\"rationale\\\": \\\"Holding firm in round 1 to protect margin on off-peak covers.\\\"}\",\"refusal\":null,\"role\":\"assistant\"},\"logprobs\":null}],\"created\":1793771633,\"model\":\"muse-spark-1.3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":530,\"prompt_tokens\":273,\"total_tokens\":803,\"completion_tokens_details\":{\"reasoning_tokens\":493},\"prompt_tokens_details\":{\"cached_tokens\":0}}}",
+  "invoiceCostUsd": null,
+  "consumed": true
+}

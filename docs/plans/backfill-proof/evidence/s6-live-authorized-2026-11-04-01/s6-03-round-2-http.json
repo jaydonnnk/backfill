@@ -1,0 +1,8 @@
+{
+  "status": 200,
+  "requestId": "cf1297f0-b934-4cb1-8d08-bce59594ab52",
+  "providerRoundTripMs": 5153.1825420000005,
+  "body": "{\"id\":\"chatcmpl-01a1a51e-73e3-77c6-b772-bc66f709e94a\",\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"priceCents\\\":538,\\\"rationale\\\":\\\"Small concession to keep buyer engaged while protecting margin.\\\"}\",\"refusal\":null,\"role\":\"assistant\"},\"logprobs\":null}],\"created\":1793771598,\"model\":\"muse-spark-1.3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":498,\"prompt_tokens\":273,\"total_tokens\":771,\"completion_tokens_details\":{\"reasoning_tokens\":468},\"prompt_tokens_details\":{\"cached_tokens\":0}}}",
+  "invoiceCostUsd": null,
+  "consumed": true
+}

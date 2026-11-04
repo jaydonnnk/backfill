@@ -1,30 +1,45 @@
 # Status: Backfill proof build
 
-## Current S5: accepted owner photo asset, 2026-11-04
+## Current S6 complete locally, 2026-11-04
 
-S5 is accepted for local use. The exact corrected cutout and final composition
-were separately approved by the user. The final PNG is bound to its SHA-256,
-synthetic offer and version; edited terms invalidate old approval. No image was
-posted. Original food pixels remain unchanged and generated background is labeled.
+After explicit approval of the sixteen-request/US$21.05 scope, the bounded run made
+15 genuine Muse Spark 1.3 requests: all HTTP-200, valid proposals, no retries or
+provider/parser failures. Spark confirmed 6 focal seats in 3/12 synthetic cases;
+the fixed policy confirmed 12 seats in 6/12. Whole-pool totals were 32 versus 48.
+This run does not demonstrate AI superiority. Estimated inference cost is
+US$0.03690665 from reported usage; invoice cost is unknown. All results and unsafe
+booking invariants reconcile. Both databases and the role were removed.
 
-The pinned official SAM parser is installed. One genuine SAM request and one Muse
-Image background request returned valid media. Raw SAM omitted the rice interior;
-the raw result is retained and a tested local correction restored only original
-photo pixels. Both inference slots remain consumed/closed. Default hosted media
-is disabled outside separately authorized bounded runners.
+[Genuine comparison and acceptance](evidence/s6-live-authorized-2026-11-04-01/README.md),
+[HTML results](evidence/s6-live-authorized-2026-11-04-01/report.html),
+[offline audit](evidence/s6-live-authorized-2026-11-04-01/audit.json).
+The allowance is consumed/closed after 15/16 requests; the unused slot is not
+reusable. Runtime source/cases remain pinned to the approved manifest. Preparation
+passed 599 tests/70 files, typecheck/lint and ten guards. The completed run passed
+independent saved-record reconciliation, fresh lint and desktop/mobile report
+checks. S6 work remains uncommitted. Stop before S7/S8 or publication.
 
-[Final approval](evidence/s5-final-approval-2026-11-04-01/README.md),
-[composition](evidence/s5-composition-2026-11-04-01/README.md),
-[genuine media and limitation](evidence/s5-live-authorized-2026-11-04-01/README.md),
-[decoder and checks](evidence/s5-codec-2026-11-04/README.md),
-[S5 continuation](s5-continuation-2026-11-04.md).
+The user approved S5's exact final asset for local use and asked to move to S6.
+[Final S5 approval](evidence/s5-final-approval-2026-11-04-01/README.md) is saved against
+its exact hash/rule/version. Nothing was posted. The raw SAM rice-interior miss and
+explicit source-pixel-only correction remain inspectable. Both paid media slots
+remain consumed/closed; approval did not authorize further calls or production.
 
-The user authorized committing and pushing S5 only. This checkpoint excludes later
-S6 implementation and evidence. Publication checks are in
-[evidence/s5-publication-2026-11-04](evidence/s5-publication-2026-11-04/README.md).
-The commit must contain [skip render]. Production migrations 0015/0016/0017,
-deployment and public posting remain unapproved. Private photo, real-media bytes
-and full approved state remain ignored/local. No new model calls are authorized.
+The initial S6 baseline has twelve frozen synthetic cases, a strong fixed pricing policy and actual
+restricted-role negotiation/booking/settlement proof. Final results reconcile to
+48 pooled covers versus 2 alone across the twelve synthetic worlds. Alone is a
+clearing-engine counterfactual, not measured customer demand. Focal policy outcomes
+and whole-pool outcomes are separate. Its original report predates the genuine AI
+comparison linked above and correctly retains its original unmeasured labels.
+
+[HTML evidence report](evidence/s6-local-2026-11-04/run-03/report.html),
+[checks/limitations](evidence/s6-local-2026-11-04/README.md),
+[frozen cases](s6-cases.json), [current continuation](s6-handoff-2026-11-04.md).
+580 tests/64 files, typecheck, lint and ten offline guards passed. The HTML report
+passed desktop/mobile checks. Product bytes still match the prior 24-check browser
+proof. Local S6 DB/role were removed. The later genuine AI comparison is complete.
+No posting, commit, push, deployment, production change, further install or S7/S8
+is authorized. Migrations 0015/0016/0017 remain local.
 
 ## Current S4a: NVIDIA-hosted Glimmer
 

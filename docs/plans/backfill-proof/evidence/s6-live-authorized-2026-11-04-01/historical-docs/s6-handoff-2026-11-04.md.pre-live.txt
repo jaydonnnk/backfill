@@ -1,0 +1,119 @@
+# Continue Backfill S6 after live-run preparation
+
+Work in `/Users/jayd0/Desktop/meta-hack`. Read `00-status.md`, the S6 section of
+`build-proposal-2026-11-03.md`, `s6-local-design.md`, `s6-cases.json` and
+`evidence/s6-local-2026-11-04/README.md` and
+`evidence/s6-live-preparation-2026-11-04/README.md`. Checkout is main at 7c009e6;
+S6 and some prior documentation are uncommitted. Preserve all unrelated work and
+every historical call marker.
+
+## S5 is accepted locally
+
+The user explicitly approved the exact final asset. Ordinary services reproduced
+SHA-256 de412d6a7b30c60e8ee92da9bd15c9a4eb61856d286f2ff7c3a8b13af7905a9a and
+saved final approval for asset d6289c3d-fcbe-4227-b32c-98ad499d8171, original rule
+f314412a-bc0e-4385-89b1-26b524feda45, version 1. The repeated decision returned
+already_approved. Evidence: `evidence/s5-final-approval-2026-11-04-01/`.
+Both the original cutout-only and final approvals remain inspectable.
+
+The genuine SAM raw mask missed the rice interior. That raw result is preserved.
+A tested local correction restores original photo pixels; no generated food is
+claimed. Actual final image and private state are under ignored
+`archive/proof-s5-final-approval-2026-11-04-01/`.
+
+The earlier one SAM and one Image POST are CONSUMED/CLOSED. Never rerun
+proof-s5-live.ts --run, retry, poll, mutate its recipe or delete markers. No final
+asset posting, production write, migration, deployment, commit/merge/push, new
+installation or S7/S8 is authorized. The user's next-step instruction authorizes
+independent local S6, not unspecified inference spending. A later authorized push
+still needs [skip render] while production migrations 0015/0016/0017 are unapproved.
+
+## S6 completed local work
+
+- Frozen twelve fresh synthetic pricing/settlement cases and literal expectations,
+  SHA-256 5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c.
+  Do not alter them after seeing AI results. Keep all refusals, failures and losses.
+- `scripts/verification/proof-s6-policy.ts` has the public-input-only fixed policy,
+  strict case parser and baseline aggregate calculator with null AI metrics.
+- `scripts/verification/proof-s6-offline.ts` exports runPricingCase and runs the
+  baseline through actual negotiate/signed-counter submit/settle services, on a
+  disposable local DB with a restricted role. HTTP is disabled; no env loader.
+- Final evidence is `evidence/s6-local-2026-11-04/run-03/`. Earlier run-01 had an
+  event-order issue; it is archived and not accepted. The regression failed before
+  correction. Final version-1 approval occurs before the version-2 terms change.
+- Observed totals: 48 pooled covers versus 2 alone across twelve synthetic worlds.
+  Pooled is real DB settlement; alone is the same clearing-engine counterfactual.
+  Focal policy confirms 12 covers in 6/12 cases; do not mix background covers into
+  model-quality metrics. All accepted cents and savings reconcile to ledger rows.
+- AI is unmeasured in all twelve cases. No historical S4 buyer output was relabeled
+  as a new merchant-price result. No model ranking or superiority is supported.
+- 580 tests/64 files, typecheck/lint and ten offline guards passed. The local HTML
+  report was verified at 1280px/375px with no external network or page errors.
+  Product source still matches the prior 24-check S5 browser proof.
+
+## Prepared live-comparison gate, 2026-11-04
+
+The user asked to continue S6. Local preparation is complete. Genuine inference
+still awaits explicit approval of the concrete scope and US$21.05 total ceiling.
+See `evidence/s6-live-preparation-2026-11-04/contract.json` and its source manifest.
+The full-context cost calculation is US$21.041152 at current primary Meta rates,
+rounded up to US$21.05. This is a conservative bound, not expected cost.
+
+New files: `scripts/verification/proof-s6-live-contract.ts`, `proof-s6-live.ts`,
+`proof-s6-comparison.ts`, and focused unit/integration regressions. The test DB
+helper now drops a newly created DB if migration fails; hermetic test setup clears
+the new S6 approval variable. Product source is unchanged.
+
+The actual executable runner passed `--rehearse` with two restricted-role DBs,
+sixteen scripted holding-policy responses, zero genuine calls and complete resource
+cleanup. Those synthetic usage/cost/timing rows are not provider measurements.
+Fresh baseline totals remain 48 pooled / 2 alone / 12 focal covers. The scripted
+holding fixture is only an evaluator check, never an AI result. 599 tests/70 files,
+typecheck/lint and ten prior offline call guards passed. Independent review's four
+important findings have regression proof and are fixed. There was no second
+independent review or new product/browser build.
+
+The prepared manifest pins all relevant code, migrations, support/config and cases;
+hash `12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377`.
+`--check` passed without credential reads, DB access or HTTP. Unapproved
+`--execute` was refused before creating the live directory. Source/manifest drift
+stops dispatch. Do not alter the prepared package after approval.
+
+Only following explicit approval, set the exact approval value from contract.json,
+provide existing explicit loopback TEST_DATABASE_URL, and invoke `--execute` once.
+The runner then reads only META_API_KEY from ignored .env.local, after its durable
+session marker. No credential needs to be pasted into chat. The dedicated live
+directory does not yet exist. No retries/polling/fallback or extra inference are
+allowed. The date gate requires fresh pricing/approval on a later Singapore date.
+
+After the bounded run, assess each case, failures, estimates, round-trip/guarded
+timings and cleanup. Report genuine versus scripted evidence explicitly. Only
+that assessment can finish S6; stop before S7/S8.
+
+## Original requirements, retained
+
+No new inference is authorized. The prepared package above implements these
+requirements, which must remain enforced: prepare the
+exact Muse Spark 1.3 model/endpoint and request contract, versioned source/input
+hashes, durable slots, adaptive round validation, per-call/total resource limits,
+no retries/polling/fallback and a verified spend ceiling with current primary
+pricing sources. The frozen ladders need at most 16 proposal requests, not 36;
+immediate acceptance and cap rejection do not call a model. Preparation does not
+grant approval. Do not invent or increase a budget ceiling.
+
+Both policies get ProposalInput only. The server alone owns private floor and
+capacity. Use the same case worlds, buyer bids, permitted actions, rules and retry
+budgets. Run each policy in a fresh isolated DB, not the baseline-mutated one;
+runPricingCase uses stable per-case synthetic party IDs. A live wrapper must label
+its actual outputs/usage/latency, keep unknown invoice costs null, and preserve
+errors. The current aggregate/report deliberately represent only the offline
+baseline and must not silently label future provider results as fixed/fixture.
+
+Admit saved recordings only when they match exact original public inputs and role.
+Do not reuse S4 buyer decisions or old S9 consumed allowances for these fresh price
+cases. Missing matched data remains unmeasured. Reuse existing actual service
+failure tests; do not resurrect the retired OpenRouter/DeepSeek dashboard/harness.
+
+No new user photo, food label, credential in chat or merchant recruitment is needed
+for the synthetic benchmark. Real merchant evidence and video remain user-owned.
+Stop at S6 until it is actually accepted; do not start S7/S8 or publish anything.

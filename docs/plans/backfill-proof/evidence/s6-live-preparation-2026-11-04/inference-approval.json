@@ -1,0 +1,23 @@
+{
+  "approvedAt": "2026-11-04T05:52:59.613Z",
+  "userStatement": "I approve the inference spending",
+  "scope": "One S6 pricing comparison after the preceding 16-request, US$21.05 proposal",
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "model": "muse-spark-1.3",
+  "endpoint": "https://api.meta.ai/v1/chat/completions",
+  "limits": {
+    "maxRequests": 16,
+    "maxCompletionTokens": 1024,
+    "contextTokens": 1048576,
+    "ceilingUsd": 21.05,
+    "maximumCalculatedUsd": 21.041152,
+    "retries": 0,
+    "timeoutMs": 60000,
+    "totalTimeoutMs": 960000,
+    "maxRequestBytes": 8192,
+    "maxResponseBytes": 65536
+  },
+  "retries": 0,
+  "productionOrPublicationAuthorized": false
+}

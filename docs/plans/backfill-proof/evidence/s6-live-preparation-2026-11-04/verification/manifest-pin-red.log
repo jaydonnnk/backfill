@@ -1,0 +1,37 @@
+
+> backfill@0.0.0 test
+> vitest run --config config/vitest.config.ts --project unit tests/unit/proof-s6-preflight.test.ts
+
+
+ RUN  v5.0.3 /Users/jayd0/Desktop/meta-hack
+
+ ❯ |unit| tests/unit/proof-s6-preflight.test.ts (2 tests | 1 failed) 7ms
+   × rejects replacement of the original manifest even when the replacement source hashes match 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tests/unit/proof-s6-preflight.test.ts > rejects replacement of the original manifest even when the replacement source hashes match
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/proof-s6-preflight.test.ts:20:88
+     18|   const pin=sha256(await readFile(path));
+     19|   await writeFile(path,'{"files":[{"path":"changed.ts","sha256":"updat…
+     20|   const changed=await readFile(path);expect(()=>runner.verifyManifestP…
+       |                                                                                        ^
+     21|  }finally{await rm(dir,{recursive:true,force:true});}
+     22| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  13:30:00
+   Duration  419ms (import 64%, transform 27%, setup 7%, tests 2%)
+

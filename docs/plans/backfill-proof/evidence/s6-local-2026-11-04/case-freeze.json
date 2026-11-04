@@ -1,0 +1,26 @@
+{
+  "caseFile": "docs/plans/backfill-proof/s6-cases.json",
+  "sha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "cases": 12,
+  "caseIds": [
+    "s6-01",
+    "s6-02",
+    "s6-03",
+    "s6-04",
+    "s6-05",
+    "s6-06",
+    "s6-07",
+    "s6-08",
+    "s6-09",
+    "s6-10",
+    "s6-11",
+    "s6-12"
+  ],
+  "newAiResultsInspectedBeforeFreeze": false,
+  "newInferenceCalls": 0,
+  "recordingsAdmitted": 0,
+  "maxProspectiveAiRequests": 16,
+  "maxRounds": 3,
+  "automaticRetries": 0,
+  "aiCostsAndLatency": null
+}

@@ -1,0 +1,29 @@
+{
+  "assurance": "Twelve frozen synthetic case worlds. Fixed deterministic pricing policy only. Scripted party approvals; actual restricted-role services/DB settlement; solo is a clearing-engine counterfactual. No AI results, human customer consent, real payments or revenue.",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "cases": 12,
+  "pooledCovers": 48,
+  "soloCovers": 2,
+  "incrementalSyntheticCovers": 46,
+  "focalConfirmedCases": 6,
+  "focalConfirmedCovers": 12,
+  "poolChargedCents": 25992,
+  "poolSavingsCents": 6648,
+  "focalChargedCents": 6408,
+  "proposalCallbacks": 14,
+  "guardRejectedProposals": 2,
+  "ai": {
+    "measuredCases": 0,
+    "confirmedCovers": null,
+    "costUsd": null,
+    "latencyMs": null,
+    "winner": null
+  },
+  "newInferenceCalls": 0,
+  "baselineProviderCostUsd": 0,
+  "baselineCostMeaning": "No provider used. This is not cost per customer or historical model spending.",
+  "maxProspectiveAiRequests": 16,
+  "prospectiveModel": "muse-spark-1.3",
+  "aiInferenceAuthorized": false,
+  "providerLatencyMs": null
+}

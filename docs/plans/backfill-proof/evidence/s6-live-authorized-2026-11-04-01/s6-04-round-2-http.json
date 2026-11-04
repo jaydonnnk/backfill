@@ -1,0 +1,8 @@
+{
+  "status": 200,
+  "requestId": "d32b76dc-400b-4cf8-85f4-01c38d456e4a",
+  "providerRoundTripMs": 9481.431292000001,
+  "body": "{\"id\":\"chatcmpl-01a1a51e-ab04-70f9-95c4-1ae9527b6cd8\",\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"priceCents\\\":540,\\\"rationale\\\":\\\"Trimming slightly to signal flexibility while protecting margin on off-peak covers.\\\"}\",\"refusal\":null,\"role\":\"assistant\"},\"logprobs\":null}],\"created\":1793771612,\"model\":\"muse-spark-1.3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":810,\"prompt_tokens\":273,\"total_tokens\":1083,\"completion_tokens_details\":{\"reasoning_tokens\":776},\"prompt_tokens_details\":{\"cached_tokens\":0}}}",
+  "invoiceCostUsd": null,
+  "consumed": true
+}

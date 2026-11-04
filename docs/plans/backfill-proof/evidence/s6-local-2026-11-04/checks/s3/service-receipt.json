@@ -1,0 +1,214 @@
+{
+  "assurance": "Authored Voice/Wonder fixtures, silent synthetic WAV bytes, scripted owner actions; not genuine inference or human consent.",
+  "receipts": [
+    {
+      "case": "separate-exact-approval-and-idempotence",
+      "ownerId": "6a2b2559-6373-48c3-8229-c59c8b0b5e07",
+      "ruleId": "dbf3e498-933f-446d-9a31-6ddf8d6fb008",
+      "edit": {
+        "id": "285162ad-63a4-41b5-b5a7-15faf6035227",
+        "ruleId": "dbf3e498-933f-446d-9a31-6ddf8d6fb008",
+        "termsVersion": 1,
+        "revision": 1,
+        "phase": "applied",
+        "rawTranscript": "Set discount to 20%, capacity to 10, minimum pool to 6 and per-agent cap to 4.",
+        "transcript": "Set discount to 20%, capacity to 10, minimum pool to 6 and per-agent cap to 4.",
+        "source": "fixture",
+        "voiceModel": "fixture:voice-s3",
+        "wonderModel": "fixture:wonder-s3",
+        "proposalId": "76060ffd-26a2-4855-ac97-3e24409569e6",
+        "proposal": {
+          "understood": true,
+          "discountBps": 2000,
+          "capacityCovers": 10,
+          "minPoolCovers": 6,
+          "perAgentCapCovers": 4,
+          "reply": "Propose 20% off, capacity 10, minimum pool 6 and per-agent cap 4."
+        },
+        "before": {
+          "discountBps": 1500,
+          "capacityCovers": 8,
+          "minPoolCovers": 8,
+          "perAgentCapCovers": 2
+        },
+        "reason": null,
+        "expiresAt": "2026-11-04T02:15:54.950Z",
+        "audio": {
+          "sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+          "durationMs": 1000
+        },
+        "approval": {
+          "proposalId": "76060ffd-26a2-4855-ac97-3e24409569e6",
+          "at": "2026-11-04T02:00:55.001Z",
+          "version": 2
+        }
+      },
+      "before": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      },
+      "after": {
+        "terms_version": 2,
+        "discount_bps": 2000,
+        "capacity_covers": 10,
+        "min_pool_covers": 6,
+        "per_agent_cap_covers": 4
+      },
+      "outcomes": [
+        "applied",
+        "already_applied"
+      ],
+      "calls": {
+        "voice": 1,
+        "wonder": 1
+      }
+    },
+    {
+      "case": "cross-owner",
+      "ownerId": "180b5850-7e14-4298-aa70-acf7e87914e4",
+      "strangerId": "cf33b2a5-fad2-415c-9947-ac59ce44468d",
+      "editId": "252f4c5d-62a0-4379-93a8-67c2e7e04a82",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "corrected-transcript-invalidates-old-proposal",
+      "editId": "0eec6df6-82d9-44fd-84f9-ea2e3f274fc0",
+      "oldProposalId": "529bf194-a41e-443a-9661-c35f79a1437e",
+      "revision": 2,
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "mixed-unsupported",
+      "ownerId": "dc3ee894-963a-4858-8e3f-15dd190b69c0",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "ambiguity-invalid-provider-floor",
+      "ownerId": "6e33a575-5ee8-476f-8ee0-231e5e9ef8f5",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "audio-failure-cancel-collision",
+      "ownerId": "1a5666dd-4d6d-47dc-a89d-6d00113dfef3",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "stale-and-superseded",
+      "capacityOnly": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 12,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      },
+      "versionChanged": {
+        "terms_version": 2,
+        "discount_bps": 1600,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      },
+      "superseded": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "interrupted-requests",
+      "cancelledAudioId": "6dcf47fc-dc84-4317-a13a-f20994b388cc",
+      "correctedEditId": "e64161aa-2259-487d-bbde-5a64eaf2f192",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "pending-commitment",
+      "ownerId": "fddd4af3-d877-432f-a6f5-e0e8defebd5c",
+      "ruleId": "2aeb6887-1b66-421f-ba2c-6142bbd6c205",
+      "commitmentId": "ab9aec07-5c09-48cf-a48b-f71811085706",
+      "before": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      },
+      "after": {
+        "terms_version": 2,
+        "discount_bps": 2000,
+        "capacity_covers": 10,
+        "min_pool_covers": 6,
+        "per_agent_cap_covers": 4
+      }
+    },
+    {
+      "case": "expired-and-forged-binding",
+      "expiredId": "fa528ce5-f1cd-4601-92f4-287a2d1570d6",
+      "editId": "72b735e7-0261-4f5b-931f-034fd8aab335",
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    },
+    {
+      "case": "rate-bounds",
+      "ownerId": "95a9c0c7-cdd9-497e-8461-26d8bfff8320",
+      "editId": "096c1e81-acc4-40ea-8592-35746b91dc4a",
+      "revision": 10,
+      "calls": {
+        "voice": 1,
+        "wonder": 0
+      },
+      "unchanged": {
+        "terms_version": 1,
+        "discount_bps": 1500,
+        "capacity_covers": 8,
+        "min_pool_covers": 8,
+        "per_agent_cap_covers": 2
+      }
+    }
+  ]
+}

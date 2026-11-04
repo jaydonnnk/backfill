@@ -1,0 +1,34 @@
+{
+  "version": "s6-live-1",
+  "approved": false,
+  "model": "muse-spark-1.3",
+  "endpoint": "https://api.meta.ai/v1/chat/completions",
+  "limits": {
+    "maxRequests": 16,
+    "maxCompletionTokens": 1024,
+    "contextTokens": 1048576,
+    "ceilingUsd": 21.05,
+    "maximumCalculatedUsd": 21.041152,
+    "retries": 0,
+    "timeoutMs": 60000,
+    "totalTimeoutMs": 960000,
+    "maxRequestBytes": 8192,
+    "maxResponseBytes": 65536
+  },
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "pricing": {
+    "inputUsdPerMillion": 1.25,
+    "outputUsdPerMillion": 4.25,
+    "cachedInputUsdPerMillion": 0.15,
+    "source": "https://dev.meta.ai/docs/pricing-rate-limits",
+    "verifiedOn": "2026-11-04",
+    "contextSource": "https://dev.meta.ai/docs/models",
+    "completionLimitSource": "https://dev.meta.ai/docs/api-reference/chat-completions/schemas",
+    "invoiceCostUsd": null
+  },
+  "retryPolicy": "No retries, polling, fallback, tools, search, or other models. Reserve full maximum per dispatched request, including failures.",
+  "approvalEnvironmentName": "BACKFILL_S6_PRICING_APPROVED",
+  "approvalValue": "s6-pricing-2026-11-04-16-requests-usd21.05",
+  "output": "docs/plans/backfill-proof/evidence/s6-live-authorized-2026-11-04-01"
+}

@@ -36,7 +36,14 @@ export async function createTestDatabase(label: string): Promise<TestDatabase> {
   }
 
   const url = withDatabase(baseUrl, name);
-  await runMigrations(url);
+  try {
+    await runMigrations(url);
+  } catch (error) {
+    const cleanup = postgres(baseUrl, { max: 1, onnotice: () => {} });
+    try { await cleanup.unsafe(`DROP DATABASE IF EXISTS "${name}" WITH (FORCE)`); }
+    finally { await cleanup.end({ timeout: 5 }); }
+    throw error;
+  }
   const admin = postgres(url, { max: 1, onnotice: () => {} });
   const app = connectDb(url, 2);
 

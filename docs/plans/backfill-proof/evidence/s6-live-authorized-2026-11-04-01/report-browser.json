@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-11-04T05:57:43.077Z",
+  "checks": [
+    {
+      "label": "desktop",
+      "width": 1280,
+      "height": 1000,
+      "caseRows": 12,
+      "documentOverflow": false,
+      "pageErrors": [],
+      "externalRequests": [],
+      "screenshot": "/Users/jayd0/Desktop/meta-hack/archive/proof-s6-preparation-2026-11-04/s6-live-report-desktop.png"
+    },
+    {
+      "label": "mobile",
+      "width": 375,
+      "height": 812,
+      "caseRows": 12,
+      "documentOverflow": false,
+      "pageErrors": [],
+      "externalRequests": [],
+      "screenshot": "/Users/jayd0/Desktop/meta-hack/archive/proof-s6-preparation-2026-11-04/s6-live-report-mobile.png"
+    }
+  ]
+}

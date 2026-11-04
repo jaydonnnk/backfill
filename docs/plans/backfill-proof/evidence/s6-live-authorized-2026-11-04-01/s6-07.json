@@ -1,0 +1,851 @@
+{
+  "id": "s6-07",
+  "description": "Capacity already exhausted by earlier parties",
+  "baseline": {
+    "id": "s6-07",
+    "description": "Capacity already exhausted by earlier parties",
+    "acceptedQuoteCents": 535,
+    "proposalCallbacks": 1,
+    "pooledCovers": 8,
+    "soloCovers": 0,
+    "focalConfirmedCovers": 0,
+    "chargedCents": 4352,
+    "savingsCents": 1088,
+    "focalChargedCents": 0,
+    "guardRejectedProposals": 0,
+    "refusal": null,
+    "inputs": [
+      {
+        "input": {
+          "merchantName": "S6 synthetic cafe 07",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "previousPriceCents": 544,
+          "bidCents": 535,
+          "covers": 2,
+          "round": 1,
+          "maxRounds": 3,
+          "maxConcessionCents": 17
+        },
+        "sha256": "673a19eafa9c2a15a9c5188928c3f5c5f38e54a614e034a33577828efc5dbfe1",
+        "proposal": 535,
+        "localCallbackMs": 0.01754100000107428
+      }
+    ],
+    "rounds": [
+      {
+        "negotiationId": "6174aef1-27dc-492a-8eb5-3078dc538024",
+        "round": 1,
+        "bidCents": 535,
+        "proposedCents": 535,
+        "proposalVerdict": "ok",
+        "status": "accepted",
+        "counterCents": 535,
+        "createdAt": "2026-11-04T05:53:48.945Z"
+      }
+    ],
+    "approvals": [
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "6db04ea1-3da6-428c-883b-e232b6e658d8",
+          "partyId": "s6-07-background-0",
+          "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:00.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "6db04ea1-3da6-428c-883b-e232b6e658d8",
+          "partyId": "s6-07-background-1",
+          "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:01.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "6db04ea1-3da6-428c-883b-e232b6e658d8",
+          "partyId": "s6-07-background-2",
+          "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:02.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "6db04ea1-3da6-428c-883b-e232b6e658d8",
+          "partyId": "s6-07-background-3",
+          "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:03.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "6db04ea1-3da6-428c-883b-e232b6e658d8",
+          "partyId": "s6-07-focal",
+          "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 535,
+          "totalCents": 1070
+        },
+        "approvedAt": "2026-11-12T01:01:00.000Z",
+        "observedTermsVersion": 1
+      }
+    ],
+    "focalEvents": [
+      {
+        "event": "quote_accepted",
+        "testClock": "2026-11-12T01:01:00.000Z",
+        "termsVersion": 1
+      },
+      {
+        "event": "scripted_approval",
+        "testClock": "2026-11-12T01:01:00.000Z",
+        "termsVersion": 1
+      },
+      {
+        "event": "submitted",
+        "testClock": "2026-11-12T01:01:00.000Z"
+      },
+      {
+        "event": "settled",
+        "testClock": "2026-11-12T04:00:01.000Z"
+      }
+    ],
+    "submissions": [
+      {
+        "partyId": "s6-07-background-0",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "4bd137cf-cb1d-4b0d-87c1-cd0b8f2d44e6",
+            "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:00.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 2,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-1",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "f3f32367-8d4a-421e-8355-7f6e13bf8670",
+            "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:01.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 4,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-2",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "54f0d6bb-93eb-47ce-98b1-cb7f061c610e",
+            "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:02.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 6,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-3",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "f4d8c52c-bcab-48fc-a084-32ee8558c773",
+            "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:03.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 8,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-focal",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "edbe08dc-7af3-4219-a340-aba7a40bf13f",
+            "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 535,
+            "negotiatedPriceCents": 535,
+            "committedAt": "2026-11-12T01:01:00.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 10,
+            "minPoolCovers": 8
+          }
+        }
+      }
+    ],
+    "storedCommitments": [
+      {
+        "id": "4bd137cf-cb1d-4b0d-87c1-cd0b8f2d44e6",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "agentId": "s6-07-background-0",
+        "idempotencyKey": "s6-07-bg-0",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:00.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "f3f32367-8d4a-421e-8355-7f6e13bf8670",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "agentId": "s6-07-background-1",
+        "idempotencyKey": "s6-07-bg-1",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:01.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "54f0d6bb-93eb-47ce-98b1-cb7f061c610e",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "agentId": "s6-07-background-2",
+        "idempotencyKey": "s6-07-bg-2",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:02.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "f4d8c52c-bcab-48fc-a084-32ee8558c773",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "agentId": "s6-07-background-3",
+        "idempotencyKey": "s6-07-bg-3",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:03.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "edbe08dc-7af3-4219-a340-aba7a40bf13f",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "agentId": "s6-07-focal",
+        "idempotencyKey": "s6-07-focal",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 535,
+        "acceptedPricePerCoverCents": 535,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:01:00.000Z",
+        "cancelledAt": null,
+        "negotiationId": "6174aef1-27dc-492a-8eb5-3078dc538024",
+        "negotiatedPriceCents": 535
+      }
+    ],
+    "storedClearing": [
+      {
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "visitDate": "2026-11-12",
+        "termsVersion": 1,
+        "unlocked": true,
+        "pricePerCoverCents": 544,
+        "clearedAt": "2026-11-04T05:53:48.957Z"
+      }
+    ],
+    "storedFills": [
+      {
+        "commitmentId": "4bd137cf-cb1d-4b0d-87c1-cd0b8f2d44e6",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "f3f32367-8d4a-421e-8355-7f6e13bf8670",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "54f0d6bb-93eb-47ce-98b1-cb7f061c610e",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "f4d8c52c-bcab-48fc-a084-32ee8558c773",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      }
+    ],
+    "ledgerEntries": [
+      {
+        "id": 16,
+        "createdAt": "2026-11-04T05:53:48.957Z",
+        "commitmentId": "4bd137cf-cb1d-4b0d-87c1-cd0b8f2d44e6",
+        "merchantId": "c2027179-d85b-4df4-b836-244f65c6463a",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 17,
+        "createdAt": "2026-11-04T05:53:48.957Z",
+        "commitmentId": "f3f32367-8d4a-421e-8355-7f6e13bf8670",
+        "merchantId": "c2027179-d85b-4df4-b836-244f65c6463a",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 18,
+        "createdAt": "2026-11-04T05:53:48.957Z",
+        "commitmentId": "54f0d6bb-93eb-47ce-98b1-cb7f061c610e",
+        "merchantId": "c2027179-d85b-4df4-b836-244f65c6463a",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 19,
+        "createdAt": "2026-11-04T05:53:48.957Z",
+        "commitmentId": "f4d8c52c-bcab-48fc-a084-32ee8558c773",
+        "merchantId": "c2027179-d85b-4df4-b836-244f65c6463a",
+        "ruleId": "fa8d31ac-6381-471c-8549-a3362ea290e2",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      }
+    ],
+    "soloCounterfactual": [
+      {
+        "commitmentId": "4bd137cf-cb1d-4b0d-87c1-cd0b8f2d44e6",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "f3f32367-8d4a-421e-8355-7f6e13bf8670",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "54f0d6bb-93eb-47ce-98b1-cb7f061c610e",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "f4d8c52c-bcab-48fc-a084-32ee8558c773",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "edbe08dc-7af3-4219-a340-aba7a40bf13f",
+        "unlocked": false
+      }
+    ],
+    "ai": {
+      "status": "unmeasured",
+      "reason": "No matching recorded merchant-proposal outputs admitted; no new inference authorized.",
+      "costUsd": null,
+      "providerLatencyMs": null
+    }
+  },
+  "model": {
+    "id": "s6-07",
+    "description": "Capacity already exhausted by earlier parties",
+    "acceptedQuoteCents": null,
+    "proposalCallbacks": 1,
+    "pooledCovers": 8,
+    "soloCovers": 0,
+    "focalConfirmedCovers": 0,
+    "chargedCents": 4352,
+    "savingsCents": 1088,
+    "focalChargedCents": 0,
+    "guardRejectedProposals": 0,
+    "refusal": null,
+    "inputs": [
+      {
+        "input": {
+          "merchantName": "S6 synthetic cafe 07",
+          "listPriceCents": 680,
+          "offerPriceCents": 544,
+          "previousPriceCents": 544,
+          "bidCents": 535,
+          "covers": 2,
+          "round": 1,
+          "maxRounds": 3,
+          "maxConcessionCents": 17
+        },
+        "sha256": "673a19eafa9c2a15a9c5188928c3f5c5f38e54a614e034a33577828efc5dbfe1",
+        "proposal": 544,
+        "localCallbackMs": 5002.4934580000045
+      }
+    ],
+    "rounds": [
+      {
+        "negotiationId": "07ceebb9-7e76-409c-9bc3-8aa41a75c945",
+        "round": 1,
+        "bidCents": 535,
+        "proposedCents": 544,
+        "proposalVerdict": "ok",
+        "status": "held",
+        "counterCents": 544,
+        "createdAt": "2026-11-04T05:53:53.995Z"
+      }
+    ],
+    "approvals": [
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "37f39fe4-3d75-4eb8-938d-2bb6bec18341",
+          "partyId": "s6-07-background-0",
+          "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:00.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "37f39fe4-3d75-4eb8-938d-2bb6bec18341",
+          "partyId": "s6-07-background-1",
+          "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:01.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "37f39fe4-3d75-4eb8-938d-2bb6bec18341",
+          "partyId": "s6-07-background-2",
+          "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:02.000Z",
+        "observedTermsVersion": 1
+      },
+      {
+        "source": "scripted_local_demo",
+        "terms": {
+          "runId": "37f39fe4-3d75-4eb8-938d-2bb6bec18341",
+          "partyId": "s6-07-background-3",
+          "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+          "termsVersion": 1,
+          "visitDate": "2026-11-12",
+          "covers": 2,
+          "pricePerCoverCents": 544,
+          "totalCents": 1088
+        },
+        "approvedAt": "2026-11-12T01:00:03.000Z",
+        "observedTermsVersion": 1
+      }
+    ],
+    "focalEvents": [
+      {
+        "event": "settled",
+        "testClock": "2026-11-12T04:00:01.000Z"
+      }
+    ],
+    "submissions": [
+      {
+        "partyId": "s6-07-background-0",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "4e731020-96e2-4903-bb43-5dd912b7ab97",
+            "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:00.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 2,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-1",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "797e3483-a052-4a55-9a0a-df92ca94da92",
+            "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:01.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 4,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-2",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "fb229290-56f6-4320-b9bd-81f6e2a06e1f",
+            "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:02.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 6,
+            "minPoolCovers": 8
+          }
+        }
+      },
+      {
+        "partyId": "s6-07-background-3",
+        "result": {
+          "ok": true,
+          "replayed": false,
+          "commitment": {
+            "commitmentId": "9ebdda7e-63c7-4e9c-9cd9-bafdb2856fde",
+            "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+            "termsVersion": 1,
+            "visitDate": "2026-11-12",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "committedAt": "2026-11-12T01:00:03.000Z",
+            "commitBy": "2026-11-12T04:00:00.000Z",
+            "status": "pending",
+            "pooledCovers": 8,
+            "minPoolCovers": 8
+          }
+        }
+      }
+    ],
+    "storedCommitments": [
+      {
+        "id": "4e731020-96e2-4903-bb43-5dd912b7ab97",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "agentId": "s6-07-background-0",
+        "idempotencyKey": "s6-07-bg-0",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:00.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "797e3483-a052-4a55-9a0a-df92ca94da92",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "agentId": "s6-07-background-1",
+        "idempotencyKey": "s6-07-bg-1",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:01.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "fb229290-56f6-4320-b9bd-81f6e2a06e1f",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "agentId": "s6-07-background-2",
+        "idempotencyKey": "s6-07-bg-2",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:02.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      },
+      {
+        "id": "9ebdda7e-63c7-4e9c-9cd9-bafdb2856fde",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "agentId": "s6-07-background-3",
+        "idempotencyKey": "s6-07-bg-3",
+        "termsVersion": 1,
+        "covers": 2,
+        "maxPricePerCoverCents": 544,
+        "acceptedPricePerCoverCents": 544,
+        "visitAt": "2026-11-12T06:00:00.000Z",
+        "committedAt": "2026-11-12T01:00:03.000Z",
+        "cancelledAt": null,
+        "negotiationId": null,
+        "negotiatedPriceCents": null
+      }
+    ],
+    "storedClearing": [
+      {
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "visitDate": "2026-11-12",
+        "termsVersion": 1,
+        "unlocked": true,
+        "pricePerCoverCents": 544,
+        "clearedAt": "2026-11-04T05:53:54.001Z"
+      }
+    ],
+    "storedFills": [
+      {
+        "commitmentId": "4e731020-96e2-4903-bb43-5dd912b7ab97",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "797e3483-a052-4a55-9a0a-df92ca94da92",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "fb229290-56f6-4320-b9bd-81f6e2a06e1f",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      },
+      {
+        "commitmentId": "9ebdda7e-63c7-4e9c-9cd9-bafdb2856fde",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "visitDate": "2026-11-12",
+        "covers": 2,
+        "pricePerCoverCents": 544
+      }
+    ],
+    "ledgerEntries": [
+      {
+        "id": 9,
+        "createdAt": "2026-11-04T05:53:54.001Z",
+        "commitmentId": "4e731020-96e2-4903-bb43-5dd912b7ab97",
+        "merchantId": "e3c17ace-ba1f-421e-b089-679f9f8ae9f4",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 10,
+        "createdAt": "2026-11-04T05:53:54.001Z",
+        "commitmentId": "797e3483-a052-4a55-9a0a-df92ca94da92",
+        "merchantId": "e3c17ace-ba1f-421e-b089-679f9f8ae9f4",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 11,
+        "createdAt": "2026-11-04T05:53:54.001Z",
+        "commitmentId": "fb229290-56f6-4320-b9bd-81f6e2a06e1f",
+        "merchantId": "e3c17ace-ba1f-421e-b089-679f9f8ae9f4",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      },
+      {
+        "id": 12,
+        "createdAt": "2026-11-04T05:53:54.001Z",
+        "commitmentId": "9ebdda7e-63c7-4e9c-9cd9-bafdb2856fde",
+        "merchantId": "e3c17ace-ba1f-421e-b089-679f9f8ae9f4",
+        "ruleId": "37f3e6e7-ffa0-4d8d-ae5f-eb37d8df66f0",
+        "covers": 2,
+        "listPriceCents": 680,
+        "pricePerCoverCents": 544,
+        "savingsCents": 272,
+        "buyerShareCents": 272,
+        "agentShareCents": 0,
+        "networkShareCents": 0
+      }
+    ],
+    "soloCounterfactual": [
+      {
+        "commitmentId": "4e731020-96e2-4903-bb43-5dd912b7ab97",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "797e3483-a052-4a55-9a0a-df92ca94da92",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "fb229290-56f6-4320-b9bd-81f6e2a06e1f",
+        "unlocked": false
+      },
+      {
+        "commitmentId": "9ebdda7e-63c7-4e9c-9cd9-bafdb2856fde",
+        "unlocked": false
+      }
+    ],
+    "ai": {
+      "status": "live_attempt_recorded",
+      "invoiceCostUsd": null,
+      "requests": [
+        {
+          "provider": "meta",
+          "model": "muse-spark-1.3",
+          "purpose": "negotiation",
+          "attempt": 1,
+          "tokensIn": 273,
+          "tokensCachedIn": 0,
+          "tokensOut": 530,
+          "costNanoUsd": 2593750,
+          "latencyMs": 4979,
+          "ok": true,
+          "httpStatus": 200,
+          "error": null,
+          "output": "{\"priceCents\": 544, \"rationale\": \"Holding firm in round 1 to protect margin on off-peak covers.\"}",
+          "usageStatus": "reported",
+          "caseId": "s6-07",
+          "round": 1,
+          "inputSha256": "673a19eafa9c2a15a9c5188928c3f5c5f38e54a614e034a33577828efc5dbfe1",
+          "invoiceCostUsd": null,
+          "estimatedCostUsd": 0.00259375
+        }
+      ]
+    },
+    "provenance": "live_meta"
+  }
+}

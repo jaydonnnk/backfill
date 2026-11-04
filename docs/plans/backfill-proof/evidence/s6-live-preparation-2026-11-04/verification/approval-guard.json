@@ -1,0 +1,7 @@
+{
+  "command": "node --import tsx scripts/verification/proof-s6-live.ts --execute",
+  "approvalProvided": false,
+  "exitCode": 1,
+  "liveDirectoryCreated": false,
+  "newInferenceCalls": 0
+}

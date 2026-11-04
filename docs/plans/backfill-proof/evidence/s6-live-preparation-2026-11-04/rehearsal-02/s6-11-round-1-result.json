@@ -1,0 +1,21 @@
+{
+  "provider": "meta",
+  "model": "muse-spark-1.3",
+  "purpose": "negotiation",
+  "attempt": 1,
+  "tokensIn": 100,
+  "tokensCachedIn": 0,
+  "tokensOut": 20,
+  "costNanoUsd": 210000,
+  "latencyMs": 14,
+  "ok": true,
+  "httpStatus": 200,
+  "error": null,
+  "output": "{\"priceCents\":544,\"rationale\":\"Scripted holding policy for offline rehearsal\"}",
+  "usageStatus": "reported",
+  "caseId": "s6-11",
+  "round": 1,
+  "inputSha256": "289f49a77cab822c206f3c4642457b35f13bab860c8df6f47dbb7eb432b4ea2d",
+  "invoiceCostUsd": null,
+  "estimatedCostUsd": 0.00021
+}

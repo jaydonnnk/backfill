@@ -1,0 +1,75 @@
+{
+  "caseId": "s6-03",
+  "round": 2,
+  "consumed": true,
+  "endpoint": "https://api.meta.ai/v1/chat/completions",
+  "input": {
+    "merchantName": "S6 synthetic cafe 03",
+    "listPriceCents": 680,
+    "offerPriceCents": 544,
+    "previousPriceCents": 544,
+    "bidCents": 520,
+    "covers": 2,
+    "round": 2,
+    "maxRounds": 3,
+    "maxConcessionCents": 17
+  },
+  "inputSha256": "5c4f65e06707f70a04ae4ffec8062fe2ec7ede72ca5018839e4b80a5ac01d337",
+  "requestBody": {
+    "model": "muse-spark-1.3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are the pricing agent of a small Singapore food and drink merchant on Backfill. Reply only with JSON matching the schema."
+      },
+      {
+        "role": "user",
+        "content": "You price off-peak covers for S6 synthetic cafe 03, a Singapore food and drink merchant.\nList price S$6.80 (680 cents); published agent offer S$5.44 (544 cents).\nA buyer agent wants 2 cover(s) and bids 520 cents per cover. Your current price is 544 cents.\nThis is round 2 of at most 3.\nPropose your price per cover in cents: not above 544, not below 527, and not below the bid.\nHolding at your current price is allowed. Concede slowly: an empty off-peak seat earns nothing, but every cent conceded is margin lost."
+      }
+    ],
+    "max_completion_tokens": 1024,
+    "reasoning_effort": "low",
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "MerchantProposal",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "priceCents": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991,
+              "description": "Your price per cover in SGD cents for this round."
+            },
+            "rationale": {
+              "type": "string",
+              "maxLength": 300,
+              "description": "One short sentence on why, for the merchant's log."
+            }
+          },
+          "required": [
+            "priceCents",
+            "rationale"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    }
+  },
+  "bodySha256": "06691dfc054d2de730fbb6083d6a354cceb41ea3497a2bcd1f1316058e1d0d19",
+  "startedAt": "2026-11-04T05:30:28.368Z",
+  "limits": {
+    "maxRequests": 16,
+    "maxCompletionTokens": 1024,
+    "contextTokens": 1048576,
+    "ceilingUsd": 21.05,
+    "maximumCalculatedUsd": 21.041152,
+    "retries": 0,
+    "timeoutMs": 60000,
+    "totalTimeoutMs": 960000,
+    "maxRequestBytes": 8192,
+    "maxResponseBytes": 65536
+  }
+}

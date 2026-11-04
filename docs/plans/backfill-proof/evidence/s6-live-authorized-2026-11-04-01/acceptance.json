@@ -1,0 +1,70 @@
+{
+  "acceptedAt": "2026-11-04T06:00:33.329Z",
+  "status": "complete_local",
+  "result": "No AI superiority on focal confirmations or total accepted amounts in this bounded synthetic comparison.",
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "genuineRequests": 15,
+  "successfulRequests": 15,
+  "retries": 0,
+  "providerParserFailures": 0,
+  "modelFocalCovers": 6,
+  "baselineFocalCovers": 12,
+  "modelPooledCovers": 32,
+  "baselinePooledCovers": 48,
+  "estimatedCostUsd": 0.03690665,
+  "invoiceCostUsd": null,
+  "unsafeConfirmedFills": 0,
+  "cleanup": {
+    "ownedRolesRemaining": 0,
+    "ownedDatabasesRemaining": 0,
+    "failures": [],
+    "requestsDispatched": 15,
+    "productionChanges": false
+  },
+  "allowance": {
+    "closedAt": "2026-11-04T05:57:41.781Z",
+    "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+    "approvedMaximumRequests": 16,
+    "requestsDispatched": 15,
+    "unusedSlots": 1,
+    "unusedSlotsReusable": false,
+    "automaticRetries": 0,
+    "additionalInferenceAuthorized": false,
+    "reason": "One approved run completed; the entire allowance is now closed.",
+    "productionChanges": false,
+    "publication": false
+  },
+  "reportChecks": [
+    {
+      "label": "desktop",
+      "width": 1280,
+      "height": 1000,
+      "caseRows": 12,
+      "documentOverflow": false,
+      "pageErrors": [],
+      "externalRequests": []
+    },
+    {
+      "label": "mobile",
+      "width": 375,
+      "height": 812,
+      "caseRows": 12,
+      "documentOverflow": false,
+      "pageErrors": [],
+      "externalRequests": []
+    }
+  ],
+  "offlineAuditScriptSha256": "305feb18fd202d292cff76e9eb8d0e4da087bd7210a95edd5d57cdc9dfe1b24a",
+  "preparationChecks": "599 tests/70 files, typecheck/lint and ten offline guards; unchanged pinned runtime",
+  "freshChecks": [
+    "Actual bounded inference run",
+    "Independent saved-record audit",
+    "Lint including offline audit CLI",
+    "Desktop/mobile report QA"
+  ],
+  "productSourceChanged": false,
+  "productionChanges": false,
+  "publication": false,
+  "s7OrS8Started": false
+}

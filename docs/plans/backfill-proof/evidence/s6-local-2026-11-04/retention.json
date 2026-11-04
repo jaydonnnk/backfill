@@ -1,0 +1,19 @@
+{
+  "scope": "Only superseded outputs generated during this S6 continuation. No prior S1-S5 evidence or call markers moved.",
+  "archived": [
+    {
+      "name": "run-01",
+      "reason": "Initial stale-approval event order incorrect and implementation inputs unpinned; never final acceptance.",
+      "archive": "archive/proof-s6-evidence-trim-2026-11-04/run-01",
+      "files": 15
+    },
+    {
+      "name": "run-02",
+      "reason": "Corrected proof, superseded after removing one unused import; report and outcomes unchanged.",
+      "archive": "archive/proof-s6-evidence-trim-2026-11-04/run-02",
+      "files": 19
+    }
+  ],
+  "finalRun": "run-03",
+  "caseFreezePreserved": true
+}

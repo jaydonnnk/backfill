@@ -1,0 +1,342 @@
+{
+  "version": "s6-pricing-1",
+  "frozenBeforeNewAiCalls": true,
+  "visitDate": "2026-11-12",
+  "referenceClock": "2026-11-12T01:00:00.000Z",
+  "focalClock": "2026-11-12T01:01:00.000Z",
+  "settlementClock": "2026-11-12T04:00:01.000Z",
+  "policy": "max(bidCents, previousPriceCents - maxConcessionCents)",
+  "maxRounds": 3,
+  "automaticRetries": 0,
+  "maxNewAiRequestsWithoutEarlyAcceptance": 16,
+  "liveAiAuthorized": false,
+  "ruleDefaults": {
+    "listPriceCents": 680,
+    "discountBps": 2000,
+    "weekday": 4,
+    "startMinute": 840,
+    "endMinute": 1020,
+    "commitByMinute": 720,
+    "perAgentCapCovers": 2
+  },
+  "cases": [
+    {
+      "id": "s6-01",
+      "merchantName": "S6 synthetic cafe 01",
+      "description": "Immediate public-offer acceptance",
+      "bidsCents": [
+        544
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 544,
+        "proposalCallbacks": 0,
+        "pooledCovers": 8,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-02",
+      "merchantName": "S6 synthetic cafe 02",
+      "description": "One valid small concession",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 8,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-03",
+      "merchantName": "S6 synthetic cafe 03",
+      "description": "Escalating buyer bids",
+      "bidsCents": [
+        500,
+        520,
+        540
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 520,
+        "proposalCallbacks": 2,
+        "pooledCovers": 8,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-04",
+      "merchantName": "S6 synthetic cafe 04",
+      "description": "Buyer budget cannot reach a valid price",
+      "bidsCents": [
+        480,
+        490,
+        500
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": null,
+        "proposalCallbacks": 3,
+        "pooledCovers": 0,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 1,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-05",
+      "merchantName": "S6 synthetic cafe 05",
+      "description": "Insufficient pooled demand",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 2,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 0,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-06",
+      "merchantName": "S6 synthetic cafe 06",
+      "description": "Lower minimum reached",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 2,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 6,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 6,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-07",
+      "merchantName": "S6 synthetic cafe 07",
+      "description": "Capacity already exhausted by earlier parties",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 4,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 8,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-08",
+      "merchantName": "S6 synthetic cafe 08",
+      "description": "Terms change after exact quote approval",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "change_terms",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 0,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": "stale_terms"
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-09",
+      "merchantName": "S6 synthetic cafe 09",
+      "description": "Deadline passes before submission",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "past_deadline",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 0,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": "past_deadline"
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-10",
+      "merchantName": "S6 synthetic cafe 10",
+      "description": "Focal party exceeds agent cap",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 3,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": null,
+        "proposalCallbacks": 0,
+        "pooledCovers": 0,
+        "focalConfirmedCovers": 0,
+        "soloCovers": 0,
+        "guardRejectedProposals": 0,
+        "refusal": "over_agent_cap"
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-11",
+      "merchantName": "S6 synthetic cafe 11",
+      "description": "One party also qualifies alone",
+      "bidsCents": [
+        535
+      ],
+      "backgroundParties": 0,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 2,
+        "capacityCovers": 8,
+        "floorPriceCents": 503
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 1,
+        "pooledCovers": 2,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 2,
+        "guardRejectedProposals": 0,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    },
+    {
+      "id": "s6-12",
+      "merchantName": "S6 synthetic cafe 12",
+      "description": "Hidden floor rejects first concession",
+      "bidsCents": [
+        527,
+        535,
+        540
+      ],
+      "backgroundParties": 3,
+      "focalCovers": 2,
+      "serverFixture": {
+        "minPoolCovers": 8,
+        "capacityCovers": 8,
+        "floorPriceCents": 535
+      },
+      "event": "normal",
+      "expectedBaseline": {
+        "acceptedQuoteCents": 535,
+        "proposalCallbacks": 2,
+        "pooledCovers": 8,
+        "focalConfirmedCovers": 2,
+        "soloCovers": 0,
+        "guardRejectedProposals": 1,
+        "refusal": null
+      },
+      "aiMeasurement": null
+    }
+  ]
+}

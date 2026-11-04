@@ -1,0 +1,392 @@
+{
+  "provenance": "authored synthetic fixtures; scripted approvals; offline model boundaries",
+  "repetition": 2,
+  "runtimeRole": "backfill_app member; not database owner",
+  "settings": {
+    "capacityCovers": 8,
+    "terms": {
+      "window": {
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720
+      },
+      "discountBps": 2000,
+      "minPoolCovers": 8,
+      "perAgentCapCovers": 2,
+      "floorPriceCents": 503
+    }
+  },
+  "menu": {
+    "currency": "SGD",
+    "items": [
+      {
+        "name": "Fixture kaya toast",
+        "priceCents": 450
+      },
+      {
+        "name": "Fixture kopi",
+        "priceCents": 230
+      }
+    ],
+    "cover": {
+      "itemIndexes": [
+        0,
+        1
+      ],
+      "description": "Synthetic kaya toast and kopi"
+    }
+  },
+  "wonder": {
+    "discountBps": 1500,
+    "capacityCovers": 10,
+    "minPoolCovers": 8,
+    "perAgentCapCovers": 2,
+    "rationale": "SCRIPTED S1 WONDER FIXTURE: add two covers after this synthetic sellout."
+  },
+  "clocks": {
+    "before": "2026-11-03T01:00:00.000Z",
+    "after": "2026-11-03T04:00:01.000Z"
+  },
+  "receipts": [
+    {
+      "scenario": "success",
+      "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+      "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+      "draftId": "8cf9f918-79e8-482e-b107-d40a71f731a9",
+      "beforeDeadline": "all pending, zero clearings/ledger entries",
+      "parties": [
+        {
+          "agentId": "s1-2-success-1",
+          "commitmentId": "8b95a96f-df25-427c-91c3-b7b940acd774",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-success-1"
+          }
+        },
+        {
+          "agentId": "s1-2-success-2",
+          "commitmentId": "af07addb-acb1-4ab4-8001-27b540c000b1",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-success-2"
+          }
+        },
+        {
+          "agentId": "s1-2-success-3",
+          "commitmentId": "6310c2c3-1a3a-4e98-88cb-cf55d5ea035f",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-success-3"
+          }
+        },
+        {
+          "agentId": "s1-2-success-4",
+          "commitmentId": "7010063f-74e1-4d02-8041-27d8b990deb8",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-success-4"
+          }
+        }
+      ],
+      "distinctCredentials": true,
+      "crossPartyRead": "not_found",
+      "clearings": [
+        {
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "visitDate": "2026-11-03",
+          "termsVersion": 1,
+          "unlocked": true,
+          "pricePerCoverCents": 544,
+          "clearedAt": "2026-11-04T02:00:54.484Z"
+        }
+      ],
+      "fills": [
+        {
+          "commitmentId": "6310c2c3-1a3a-4e98-88cb-cf55d5ea035f",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "visitDate": "2026-11-03",
+          "covers": 2,
+          "pricePerCoverCents": 544
+        },
+        {
+          "commitmentId": "7010063f-74e1-4d02-8041-27d8b990deb8",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "visitDate": "2026-11-03",
+          "covers": 2,
+          "pricePerCoverCents": 544
+        },
+        {
+          "commitmentId": "8b95a96f-df25-427c-91c3-b7b940acd774",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "visitDate": "2026-11-03",
+          "covers": 2,
+          "pricePerCoverCents": 544
+        },
+        {
+          "commitmentId": "af07addb-acb1-4ab4-8001-27b540c000b1",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "visitDate": "2026-11-03",
+          "covers": 2,
+          "pricePerCoverCents": 544
+        }
+      ],
+      "ledger": [
+        {
+          "id": 1,
+          "createdAt": "2026-11-04T02:00:54.484Z",
+          "commitmentId": "6310c2c3-1a3a-4e98-88cb-cf55d5ea035f",
+          "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "covers": 2,
+          "listPriceCents": 680,
+          "pricePerCoverCents": 544,
+          "savingsCents": 272,
+          "buyerShareCents": 272,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        {
+          "id": 2,
+          "createdAt": "2026-11-04T02:00:54.484Z",
+          "commitmentId": "7010063f-74e1-4d02-8041-27d8b990deb8",
+          "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "covers": 2,
+          "listPriceCents": 680,
+          "pricePerCoverCents": 544,
+          "savingsCents": 272,
+          "buyerShareCents": 272,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        {
+          "id": 3,
+          "createdAt": "2026-11-04T02:00:54.484Z",
+          "commitmentId": "8b95a96f-df25-427c-91c3-b7b940acd774",
+          "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "covers": 2,
+          "listPriceCents": 680,
+          "pricePerCoverCents": 544,
+          "savingsCents": 272,
+          "buyerShareCents": 272,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        {
+          "id": 4,
+          "createdAt": "2026-11-04T02:00:54.484Z",
+          "commitmentId": "af07addb-acb1-4ab4-8001-27b540c000b1",
+          "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+          "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+          "covers": 2,
+          "listPriceCents": 680,
+          "pricePerCoverCents": 544,
+          "savingsCents": 272,
+          "buyerShareCents": 272,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        }
+      ],
+      "reconciliation": {
+        "totals": {
+          "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+          "entries": 4,
+          "covers": 8,
+          "listValueCents": 5440,
+          "chargedCents": 4352,
+          "savingsCents": 1088,
+          "buyerShareCents": 1088,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        "missing": [],
+        "mismatched": [],
+        "orphaned": [],
+        "reconciled": true
+      },
+      "publicLedger": {
+        "covers": 8,
+        "buyerShareCents": 1088,
+        "agentShareCents": 0,
+        "networkShareCents": 0,
+        "agentsCommitted": 4,
+        "poolsUnlocked": 1,
+        "reconciled": true,
+        "pools": [
+          {
+            "ruleId": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+            "visitDate": "2026-11-03",
+            "clearedAt": "2026-11-04T02:00:54.484Z",
+            "unlocked": true,
+            "covers": 8,
+            "buyerShareCents": 1088,
+            "agentShareCents": 0,
+            "networkShareCents": 0,
+            "reconciled": true
+          }
+        ]
+      },
+      "unchangedUntilOwnerApproval": true,
+      "ownerApproval": {
+        "status": "applied",
+        "termsVersion": 2
+      },
+      "finalRule": {
+        "id": "bc274671-c8ea-4ad2-8a13-ac923f142d00",
+        "merchantId": "8e8d2539-8d5d-4d88-aa69-dac1cb24c2cc",
+        "termsVersion": 2,
+        "listPriceCents": 680,
+        "capacityCovers": 10,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 1500,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      }
+    },
+    {
+      "scenario": "insufficient",
+      "merchantId": "19623450-5488-40b1-91d4-2cbb394a32bd",
+      "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+      "draftId": "055a5055-f4bf-4173-aeac-603f34e32e01",
+      "beforeDeadline": "all pending, zero clearings/ledger entries",
+      "parties": [
+        {
+          "agentId": "s1-2-insufficient-1",
+          "commitmentId": "59c62ecc-42ba-4ab7-b249-96ce3457bac7",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-insufficient-1"
+          }
+        },
+        {
+          "agentId": "s1-2-insufficient-2",
+          "commitmentId": "53db0f7a-ad08-4ab5-9e4e-b62018e0224f",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-insufficient-2"
+          }
+        },
+        {
+          "agentId": "s1-2-insufficient-3",
+          "commitmentId": "b86e0f31-375a-455d-b07a-e81d74fc0388",
+          "approval": {
+            "provenance": "scripted",
+            "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+            "termsVersion": 1,
+            "visitDate": "2026-11-03",
+            "covers": 2,
+            "maxPricePerCoverCents": 544,
+            "idempotencyKey": "scripted-approval-s1-2-insufficient-3"
+          }
+        }
+      ],
+      "distinctCredentials": true,
+      "crossPartyRead": "not_found",
+      "clearings": [
+        {
+          "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+          "visitDate": "2026-11-03",
+          "termsVersion": 1,
+          "unlocked": false,
+          "pricePerCoverCents": 544,
+          "clearedAt": "2026-11-04T02:00:55.055Z"
+        }
+      ],
+      "fills": [],
+      "ledger": [],
+      "reconciliation": {
+        "totals": {
+          "merchantId": "19623450-5488-40b1-91d4-2cbb394a32bd",
+          "entries": 0,
+          "covers": 0,
+          "listValueCents": 0,
+          "chargedCents": 0,
+          "savingsCents": 0,
+          "buyerShareCents": 0,
+          "agentShareCents": 0,
+          "networkShareCents": 0
+        },
+        "missing": [],
+        "mismatched": [],
+        "orphaned": [],
+        "reconciled": true
+      },
+      "publicLedger": {
+        "covers": 0,
+        "buyerShareCents": 0,
+        "agentShareCents": 0,
+        "networkShareCents": 0,
+        "agentsCommitted": 3,
+        "poolsUnlocked": 0,
+        "reconciled": true,
+        "pools": [
+          {
+            "ruleId": "000af2a6-5850-44c0-bcf2-9721ae357790",
+            "visitDate": "2026-11-03",
+            "clearedAt": "2026-11-04T02:00:55.055Z",
+            "unlocked": false,
+            "covers": 0,
+            "buyerShareCents": 0,
+            "agentShareCents": 0,
+            "networkShareCents": 0,
+            "reconciled": true
+          }
+        ]
+      },
+      "unchangedUntilOwnerApproval": true,
+      "ownerApproval": null,
+      "finalRule": {
+        "id": "000af2a6-5850-44c0-bcf2-9721ae357790",
+        "merchantId": "19623450-5488-40b1-91d4-2cbb394a32bd",
+        "termsVersion": 1,
+        "listPriceCents": 680,
+        "capacityCovers": 8,
+        "weekday": 2,
+        "startMinute": 840,
+        "endMinute": 1020,
+        "commitByMinute": 720,
+        "discountBps": 2000,
+        "minPoolCovers": 8,
+        "perAgentCapCovers": 2,
+        "floorPriceCents": 503
+      }
+    }
+  ],
+  "modelCalls": 0
+}

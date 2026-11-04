@@ -1,0 +1,142 @@
+{
+  "provenance": "live_meta",
+  "assurance": "Twelve synthetic worlds; scripted approvals, actual local services/DB settlement. Solo is a clearing-engine counterfactual. No real customers, payments, attendance or revenue. No general model ranking.",
+  "casesEvaluated": 12,
+  "casesWithSuccessfulProposal": 10,
+  "newInferenceCalls": 15,
+  "scriptedTransportCalls": 0,
+  "successfulProposalRequests": 15,
+  "failedProposalRequests": 0,
+  "baseline": {
+    "cases": 12,
+    "focalConfirmedCases": 6,
+    "focalConfirmedCovers": 12,
+    "focalChargedCents": 6408,
+    "pooledCovers": 48,
+    "soloCovers": 2,
+    "poolChargedCents": 25992,
+    "poolSavingsCents": 6648,
+    "guardRejectedProposals": 2
+  },
+  "model": {
+    "cases": 12,
+    "focalConfirmedCases": 3,
+    "focalConfirmedCovers": 6,
+    "focalChargedCents": 3244,
+    "pooledCovers": 32,
+    "soloCovers": 0,
+    "poolChargedCents": 17388,
+    "poolSavingsCents": 4372,
+    "guardRejectedProposals": 0
+  },
+  "focalCoverDelta": -6,
+  "focalChargedCentsDelta": -3164,
+  "invoiceCostUsd": null,
+  "estimatedProviderCostUsd": 0.03690665,
+  "guardedAttemptLatenciesMs": [
+    {
+      "caseId": "s6-02",
+      "round": 1,
+      "latencyMs": 8554,
+      "ok": true
+    },
+    {
+      "caseId": "s6-03",
+      "round": 1,
+      "latencyMs": 4626,
+      "ok": true
+    },
+    {
+      "caseId": "s6-03",
+      "round": 2,
+      "latencyMs": 5166,
+      "ok": true
+    },
+    {
+      "caseId": "s6-04",
+      "round": 1,
+      "latencyMs": 4470,
+      "ok": true
+    },
+    {
+      "caseId": "s6-04",
+      "round": 2,
+      "latencyMs": 9493,
+      "ok": true
+    },
+    {
+      "caseId": "s6-04",
+      "round": 3,
+      "latencyMs": 7792,
+      "ok": true
+    },
+    {
+      "caseId": "s6-05",
+      "round": 1,
+      "latencyMs": 4754,
+      "ok": true
+    },
+    {
+      "caseId": "s6-06",
+      "round": 1,
+      "latencyMs": 3031,
+      "ok": true
+    },
+    {
+      "caseId": "s6-07",
+      "round": 1,
+      "latencyMs": 4979,
+      "ok": true
+    },
+    {
+      "caseId": "s6-08",
+      "round": 1,
+      "latencyMs": 4617,
+      "ok": true
+    },
+    {
+      "caseId": "s6-09",
+      "round": 1,
+      "latencyMs": 7116,
+      "ok": true
+    },
+    {
+      "caseId": "s6-11",
+      "round": 1,
+      "latencyMs": 4241,
+      "ok": true
+    },
+    {
+      "caseId": "s6-12",
+      "round": 1,
+      "latencyMs": 4864,
+      "ok": true
+    },
+    {
+      "caseId": "s6-12",
+      "round": 2,
+      "latencyMs": 5499,
+      "ok": true
+    },
+    {
+      "caseId": "s6-12",
+      "round": 3,
+      "latencyMs": 5990,
+      "ok": true
+    }
+  ],
+  "manifestSha256": "12a04aaf6a18dc851d79fb14775a11c604074d22997f01c4f1518c8304d15377",
+  "caseFileSha256": "5b148931137ad9b5072e05adf24fb564117763c70855a34ec80a79701b4c4e7c",
+  "limits": {
+    "maxRequests": 16,
+    "maxCompletionTokens": 1024,
+    "contextTokens": 1048576,
+    "ceilingUsd": 21.05,
+    "maximumCalculatedUsd": 21.041152,
+    "retries": 0,
+    "timeoutMs": 60000,
+    "totalTimeoutMs": 960000,
+    "maxRequestBytes": 8192,
+    "maxResponseBytes": 65536
+  }
+}
