@@ -49,6 +49,8 @@ export const merchants = pgTable(
     name: text("name").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     linkTokenSha256: text("link_token_sha256").unique("merchants_link_token_sha256_unique"),
+    // listed: buyer agents can see its offers. pending: a website signup awaiting review. sandbox: seen only by sandbox agents.
+    visibility: text("visibility").$type<"listed" | "pending" | "sandbox">().notNull().default("listed"),
   },
   (t) => [check("merchants_link_token_sha256_hex", sql`${t.linkTokenSha256} ~ '^[0-9a-f]{64}$'`)],
 );
@@ -98,6 +100,7 @@ export const agents = pgTable(
     tokenSha256: text("token_sha256").notNull().unique("agents_token_sha256_unique"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    scope: text("scope").$type<"standard" | "sandbox">().notNull().default("standard"),
   },
   (t) => [
     check("agents_id_present", sql`length(${t.id}) between 1 and 200`),

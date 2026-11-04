@@ -134,6 +134,13 @@
       "when": 1793862800000,
       "tag": "0018_merchant_self_service",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1793949200000,
+      "tag": "0019_final_leg",
+      "breakpoints": true
     }
   ]
 }
