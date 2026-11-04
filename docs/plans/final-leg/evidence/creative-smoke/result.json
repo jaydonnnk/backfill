@@ -1,0 +1,46 @@
+{
+  "status": "succeeded_on_authored_fixture",
+  "userApproval": "I approve one smoke, once render is live and deployed go ahead with it",
+  "extraMenuReadApproval": "User approved one extra menu read for a new synthetic merchant",
+  "code": "cb02d12097aea687110f4cb80038814111aee019",
+  "sourceSha256": "a8902442ba3f69745ba290ae4bb559542a9087192f9f03f6e074042d16eaf11d",
+  "merchant": "Backfill Merchant 2 (user-created for this smoke; pending, offer Awaiting review)",
+  "draftId": "d0e64e69-215a-45de-a3c9-76322740cd3f",
+  "assetSha256": "0938fd2d172b0b9f9bcf181f7cbf35aabb7176653d15d295647a86a5b377e6ab",
+  "requestsLogged": {
+    "menuRead": {
+      "attempts": 1,
+      "latencyMs": 9413,
+      "items": 12,
+      "costNanoUsd": 10952500
+    },
+    "sam": 1,
+    "image": 1,
+    "retries": 0
+  },
+  "samQuality": {
+    "foregroundPixels": 4800,
+    "maskMismatchPixels": 0
+  },
+  "imageQuality": "1600x1600 background; composed 720x355 asset carries the exact offer text; judged by eye",
+  "memory": {
+    "sam": {
+      "rssBeforeBytes": 169664512,
+      "rssAfterBytes": 172380160
+    },
+    "image": {
+      "rssBeforeBytes": 175898624,
+      "rssAfterBytes": 221573120
+    },
+    "caveat": "Request snapshots, not peak. Fixture is 160x120, so larger-photo memory safety is not proven."
+  },
+  "ownerApproval": "Local asset approval only, 2026-11-04T16:13:21.866Z. Nothing posted.",
+  "earlierBlockedAttempt": {
+    "assetId": "2fbbeeae-b237-40ba-bc62-b1a633d4338d",
+    "merchant": "Backfill Final Smoke Cafe (synthetic)",
+    "code": "media_unavailable",
+    "note": "Asset unreachable: access link lost. Flag not exactly 1 fits the block, and the run succeeded once 1 was confirmed; value at click time remains unknown."
+  },
+  "limits": "Authored rectangle, not a real dish. Real-dish mask quality not tested. Provider invoice not checked; SAM and Image costs not measured here.",
+  "rollback": "Flag was read back as 0, Live 2026-11-05 00:15 SGT, then deliberately enabled by owner decision."
+}

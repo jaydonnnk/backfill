@@ -1,0 +1,16 @@
+{
+  "source": "Authored synthetic geometry, not a real merchant dish",
+  "sourceSha256": "a8902442ba3f69745ba290ae4bb559542a9087192f9f03f6e074042d16eaf11d",
+  "samBodySha256": "067431eac9b812a9a628f2e4565c6d14aaa410633848e078e79b3275b7599022",
+  "imageBodySha256": "276ce6034ff70a2b7c16afc30fa211608fa28f6db315a1a306eb2d2681504455",
+  "maxRequests": {
+    "sam": 1,
+    "image": 1
+  },
+  "retries": 0,
+  "hostedDailyOperations": 20,
+  "merchantDailyOperations": 2,
+  "flag": "BACKFILL_CREATIVE_ENABLED",
+  "publication": false,
+  "approvalRequired": true
+}

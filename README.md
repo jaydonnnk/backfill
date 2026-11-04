@@ -19,8 +19,8 @@ The hosted buyer flow was verified on Nov 4 with NVIDIA Glimmer and Gateway Spar
 | Voice Transcribe | Owner voice edits for review | live in the product |
 | Muse Glimmer | Buyer intent through NVIDIA | live in the buyer sandbox |
 | Muse Spark Open | Buyer recommendation through Vercel AI Gateway | live in the buyer sandbox |
-| SAM 3.1 | Dish segmentation | one recorded run, not enabled in the hosted product |
-| Muse Image | Offer image generation | one recorded run, not enabled in the hosted product |
+| SAM 3.1 | Dish segmentation | enabled for merchants with daily caps; one hosted test on a synthetic image |
+| Muse Image | Offer image generation | enabled for merchants with daily caps; one hosted test on a synthetic image |
 
 The recorded scene had 11 of 20 simulated buyers commit and filled 16 covers. It does not prove merchant demand, actual attendance or recovered revenue. The author's own Muse account completed connector tests on Oct 29 and Nov 4. The Nov 4 sandbox commitment is independently verified in [the evidence](docs/plans/final-leg/evidence/muse-connector/README.md).
 

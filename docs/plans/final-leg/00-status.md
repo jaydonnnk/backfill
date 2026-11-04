@@ -69,3 +69,15 @@ Five new integration cases were observed failing before their implementations. T
 Ruling: quotas count hosted model operations, including failed operations, using the existing fixed database windows. Segmentation and an optional background each consume an operation. The budget is reserved in the asset-state transaction, with model dispatch afterward. Existing explicitly bounded replay/fixture runners can omit the quota callback; the normal hosted dependency always supplies it. Cost if wrong: two calls exhaust a merchant's day even when the provider fails, and direct operator runners retain their own spending responsibility.
 
 The hosted pixel limit leaves the original eight-million-pixel offline contract intact; actual source bytes are checked again at the hosted provider boundary. Cost if wrong: previously saved larger photos cannot be processed through the hosted flow and must be resized by their owner. Render memory and live mask quality remain unverified until the paid smoke.
+
+## Smoke handoff, Nov4 23:42 SGT
+
+Task11 code cb02d12 was published and reported Live. One cutout UI action was blocked with media_unavailable; production readback retained source phase, null model reservation timestamps and no creative quota rows. No provider dispatch was demonstrated and no Image action occurred. The root cause remains unresolved. A later direct check read the saved flag as `true`, not the reported `0`; code enables media only on exactly `1`, so media is effectively off. Public recorded-only model claims are unchanged. Full context: [handoff](handoff-2026-11-04.md). Task11 remains incomplete.
+
+Smoke continuation, Nov4 23:57 SGT: flag saved as `1` and Live, then the smoke stopped because no browser holds the smoke merchant's session. No media request was made. Flag reads `0`, deploy Live at 12:00 AM Nov 5. Task11 remains incomplete.
+
+Smoke result, Nov5 00:13 SGT: one SAM and one Image succeeded on the authored fixture with no retries, on Backfill Merchant 2. Mask exact; real-dish quality untested. Flag reads `0`, deploy Live at 00:15. `/evals` status and commit remain.
+
+## Hosted media enablement, Nov 5 SGT (Claude Code)
+
+The owner chose to enable hosted media after the smoke. `BACKFILL_CREATIVE_ENABLED` is set to `1` for all merchants, capped at 2 model operations per merchant and 20 globally per day. Public model statuses now say so and name the single synthetic-image test. Real-dish mask quality and larger-photo memory remain unproven. Rollback: set the flag to `0` and deploy.
