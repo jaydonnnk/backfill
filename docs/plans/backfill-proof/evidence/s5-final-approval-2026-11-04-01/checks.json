@@ -1,0 +1,11 @@
+{
+  "exactAssetHashReproduced": true,
+  "finalApprovalSaved": true,
+  "idempotentApprovalVerified": true,
+  "newInferenceCalls": 0,
+  "publicPosting": false,
+  "ownedCleanupVerified": true,
+  "typecheckPassed": true,
+  "subsequentFullSuiteTests": 580,
+  "testLog": "archive/proof-s6-all-tests.log"
+}
