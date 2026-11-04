@@ -68,7 +68,7 @@ for (const change of ['pool', 'null', 'stale', 'malformed', 'navigation', 'clear
         if (change === 'null') stream.send({ ...stream.snapshot, scene: null });
         if (change === 'stale') stream.stale();
         if (change === 'malformed') stream.malformed();
-        if (change === 'navigation') await page.getByRole('link', { name: 'Why Spark', exact: true }).click();
+        if (change === 'navigation') await page.getByRole('link', { name: "How it's checked", exact: true }).click();
         if (change === 'clearing') { stream.snapshot.scene!.phase = 'cleared'; stream.send(stream.snapshot); }
       }
       // Must cancel immediately, not merely expire on the 1.8-second timer.

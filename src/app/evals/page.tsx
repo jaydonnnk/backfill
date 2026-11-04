@@ -51,10 +51,14 @@ export default function Evals() {
 
     <section className="eval-result" aria-labelledby="result-title">
       <div>
-        <h2 id="result-title" className="eval-title">A fixed rule beat Spark</h2>
-        <p>In the frozen offline comparison, Spark filled 6 focal seats in 3 of 12 worlds. The fixed policy filled 12 in 6 of 12. Whole-pool seats were 32 versus 48.</p>
-        <p>This run did not show AI superiority. So prices, capacity, scope and exact terms are checked in code before a commitment counts.</p>
+        <h2 id="result-title" className="eval-title">We tested Spark against a simple rule. The guardrails stay.</h2>
+        <p>We ran Spark against a fixed policy in a frozen offline test. The fixed rule filled more seats: 12 focal seats to Spark&apos;s 6, and 48 whole-pool seats to 32.</p>
+        <p>That backs the design. No model sets the final terms. Prices, capacity, scope and exact terms are checked in code, and models do the work rules can&apos;t: reading menus, transcribing voice notes and drafting offers.</p>
       </div>
+    </section>
+
+    <details className="demo-details eval-more"><summary>See the comparison</summary><div className="demo-detail-content">
+      <p>Spark filled 6 focal seats in 3 of 12 worlds. The fixed policy filled 12 in 6 of 12. This run did not show AI superiority.</p>
       <figure className="result-chart">
         <figcaption className="result-legend"><span><i className="swatch spark-mark" />Spark</span><span><i className="swatch fixed-mark" />Fixed policy</span></figcaption>
         {results.map(row => <div className="result-row" key={row.label}>
@@ -63,7 +67,7 @@ export default function Evals() {
           <div title={`Fixed policy ${row.fixed}`}><span className="bar fixed-mark" style={{ width: `${row.fixed / row.max * 100}%` }} /><b>{row.fixed}</b></div>
         </div>)}
       </figure>
-    </section>
+    </div></details>
 
     <details className="demo-details eval-more"><summary>What the numbers leave out</summary><div className="demo-detail-content">
       <p>Visitors can try Glimmer and Spark Open with a synthetic sandbox merchant. Agent actions do not establish real-person consent.</p>

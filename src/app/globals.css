@@ -267,7 +267,7 @@ body { padding-bottom: 125px; }
 }
 .entry-kopi { width: 170px; height: 190px; }
 
-/* The Why Spark page shares the approved Kopi typography, palette and square structural rules. */
+/* The evals page shares the approved Kopi typography, palette and square structural rules. */
 .eval-page { display: flex; flex-direction: column; gap: 40px; padding-top: 56px; }
 .eval-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 48px; align-items: end; }
 .eval-heading .eyebrow { grid-column: 1 / -1; }
@@ -473,7 +473,7 @@ body { padding-bottom: 125px; }
   .demo-feed { align-items: flex-start; text-align: left; }
 }
 
-/* Why Spark: every model call crosses one visible line of code before a person decides. */
+/* Evals: every model call crosses one visible line of code before a person decides. */
 .eval-board { max-width: 1200px; display: flex; flex-direction: column; gap: 56px; padding-top: 24px; }
 .eval-hero h1 { font-size: clamp(32px, 5vw, 64px); line-height: 1.12; letter-spacing: -2px; max-width: 18ch; }
 .eval-hero p { margin-top: 18px; font-size: 20px; color: var(--muted); }
@@ -492,10 +492,10 @@ body { padding-bottom: 125px; }
 .lane-model { color: var(--muted); }
 .lane-model strong { color: var(--foreground); }
 .lane-check { background: var(--highlight); border-inline: 3px solid var(--accent); color: var(--foreground); }
-.eval-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: start; padding-top: 28px; border-top: 3px solid var(--foreground); }
+.eval-result { display: grid; align-items: start; padding-top: 28px; border-top: 3px solid var(--foreground); }
 .eval-result > div > p { font-size: 16px; line-height: 1.7; max-width: 58ch; }
 .eval-result > div > p + p { margin-top: 12px; color: var(--muted); }
-.result-chart { margin: 0; display: grid; gap: 20px; }
+.result-chart { margin: 16px 0 0; display: grid; gap: 20px; max-width: 720px; }
 .result-legend { display: flex; gap: 20px; font-size: 14px; }
 .result-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .swatch { width: 12px; height: 12px; display: inline-block; }
@@ -511,7 +511,6 @@ body { padding-bottom: 125px; }
 @media (prefers-color-scheme: dark) { :root { --chart-spark: #6f87f5; --chart-fixed: #d95fbd; } }
 @media (max-width: 800px) {
   .eval-board { gap: 40px; }
-  .eval-result { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .line-cols { display: none; }
   .line-band li { grid-template-columns: minmax(0, 1fr); padding-block: 8px; }
   .line-band li > span { padding-block: 5px; }
