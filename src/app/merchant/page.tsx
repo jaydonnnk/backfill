@@ -1,6 +1,7 @@
 import { merchantKopiCue, merchantStep } from "@/components/merchant-kopi";
 import { KopiMessage } from "@/components/kopi-companion";
-import { Kopi } from "@/components/kopi";
+import Link from "next/link";
+import { MerchantAccessForm } from "./access-form";
 import { percent } from "@/domain/onboarding/replan";
 import { available, dollars } from "@/lib/commitments/service";
 import { merchantLedger } from "@/lib/ledger/service";
@@ -55,8 +56,9 @@ const button = "rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text
 function SignedOut() {
   return (
     <main className="workspace-page">
-      <Kopi className="entry-kopi" label="Kopi, your Backfill guide" /><p className="eyebrow">Your merchant workspace</p><h1 className="text-2xl font-semibold tracking-tight">Your menu.<br />Your terms.</h1>
-      <p className="text-[var(--muted)]">Open the secret link Backfill gave you to manage your offers.</p>
+      <p className="eyebrow">Backfill for cafés and restaurants</p><h1>Your café.<br />Your quiet hours.<br />Your terms.</h1>
+      <p>Add your menu. Set your terms.</p>
+      <MerchantAccessForm />
     </main>
   );
 }
@@ -83,11 +85,11 @@ export default async function MerchantHome({ searchParams }: { searchParams: Pro
           <p className="text-sm text-[var(--muted)]">Backfill for merchants</p>
           <h1 className="text-2xl font-semibold tracking-tight break-words">{merchant.name}</h1>
         </div>
-        <form action={leave} className="shrink-0 pt-1">
+        <div className="flex shrink-0 flex-col items-end gap-3 pt-1"><Link href="/merchant/access" className="text-sm underline underline-offset-4">Save access link</Link><form action={leave}>
           <button type="submit" className="text-sm text-[var(--muted)] underline underline-offset-4">
             Sign out
           </button>
-        </form>
+        </form></div>
       </header>
 
       <KopiMessage {...cue} />

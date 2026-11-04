@@ -18,12 +18,11 @@ export default async function Home() {
         <p className="hero-intro"><span aria-hidden="true" />A little company for your quiet hours.</p>
         <h1>Hey, I&apos;m<br />Kopi.<br />Let&apos;s fill<br />the table.</h1>
         <p className="hero-description">Your menu. Your off-peak terms.<br />I&apos;ll show you how AI agents bring a group together, one commitment at a time.</p>
-        <div className="actions"><Link className="button primary" href="/demo">Meet your guide <span aria-hidden="true">↗</span></Link><Link className="hero-text-link" href="#how-it-works">How it works ↓</Link></div>
-        <p className="small muted">Working demo with a synthetic café and simulated buyers.</p>
+        <div className="actions"><Link className="button primary" href="/demo">Meet your guide <span aria-hidden="true">↗</span></Link><Link className="button" href="/merchant">I&apos;m a merchant</Link><Link className="hero-text-link" href="#how-it-works">How it works ↓</Link></div>
       </div>
-      <div className="hero-portrait"><span className="hero-bubble">Got a quiet afternoon?</span><Kopi label="Kopi, a smiling coffee-cup guide, waves hello" /><span className="hero-cross" aria-hidden="true">+</span><p>Your guide, from menu to full table.</p></div>
+      <div className="hero-portrait"><span className="hero-bubble">Got a quiet afternoon?</span><Kopi label="Kopi, a smiling coffee-cup guide, waves hello" /><span className="hero-cross" aria-hidden="true">+</span></div>
     </section>
-    <div className="hero-foot"><span>Built for Singapore’s cafés &amp; restaurants</span><span>You set the terms. You stay in control.</span></div>
+    <div className="hero-foot"><span>Built for cafés and restaurants in lull hours</span></div>
     <section aria-label="Recorded demo totals" className="landing-totals">
       <div><strong>{ledger ? ledger.covers : "—"}</strong><span>Covers filled</span></div>
       <div><strong>{ledger ? `S$${(ledger.buyerShareCents / 100).toFixed(2)}` : "—"}</strong><span>Buyer savings</span></div>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merchant access · design preview</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#faf7ef;color:#17152d;font:16px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}header,main,footer{max-width:1120px;margin:auto;padding:26px}header{display:flex;justify-content:space-between;border-bottom:1px solid #ddd7ca;gap:20px;flex-wrap:wrap}a{color:inherit}header strong{letter-spacing:3px}nav{display:flex;gap:22px;flex-wrap:wrap}main{padding-top:64px;padding-bottom:64px}.preview{font-size:13px;color:#635e72}h1{font-size:clamp(32px,5vw,54px);line-height:1.2;margin:12px 0 20px;max-width:760px}p{max-width:650px}.muted{color:#635e72}.forms{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:40px}section{border-top:2px solid #17152d;padding-top:18px}h2{font-size:21px}label{display:block;margin:20px 0 8px}input{font:inherit;color:inherit;width:100%;border:1px solid #aaa492;padding:13px;background:#fffdf8;border-radius:2px}button,.button{display:inline-block;font:inherit;text-decoration:none;border:1px solid #3b4fff;padding:12px 18px;background:#3b4fff;color:#fff;cursor:pointer;margin-top:18px}button{background:transparent;color:#17152d;border-color:#aaa492}.note{font-size:13px;max-width:440px}footer{font-size:13px;border-top:1px solid #ddd7ca}@media(max-width:700px){.forms{grid-template-columns:1fr}main{padding-top:30px}nav{gap:14px}}
+</style>
+<header><strong>BACKFILL</strong><nav><a href="#">Live</a><a href="#">Why Spark</a><a href="#" aria-current="page">I'm a merchant</a></nav></header>
+<main>
+  <p class="preview">Design preview · no accounts are created</p>
+  <p class="muted">Backfill for cafés and restaurants</p>
+  <h1>Your café.<br>Your quiet hours.<br>Your terms.</h1>
+  <p>Add your menu. Set your terms.</p>
+  <div class="forms">
+    <section><h2>New to Backfill?</h2><label for="name">Café or restaurant name</label><input id="name" placeholder="Your café name" autocomplete="organization" maxlength="120"><a class="button" href="save-access.html">Create my workspace →</a><p class="muted note">Save your access link. Lost links can't be recovered.</p><p class="muted note">You review every offer before publishing.</p></section>
+    <section><h2>Already have a workspace?</h2><label for="link">Your private access link</label><input id="link" type="password" placeholder="Paste your saved link" autocomplete="off"><button type="button" onclick="document.getElementById('status').textContent='Preview only. No workspace opened.'">Open my workspace</button><p id="status" role="status" class="note"></p></section>
+  </div>
+</main>
+<footer>Backfill · Singapore</footer>
+</html>

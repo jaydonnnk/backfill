@@ -12,11 +12,32 @@ import { authenticateMerchant, MERCHANT_COOKIE } from "@/lib/onboarding/links";
 import { sparkMenuReader, wonderMerchant } from "@/lib/onboarding/models";
 import { applyPlan, publishDraft, readMenu, replanSoldOut } from "@/lib/onboarding/service";
 import { newLinkCode } from "@/lib/whatsapp/service";
-import { currentMerchant } from "./session";
+import { currentMerchant, setMerchantSession } from "./session";
+import { MerchantName } from "@/domain/onboarding/access";
+import { registerMerchant } from "@/lib/onboarding/registration";
+import { errorFields, log } from "@/lib/log";
 
 // The merchant's actions. Each one authenticates the cookie again; none trusts a merchant id from the form.
 
-const COOKIE_MAX_AGE_S = 30 * 24 * 60 * 60;
+export type CreateWorkspaceState = { status: "idle" | "invalid_name" | "rate_limited" | "failed" };
+
+export async function createWorkspace(_previous: CreateWorkspaceState, form: FormData): Promise<CreateWorkspaceState> {
+  const name = MerchantName.safeParse(form.get("name"));
+  if (!name.success) return { status: "invalid_name" };
+  let destination = "/merchant";
+  try {
+    if (!await currentMerchant()) {
+      const result = await registerMerchant(webDb(), name.data);
+      if (result.status === "rate_limited") return { status: "rate_limited" };
+      await setMerchantSession(result.token);
+      destination = "/merchant/access";
+    }
+  } catch (error) {
+    log("error", "merchant.registration_failed", errorFields(error));
+    return { status: "failed" };
+  }
+  redirect(destination);
+}
 
 function provider() {
   const env = webEnv();
@@ -34,7 +55,7 @@ async function merchantOrLeave() {
 export async function enterWithToken(token: string): Promise<boolean> {
   const merchant = await authenticateMerchant(webDb(), token);
   if (!merchant) return false;
-  (await cookies()).set(MERCHANT_COOKIE, token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/merchant", maxAge: COOKIE_MAX_AGE_S });
+  await setMerchantSession(token);
   return true;
 }
 

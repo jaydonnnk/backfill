@@ -4,6 +4,7 @@
 const REDACTIONS: ReadonlyArray<[RegExp, string]> = [
   [/postgres(?:ql)?:(?:\\?\/){2}[^\s"'@]*@/gi, "postgres://[redacted]@"],
   [/\bBearer\s+[A-Za-z0-9._~+/=-]+/gi, "Bearer [redacted]"],
+  [/\bbfm_[A-Za-z0-9_-]{43}/g, "[merchant access redacted]"],
 ];
 
 export function redact(text: string): string {

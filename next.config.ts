@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   // A menu photo is at most 4 MiB (src/domain/onboarding/menu.ts); the rest is multipart overhead.
   experimental: { serverActions: { bodySizeLimit: "5mb" } },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [{ source: "/:path*", headers: securityHeaders }, { source: "/merchant/access", headers: [{ key: "Cache-Control", value: "private, no-store, max-age=0" }] }];
   },
 };
 
